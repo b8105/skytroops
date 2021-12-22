@@ -1,0 +1,34 @@
+{
+  "sample": [
+    {
+      "name": "Andy",
+      "age": 31,
+      "gender": false,
+      "other": ""
+    },
+    {
+      "name": "Bob",
+      "age": 14,
+      "gender": false,
+      "other": "Student"
+    },
+    {
+      "name": "Carry",
+      "age": 22,
+      "gender": true,
+      "other": "Rich"
+    },
+    {
+      "name": "Daniel",
+      "age": 1,
+      "gender": false,
+      "other": "Baby"
+    },
+    {
+      "name": "Emily",
+      "age": 80,
+      "gender": true,
+      "other": "Grand"
+    }
+  ]
+}

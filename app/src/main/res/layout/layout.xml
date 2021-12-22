@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/title_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/title_background" />
+    <ImageView
+        android:id="@+id/gameover_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/gameover_background" />
+    <ImageView
+        android:id="@+id/boxbackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/boxbackground" />
+    <ImageView
+        android:id="@+id/leadrboardbox"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/leadrboardbox" />
+    <ImageView
+        android:id="@+id/start_flybtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/start_flybtn" />
+    <ImageView
+        android:id="@+id/restartbtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/restartbtn" />
+
+    <ImageView
+        android:id="@+id/background0"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/bg01" />
+    <ImageView
+        android:id="@+id/background01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/background01" />
+    <ImageView
+        android:id="@+id/background02"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/background02" />
+
+    <ImageView
+        android:id="@+id/map_effect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/map_effect3" />
+
+
+    <ImageView
+        android:id="@+id/plane1up"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/plane1up" />
+
+    <ImageView
+        android:id="@+id/enemy01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/enemy01" />
+    <ImageView
+        android:id="@+id/enemy02"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/enemy02" />
+    <ImageView
+        android:id="@+id/bullet01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/bullet01" />
+    <ImageView
+        android:id="@+id/bullet02"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/bullet02" />
+    <ImageView
+        android:id="@+id/bullet03"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/bullet03" />
+
+
+    <ImageView
+        android:id="@+id/explosion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/explosion" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
