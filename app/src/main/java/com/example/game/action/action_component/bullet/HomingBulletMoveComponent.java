@@ -9,11 +9,12 @@ import com.example.game.action.action_component.ActionComponent;
 import com.example.game.actor.Actor;
 import com.example.game.actor.bullet.Bullet;
 import com.example.game.component.ComponentType;
+import com.example.game.utility.MathUtilities;
+import com.example.game.utility.PointFUtilities;
 
 public class HomingBulletMoveComponent extends ActionComponent {
     private float speed = 0.0f;
 
-    private Bullet ownerBullet;
     private ActorContainer actorContainer;
     private Actor target;
     private PointF previsousMove;
@@ -26,30 +27,10 @@ public class HomingBulletMoveComponent extends ActionComponent {
 
     public void setOwner(Actor owner) {
         super.setOwner(owner);
-        this.ownerBullet = (Bullet) super.getOwner();
     }
 
     public void setActorContainer(ActorContainer actorContainer) {
         this.actorContainer = actorContainer;
-    }
-
-    public Bullet getOwnerBullet() {
-        return this.ownerBullet;
-    }
-
-    double radianToDegree(double radians) {
-        return radians * (180.0 / Math.PI);
-    }
-    float radianToDegree(float radians) {
-        return (float) this.radianToDegree((double) radians);
-    }
-
-    double degreeToRadian(double degree) {
-        return degree * Math.PI / 180;
-    }
-
-    float degreeToRadian(float degree) {
-        return (float) this.degreeToRadian((double) degree);
     }
 
     void clacTarget() {
@@ -62,11 +43,12 @@ public class HomingBulletMoveComponent extends ActionComponent {
     }
 
     private PointF moveHoming(float speed, final PointF position , final PointF targetPosition){
-        float directionX = targetPosition.x - position.x;
-        float directionY = targetPosition.y - position.y;
+//        float directionX = targetPosition.x - position.x;
+//        float directionY = targetPosition.y - position.y;
+//        float magnitude = (float) Math.sqrt(Math.pow(directionX, 2.0) + Math.pow(directionY, 2.0));
+        PointF normalize = PointFUtilities.normal(position, targetPosition);
 
-        float magnitude = (float) Math.sqrt(Math.pow(directionX, 2.0) + Math.pow(directionY, 2.0));
-        PointF normalize = new PointF(directionX / magnitude, directionY / magnitude);
+
         return new PointF(
                 normalize.x * speed,
                 normalize.y * speed);
@@ -92,18 +74,18 @@ public class HomingBulletMoveComponent extends ActionComponent {
             this.previsousMove.x = move.x;
             this.previsousMove.y = move.y;
             rotateRadian = (float)Math.atan2((double)(move.y),(double)(move.x));
-            rotateRadian += this.degreeToRadian(90);
+            rotateRadian += MathUtilities.degreeToRadian(90);
         } // if
         else {
             move = this.moveDefault(this.speed);
             this.previsousMove.x = move.x;
             this.previsousMove.y = move.y;
             rotateRadian = (float)Math.atan2((double)(move.y),(double)(move.x));
-            rotateRadian += this.degreeToRadian(90);
+            rotateRadian += MathUtilities.degreeToRadian(90);
         } // else
         position.x += move.x;
         position.y += move.y;
-        owner.setRotation(this.radianToDegree(rotateRadian));
+        owner.setRotation(MathUtilities.radianToDegree(rotateRadian));
         owner.setPosition(position);
     }
 

@@ -1,10 +1,9 @@
 package com.example.game.collision.collision_component;
 
 import android.graphics.PointF;
-import android.graphics.Rect;
 
+import com.example.game.parameter.damage.Damage;
 import com.example.game.actor.Actor;
-import com.example.game.actor.ActorState;
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.ActorType;
 import com.example.game.actor.Plane;
@@ -17,7 +16,6 @@ import com.example.game.collision.detector.RectangleCollisionDetector;
 import com.example.game.collision.visitor.EnemyCollisionComponentVisitor;
 import com.example.game.collision.visitor.StageCollisionComponentVisitor;
 import com.example.game.component.ComponentType;
-import com.example.game.common.shape.Rectangle;
 
 public class PlaneCollisionComponent
         extends CollisionComponent {
@@ -104,7 +102,7 @@ public class PlaneCollisionComponent
 
     public void executeEnterFunction(Collisionable target, CollisionInfo info) {
         if (target.getCollisionableType() == CollisionableType.Enemy) {
-            this.getPlaneOwner().damege(info.force);
+            this.getPlaneOwner().applyDamage(new Damage(info));
         } // if
     }
 

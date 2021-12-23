@@ -1,4 +1,4 @@
-package com.example.game.parameter;
+package com.example.game.parameter.invincible;
 
 import com.example.game.utility.StopWatch;
 

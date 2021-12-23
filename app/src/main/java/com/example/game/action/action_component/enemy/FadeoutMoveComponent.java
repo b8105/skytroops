@@ -1,14 +1,15 @@
-package com.example.game.action.action_component;
+package com.example.game.action.action_component.enemy;
 
 import android.graphics.PointF;
 
+import com.example.game.action.action_component.ActionComponent;
 import com.example.game.actor.Actor;
 import com.example.game.component.ComponentType;
 
-public class FadeoutMoveComponent extends ActionComponent{
+public class FadeoutMoveComponent extends ActionComponent {
     private float speed = 10.0f;
     private int moveSequence = 0;
-
+    private float fadeoutDirection = 90.0f;
     private float moveThreshold = 500.0f;
 
     public FadeoutMoveComponent(ActionComponent actionComponent) {

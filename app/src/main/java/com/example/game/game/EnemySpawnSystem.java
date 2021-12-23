@@ -1,7 +1,7 @@
 package com.example.game.game;
 
 import com.example.game.actor.ActorTagString;
-import com.example.game.actor.EnemyPlaneType;
+import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.utility.StopWatch;
 
 public class EnemySpawnSystem {
@@ -27,6 +27,12 @@ public class EnemySpawnSystem {
                 } // if
                 else if(i == 1){
                     actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Strong);
+                } // if
+                else if(i == 2){
+                    actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Commander);
+                } // if
+                else if(i == 4){
+                    actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Follow);
                 } // if
                 else {
                     actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Basic);

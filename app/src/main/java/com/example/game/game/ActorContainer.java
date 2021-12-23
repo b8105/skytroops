@@ -5,6 +5,7 @@ import com.example.game.actor.ActorState;
 import com.example.game.actor.PlayerPlane;
 import com.example.game.actor.bullet.Bullet;
 import com.example.game.actor.Plane;
+import com.example.game.actor.enemy_plane.EnemyPlane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class ActorContainer {
     List<Actor> actors = new ArrayList<Actor>();
     PlayerPlane mainChara = null;
-    List<Plane> enemyPlanes = new ArrayList<Plane>();
+    List<EnemyPlane> enemyPlanes = new ArrayList<EnemyPlane>();
     List<Bullet> bullets = new ArrayList<Bullet>();
     List<Bullet> playerBullets = new ArrayList<Bullet>();
     List<Bullet> enemyBullets = new ArrayList<Bullet>();
@@ -29,7 +30,7 @@ public class ActorContainer {
         return this.actors;
     }
 
-    public List<Plane> getEnemies() {
+    public List<EnemyPlane> getEnemies() {
         return this.enemyPlanes;
     }
 
@@ -47,7 +48,7 @@ public class ActorContainer {
         this.actors.add(actor);
     }
 
-    public void addEnemyPlane(Plane plane) {
+    public void addEnemyPlane(EnemyPlane plane) {
         this.enemyPlanes.add(plane);
     }
 
@@ -65,7 +66,7 @@ public class ActorContainer {
         this.actors.remove(actor);
     }
 
-    public void removeEnemyPlane(Plane plane) {
+    public void removeEnemyPlane(EnemyPlane plane) {
         this.enemyPlanes.remove(plane);
     }
 

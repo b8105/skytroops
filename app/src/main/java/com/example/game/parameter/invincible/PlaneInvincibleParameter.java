@@ -1,6 +1,6 @@
-package com.example.game.parameter;
+package com.example.game.parameter.invincible;
 
-import com.example.game.parameter.InvincibleParameter;
+import com.example.game.parameter.invincible.InvincibleParameter;
 import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 
 public class PlaneInvincibleParameter extends InvincibleParameter {

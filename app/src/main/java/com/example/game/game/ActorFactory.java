@@ -4,24 +4,15 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.example.game.actor.EnemyPlaneType;
+import com.example.game.actor.enemy_plane.EnemyPlane;
+import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.actor.PlayerPlane;
 import com.example.game.render.hp_renderer.EnemyPlaneHpBarRenderer;
 import com.example.game.R;
-import com.example.game.action.action_component.AutoTargetingShotComponent;
-import com.example.game.action.action_component.WaveMoveComponent;
 import com.example.game.action.action_component.bullet.BasicBulletMoveComponent;
 import com.example.game.action.action_component.bullet.HomingBulletMoveComponent;
 import com.example.game.action.action_component.PlaneActionComponent;
-import com.example.game.action.action_component.ShotComponent;
-import com.example.game.action.input.AIStraightMoveInput;
 import com.example.game.action.ActionLayer;
-import com.example.game.action.input.EnemyPlaneActionInput;
-import com.example.game.action.input.player.PlayerActionInput;
-import com.example.game.action.input.player.PlayerMoveInput;
-import com.example.game.action.action_component.MoveComponent;
-import com.example.game.action.input.player.PlayerShotInput;
-import com.example.game.actor.Actor;
 import com.example.game.actor.ActorType;
 import com.example.game.actor.bullet.Bullet;
 import com.example.game.actor.bullet.BulletType;
@@ -41,7 +32,6 @@ import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 import com.example.game.render.render_component.SpriteRenderComponent;
 import com.example.game.ui.UIChangeBullePanel;
 import com.example.game.weapon.AnyWayGun;
-import com.example.game.weapon.BasicGun;
 import com.example.game.weapon.Weapon;
 
 import java.util.ArrayList;
@@ -171,8 +161,8 @@ public class ActorFactory {
         actor.setRotation(rotation);
         return actor;
     }
-    public Plane createEnemy(float positionX, float positionY, String tag, EnemyPlaneType enemyPlaneType) {
-        Plane actor = new Plane(actorContainer, tag);
+    public EnemyPlane createEnemy(float positionX, float positionY, String tag, EnemyPlaneType enemyPlaneType) {
+        EnemyPlane actor = new EnemyPlane(actorContainer, tag);
         actor.setActorType(ActorType.Plane);
         actor.setGameScorer(this.gameSystem.getGameScorer());
         actor.resetHp(3);
@@ -197,6 +187,10 @@ public class ActorFactory {
                 actionComponent = this.componentFactory.createStrongPlaneActionComponent(
                         actionLayer, this,this.actorContainer);
                 break;
+            case Follow:
+                actionComponent = this.componentFactory.createFollowPlaneActionComponent(
+                        actionLayer, this,this.actorContainer);
+                break;
         } // switch
 
         SpriteRenderComponent spriteRenderComponent = null;
@@ -216,6 +210,10 @@ public class ActorFactory {
             case Commander:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         enemyBitmapSize, R.drawable.enemy04);
+                break;
+            case Follow:
+                spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                        enemyBitmapSize, R.drawable.enemy05);
                 break;
         } // switch
 

@@ -1,5 +1,6 @@
 package com.example.game.collision.collision_component;
 
+import com.example.game.parameter.damage.Damage;
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.Plane;
@@ -34,6 +35,7 @@ public class EnemyCollisionComponent
 
     public boolean isCollision(Collisionable target, CollisionInfo info) {
         if (target.getCollisionableType() == CollisionableType.Bullet) {
+            info.force = 1;
             return this.isCollisionAtBullet(target, info);
         } // if
         else if (target.getCollisionableType() == CollisionableType.Stage) {
@@ -48,7 +50,7 @@ public class EnemyCollisionComponent
     public void executeEnterFunction(Collisionable target, CollisionInfo info) {
         if (target.getCollisionableType() == CollisionableType.Bullet
                 && info.targetTag.equals(ActorTagString.player)) {
-            this.getPlaneOwner().damege(1);
+            this.getPlaneOwner().applyDamage(new Damage(info));
         } // if
     }
 

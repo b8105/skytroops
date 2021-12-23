@@ -1,7 +1,8 @@
-package com.example.game.action.action_component;
+package com.example.game.action.action_component.enemy;
 
 import android.graphics.PointF;
 
+import com.example.game.action.action_component.ActionComponent;
 import com.example.game.actor.Plane;
 import com.example.game.game.ActorContainer;
 import com.example.game.game.FindNearestEnemyVisitor;
@@ -67,6 +68,10 @@ public class AutoTargetingShotComponent extends ActionComponent {
 
     @Override
     public void execute(float deltaTime) {
+        if(this.target == null){
+            return;
+        } // if
+
         this.clacTarget();
 
         if (shotTime.tick(deltaTime)) {

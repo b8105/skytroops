@@ -5,12 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.game.action.ActionLayer;
-import com.example.game.action.action_component.AutoTargetingShotComponent;
-import com.example.game.action.action_component.FadeoutMoveComponent;
+import com.example.game.action.action_component.enemy.AutoTargetingShotComponent;
+import com.example.game.action.action_component.enemy.FadeoutMoveComponent;
 import com.example.game.action.action_component.MoveComponent;
 import com.example.game.action.action_component.PlaneActionComponent;
 import com.example.game.action.action_component.ShotComponent;
-import com.example.game.action.action_component.WaveMoveComponent;
+import com.example.game.action.action_component.enemy.FollowMoveComponent;
+import com.example.game.action.action_component.enemy.WaveMoveComponent;
 import com.example.game.action.input.AIStraightMoveInput;
 import com.example.game.action.input.EnemyPlaneActionInput;
 import com.example.game.action.input.player.PlayerActionInput;
@@ -123,6 +124,32 @@ public class ComponentFactory {
             actionComponent.setActionInput(enemyPlaneActionInput);
 
             WaveMoveComponent moveComponent = new WaveMoveComponent(actionComponent);
+            {
+                AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
+                shotComponent.setActorContainer(actorContainer);
+                Weapon weapon = new BasicGun();
+                shotComponent.setWeapon(weapon);
+                shotComponent.setShotInterval(this.basicEnemyShotInterval);
+                weapon.setActorFactory(actorFactory);
+            }
+        }
+        return actionComponent;
+    }
+
+
+    public PlaneActionComponent createFollowPlaneActionComponent(ActionLayer actionLayer, ActorFactory actorFactory, ActorContainer actorContainer) {
+        PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
+        {
+            EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
+            actionComponent.setActionInput(enemyPlaneActionInput);
+
+            FollowMoveComponent moveComponent = new FollowMoveComponent(actionComponent);
+
+            moveComponent.setFollowTarget(
+                    actorContainer.getMainChara()
+
+            );
+
             {
                 AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
                 shotComponent.setActorContainer(actorContainer);

@@ -5,7 +5,6 @@ import android.graphics.PointF;
 public class AnyWayGun extends Weapon {
     int wayAngle = 5;
 
-
     public void setWayAngle(int wayAngle) {
         this.wayAngle = wayAngle;
     }
