@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.example.game.actor.enemy_plane.BossEnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.actor.PlayerPlane;
@@ -16,7 +17,6 @@ import com.example.game.action.ActionLayer;
 import com.example.game.actor.ActorType;
 import com.example.game.actor.bullet.Bullet;
 import com.example.game.actor.bullet.BulletType;
-import com.example.game.actor.Plane;
 import com.example.game.collision.CollisionLayer;
 import com.example.game.collision.collision_component.BulletCollisionComponent;
 import com.example.game.collision.collision_component.EnemyCollisionComponent;
@@ -162,7 +162,20 @@ public class ActorFactory {
         return actor;
     }
     public EnemyPlane createEnemy(float positionX, float positionY, String tag, EnemyPlaneType enemyPlaneType) {
-        EnemyPlane actor = new EnemyPlane(actorContainer, tag);
+        EnemyPlane actor = null;
+
+        switch (enemyPlaneType){
+            case Boss:
+                actor = new BossEnemyPlane(actorContainer, tag);
+                break;
+            default:
+                actor = new EnemyPlane(actorContainer, tag);
+
+        } // switch
+
+
+
+
         actor.setActorType(ActorType.Plane);
         actor.setGameScorer(this.gameSystem.getGameScorer());
         actor.resetHp(3);
@@ -184,11 +197,15 @@ public class ActorFactory {
                         actionLayer, this,this.actorContainer);
                 break;
             case Commander:
-                actionComponent = this.componentFactory.createStrongPlaneActionComponent(
+                actionComponent = this.componentFactory.createBasicPlaneActionComponent(
                         actionLayer, this,this.actorContainer);
                 break;
             case Follow:
                 actionComponent = this.componentFactory.createFollowPlaneActionComponent(
+                        actionLayer, this,this.actorContainer);
+                break;
+            case Boss:
+                actionComponent = this.componentFactory.createBasicPlaneActionComponent(
                         actionLayer, this,this.actorContainer);
                 break;
         } // switch
@@ -205,7 +222,7 @@ public class ActorFactory {
                 break;
             case Strong:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
-                        enemyBitmapSize, R.drawable.enemy03);
+                        enemyBitmapSize, R.drawable.enemy05);
                 break;
             case Commander:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
@@ -213,7 +230,11 @@ public class ActorFactory {
                 break;
             case Follow:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
-                        enemyBitmapSize, R.drawable.enemy05);
+                        enemyBitmapSize, R.drawable.enemy03);
+                break;
+            case Boss:
+                spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                        enemyBitmapSize, R.drawable.enemy08);
                 break;
         } // switch
 

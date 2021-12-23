@@ -11,6 +11,8 @@ public class GameSystem {
     private GameLevelController gameLevelController = null;
     private GameScorer gameScorer = null;
 
+    private boolean spawnEnd = false;
+
     public GameSystem(float enemySpawnRate) {
         this.gameLevelController = new GameLevelController();
         this.enemySpawnSystem = new EnemySpawnSystem(enemySpawnRate);
@@ -21,12 +23,20 @@ public class GameSystem {
         return this.gameScorer;
     }
 
+    public boolean isSpawnEnd() {
+        return this.spawnEnd;
+    }
+
     public void update(float deltaTime,
                        Stage stage,
                        ActorContainer actorContainer,
                        ActorFactory actorFactory) {
         this.gameLevelController.update(stage, this.enemySpawnSystem);
-        this.enemySpawnSystem.update(deltaTime, actorFactory, actorContainer);
+
+        if(this.enemySpawnSystem.isActive()){
+            //this.spawnEnd =
+            this.enemySpawnSystem.update(deltaTime, actorFactory);
+        } // if
     }
 
 }

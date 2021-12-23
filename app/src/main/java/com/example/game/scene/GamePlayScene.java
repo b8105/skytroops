@@ -29,15 +29,11 @@ public class GamePlayScene extends Scene {
     private ActorContainer actorContainer = null;
     private GameSystem gameSystem = null;
     private ComponentExecutor componentExecutor = null;
-    private ActorFactory actorFactory = null;
-    private Stage stage = null;
     private EffectSystem effectSystem = null;
     private UIChangeBullePanel uiChangeBullePanel = null;
+    private ActorFactory actorFactory = null;
+    private Stage stage = null;
 
-    private PlayerPlaneHpBarRenderer planeHpBarRenderer ;
-
-
-    UILabel fail;
     public GamePlayScene(Game game, Point screenSize) {
         super(game, screenSize);
         Resources resources = game.getResources();
@@ -52,7 +48,6 @@ public class GamePlayScene extends Scene {
         this.uiChangeBullePanel = new UIChangeBullePanel(
                 resources,
                 panelPosition);
-
         this.actorFactory = new ActorFactory(resources,
                 this.actorContainer,
                 this.componentExecutor,
@@ -62,14 +57,6 @@ public class GamePlayScene extends Scene {
 
 
         this.gamePlayConstruct(game);
-
-
-        fail = new UILabel(
-                resources,
-                R.drawable.missionfail,
-                new PointF(400.0f,400.0f),
-        new Point(400,400)
-        );
     }
 
     void gamePlayConstruct(Game game) {
@@ -77,7 +64,6 @@ public class GamePlayScene extends Scene {
                 this.componentExecutor.getCollisionLayer());
         float x = game.getDefaultDisplayRealSize().x * 0.5f;
         float y = game.getDefaultDisplayRealSize().y * 0.85f;
-
         Actor plane = actorFactory.createPlayerPlane(x, y, ActorTagString.player);
     }
 
@@ -89,14 +75,6 @@ public class GamePlayScene extends Scene {
     public void input(InputEvent input) {
         this.componentExecutor.input(input);
         this.uiChangeBullePanel.input(input);
-
-
-
-        switch (input.actionType) {
-            case (MotionEvent.ACTION_DOWN):
-                break;
-            default:
-        } // switch
     }
 
     void updateSystem(float deltaTime) {
@@ -108,7 +86,9 @@ public class GamePlayScene extends Scene {
     @Override
     public void update(float deltaTime) {
         this.transitionStateMachine.update(deltaTime);
-        if (this.actorContainer.getMainChara() == null) {
+        if (
+                this.actorContainer.getMainChara() == null ||
+                        this.gameSystem.isSpawnEnd()) {
             super.GetGame().IncremenntSceneNo();
         } // if
 
@@ -138,6 +118,4 @@ public class GamePlayScene extends Scene {
         new ScoreRenderer().execute(this.getGameSystem(), out);
         new DebugRenderer().execute(this.actorContainer, this.effectSystem, out);
     }
-
-
 }

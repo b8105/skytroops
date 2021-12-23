@@ -27,9 +27,9 @@ public class GameLevelController {
             float scroll = stage.getScroll();
             if (scroll > scrollThreshold) {
                 gameLevel++;
-                enemySpawnSystem.resetRate(
-                        this.enemySpawnRateTimes.get(gameLevel)
-                );
+//                enemySpawnSystem.resetRate(
+  //                      this.enemySpawnRateTimes.get(gameLevel)
+    //            );
             } // if
         } // if
     }
