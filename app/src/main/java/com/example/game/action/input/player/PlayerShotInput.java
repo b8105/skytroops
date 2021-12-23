@@ -1,8 +1,6 @@
 package com.example.game.action.input.player;
 
-import android.view.MotionEvent;
-
-import com.example.game.action.action_component.ShotComponent;
+import com.example.game.action.action_component.common.ShotComponent;
 import com.example.game.action.command.ShotCommand;
 import com.example.game.action.input.ActionInput;
 import com.example.game.common.InputEvent;

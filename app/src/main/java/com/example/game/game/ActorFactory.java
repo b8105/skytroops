@@ -4,23 +4,15 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.example.game.actor.enemy_plane.EnemyPlane;
+import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.actor.PlayerPlane;
 import com.example.game.render.hp_renderer.EnemyPlaneHpBarRenderer;
 import com.example.game.R;
-import com.example.game.action.action_component.AutoTargetingShotComponent;
-import com.example.game.action.action_component.WaveMoveComponent;
 import com.example.game.action.action_component.bullet.BasicBulletMoveComponent;
 import com.example.game.action.action_component.bullet.HomingBulletMoveComponent;
 import com.example.game.action.action_component.PlaneActionComponent;
-import com.example.game.action.action_component.ShotComponent;
-import com.example.game.action.input.AIStraightMoveInput;
 import com.example.game.action.ActionLayer;
-import com.example.game.action.input.EnemyPlaneActionInput;
-import com.example.game.action.input.player.PlayerActionInput;
-import com.example.game.action.input.player.PlayerMoveInput;
-import com.example.game.action.action_component.MoveComponent;
-import com.example.game.action.input.player.PlayerShotInput;
-import com.example.game.actor.Actor;
 import com.example.game.actor.ActorType;
 import com.example.game.actor.bullet.Bullet;
 import com.example.game.actor.bullet.BulletType;
@@ -40,7 +32,6 @@ import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 import com.example.game.render.render_component.SpriteRenderComponent;
 import com.example.game.ui.UIChangeBullePanel;
 import com.example.game.weapon.AnyWayGun;
-import com.example.game.weapon.BasicGun;
 import com.example.game.weapon.Weapon;
 
 import java.util.ArrayList;
@@ -96,28 +87,14 @@ public class ActorFactory {
 
         actor.resetHp(2);
 
-        PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         PlaneCollisionComponent collisionable = new PlaneCollisionComponent(collisionLayer);
         PlaneSpriteRenderComponent spriteRenderComponent = this.componentFactory.createPlaneSpriteRenderComponent(
                 this.playerBitmapSize, R.drawable.plane1up);
         PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
         hpBarRenderComponent.setHpBarRenderer(new PlayerPlaneHpBarRenderer(hpBarRenderComponent, resources));
         collisionable.setCollisionRectSizeOffset(-playerCollisionRectSizeDecrease,-playerCollisionRectSizeDecrease);
-
-        PlayerActionInput playerActionInput = new PlayerActionInput();
-        actionComponent.setActionInput(playerActionInput);
-        {
-            MoveComponent moveComponent = new MoveComponent(actionComponent);
-            ShotComponent shotComponent = new ShotComponent(actionComponent);
-            PlayerMoveInput playerMoveInput = new PlayerMoveInput(moveComponent);
-            PlayerShotInput playerShotInput = new PlayerShotInput(shotComponent);
-            moveComponent.setActionInput(playerMoveInput);
-            playerActionInput.setPlayerMoveInput(playerMoveInput);
-            playerActionInput.setPlayerShotInput(playerShotInput);
-            shotComponent.setWeapon(weapon);
-            weapon.setActorFactory(this);
-        }
-
+        PlaneActionComponent actionComponent =
+                componentFactory.createPlayerPlaneActionComponent(actionLayer, weapon, this);
 
         // add
         actor.addComponent(actionComponent);
@@ -184,104 +161,71 @@ public class ActorFactory {
         actor.setRotation(rotation);
         return actor;
     }
-
-    public void createBulletRequest(float positionX, float positionY, float rotation, BulletType type, String tag) {
-        Transform2D transform = new Transform2D();
-        transform.position.x = positionX;
-        transform.position.y = positionY;
-        transform.rotation = rotation;
-
-        BulletCreateRequest bulletCreateRequest = new BulletCreateRequest();
-        bulletCreateRequest.transform = transform;
-        bulletCreateRequest.type = type;
-        bulletCreateRequest.tag = tag;
-        this.bulletCreateRequest.add(
-                bulletCreateRequest
-        );
-    }
-
-
-    public Plane createBasicEnemy(float positionX, float positionY, String tag) {
-        Plane actor = new Plane(actorContainer, tag);
-        actor.setActorType(ActorType.Plane);
-        actor.setGameScorer(this.gameSystem.getGameScorer());
-
-        actor.setScoreEffectEmitter(this.effectSystem.getSharedEmitter(EffectType.Score));
-        actor.setExplosionEffectEmitter(this.effectSystem.getSharedEmitter(EffectType.Explosion));
-
-        actor.resetHp(3);
-
-        PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
-        EnemyCollisionComponent collisionable = new EnemyCollisionComponent(collisionLayer);
-        SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(enemyBitmapSize, R.drawable.enemy01);
-        PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
-        hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
-        {
-            EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
-            actionComponent.setActionInput(enemyPlaneActionInput);
-
-            MoveComponent moveComponent = new MoveComponent(actionComponent);
-            AIStraightMoveInput input = new AIStraightMoveInput();
-            input.setMoveComponent(moveComponent);
-            moveComponent.setActionInput(input);
-            enemyPlaneActionInput.addActionInput(input);
-
-            {
-                AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
-                shotComponent.setActorContainer(this.actorContainer);
-                Weapon weapon = new BasicGun();
-                shotComponent.setWeapon(weapon);
-                shotComponent.setShotInterval(0.6f);
-                weapon.setActorFactory(this);
-            }
-        }
-
-        collisionable.setCollisionRectSizeOffset(-enemyCollisionRectSizeDecrease);
-
-
-        actor.addComponent(actionComponent);
-        actor.addComponent(collisionable);
-        actor.addComponent(spriteRenderComponent);
-        actor.addComponent(hpBarRenderComponent);
-
-        actor.initialize();
-        actor.setPosition(positionX, positionY);
-        return actor;
-    }
-
-
-    public Plane createWeakEnemy(float positionX, float positionY, String tag) {
-        Plane actor = new Plane(actorContainer, tag);
+    public EnemyPlane createEnemy(float positionX, float positionY, String tag, EnemyPlaneType enemyPlaneType) {
+        EnemyPlane actor = new EnemyPlane(actorContainer, tag);
         actor.setActorType(ActorType.Plane);
         actor.setGameScorer(this.gameSystem.getGameScorer());
         actor.resetHp(3);
-
         actor.setScoreEffectEmitter(this.effectSystem.getSharedEmitter(EffectType.Score));
         actor.setExplosionEffectEmitter(this.effectSystem.getSharedEmitter(EffectType.Explosion));
 
+        PlaneActionComponent actionComponent = null;
+        switch (enemyPlaneType){
+            case Basic:
+                actionComponent = this.componentFactory.createBasicPlaneActionComponent(
+                        actionLayer, this,this.actorContainer);
+                break;
+            case Weak:
+                actionComponent = this.componentFactory.createWeakPlaneActionComponent(
+                        actionLayer, this,this.actorContainer);
+                break;
+            case Strong:
+                actionComponent = this.componentFactory.createStrongPlaneActionComponent(
+                        actionLayer, this,this.actorContainer);
+                break;
+            case Commander:
+                actionComponent = this.componentFactory.createStrongPlaneActionComponent(
+                        actionLayer, this,this.actorContainer);
+                break;
+            case Follow:
+                actionComponent = this.componentFactory.createFollowPlaneActionComponent(
+                        actionLayer, this,this.actorContainer);
+                break;
+        } // switch
 
-        PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
+        SpriteRenderComponent spriteRenderComponent = null;
+        switch (enemyPlaneType){
+            case Basic:
+                spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                        enemyBitmapSize, R.drawable.enemy01);
+                break;
+            case Weak:
+                spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                        enemyBitmapSize, R.drawable.enemy02);
+                break;
+            case Strong:
+                spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                        enemyBitmapSize, R.drawable.enemy03);
+                break;
+            case Commander:
+                spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                        enemyBitmapSize, R.drawable.enemy04);
+                break;
+            case Follow:
+                spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                        enemyBitmapSize, R.drawable.enemy05);
+                break;
+        } // switch
+
+
+
+
+
         EnemyCollisionComponent collisionable = new EnemyCollisionComponent(collisionLayer);
-        SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(enemyBitmapSize, R.drawable.enemy02);
         PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
         hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
-
-        {
-            EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
-            actionComponent.setActionInput(enemyPlaneActionInput);
-
-            WaveMoveComponent moveComponent = new WaveMoveComponent(actionComponent);
-            {
-                AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
-                shotComponent.setActorContainer(this.actorContainer);
-                Weapon weapon = new BasicGun();
-                shotComponent.setWeapon(weapon);
-                shotComponent.setShotInterval(0.6f);
-                weapon.setActorFactory(this);
-            }
-        }
-
         collisionable.setCollisionRectSizeOffset(-enemyCollisionRectSizeDecrease);
+
 
         actor.addComponent(actionComponent);
         actor.addComponent(collisionable);
@@ -316,4 +260,20 @@ public class ActorFactory {
         this.bulletCreateRequest.clear();
     }
 
+
+
+    public void createBulletRequest(float positionX, float positionY, float rotation, BulletType type, String tag) {
+        Transform2D transform = new Transform2D();
+        transform.position.x = positionX;
+        transform.position.y = positionY;
+        transform.rotation = rotation;
+
+        BulletCreateRequest bulletCreateRequest = new BulletCreateRequest();
+        bulletCreateRequest.transform = transform;
+        bulletCreateRequest.type = type;
+        bulletCreateRequest.tag = tag;
+        this.bulletCreateRequest.add(
+                bulletCreateRequest
+        );
+    }
 }

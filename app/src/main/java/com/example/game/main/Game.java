@@ -32,6 +32,8 @@ import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 
 public class Game extends SurfaceView implements Runnable {
+    static public PointF displayRealSize = new PointF();
+
     //!
     public MainActivity activity;
     //! thread
@@ -52,6 +54,7 @@ public class Game extends SurfaceView implements Runnable {
     boolean enableTouch = false;
     boolean prevTouch = false;
     boolean currentTouch = false;
+
 
     private JSONObject parseJson(String fileName) throws JSONException, IOException {
         InputStream inputStream = activity.getAssets().open(fileName);
@@ -97,10 +100,13 @@ public class Game extends SurfaceView implements Runnable {
     public Game(MainActivity activity) {
         super(activity);
         this.activity = activity;
+
+        displayRealSize.x = this.getDefaultDisplayRealSize().x;
+        displayRealSize.y = this.getDefaultDisplayRealSize().y;
+
         this.start();
         renderCommandQueue = new RenderCommandQueue();
         currentScene = new TitleScene(this, this.getDefaultDisplayRealSize());
-//        currentScene = new GameOverScene(this, this.getDefaultDisplayRealSize());
 
         try {
             this.load();
@@ -116,6 +122,10 @@ public class Game extends SurfaceView implements Runnable {
     public Resources getResources() {
         assert (this.activity != null);
         return this.activity.getResources();
+    }
+
+    public static PointF getDisplayRealSize() {
+        return displayRealSize;
     }
 
     public Point getDefaultDisplayRealSize() {

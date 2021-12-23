@@ -4,7 +4,7 @@ import android.graphics.PointF;
 import android.view.MotionEvent;
 
 import com.example.game.action.command.MoveCommand;
-import com.example.game.action.action_component.MoveComponent;
+import com.example.game.action.action_component.common.MoveComponent;
 import com.example.game.action.input.ActionInput;
 import com.example.game.common.InputEvent;
 

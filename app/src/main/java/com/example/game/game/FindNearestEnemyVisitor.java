@@ -4,6 +4,7 @@ import android.graphics.PointF;
 
 import com.example.game.actor.Actor;
 import com.example.game.actor.Plane;
+import com.example.game.actor.enemy_plane.EnemyPlane;
 import com.example.game.game.ActorContainer;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class FindNearestEnemyVisitor {
     }
 
     public void visit(ActorContainer actorContainer) {
-        List<Plane> enemies = actorContainer.getEnemies();
+        List<EnemyPlane> enemies = actorContainer.getEnemies();
         assert (enemies != null);
         if(enemies.isEmpty()){
             this.find = null;

@@ -1,6 +1,8 @@
 package com.example.game.actor;
 
-import com.example.game.parameter.PlaneInvincibleParameter;
+import com.example.game.parameter.damage.Damage;
+import com.example.game.parameter.HpParameter;
+import com.example.game.parameter.invincible.PlaneInvincibleParameter;
 import com.example.game.game.ActorContainer;
 
 public class PlayerPlane extends Plane {
@@ -8,10 +10,16 @@ public class PlayerPlane extends Plane {
 
     public PlayerPlane(ActorContainer actorContainer, String tag) {
         super(actorContainer, tag);
-        if (super.getTag().equals(ActorTagString.player)) {
-            actorContainer.setMainChara(this);
-        } // if
+        assert (super.getTag().equals(ActorTagString.player));
+        actorContainer.setMainChara(this);
     }
+
+    public void release(ActorContainer actorContainer) {
+        super.release(actorContainer);
+        assert (super.getTag().equals(ActorTagString.player));
+        actorContainer.setMainChara(null);
+    }
+
 
     public PlaneInvincibleParameter getInvincibleParameter() {
         return this.invincibleParameter;
@@ -21,12 +29,14 @@ public class PlayerPlane extends Plane {
         this.invincibleParameter.setInvincibleTime(time);
     }
 
-    public void damege(int value) {
-        this.hpParameter.decrease(value);
-        this.invincibleParameter.activate();
-        if (this.hpParameter.isLessEqualZero()) {
 
+    public void applyDamage(Damage damage) {
+        HpParameter hpParameter = super.getHpParameter();
+
+        hpParameter.decrease(damage.value);
+        this.invincibleParameter.activate();
+        if (hpParameter.isLessEqualZero()) {
             super.end();
         } // if
-    } // if
+    }
 }

@@ -1,7 +1,8 @@
-package com.example.game.action.action_component;
+package com.example.game.action.action_component.enemy;
 
 import android.graphics.PointF;
 
+import com.example.game.action.action_component.ActionComponent;
 import com.example.game.action.command.MoveCommand;
 import com.example.game.action.ActionLayer;
 import com.example.game.component.ComponentType;
@@ -48,6 +49,6 @@ public class WaveMoveComponent extends ActionComponent {
 
     @Override
     public ComponentType getComponentType() {
-        return ComponentType.Move;
+        return ComponentType.WaveMove;
     }
 }
