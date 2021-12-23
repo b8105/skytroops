@@ -42,10 +42,9 @@ public class AutoTargetingShotComponent extends ShotComponent {
     @Override
     public void execute(float deltaTime) {
         if(this.target == null){
+            this.aquareTarget();
             return;
         } // if
-
-        this.aquareTarget();
 
         StopWatch stopWatch = super.getShotTime();
         Weapon weapon = super.getWeapon();

@@ -36,12 +36,24 @@ public class GameSystem {
     public void update(float deltaTime,
                        Stage stage,
                        ActorContainer actorContainer,
-                       ActorFactory actorFactory) {
+                       ActorFactory actorFactory,
+                       int currentStage) {
         this.gameLevelController.update(stage, this.enemySpawnSystem);
 
         if(this.enemySpawnSystem.isActive()){
+            StageType stageType = StageType.Type01;
+            if(currentStage == 0){
+                stageType = StageType.Type01;
+            } // if
+            else if(currentStage == 1){
+                stageType = StageType.Type02;
+            } // if
+            else if(currentStage == 2){
+                stageType = StageType.Type03;
+            } // if
+
             //this.spawnEnd =
-            this.enemySpawnSystem.update(deltaTime, actorFactory);
+            this.enemySpawnSystem.update(deltaTime, actorFactory,stageType);
         } // if
     }
 

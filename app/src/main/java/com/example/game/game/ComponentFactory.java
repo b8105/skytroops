@@ -111,12 +111,12 @@ public class ComponentFactory {
         }
 
         {
-            AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
-            shotComponent.setActorContainer(actorContainer);
-            Weapon weapon = new BasicGun();
-            shotComponent.setWeapon(weapon);
-            shotComponent.setShotInterval(basicEnemyShotInterval);
-            weapon.setActorFactory(actorFactory);
+//            AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
+//            shotComponent.setActorContainer(actorContainer);
+//            Weapon weapon = new BasicGun();
+//            shotComponent.setWeapon(weapon);
+//            shotComponent.setShotInterval(basicEnemyShotInterval);
+//            weapon.setActorFactory(actorFactory);
         }
         return actionComponent;
     }
@@ -205,7 +205,14 @@ public class ComponentFactory {
             moveComponent.setActionInput(input);
             enemyPlaneActionInput.addActionInput(input);
         }
-
+        {
+            AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
+            shotComponent.setActorContainer(actorContainer);
+            Weapon weapon = new BasicGun();
+            shotComponent.setWeapon(weapon);
+            shotComponent.setShotInterval(this.basicEnemyShotInterval);
+            weapon.setActorFactory(actorFactory);
+        }
         return actionComponent;
     }
 }

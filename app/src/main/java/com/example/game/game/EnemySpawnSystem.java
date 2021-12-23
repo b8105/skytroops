@@ -17,7 +17,7 @@ public class EnemySpawnSystem {
     public EnemySpawnSystem(StageType type) {
         this.waves = new ArrayList<EnemySpawnWave>();
 
-        switch (type){
+        switch (type) {
             case Type01:
                 this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.Dummy, 2.0f, 1));
                 this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.A, 2.0f, 5));
@@ -34,19 +34,25 @@ public class EnemySpawnSystem {
     public boolean isActive() {
         return this.active;
     }
-
-    public boolean update(float deltaTime, ActorFactory actorFactory) {
-        if(this.currentWaveIndex != this.waves.size()){
+    public boolean update(float deltaTime, ActorFactory actorFactory,
+                          StageType type) {
+        if (this.currentWaveIndex != this.waves.size()) {
             EnemySpawnWave wave = this.waves.get(this.currentWaveIndex);
-            if(wave.update(deltaTime, actorFactory)){
+            if (wave.update(deltaTime, actorFactory)) {
                 this.currentWaveIndex++;
             } // if
         } // if
         else {
             this.active = false;
 
-
-            actorFactory.createEnemy(300, 0 - BitmapSizeStatic.boss.y, ActorTagString.enemy, EnemyPlaneType.Boss);
+            switch (type) {
+                case Type01:
+                    actorFactory.createEnemy(300, 0 - BitmapSizeStatic.boss.y, ActorTagString.enemy, EnemyPlaneType.Boss);
+                    break;
+                case Type02:
+                    actorFactory.createEnemy(300, 0 - BitmapSizeStatic.boss.y, ActorTagString.enemy, EnemyPlaneType.Boss2);
+                    break;
+            } // switch
             return true;
         } // else
         return false;

@@ -86,7 +86,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
     void updateSystem(float deltaTime) {
         this.actorFactory.update();
         this.actorContainer.update();
-        this.gameSystem.update(deltaTime, this.stage, this.actorContainer, this.actorFactory);
+        this.gameSystem.update(deltaTime, this.stage, this.actorContainer, this.actorFactory, this.stageCount);
     }
 
     @Override
@@ -126,6 +126,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
     @Override
     public void onNotify(BossEnemyDeadMessage maeeage) {
         this.stageCount++;
+
         if(this.stageCount == 0){
             this.stage.resetBitmap(this.GetGame().getResources() , StageType.Type01);
             this.gameSystem.resetSpawnSystem(StageType.Type01);
