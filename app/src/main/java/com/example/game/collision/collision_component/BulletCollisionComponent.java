@@ -4,6 +4,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 
 import com.example.game.actor.Actor;
+import com.example.game.actor.ActorState;
 import com.example.game.collision.CollisionInfo;
 import com.example.game.collision.CollisionLayer;
 import com.example.game.collision.Collisionable;
@@ -58,6 +59,10 @@ public class BulletCollisionComponent
     }
 
     public void executeEnterFunction(Collisionable target, CollisionInfo info) {
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
         if (target.getCollisionableType() == CollisionableType.Enemy) {
             System.out.println("Buller End");
             this.getOwner().end();
@@ -65,9 +70,17 @@ public class BulletCollisionComponent
     }
 
     public void executeStayFunction(Collisionable target, CollisionInfo info) {
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
     }
 
     public void executeExitFunction(Collisionable target, CollisionInfo info) {
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
         if (target.getCollisionableType() == CollisionableType.Stage) {
             this.getOwner().end();
         } // if

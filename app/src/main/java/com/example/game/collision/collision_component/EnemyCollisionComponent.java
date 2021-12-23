@@ -1,5 +1,6 @@
 package com.example.game.collision.collision_component;
 
+import com.example.game.actor.ActorState;
 import com.example.game.parameter.damage.Damage;
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
@@ -48,6 +49,10 @@ public class EnemyCollisionComponent
     }
 
     public void executeEnterFunction(Collisionable target, CollisionInfo info) {
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
         if (target.getCollisionableType() == CollisionableType.Bullet
                 && info.targetTag.equals(ActorTagString.player)) {
             this.getPlaneOwner().applyDamage(new Damage(info));
@@ -55,13 +60,20 @@ public class EnemyCollisionComponent
     }
 
     public void executeStayFunction(Collisionable target, CollisionInfo info) {
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
         if (target.getCollisionableType() == CollisionableType.Bullet
                 && info.targetTag.equals(ActorTagString.player)) {
-            //this.getPlaneOwner().damege(1);
         } // if
     }
 
     public void executeExitFunction(Collisionable target, CollisionInfo info) {
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
         if (target.getCollisionableType() == CollisionableType.Stage) {
             this.getOwner().end();
         } // if

@@ -1,55 +1,48 @@
 package com.example.game.game_event;
 
 import com.example.game.game_event.GameEvent;
+import com.example.game.render.RenderCommandQueue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameEventContainer {
     private List<GameEvent> events = null;
-    private List<GameEvent> created_events = null;
-    private List<GameEvent> delete_events = null;
+    private List<GameEvent> createdEvents = null;
+    private List<GameEvent> deleteEvents = null;
+
     public GameEventContainer() {
-        //! ゲームイベント
         this.events = new ArrayList<>();
-        //! 追加
-        this.created_events = new ArrayList<>();
-        //! 削除
-        this.delete_events = new ArrayList<>();
+        this.createdEvents = new ArrayList<>();
+        this.deleteEvents = new ArrayList<>();
     }
 
-//    public void OnNotifyEventRequestListener(message) {
-//        let event = message.event;
-//        let request = message.request;
-//
-//        if (request == "Add") {
-//            this.AddEvent(event);
-//        } // if
-//        else if (request == "Delete") {
-//            event.GetEventRequestSubject().RemoveObserver(this);
-//            this.delete_events.Add(event);
-//        } // else if
-//    }
     public void addEvent(GameEvent event) {
-//        let sub = event.GetEventRequestSubject();
-//        let t = this;
- //       sub.AddObserver(t);
-        this.created_events.add(event);
+        this.createdEvents.add(event);
     }
 
     public void update(float deltaTime) {
-        for (GameEvent event : this.created_events) {
+        for (GameEvent event : this.createdEvents) {
             this.events.add(event);
         } // for
-        this.created_events.clear();
+        this.createdEvents.clear();
 
-        for (GameEvent event : this.delete_events) {
+        for (GameEvent event : this.deleteEvents) {
             this.events.remove(event);
         } // for
-        this.delete_events.clear();
+        this.deleteEvents.clear();
 
         for (GameEvent event : this.events) {
-            event.update(deltaTime);
+            if (event.update(deltaTime)) {
+                deleteEvents.add(event);
+            } // if
         } // for
     }
+
+    public void draw(RenderCommandQueue out) {
+        for (GameEvent event : this.events) {
+            event.draw(out);
+        } // for
+    }
+
 }

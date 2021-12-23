@@ -69,12 +69,4 @@ abstract public class Plane extends Actor
     public void release(ActorContainer actorContainer) {
         super.release(actorContainer);
     }
-
-//    @Override
-//    public void applyDamage(Damage damage) {
-//        this.hpParameter.decrease(damage.value);
-//        if (this.hpParameter.isLessEqualZero()) {
-//            super.end();
-//        } // if
-//    }
 }

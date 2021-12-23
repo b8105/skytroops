@@ -20,7 +20,7 @@ public class EnemySpawnSystem {
         switch (type) {
             case Type01:
                 this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.Dummy, 2.0f, 1));
-                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.A, 2.0f, 5));
+                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.A, 2.0f, 1));
                 break;
             case Type02:
                 this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.Dummy, 2.0f, 1));

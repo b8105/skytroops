@@ -2,6 +2,8 @@ package com.example.game.collision.collision_component;
 
 import android.graphics.PointF;
 
+import com.example.game.actor.ActorState;
+import com.example.game.actor.PlayerPlane;
 import com.example.game.parameter.damage.Damage;
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
@@ -52,15 +54,21 @@ public class PlaneCollisionComponent
     }
 
     public boolean isCollision(Collisionable target, CollisionInfo info) {
-        if (target.getCollisionableType() == CollisionableType.Bullet) {
-            info.force = 1;
-            return this.isCollisionAtBullet(target, info);
+        boolean activeInvincible = ((PlayerPlane) (super.getOwner())).getInvincibleParameter().isActive();
+
+        if (!activeInvincible) {
+            if (target.getCollisionableType() == CollisionableType.Bullet) {
+                info.force = 1;
+                return this.isCollisionAtBullet(target, info);
+            } // if
+            else if (target.getCollisionableType() == CollisionableType.Enemy) {
+                info.force = 1;
+                return this.isCollisionAtEnemy(target, info);
+            } // else if
         } // if
-        else if (target.getCollisionableType() == CollisionableType.Enemy) {
-            info.force = 1;
-            return this.isCollisionAtEnemy(target, info);
-        } // else if
-        else if (target.getCollisionableType() == CollisionableType.Stage) {
+
+
+        if (target.getCollisionableType() == CollisionableType.Stage) {
             StageCollisionComponentVisitor visitor = new StageCollisionComponentVisitor();
             target.visitorAccept(visitor);
             info.targetSize = visitor.stageSize;
@@ -101,13 +109,31 @@ public class PlaneCollisionComponent
 
 
     public void executeEnterFunction(Collisionable target, CollisionInfo info) {
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
+
         if (target.getCollisionableType() == CollisionableType.Enemy) {
             this.getPlaneOwner().applyDamage(new Damage(info));
         } // if
+        else if (target.getCollisionableType() == CollisionableType.Bullet
+                && info.targetTag.equals(ActorTagString.enemy)) {
+            this.getPlaneOwner().applyDamage(new Damage(info));
+        } // if
+
     }
 
     public void executeStayFunction(Collisionable target, CollisionInfo info) {
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
         if (target.getCollisionableType() == CollisionableType.Enemy) {
+        } // if
+        else if (target.getCollisionableType() == CollisionableType.Bullet
+                && info.targetTag.equals(ActorTagString.enemy)) {
+            this.getPlaneOwner().applyDamage(new Damage(info));
         } // if
         else if (target.getCollisionableType() == CollisionableType.Stage) {
             if (this.getOwner().getTag() == ActorTagString.player) {
@@ -118,6 +144,10 @@ public class PlaneCollisionComponent
     }
 
     public void executeExitFunction(Collisionable target, CollisionInfo info) {
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
         if (target.getCollisionableType() == CollisionableType.Enemy) {
         } // if
     }
