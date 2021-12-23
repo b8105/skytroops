@@ -1,5 +1,6 @@
-package com.example.game.action.action_component;
+package com.example.game.action.action_component.common;
 
+import com.example.game.action.action_component.ActionComponent;
 import com.example.game.game.ActorFactory;
 import com.example.game.weapon.Weapon;
 import com.example.game.action.ActionLayer;

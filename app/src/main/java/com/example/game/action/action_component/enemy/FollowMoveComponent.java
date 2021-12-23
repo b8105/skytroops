@@ -2,9 +2,8 @@ package com.example.game.action.action_component.enemy;
 
 import android.graphics.PointF;
 
-import com.example.game.action.ActionLayer;
 import com.example.game.action.action_component.ActionComponent;
-import com.example.game.action.action_component.MoveComponent;
+import com.example.game.action.action_component.common.MoveComponent;
 import com.example.game.actor.Actor;
 import com.example.game.actor.enemy_plane.FollowEnemyPlane;
 import com.example.game.component.ComponentType;
