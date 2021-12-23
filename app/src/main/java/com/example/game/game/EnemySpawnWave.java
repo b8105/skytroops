@@ -10,15 +10,22 @@ public class EnemySpawnWave {
     private int spawnCount = 0;
     private int spawnCountMax = 0;
     private boolean spawned = false;
+    private EnemySpawnWaveType type;
 
-    public EnemySpawnWave(float requiredTime,int loopCountMax) {
+    public EnemySpawnWave(EnemySpawnWaveType type, float requiredTime,int loopCountMax) {
+        this.type = type;
         this.enemySpawnRate = new StopWatch(requiredTime);
         this.spawnCountMax = loopCountMax;
     }
 
     public boolean update(float deltaTime, ActorFactory actorFactory) {
         if(!this.spawned){
-            this.spawnModeA(actorFactory);
+
+            switch (this.type){
+                case A:
+                    this.spawnModeA(actorFactory);
+                    break;
+            } // switch
             this.spawned = true;
         } // if
 

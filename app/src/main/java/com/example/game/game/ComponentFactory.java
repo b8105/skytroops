@@ -190,4 +190,29 @@ public class ComponentFactory {
     }
 
 
+    public PlaneActionComponent createBossPlaneActionComponent(
+            ActionLayer actionLayer,
+            ActorFactory actorFactory,
+            ActorContainer actorContainer) {
+        PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
+        EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
+        actionComponent.setActionInput(enemyPlaneActionInput);
+        {
+//            MoveComponent moveComponent = new MoveComponent(actionComponent);
+//            AIStraightMoveInput input = new AIStraightMoveInput();
+//            input.setMoveComponent(moveComponent);
+//            moveComponent.setActionInput(input);
+//            enemyPlaneActionInput.addActionInput(input);
+        }
+
+        {
+//            AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
+//            shotComponent.setActorContainer(actorContainer);
+//            Weapon weapon = new BasicGun();
+//            shotComponent.setWeapon(weapon);
+//            shotComponent.setShotInterval(basicEnemyShotInterval);
+//            weapon.setActorFactory(actorFactory);
+        }
+        return actionComponent;
+    }
 }

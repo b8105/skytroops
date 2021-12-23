@@ -14,9 +14,8 @@ public class EnemySpawnSystem {
 
     public EnemySpawnSystem(float rate) {
         this.waves = new ArrayList<EnemySpawnWave>();
-        EnemySpawnWave wave = new EnemySpawnWave(4.0f, 3);
-
-        this.waves.add(wave);
+        this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.Dummy, 2.0f, 1));
+        this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.A, 2.0f, 5));
     }
 
     public boolean isActive() {

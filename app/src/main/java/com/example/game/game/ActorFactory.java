@@ -167,18 +167,15 @@ public class ActorFactory {
         switch (enemyPlaneType){
             case Boss:
                 actor = new BossEnemyPlane(actorContainer, tag);
+                actor.resetHp(60);
                 break;
             default:
                 actor = new EnemyPlane(actorContainer, tag);
-
+                actor.resetHp(3);
         } // switch
-
-
-
 
         actor.setActorType(ActorType.Plane);
         actor.setGameScorer(this.gameSystem.getGameScorer());
-        actor.resetHp(3);
         actor.setScoreEffectEmitter(this.effectSystem.getSharedEmitter(EffectType.Score));
         actor.setExplosionEffectEmitter(this.effectSystem.getSharedEmitter(EffectType.Explosion));
 
@@ -205,7 +202,7 @@ public class ActorFactory {
                         actionLayer, this,this.actorContainer);
                 break;
             case Boss:
-                actionComponent = this.componentFactory.createBasicPlaneActionComponent(
+                actionComponent = this.componentFactory.createBossPlaneActionComponent(
                         actionLayer, this,this.actorContainer);
                 break;
         } // switch
@@ -234,7 +231,7 @@ public class ActorFactory {
                 break;
             case Boss:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
-                        enemyBitmapSize, R.drawable.enemy08);
+                        BitmapSizeStatic.boss.x, R.drawable.enemy08);
                 break;
         } // switch
 

@@ -39,11 +39,13 @@ public class EnemyPlaneHpBarRenderer extends PlaneHpBarRenderer {
         out.drawSprite(frame, this.transform, new RenderSpriteInfo());
     }
     private void drawBar(HpParameter hpParameter,RenderCommandList out) {
+        Point size = this.getSize();
+
         Rectangle rectangle = new Rectangle();
         rectangle.left = 0.0f;
-        rectangle.right = BitmapSizeStatic.enemyHpBar.x * hpParameter.calcPercent();
+        rectangle.right = size.x * hpParameter.calcPercent();
         rectangle.top = 0.0f;
-        rectangle.bottom = BitmapSizeStatic.enemyHpBar.y;
+        rectangle.bottom = size.y;
 
         RenderSpriteInfo info = new RenderSpriteInfo(rectangle);
         out.drawSprite(this.bar, this.transform, info);
@@ -51,11 +53,12 @@ public class EnemyPlaneHpBarRenderer extends PlaneHpBarRenderer {
 
     public void clacPosition() {
         if (this.owner != null) {
+            Point size = this.getSize();
+
             this.transform.position = this.owner.getOwner().getPosition();
             this.transform.position.x += BitmapSizeStatic.player.x * 0.5f;
-            this.transform.position.y += BitmapSizeStatic.player.y;
-            this.transform.position.x -= BitmapSizeStatic.enemyHpBar.x * 0.5f;
-            this.transform.position.y -= BitmapSizeStatic.enemyHpBar.y * 0.5f;
+            this.transform.position.x -= size.x * 0.5f;
+            this.transform.position.y += size.y * 1.5f;
         } // if
     }
 

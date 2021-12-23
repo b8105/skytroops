@@ -7,9 +7,14 @@ import com.example.game.common.InputEvent;
 
 public class AIStraightMoveInput implements ActionInput {
     private MoveComponent moveComponent;
+    private float speed = 28.0f;
 
     public void setMoveComponent(MoveComponent moveComponent) {
         this.moveComponent = moveComponent;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 
     @Override
@@ -18,7 +23,7 @@ public class AIStraightMoveInput implements ActionInput {
         MoveCommand command = new MoveCommand();
 
         command.speed.x = 0.0f;
-        command.speed.y = 16.0f;
+        command.speed.y = this.speed;
 
         moveComponent.writeCommand(command);
     }
