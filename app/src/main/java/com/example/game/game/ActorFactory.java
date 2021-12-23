@@ -4,10 +4,12 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.example.game.observation.BossEnemyDeadSubject;
 import com.example.game.actor.enemy_plane.BossEnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.actor.PlayerPlane;
+import com.example.game.render.hp_renderer.BossEnemyPlaneHpBarRenderer;
 import com.example.game.render.hp_renderer.EnemyPlaneHpBarRenderer;
 import com.example.game.R;
 import com.example.game.action.action_component.bullet.BasicBulletMoveComponent;
@@ -30,6 +32,7 @@ import com.example.game.render.hp_renderer.PlayerPlaneHpBarRenderer;
 import com.example.game.render.render_component.PlaneHpBarRenderComponent;
 import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 import com.example.game.render.render_component.SpriteRenderComponent;
+import com.example.game.scene.GamePlayScene;
 import com.example.game.ui.UIChangeBullePanel;
 import com.example.game.weapon.AnyWayGun;
 import com.example.game.weapon.Weapon;
@@ -44,6 +47,7 @@ public class ActorFactory {
         public String tag;
     }
 
+    private GamePlayScene gamePlayScene;
     private Resources resources = null;
     private ActorContainer actorContainer = null;
     private GameSystem gameSystem = null;
@@ -62,12 +66,15 @@ public class ActorFactory {
     private int enemyCollisionRectSizeDecrease = 40;
     private int bulletCollisionRectSizeDecrease = 60;
 
-    public ActorFactory(Resources resources,
+    public ActorFactory(
+            GamePlayScene gamePlayScene,
+            Resources resources,
                         ActorContainer actorContainer,
                         ComponentExecutor componentExecutor,
                         GameSystem gameSystem,
                         UIChangeBullePanel uiChangeBullePanel,
                         EffectSystem effectSystem) {
+        this.gamePlayScene = gamePlayScene;
         this.resources = resources;
         this.actorContainer = actorContainer;
         this.gameSystem = gameSystem;
@@ -166,8 +173,13 @@ public class ActorFactory {
 
         switch (enemyPlaneType){
             case Boss:
-                actor = new BossEnemyPlane(actorContainer, tag);
-                actor.resetHp(60);
+                BossEnemyPlane temp = new BossEnemyPlane(actorContainer, tag);
+
+                BossEnemyDeadSubject bossEnemyDeadSubject = new BossEnemyDeadSubject();
+                bossEnemyDeadSubject.addObserver(gamePlayScene);
+                temp.setBossEnemyDeadSubject(bossEnemyDeadSubject);
+                actor = temp;
+                actor.resetHp(4);
                 break;
             default:
                 actor = new EnemyPlane(actorContainer, tag);
@@ -206,32 +218,38 @@ public class ActorFactory {
                         actionLayer, this,this.actorContainer);
                 break;
         } // switch
-
+        PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
         SpriteRenderComponent spriteRenderComponent = null;
         switch (enemyPlaneType){
             case Basic:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         enemyBitmapSize, R.drawable.enemy01);
+                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
                 break;
             case Weak:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         enemyBitmapSize, R.drawable.enemy02);
+                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
                 break;
             case Strong:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         enemyBitmapSize, R.drawable.enemy05);
+                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
                 break;
             case Commander:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         enemyBitmapSize, R.drawable.enemy04);
+                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
                 break;
             case Follow:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         enemyBitmapSize, R.drawable.enemy03);
+                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
                 break;
             case Boss:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         BitmapSizeStatic.boss.x, R.drawable.enemy08);
+                hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
                 break;
         } // switch
 
@@ -240,8 +258,8 @@ public class ActorFactory {
 
 
         EnemyCollisionComponent collisionable = new EnemyCollisionComponent(collisionLayer);
-        PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
-        hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
+
+
         collisionable.setCollisionRectSizeOffset(-enemyCollisionRectSizeDecrease);
 
 
