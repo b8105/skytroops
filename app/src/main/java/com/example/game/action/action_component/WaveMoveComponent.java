@@ -48,6 +48,6 @@ public class WaveMoveComponent extends ActionComponent {
 
     @Override
     public ComponentType getComponentType() {
-        return ComponentType.Move;
+        return ComponentType.WaveMove;
     }
 }

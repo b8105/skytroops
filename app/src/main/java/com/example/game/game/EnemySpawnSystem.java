@@ -1,6 +1,7 @@
 package com.example.game.game;
 
 import com.example.game.actor.ActorTagString;
+import com.example.game.actor.EnemyPlaneType;
 import com.example.game.utility.StopWatch;
 
 public class EnemySpawnSystem {
@@ -22,10 +23,13 @@ public class EnemySpawnSystem {
             float addX = 1080 / 5;
             for (int i = 0; i < 5; i++) {
                 if(i == 3){
-                    actorFactory.createWeakEnemy(x, y, ActorTagString.enemy);
+                    actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Weak);
+                } // if
+                else if(i == 1){
+                    actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Strong);
                 } // if
                 else {
-                    actorFactory.createBasicEnemy(x, y, ActorTagString.enemy);
+                    actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Basic);
                 } // else
                 x += addX;
             } // for
