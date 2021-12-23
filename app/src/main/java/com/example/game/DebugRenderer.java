@@ -13,7 +13,7 @@ import com.example.game.render.RenderLayerType;
 public class DebugRenderer {
     public void execute(ActorContainer actorContainer,
                           EffectSystem effectSystem, RenderCommandQueue out) {
-        RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
+        RenderCommandList list = out.getRenderCommandList(RenderLayerType.UIDebug);
         Paint p = new Paint();
         p.setTextSize(60);
 

@@ -12,7 +12,6 @@ import com.example.game.render.info.RenderSpriteInfo;
 
 public class StageRenderer {
     private Stage stage = null;
-
     public StageRenderer(Stage stage) {
         this.stage = stage;
     }
@@ -39,10 +38,8 @@ public class StageRenderer {
                 RenderLayerType.BasicActor);
 
         Bitmap bitmap = this.stage.getBitmap();
-//        Transform2D transform = this.stage.getTransform();
         Transform2D transform = new Transform2D();
         transform.position.y = this.stage.getScroll();
-        //this.stage.getTransform();
 
         int h = bitmap.getHeight();
         int screenHeight = h;
@@ -54,9 +51,7 @@ public class StageRenderer {
                     bitmap,
                     t,
                     new RenderSpriteInfo());
-
         } // for
         this.drawScroll(out);
-
     }
 }

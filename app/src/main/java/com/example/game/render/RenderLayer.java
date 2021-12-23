@@ -12,14 +12,10 @@ public class RenderLayer {
         this.renderables.add(renderable);
     }
 
-    ;
-
     public void remove(Renderable renderable) {
         assert (renderable != null);
         this.renderables.remove(renderable);
     }
-
-    ;
 
     public void excute(RenderCommandQueue out) {
         for (Renderable renderable : this.renderables) {

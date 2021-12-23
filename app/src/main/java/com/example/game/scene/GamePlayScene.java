@@ -16,10 +16,12 @@ import com.example.game.game.ActorFactory;
 import com.example.game.game.ComponentExecutor;
 import com.example.game.game.GameSystem;
 import com.example.game.actor.Actor;
+import com.example.game.scene.transition_state.TransitionStateType;
 import com.example.game.stage.Stage;
 import com.example.game.common.InputEvent;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
+import com.example.game.stage.StageType;
 import com.example.game.ui.UIChangeBullePanel;
 
 public class GamePlayScene extends Scene implements BossEnemyDeadListener {
@@ -31,6 +33,9 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
     private UIChangeBullePanel uiChangeBullePanel = null;
     private ActorFactory actorFactory = null;
     private Stage stage = null;
+
+    private int stageCountMax = 2;
+    private int stageCount = 0;
 
     private boolean bossDestroyed = false;
 
@@ -87,9 +92,8 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
     @Override
     public void update(float deltaTime) {
         this.transitionStateMachine.update(deltaTime);
-        if (bossDestroyed){
-                //this.actorContainer.getMainChara() == null ||) {
-            super.GetGame().IncremenntSceneNo();
+        if (this.stageCount == this.stageCountMax){
+            this.transitionStateMachine.transition(TransitionStateType.Exit);
         } // if
 
         this.updateSystem(deltaTime);
@@ -121,6 +125,19 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
 
     @Override
     public void onNotify(BossEnemyDeadMessage maeeage) {
+        this.stageCount++;
+        if(this.stageCount == 0){
+            this.stage.resetBitmap(this.GetGame().getResources() , StageType.Type01);
+            this.gameSystem.resetSpawnSystem(StageType.Type01);
+        } // if
+        else if(this.stageCount == 1){
+            this.stage.resetBitmap(this.GetGame().getResources() , StageType.Type02);
+            this.gameSystem.resetSpawnSystem(StageType.Type02);
+        } // if
+        else if(this.stageCount == 2){
+            this.stage.resetBitmap(this.GetGame().getResources() , StageType.Type03);
+            this.gameSystem.resetSpawnSystem(StageType.Type03);
+        } // if
         bossDestroyed = true;
     }
 }

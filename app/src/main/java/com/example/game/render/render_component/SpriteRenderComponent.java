@@ -70,14 +70,17 @@ public class SpriteRenderComponent extends RenderComponent {
                 owner.getScale()
         );
 
+        {
+            RenderCommandList list = out.getRenderCommandList(RenderLayerType.BasicActorDebug);
+            if (this.collisionComponent != null) {
+                RenderRectangleInfo info = new RenderRectangleInfo(Color.RED);
+                list.drawLineRectangle(
+                        this.collisionComponent.getCollisionRectangle(),
+                        info
+                );
+            } // if
+        }
         RenderCommandList list = out.getRenderCommandList(RenderLayerType.BasicActor);
-        if (this.collisionComponent != null) {
-            RenderRectangleInfo info = new RenderRectangleInfo(Color.RED);
-            list.drawLineRectangle(
-                    this.collisionComponent.getCollisionRectangle(),
-                    info
-            );
-        } // if
         RenderSpriteInfo info = new RenderSpriteInfo(this.getSourceRect());
         list.drawSprite(
                 this.bitmap,

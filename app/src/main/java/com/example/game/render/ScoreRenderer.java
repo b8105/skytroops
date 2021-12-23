@@ -12,7 +12,7 @@ public class ScoreRenderer {
     public ScoreRenderer(){}
 
     public void execute(GameSystem gameSystem, RenderCommandQueue out) {
-        RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
+        RenderCommandList list = out.getRenderCommandList(RenderLayerType.UIDebug);
         Paint p = new Paint();
         p.setTextSize(60);
 

@@ -20,12 +20,16 @@ public class Stage {
 
     public Stage(Point screenSize, Resources resources, CollisionLayer layer) {
         this.constructTransform(screenSize);
-        this.constructBackground(resources);
+        this.constructBackground(resources, StageType.Type01);
         this.renderer = new StageRenderer(this);
         this.scrollSpeed = 10;
 
         component = new StageCollisionComponent(layer);
         component.setScreenSize(screenSize);
+    }
+
+    public void resetBitmap(Resources resources, StageType type){
+        this.constructBackground(resources, type);
     }
 
     private void constructTransform(Point screenSize) {
@@ -34,8 +38,18 @@ public class Stage {
         transform.scale.y = screenSize.y;
     }
 
-    private void constructBackground(Resources resources) {
-        this.background = BitmapFactory.decodeResource(resources, R.drawable.background02);
+    private void constructBackground(Resources resources, StageType type) {
+        switch (type){
+            case Type01:
+                this.background = BitmapFactory.decodeResource(resources, R.drawable.background02);
+                break;
+            case Type02:
+                this.background = BitmapFactory.decodeResource(resources, R.drawable.background01);
+                break;
+            case Type03:
+                this.background = BitmapFactory.decodeResource(resources, R.drawable.background03);
+                break;
+        } // switch
         this.background = Bitmap.createScaledBitmap(
                 background,
                 (int) this.transform.scale.x,

@@ -7,4 +7,5 @@ public enum EnemyPlaneType {
     Commander,
     Follow,
     Boss,
+    Boss2,
 }

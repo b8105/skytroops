@@ -92,7 +92,7 @@ public class ActorFactory {
         Weapon weapon = new AnyWayGun();
         this.uiChangeBullePanel.setEvent(weapon);
 
-        actor.resetHp(2);
+        actor.resetHp(10);
 
         PlaneCollisionComponent collisionable = new PlaneCollisionComponent(collisionLayer);
         PlaneSpriteRenderComponent spriteRenderComponent = this.componentFactory.createPlaneSpriteRenderComponent(
@@ -173,17 +173,18 @@ public class ActorFactory {
 
         switch (enemyPlaneType){
             case Boss:
+            case Boss2:
                 BossEnemyPlane temp = new BossEnemyPlane(actorContainer, tag);
 
                 BossEnemyDeadSubject bossEnemyDeadSubject = new BossEnemyDeadSubject();
                 bossEnemyDeadSubject.addObserver(gamePlayScene);
                 temp.setBossEnemyDeadSubject(bossEnemyDeadSubject);
                 actor = temp;
-                actor.resetHp(4);
+                actor.resetHp(50);
                 break;
             default:
                 actor = new EnemyPlane(actorContainer, tag);
-                actor.resetHp(3);
+                actor.resetHp(2);
         } // switch
 
         actor.setActorType(ActorType.Plane);
@@ -214,6 +215,10 @@ public class ActorFactory {
                         actionLayer, this,this.actorContainer);
                 break;
             case Boss:
+                actionComponent = this.componentFactory.createBossPlaneActionComponent(
+                        actionLayer, this,this.actorContainer);
+                break;
+            case Boss2:
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
                         actionLayer, this,this.actorContainer);
                 break;
@@ -249,6 +254,11 @@ public class ActorFactory {
             case Boss:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         BitmapSizeStatic.boss.x, R.drawable.enemy08);
+                hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
+                break;
+            case Boss2:
+                spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                        BitmapSizeStatic.boss.x, R.drawable.enemy13);
                 hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
                 break;
         } // switch

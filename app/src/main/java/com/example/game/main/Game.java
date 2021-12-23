@@ -11,15 +11,18 @@ import android.view.SurfaceView;
 
 import androidx.core.view.MotionEventCompat;
 
+import com.example.game.R;
 import com.example.game.common.InputEvent;
 import com.example.game.common.InputTouchType;
 import com.example.game.common.Transform2D;
+import com.example.game.common.shape.Circle;
 import com.example.game.game.GameScorer;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GameOverScene;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.scene.Scene;
 import com.example.game.scene.TitleScene;
+import com.example.game.ui.UIButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +58,8 @@ public class Game extends SurfaceView implements Runnable {
     boolean prevTouch = false;
     boolean currentTouch = false;
 
+    UIButton debugSwitch;
+    private boolean debugFlag = true;
 
     private JSONObject parseJson(String fileName) throws JSONException, IOException {
         InputStream inputStream = activity.getAssets().open(fileName);
@@ -107,6 +112,12 @@ public class Game extends SurfaceView implements Runnable {
         this.start();
         renderCommandQueue = new RenderCommandQueue();
         currentScene = new TitleScene(this, this.getDefaultDisplayRealSize());
+
+        debugSwitch = new UIButton(
+                super.getResources(),
+                R.drawable.restartbtn,
+                new PointF(900.0f,30.0f),
+                new Point(32,32));
 
         try {
             this.load();
@@ -163,6 +174,10 @@ public class Game extends SurfaceView implements Runnable {
         switch (action) {
             case (MotionEvent.ACTION_DOWN):
                 enableTouch = true;
+
+                if(debugSwitch.containCircle(new Circle(event.getX(),event.getY(),4))){
+                    this.debugFlag = !this.debugFlag;
+                } // if
             case (MotionEvent.ACTION_MOVE):
                 return true;
             case (MotionEvent.ACTION_UP):
@@ -263,7 +278,11 @@ public class Game extends SurfaceView implements Runnable {
             currentScene.draw(renderCommandQueue);
         } // if
 
-        renderCommandQueue.executeCommandList(canvas);
+        if(!this.debugFlag){
+            debugSwitch.draw(renderCommandQueue);
+        } // if
+
+        renderCommandQueue.executeCommandList(canvas, this.debugFlag);
     }
 
     public void IncremenntSceneNo() {

@@ -25,6 +25,9 @@ public class EnemySpawnWave {
                 case A:
                     this.spawnModeA(actorFactory);
                     break;
+                case B:
+                    this.spawnModeB(actorFactory);
+                    break;
             } // switch
             this.spawned = true;
         } // if
@@ -49,6 +52,19 @@ public class EnemySpawnWave {
             actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Basic);
             x += addX;
         } // for
-
+    }
+    private void spawnModeB(ActorFactory actorFactory){
+        float x = 0.0f;
+        float y = -BitmapSizeStatic.enemy.y;
+        float addX = 1080 / 5;
+        for (int i = 0; i < 5; i++) {
+            if(i % 2 == 0){
+                actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Strong);
+            } // if
+            else {
+                actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Weak);
+            } // else
+            x += addX;
+        } // for
     }
 }

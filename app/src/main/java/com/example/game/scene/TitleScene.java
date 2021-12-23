@@ -141,9 +141,9 @@ public class TitleScene extends Scene {
     void drawStartButton(RenderCommandList list) {
         Transform2D transform = new Transform2D(this.startButtonTransform);
         transform.position.x -= this.startButtonBitmap.getWidth() * 0.5f;
-        transform.position.y -= this.startButtonBitmap.getHeight() * 0.5f;
+        transform.position.y -= this.startButtonBitmap.getHeight() * 0.15f;
 
-        list.drawRectangle(this.getStartButtonRectangle(), new RenderRectangleInfo());
+        //list.drawRectangle(this.getStartButtonRectangle(), new RenderRectangleInfo());
         list.drawSprite(
                 this.startButtonBitmap,
                 transform,

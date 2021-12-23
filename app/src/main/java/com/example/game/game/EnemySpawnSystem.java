@@ -2,6 +2,8 @@ package com.example.game.game;
 
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
+import com.example.game.common.BitmapSizeStatic;
+import com.example.game.stage.StageType;
 import com.example.game.utility.StopWatch;
 
 import java.util.ArrayList;
@@ -12,10 +14,21 @@ public class EnemySpawnSystem {
     private int currentWaveIndex = 0;
     private boolean active = true;
 
-    public EnemySpawnSystem(float rate) {
+    public EnemySpawnSystem(StageType type) {
         this.waves = new ArrayList<EnemySpawnWave>();
-        this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.Dummy, 2.0f, 1));
-        this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.A, 2.0f, 5));
+
+        switch (type){
+            case Type01:
+                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.Dummy, 2.0f, 1));
+                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.A, 2.0f, 5));
+                break;
+            case Type02:
+                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.Dummy, 2.0f, 1));
+                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.A, 2.0f, 2));
+                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.B, 2.0f, 2));
+                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.A, 2.0f, 2));
+                break;
+        } // switch
     }
 
     public boolean isActive() {
@@ -31,7 +44,9 @@ public class EnemySpawnSystem {
         } // if
         else {
             this.active = false;
-            actorFactory.createEnemy(400, 500, ActorTagString.enemy, EnemyPlaneType.Boss);
+
+
+            actorFactory.createEnemy(300, 0 - BitmapSizeStatic.boss.y, ActorTagString.enemy, EnemyPlaneType.Boss);
             return true;
         } // else
         return false;

@@ -11,6 +11,7 @@ import com.example.game.action.action_component.PlaneActionComponent;
 import com.example.game.action.action_component.common.ShotComponent;
 import com.example.game.action.action_component.enemy.FollowMoveComponent;
 import com.example.game.action.action_component.enemy.WaveMoveComponent;
+import com.example.game.action.input.enemy.AIBossMoveInput;
 import com.example.game.action.input.enemy.AIFadeoutMoveInput;
 import com.example.game.action.input.enemy.AIShotInput;
 import com.example.game.action.input.enemy.AIStraightMoveInput;
@@ -198,21 +199,13 @@ public class ComponentFactory {
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
         {
-//            MoveComponent moveComponent = new MoveComponent(actionComponent);
-//            AIStraightMoveInput input = new AIStraightMoveInput();
-//            input.setMoveComponent(moveComponent);
-//            moveComponent.setActionInput(input);
-//            enemyPlaneActionInput.addActionInput(input);
+            MoveComponent moveComponent = new MoveComponent(actionComponent);
+            AIBossMoveInput input = new AIBossMoveInput();
+            input.setMoveComponent(moveComponent);
+            moveComponent.setActionInput(input);
+            enemyPlaneActionInput.addActionInput(input);
         }
 
-        {
-//            AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
-//            shotComponent.setActorContainer(actorContainer);
-//            Weapon weapon = new BasicGun();
-//            shotComponent.setWeapon(weapon);
-//            shotComponent.setShotInterval(basicEnemyShotInterval);
-//            weapon.setActorFactory(actorFactory);
-        }
         return actionComponent;
     }
 }
