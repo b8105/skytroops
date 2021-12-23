@@ -14,10 +14,6 @@ import com.example.game.component.ComponentType;
 public class MoveComponent extends ActionComponent {
     private MoveCommand command = null;
 
-    public MoveComponent(ActionLayer layer) {
-        super(layer);
-    }
-
     public MoveComponent(ActionComponent actionComponent) {
         super(actionComponent);
     }

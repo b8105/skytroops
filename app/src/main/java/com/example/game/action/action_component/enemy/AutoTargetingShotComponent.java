@@ -3,18 +3,19 @@ package com.example.game.action.action_component.enemy;
 import android.graphics.PointF;
 
 import com.example.game.action.action_component.ActionComponent;
+import com.example.game.action.action_component.common.ShotComponent;
 import com.example.game.actor.Plane;
 import com.example.game.game.ActorContainer;
 import com.example.game.game.FindNearestEnemyVisitor;
+import com.example.game.utility.MathUtilities;
+import com.example.game.utility.PointFUtilities;
 import com.example.game.weapon.Weapon;
 import com.example.game.action.ActionLayer;
 import com.example.game.action.command.ShotCommand;
 import com.example.game.component.ComponentType;
 import com.example.game.utility.StopWatch;
 
-public class AutoTargetingShotComponent extends ActionComponent {
-    private StopWatch shotTime = new StopWatch(0.0f);
-    private Weapon weapon;
+public class AutoTargetingShotComponent extends ShotComponent {
     private Plane target;
     private ActorContainer actorContainer;
 
@@ -26,44 +27,16 @@ public class AutoTargetingShotComponent extends ActionComponent {
         this.actorContainer = actorContainer;
     }
 
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
-    }
-
-    public void setShotInterval(float time) {
-        this.shotTime.reset(time);
-    }
-
-    void clacTarget() {
+    private void aquareTarget() {
         assert (this.actorContainer != null);
         this.target = this.actorContainer .getMainChara();
     }
 
     private float clacDirection(final PointF position, final PointF targetPosition) {
-        float directionX = targetPosition.x - position.x;
-        float directionY = targetPosition.y - position.y;
-
-        float magnitude = (float) Math.sqrt(Math.pow(directionX, 2.0) + Math.pow(directionY, 2.0));
-        PointF normalize = new PointF(directionX / magnitude, directionY / magnitude);
-
+        PointF normalize = PointFUtilities.normal(position, targetPosition);
         double rotateRadian = Math.atan2((double) (normalize.y), (double) (normalize.x));
-        rotateRadian += this.degreeToRadian(90);
+        rotateRadian += MathUtilities.degreeToRadian(90);
         return (float)rotateRadian;
-    }
-
-    double radianToDegree(double radians) {
-        return radians * (180.0 / Math.PI);
-    }
-    float radianToDegree(float radians) {
-        return (float) this.radianToDegree((double) radians);
-    }
-
-    double degreeToRadian(double degree) {
-        return degree * Math.PI / 180;
-    }
-
-    float degreeToRadian(float degree) {
-        return (float) this.degreeToRadian((double) degree);
     }
 
     @Override
@@ -72,20 +45,23 @@ public class AutoTargetingShotComponent extends ActionComponent {
             return;
         } // if
 
-        this.clacTarget();
+        this.aquareTarget();
 
-        if (shotTime.tick(deltaTime)) {
-            weapon.setRotation(this.radianToDegree(this.clacDirection(
+        StopWatch stopWatch = super.getShotTime();
+        Weapon weapon = super.getWeapon();
+
+        if (stopWatch.tick(deltaTime)) {
+            weapon.setRotation(MathUtilities.radianToDegree(this.clacDirection(
                     this.getOwner().getPosition(),
                     this.target.getPosition()
             )));
 
-            this.weapon.shot(
+            weapon.shot(
                     this.getOwner().getPosition(),
                     this.getOwner().getRotation(),
                     this.getOwner().getTag()
             );
-            shotTime.reset();
+            stopWatch.reset();
         } // if
     }
 

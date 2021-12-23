@@ -11,9 +11,10 @@ import com.example.game.action.action_component.PlaneActionComponent;
 import com.example.game.action.action_component.common.ShotComponent;
 import com.example.game.action.action_component.enemy.FollowMoveComponent;
 import com.example.game.action.action_component.enemy.WaveMoveComponent;
-import com.example.game.action.input.AIFadeoutMoveInput;
-import com.example.game.action.input.AIStraightMoveInput;
-import com.example.game.action.input.EnemyPlaneActionInput;
+import com.example.game.action.input.enemy.AIFadeoutMoveInput;
+import com.example.game.action.input.enemy.AIShotInput;
+import com.example.game.action.input.enemy.AIStraightMoveInput;
+import com.example.game.action.input.enemy.EnemyPlaneActionInput;
 import com.example.game.action.input.player.PlayerActionInput;
 import com.example.game.action.input.player.PlayerMoveInput;
 import com.example.game.action.input.player.PlayerShotInput;
@@ -163,20 +164,27 @@ public class ComponentFactory {
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
 
+
+        ShotComponent shotComponent = new ShotComponent(actionComponent);
+        AIShotInput aiShotInput = new AIShotInput(shotComponent);
         {
-            MoveComponent moveComponent = new MoveComponent(actionComponent);
-            AIFadeoutMoveInput input = new AIFadeoutMoveInput();
-            input.setMoveComponent(moveComponent);
-            moveComponent.setActionInput(input);
-            enemyPlaneActionInput.addActionInput(input);
-        }
-        {
-            AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
-            shotComponent.setActorContainer(actorContainer);
+            aiShotInput.setActorContainer(actorContainer);
+            aiShotInput.setShotComponent(shotComponent);
             Weapon weapon = new BasicGun();
             shotComponent.setWeapon(weapon);
             shotComponent.setShotInterval(this.basicEnemyShotInterval);
             weapon.setActorFactory(actorFactory);
+            shotComponent.setActionInput(aiShotInput);
+            enemyPlaneActionInput.addActionInput(aiShotInput);
+        }
+
+        {
+            MoveComponent moveComponent = new MoveComponent(actionComponent);
+            AIFadeoutMoveInput input = new AIFadeoutMoveInput();
+            input.setShotInput(aiShotInput);
+            input.setMoveComponent(moveComponent);
+            moveComponent.setActionInput(input);
+            enemyPlaneActionInput.addActionInput(input);
         }
         return actionComponent;
     }

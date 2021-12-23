@@ -1,9 +1,10 @@
-package com.example.game.action.input;
+package com.example.game.action.input.enemy;
 
 import android.graphics.PointF;
 
 import com.example.game.action.command.MoveCommand;
 import com.example.game.action.action_component.common.MoveComponent;
+import com.example.game.action.input.ActionInput;
 import com.example.game.actor.Actor;
 import com.example.game.common.InputEvent;
 import com.example.game.main.Game;
@@ -15,9 +16,14 @@ public class AIFadeoutMoveInput implements ActionInput {
     private int moveSequence = 0;
     private float fadeoutDirection = 140.0f;
     private float moveThresholdY = Game.getDisplayRealSize().y * 0.5f;
+    private AIShotInput shotInput = null;
 
     public void setMoveComponent(MoveComponent moveComponent) {
         this.moveComponent = moveComponent;
+    }
+
+    public void setShotInput(AIShotInput shotInput) {
+        this.shotInput = shotInput;
     }
 
     private PointF clacMove() {
@@ -42,6 +48,7 @@ public class AIFadeoutMoveInput implements ActionInput {
             case 0:
                 if(position.y > moveThresholdY){
                     this.moveSequence++;
+                    this.shotInput.activate();
                 } // if
                 break;
             case 1:

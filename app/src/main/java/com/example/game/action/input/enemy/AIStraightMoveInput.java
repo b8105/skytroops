@@ -1,7 +1,8 @@
-package com.example.game.action.input;
+package com.example.game.action.input.enemy;
 
 import com.example.game.action.command.MoveCommand;
 import com.example.game.action.action_component.common.MoveComponent;
+import com.example.game.action.input.ActionInput;
 import com.example.game.common.InputEvent;
 
 public class AIStraightMoveInput implements ActionInput {

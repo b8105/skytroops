@@ -23,19 +23,19 @@ public class EnemySpawnSystem {
             float addX = 1080 / 5;
             for (int i = 0; i < 5; i++) {
                 if(i == 3){
-                    actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Weak);
+//                    actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Weak);
                 } // if
                 else if(i == 1){
                     actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Strong);
                 } // if
                 else if(i == 2){
-                    actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Commander);
+  //                  actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Commander);
                 } // if
                 else if(i == 4){
-                    actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Follow);
+    //                actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Follow);
                 } // if
                 else {
-                    actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Basic);
+      //              actorFactory.createEnemy(x, y, ActorTagString.enemy, EnemyPlaneType.Basic);
                 } // else
                 x += addX;
             } // for
