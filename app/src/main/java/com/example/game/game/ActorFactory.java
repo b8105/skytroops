@@ -178,6 +178,7 @@ public class ActorFactory {
         switch (enemyPlaneType){
             case Boss:
             case Boss2:
+            case Boss3:
                 BossEnemyPlane temp = new BossEnemyPlane(actorContainer, tag);
 
                 BossEnemyDeadSubject bossEnemyDeadSubject = new BossEnemyDeadSubject();
@@ -228,6 +229,10 @@ public class ActorFactory {
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
                         actionLayer, this,this.actorContainer,weapon );
                 break;
+            case Boss3:
+                actionComponent = this.componentFactory.createBossPlaneActionComponent(
+                        actionLayer, this,this.actorContainer,weapon );
+                break;
         } // switch
         PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
         SpriteRenderComponent spriteRenderComponent = null;
@@ -265,6 +270,11 @@ public class ActorFactory {
             case Boss2:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         BitmapSizeStatic.boss.x, R.drawable.enemy13);
+                hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
+                break;
+            case Boss3:
+                spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                        BitmapSizeStatic.boss.x, R.drawable.enemy14);
                 hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
                 break;
         } // switch

@@ -5,4 +5,5 @@ public enum StageType {
     Type01,
     Type02,
     Type03,
+    CountMax
 }
