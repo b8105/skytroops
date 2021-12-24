@@ -10,4 +10,5 @@ public class BitmapSizeStatic {
     public static Point bossEnemyHpBar = new Point( (175 * 2),(38 * 2) );
     public static Point playerHpBar = new Point(274 * 2,41  * 2);
     public static Point playerHpBarIcon = new Point(41  * 2,41  * 2);
+    public static Point bullet = new Point(86 * 3,86 * 3);
 }

@@ -3,12 +3,14 @@ package com.example.game.weapon;
 import android.graphics.PointF;
 
 import com.example.game.actor.bullet.BulletType;
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.game.ActorFactory;
 
 abstract public class Weapon {
     private ActorFactory actorFactory;
     private BulletType bulletType;
-    private float rotation = 0.0f;
+    private PointF position = new PointF(); // local translation
+    private float rotation = 0.0f; // local rotation
     private int shotCount = 0;
 
     public Weapon() {
@@ -17,6 +19,10 @@ abstract public class Weapon {
 
     public void setShotCount(int shotCount) {
         this.shotCount = shotCount;
+    }
+
+    public void setPosition(PointF position) {
+        this.position = position;
     }
 
     public void setRotation(float rotation) {
@@ -28,9 +34,11 @@ abstract public class Weapon {
     }
 
     protected void requestCreateBullet(PointF parentGlobalPosition, float parentGlobalRotation, String tag) {
+        float sizeOffsetX = BitmapSizeStatic.bullet.x * 0.5f;
+
         this.actorFactory.createBulletRequest(
-                parentGlobalPosition.x,
-                parentGlobalPosition.y,
+                parentGlobalPosition.x + position.x - sizeOffsetX,
+                parentGlobalPosition.y+ position.y,
                 parentGlobalRotation + rotation,
                 this.bulletType,
                 tag);

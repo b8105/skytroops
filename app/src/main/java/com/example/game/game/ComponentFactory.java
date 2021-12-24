@@ -97,7 +97,8 @@ public class ComponentFactory {
     public PlaneActionComponent createBasicPlaneActionComponent(
             ActionLayer actionLayer,
             ActorFactory actorFactory,
-            ActorContainer actorContainer) {
+            ActorContainer actorContainer,Weapon weapon
+    ) {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
@@ -121,7 +122,10 @@ public class ComponentFactory {
         return actionComponent;
     }
 
-    public PlaneActionComponent createWeakPlaneActionComponent(ActionLayer actionLayer, ActorFactory actorFactory, ActorContainer actorContainer) {
+    public PlaneActionComponent createWeakPlaneActionComponent(ActionLayer actionLayer, ActorFactory actorFactory, ActorContainer actorContainer
+                ,Weapon weapon
+
+                                                               ) {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
@@ -131,7 +135,7 @@ public class ComponentFactory {
         {
             AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
             shotComponent.setActorContainer(actorContainer);
-            Weapon weapon = new BasicGun();
+//            Weapon weapon = new BasicGun();
             shotComponent.setWeapon(weapon);
             shotComponent.setShotInterval(this.basicEnemyShotInterval);
             weapon.setActorFactory(actorFactory);
@@ -140,7 +144,8 @@ public class ComponentFactory {
     }
 
 
-    public PlaneActionComponent createFollowPlaneActionComponent(ActionLayer actionLayer, ActorFactory actorFactory, ActorContainer actorContainer) {
+    public PlaneActionComponent createFollowPlaneActionComponent(ActionLayer actionLayer, ActorFactory actorFactory, ActorContainer actorContainer                ,Weapon weapon
+    ) {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
@@ -151,7 +156,7 @@ public class ComponentFactory {
         {
             AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
             shotComponent.setActorContainer(actorContainer);
-            Weapon weapon = new BasicGun();
+//            Weapon weapon = new BasicGun();
             shotComponent.setWeapon(weapon);
             shotComponent.setShotInterval(this.basicEnemyShotInterval);
             weapon.setActorFactory(actorFactory);
@@ -160,7 +165,8 @@ public class ComponentFactory {
     }
 
 
-    public PlaneActionComponent createStrongPlaneActionComponent(ActionLayer actionLayer, ActorFactory actorFactory, ActorContainer actorContainer) {
+    public PlaneActionComponent createStrongPlaneActionComponent(ActionLayer actionLayer, ActorFactory actorFactory, ActorContainer actorContainer                ,Weapon weapon
+    ) {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
@@ -171,7 +177,7 @@ public class ComponentFactory {
         {
             aiShotInput.setActorContainer(actorContainer);
             aiShotInput.setShotComponent(shotComponent);
-            Weapon weapon = new BasicGun();
+    //        Weapon weapon = new BasicGun();
             shotComponent.setWeapon(weapon);
             shotComponent.setShotInterval(this.basicEnemyShotInterval);
             weapon.setActorFactory(actorFactory);
@@ -194,7 +200,8 @@ public class ComponentFactory {
     public PlaneActionComponent createBossPlaneActionComponent(
             ActionLayer actionLayer,
             ActorFactory actorFactory,
-            ActorContainer actorContainer) {
+            ActorContainer actorContainer, Weapon weapon
+    ) {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
@@ -208,7 +215,7 @@ public class ComponentFactory {
         {
             AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
             shotComponent.setActorContainer(actorContainer);
-            Weapon weapon = new BasicGun();
+    //        Weapon weapon = new BasicGun();
             shotComponent.setWeapon(weapon);
             shotComponent.setShotInterval(this.basicEnemyShotInterval);
             weapon.setActorFactory(actorFactory);

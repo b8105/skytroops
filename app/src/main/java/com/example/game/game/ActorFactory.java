@@ -3,6 +3,7 @@ package com.example.game.game;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PointF;
 
 import com.example.game.observation.BossEnemyDeadSubject;
 import com.example.game.actor.enemy_plane.BossEnemyPlane;
@@ -35,6 +36,7 @@ import com.example.game.render.render_component.SpriteRenderComponent;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.ui.UIChangeBullePanel;
 import com.example.game.weapon.AnyWayGun;
+import com.example.game.weapon.BasicGun;
 import com.example.game.weapon.Weapon;
 
 import java.util.ArrayList;
@@ -109,11 +111,16 @@ public class ActorFactory {
         actor.addComponent(spriteRenderComponent);
         actor.addComponent(hpBarRenderComponent);
 
-        actor.initialize();
+
+
+        weapon.setPosition(new PointF(
+                spriteRenderComponent.getBitmapSize().x * 0.5f,0.0f
+        ));
 
         float bitmapHalfSizeX = spriteRenderComponent.getBitmapSize().x * 0.5f;
         float bitmapHalfSizeY = spriteRenderComponent.getBitmapSize().y * 0.5f;
         actor.setPosition(positionX - bitmapHalfSizeX, positionY - bitmapHalfSizeY);
+        actor.initialize();
         return actor;
     }
 
@@ -127,6 +134,7 @@ public class ActorFactory {
         collisionable.setCollisionRectSizeOffset(-bulletCollisionRectSizeDecrease);
 
         Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.bullet01);
+        bitmap = Bitmap.createScaledBitmap(bitmap, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y, false);
         spriteRenderComponent.setBitmap(bitmap);
 
         // add
@@ -182,6 +190,8 @@ public class ActorFactory {
                 actor = new EnemyPlane(actorContainer, tag);
                 actor.resetHp(2);
         } // switch
+        Weapon weapon = new BasicGun();
+        actor.setWeapon(weapon);
 
         actor.setActorType(ActorType.Plane);
         actor.setGameScorer(this.gameSystem.getGameScorer());
@@ -192,31 +202,31 @@ public class ActorFactory {
         switch (enemyPlaneType){
             case Basic:
                 actionComponent = this.componentFactory.createBasicPlaneActionComponent(
-                        actionLayer, this,this.actorContainer);
+                        actionLayer, this,this.actorContainer,weapon );
                 break;
             case Weak:
                 actionComponent = this.componentFactory.createWeakPlaneActionComponent(
-                        actionLayer, this,this.actorContainer);
+                        actionLayer, this,this.actorContainer,weapon );
                 break;
             case Strong:
                 actionComponent = this.componentFactory.createStrongPlaneActionComponent(
-                        actionLayer, this,this.actorContainer);
+                        actionLayer, this,this.actorContainer,weapon );
                 break;
             case Commander:
                 actionComponent = this.componentFactory.createBasicPlaneActionComponent(
-                        actionLayer, this,this.actorContainer);
+                        actionLayer, this,this.actorContainer,weapon );
                 break;
             case Follow:
                 actionComponent = this.componentFactory.createFollowPlaneActionComponent(
-                        actionLayer, this,this.actorContainer);
+                        actionLayer, this,this.actorContainer,weapon );
                 break;
             case Boss:
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this,this.actorContainer);
+                        actionLayer, this,this.actorContainer,weapon );
                 break;
             case Boss2:
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this,this.actorContainer);
+                        actionLayer, this,this.actorContainer,weapon );
                 break;
         } // switch
         PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
@@ -274,8 +284,12 @@ public class ActorFactory {
         actor.addComponent(spriteRenderComponent);
         actor.addComponent(hpBarRenderComponent);
 
-        actor.initialize();
+        weapon.setPosition(new PointF(
+                spriteRenderComponent.getBitmapSize().x * 0.5f,0.0f
+        ));
+
         actor.setPosition(positionX, positionY);
+        actor.initialize();
         return actor;
     }
 

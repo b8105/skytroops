@@ -6,6 +6,7 @@ import com.example.game.parameter.HpParameter;
 import com.example.game.effect.EffectEmitter;
 import com.example.game.game.ActorContainer;
 import com.example.game.game.GameScorer;
+import com.example.game.weapon.Weapon;
 
 abstract public class Plane extends Actor
         implements DamageApplicable {
@@ -14,7 +15,7 @@ abstract public class Plane extends Actor
     private HpParameter hpParameter = new HpParameter(1);
     private EffectEmitter scoreEffectEmitter = null;
     private EffectEmitter explosionEffectEmitter = null;
-
+    private Weapon weapon;
     private CommanderEnemyPlane commanderEnemyPlane;
 
     public Plane(ActorContainer actorContainer, String tag) {
@@ -27,6 +28,10 @@ abstract public class Plane extends Actor
 
     public void setScoreEffectEmitter(EffectEmitter scoreEffectEmitter) {
         this.scoreEffectEmitter = scoreEffectEmitter;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
     }
 
     public void setCommanderEnemyPlane(CommanderEnemyPlane commanderEnemyPlane) {
