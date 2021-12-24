@@ -136,11 +136,7 @@ public class ActorFactory {
 
         actor.initialize();
 
-        actor.setPosition(
-                positionX
-                        + (playerBitmapSize * 0.5f)
-                        - (spriteRenderComponent.getBitmapSize().x * 0.5f),
-                positionY);
+        actor.setPosition(positionX, positionY);
         actor.setRotation(rotation);
         return actor;
     }

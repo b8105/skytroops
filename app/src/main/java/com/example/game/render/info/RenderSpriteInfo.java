@@ -10,6 +10,8 @@ public class RenderSpriteInfo {
     public int paintFlag = Paint.ANTI_ALIAS_FLAG;
     public boolean changeAlpha = false;
     int alpha = 255;
+    public boolean center = false;
+
 
     public RenderSpriteInfo() {
     }

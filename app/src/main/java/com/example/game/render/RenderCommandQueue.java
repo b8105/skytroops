@@ -39,6 +39,7 @@ public class RenderCommandQueue {
         for (RenderCommandList list : this.lists) {
             if(debugFlag){
                 if(index == RenderLayerType.Background2DDebug.ordinal() ||
+                    index == RenderLayerType.BasicActorDebugBack.ordinal() ||
                     index == RenderLayerType.BasicActorDebug.ordinal() ||
                       index == RenderLayerType.EffectDebug.ordinal() ||
                       index == RenderLayerType.UIEffectDebug.ordinal() ||

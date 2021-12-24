@@ -44,7 +44,7 @@ abstract public class CollisionComponent implements Collisionable, Component {
     }
 
     public void setCollisionRectSizeOffset(float size) {
-        this.setCollisionRectSizeOffset(size,size);
+        this.setCollisionRectSizeOffset(size, size);
     }
 
     public void setCollisionRectSizeOffset(PointF collisionRectSizeOffset) {
@@ -61,8 +61,12 @@ abstract public class CollisionComponent implements Collisionable, Component {
         PointF expansion = this.getCollisionRectSizeOffset();
         Rectangle rect = new Rectangle(0, 0, sourceRect.width(), sourceRect.height());
 
-        rect.expansion(expansion.x, expansion.y);
         rect.offset((int) position.x, (int) position.y);
+        if (this.spriteRenderComponent.isCenterFlag()) {
+            rect.offset(-rect.getSize().x *0.5f,
+                    -rect.getSize().y * 0.5f);
+        } // if
+        rect.expansion(expansion.x, expansion.y);
         return rect;
     }
 

@@ -20,7 +20,7 @@ public class EnemyPlaneHpBarRenderer extends PlaneHpBarRenderer {
     private Bitmap frame;
     private Bitmap bar;
     private Transform2D transform = null;
-
+    private boolean centerFlag = false;
     public EnemyPlaneHpBarRenderer(PlaneHpBarRenderComponent owner,
                                    Resources resources) {
         this.owner = owner;
@@ -36,6 +36,8 @@ public class EnemyPlaneHpBarRenderer extends PlaneHpBarRenderer {
         );
     }
     private void drawFrame(RenderCommandList out) {
+        RenderSpriteInfo info = new RenderSpriteInfo();
+        info.center  = centerFlag;
         out.drawSprite(frame, this.transform, new RenderSpriteInfo());
     }
     private void drawBar(HpParameter hpParameter,RenderCommandList out) {
@@ -48,6 +50,7 @@ public class EnemyPlaneHpBarRenderer extends PlaneHpBarRenderer {
         rectangle.bottom = size.y;
 
         RenderSpriteInfo info = new RenderSpriteInfo(rectangle);
+        info.center  = centerFlag;
         out.drawSprite(this.bar, this.transform, info);
     }
 

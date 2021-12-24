@@ -27,17 +27,6 @@ public class BulletCollisionComponent
         return CollisionableType.Bullet;
     }
 
-    public Rectangle getCollisionRectangle() {
-        Rect sourceRect = super.getSpriteRenderComponent().getSourceRect();
-        PointF position = super.getOwner().getPosition();
-        PointF expansion = this.getCollisionRectSizeOffset();
-        Rectangle rect = new Rectangle(0, 0, sourceRect.width(), sourceRect.height());
-
-        rect.expansion(expansion.x, expansion.y);
-        rect.offset((int) position.x, (int) position.y);
-        return rect;
-    }
-
     public boolean isCollisionAtEnemy(Collisionable target, CollisionInfo info) {
         EnemyCollisionComponentVisitor visitor = new EnemyCollisionComponentVisitor();
         target.visitorAccept(visitor);
