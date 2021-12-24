@@ -14,8 +14,6 @@ public class EnemySpawnSystem {
     private int currentWaveIndex = 0;
     private boolean active = true;
     private BossEnemySpawner bossEnemySpawner = null;
-    ;
-
 
     List<EnemySpawnData> spawnDataProto = new ArrayList<>();
     List<EnemySpawnData> spawnDataProtoA = new ArrayList<>();

@@ -1,6 +1,10 @@
 package com.example.game.collision.collision_component;
 
 import com.example.game.actor.ActorState;
+import com.example.game.actor.PlaneType;
+import com.example.game.actor.enemy_plane.BossEnemyPlane;
+import com.example.game.actor.enemy_plane.EnemyPlane;
+import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.parameter.damage.Damage;
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
@@ -33,8 +37,21 @@ public class EnemyCollisionComponent
     public Plane getPlaneOwner(){
         return (Plane) super.getOwner();
     }
+    public EnemyPlane getEnemyPlaneOwner(){
+        return (EnemyPlane) super.getOwner();
+    }
 
     public boolean isCollision(Collisionable target, CollisionInfo info) {
+        EnemyPlane enemyPlane =this.getEnemyPlaneOwner();
+        if(enemyPlane != null){
+            if(enemyPlane.getEnemyPlaneType() == EnemyPlaneType.Boss){
+                BossEnemyPlane boss = (BossEnemyPlane)(enemyPlane);
+                if(boss.getInvincibleParameter().isActive()){
+                    return false;
+                } // if
+            } // if
+        } // if
+
         if (target.getCollisionableType() == CollisionableType.Bullet) {
             info.force = 1;
             return this.isCollisionAtBullet(target, info);

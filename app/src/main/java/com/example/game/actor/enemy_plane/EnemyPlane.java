@@ -48,7 +48,7 @@ public class EnemyPlane extends Plane {
                 EffectInfo info = new EffectInfo(
                         EffectType.Score,
                         super.getPosition(),
-                        1.0f
+                        2.0f
                 );
                 scoreEffectEmitter.emit(info);
             }

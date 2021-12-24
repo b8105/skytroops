@@ -12,8 +12,10 @@ public class InvincibleParameter {
         this.time = 1.0f;
         this.invincibleTimer = new StopWatch(this.time );
     }
-    public void setInvincibleTime(float time){
+    public void setInvincibleTime(float time) {
+        this.time = time;
         this.invincibleTimer.reset(time);
+
     }
 
     public boolean isActive() {

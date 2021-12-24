@@ -51,7 +51,7 @@ public class Effect {
         anim.name = "none";
         anim.offsetX = 0;
         anim.offsetY = 0;
-        anim.pattern.add(new SpriteAnimationPartPattern(15, 0,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(100, 0,0));
         anime.add(anim);
         animation.create(anime);
         animation.changeMotion(0);
