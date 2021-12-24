@@ -32,52 +32,61 @@ public class UIChangeBullePanel {
     public UIChangeBullePanel(
             ImageResource imageResource,
             Resources resources,
-            PointF position     ) {
+            PointF position) {
         float x = position.x;
         float y = position.y;
 
-        this. toBasicButton = new UIChangeBulletButton(imageResource,resources,
+        this.toBasicButton = new UIChangeBulletButton(imageResource, resources,
                 R.drawable.bullet01,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
         x += BitmapSizeStatic.bulletButton.x;
         this.toBasicButton.unlock();
 
-        this.toHomingButton= new UIChangeBulletButton (imageResource,resources,
+        this.toHomingButton = new UIChangeBulletButton(imageResource, resources,
                 R.drawable.bullet02,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
         x += BitmapSizeStatic.bulletButton.x;
         this.toHomingButton.lock();
 
-        this. toThreeWayButton= new UIChangeBulletButton(imageResource,resources,
+        this.toThreeWayButton = new UIChangeBulletButton(imageResource, resources,
                 R.drawable.bullet03,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
         this.toThreeWayButton.lock();
 
-
         bulletButtons.add(toBasicButton);
-        bulletButtons.add(toThreeWayButton);
         bulletButtons.add(toHomingButton);
+        bulletButtons.add(toThreeWayButton);
     }
 
-    public void setEvent(Weapon weapon){
+    public void setEvent(Weapon weapon) {
         this.toBasicButton.setTarget(weapon, UIChangeBulletButtonEventType.ToBasic);
         this.toHomingButton.setTarget(weapon, UIChangeBulletButtonEventType.ToHoming);
         this.toThreeWayButton.setTarget(weapon, UIChangeBulletButtonEventType.ToThreeWay);
     }
 
 
-    static public PointF getButtonHalfSizeStatic(){
+    static public PointF getButtonHalfSizeStatic() {
         return new PointF(
                 BitmapSizeStatic.bulletButton.x * 0.5f,
                 BitmapSizeStatic.bulletButton.y * 0.5f);
     }
-    static public PointF getSizeStatic(){
+
+    static public PointF getSizeStatic() {
         return new PointF(
                 BitmapSizeStatic.bulletButton.x * elementCount,
                 BitmapSizeStatic.bulletButton.y);
     }
 
-    public void input(InputEvent input){
+
+
+    public void unlockToHomingButton(){
+        this.toHomingButton.unlock();
+    }
+    public void unlockToThreeWayButton(){
+        this.toBasicButton.unlock();
+    }
+
+    public void input(InputEvent input) {
         if (!input.enable) {
             return;
         } // if
@@ -90,8 +99,8 @@ public class UIChangeBullePanel {
 
         switch (input.actionType) {
             case (MotionEvent.ACTION_DOWN):
-                for(UIChangeBulletButton bulletButton : this.bulletButtons){
-                    if(bulletButton.isLock()){
+                for (UIChangeBulletButton bulletButton : this.bulletButtons) {
+                    if (bulletButton.isLock()) {
                         continue;
                     } // if
                     if (detector.CollisionCircle(bulletButton.getRectangle(), touchCircle)) {
@@ -103,8 +112,9 @@ public class UIChangeBullePanel {
         } // switch
 
     }
-    public void draw (RenderCommandQueue out){
-        for(UIChangeBulletButton bulletButton : this.bulletButtons){
+
+    public void draw(RenderCommandQueue out) {
+        for (UIChangeBulletButton bulletButton : this.bulletButtons) {
             bulletButton.draw(out);
         } // for
     }

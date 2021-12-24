@@ -2,16 +2,19 @@ package com.example.game.action.input.enemy;
 
 import android.graphics.PointF;
 
+import com.example.game.action.action_component.ActionComponent;
 import com.example.game.action.action_component.common.MoveComponent;
 import com.example.game.action.command.MoveCommand;
 import com.example.game.action.input.ActionInput;
 import com.example.game.actor.Actor;
 import com.example.game.actor.enemy_plane.BossEnemyPlane;
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.InputEvent;
 import com.example.game.main.Game;
-import com.example.game.utility.PointFUtilities;
 
-public class AIBossMoveInput implements ActionInput {
+import java.util.AbstractCollection;
+
+public class AIBossTweenMoveInput implements ActionInput {
     private MoveComponent moveComponent;
     private float speed = 10.0f;
     private int moveSequence = 0;
@@ -26,7 +29,6 @@ public class AIBossMoveInput implements ActionInput {
     public void setShotInput(AIShotInput shotInput) {
         this.shotInput = shotInput;
     }
-
     private PointF clacMove() {
         PointF move = new PointF();
 
@@ -39,6 +41,10 @@ public class AIBossMoveInput implements ActionInput {
                 } // if
                 break;
             case 1:
+                move = new PointF(-speed,0.0f );
+                break;
+            case  2:
+                move = new PointF(speed,0.0f );
                 break;
         } // switch
         return move;
@@ -56,6 +62,14 @@ public class AIBossMoveInput implements ActionInput {
                 } // if
                 break;
             case 1:
+                if (position.x < 0.0f) {
+                    this.moveSequence++;
+                } // if
+                break;
+            case 2:
+                if (position.x > Game.getDisplayRealSize().x-BitmapSizeStatic.boss.x)  {
+                    this.moveSequence--;
+                } // if
                 break;
         } // switch
     }

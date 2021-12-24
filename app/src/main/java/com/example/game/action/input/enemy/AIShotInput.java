@@ -15,6 +15,8 @@ public class AIShotInput implements ActionInput {
     private ShotComponent shotComponent;
     private boolean active = false;
     private ActorContainer actorContainer;
+    private boolean targeting = true;
+    private float defaultAngle = 180.0f;
 
     public AIShotInput(ShotComponent shotComponent) {
         this.setShotComponent(shotComponent);
@@ -34,7 +36,13 @@ public class AIShotInput implements ActionInput {
     public void activate(){
          this.active = true;
     }
+    public void inactivate(){
+         this.active = false;
+    }
 
+    public void setTargeting(boolean targeting) {
+        this.targeting = targeting;
+    }
 
     private float clacDirection(final PointF position, final PointF targetPosition) {
         PointF normalize = PointFUtilities.normal(position, targetPosition);
@@ -61,10 +69,14 @@ public class AIShotInput implements ActionInput {
         Actor target = this.actorContainer.getMainChara();
         if(target != null){
             command.fire = true;
-            command.angle = MathUtilities.radianToDegree(this.clacDirection(
-                    this.shotComponent.getOwner().getPosition(),
-                    target.getPosition()));
+            if(this.targeting){
+                command.angle = MathUtilities.radianToDegree(this.clacDirection(
+                        this.shotComponent.getOwner().getPosition(),
+                        target.getPosition()));
+            } // if
+            else{
+                command.angle = defaultAngle;
+            } // else
         } // if
-
     }
 }

@@ -16,17 +16,17 @@ public class BossEnemySpawner {
             case Type01:
                 actorFactory.createEnemy(300,
                         0 - BitmapSizeStatic.boss.y,
-                        ActorTagString.enemy, EnemyPlaneType.Boss);
+                        ActorTagString.enemy, EnemyPlaneType.Boss,stageType);
                 break;
             case Type02:
                 actorFactory.createEnemy(300,
                         0 - BitmapSizeStatic.boss.y,
-                        ActorTagString.enemy, EnemyPlaneType.Boss2);
+                        ActorTagString.enemy, EnemyPlaneType.Boss2,stageType);
                 break;
             case Type03:
                 actorFactory.createEnemy(300,
                         0 - BitmapSizeStatic.boss.y,
-                        ActorTagString.enemy, EnemyPlaneType.Boss3);
+                        ActorTagString.enemy, EnemyPlaneType.Boss3,stageType);
                 break;
         } // switch
     }

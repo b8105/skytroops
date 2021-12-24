@@ -20,14 +20,12 @@ public class TransitionStageExitEvent extends GameEvent {
     private StopWatch existTimer;
     private StopWatch transitionExistTimer;
     private GamePlayScene gamePlayScene;
-    private Stage stage;
     private PlayerPlane player;
     private PointF idealPosiotion = new PointF();
     private GameScorer gameScorer = null;
 
     public TransitionStageExitEvent(
             GamePlayScene gamePlayScene,
-            Stage stage,
             PlayerPlane player,
             PointF idealPosiotion,
             GameScorer gameScorer
@@ -35,7 +33,6 @@ public class TransitionStageExitEvent extends GameEvent {
         this.existTimer = new StopWatch(time);
         this.transitionExistTimer = new StopWatch(time);
         this.gamePlayScene = gamePlayScene;
-        this.stage = stage;
         this.player = player;
         this.idealPosiotion = idealPosiotion;
         this.gameScorer = gameScorer;

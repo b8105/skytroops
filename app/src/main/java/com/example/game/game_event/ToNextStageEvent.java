@@ -12,6 +12,9 @@ import com.example.game.main.Game;
 import com.example.game.parameter.recovery.Recovery;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;
+import com.example.game.stage.Stage;
+import com.example.game.stage.StageType;
+import com.example.game.ui.UIChangeBullePanel;
 import com.example.game.utility.PointFUtilities;
 import com.example.game.utility.StopWatch;
 
@@ -31,7 +34,10 @@ public class ToNextStageEvent extends GameEvent{
     private int recoveryBonus = 5;
 
     public ToNextStageEvent(GamePlayScene gamePlayScene,
-                            ActorContainer actorContainer) {
+                            ActorContainer actorContainer,
+                            Stage stage,
+                            UIChangeBullePanel uiChangeBullePanel
+                            ) {
         this.existTimer = new StopWatch(time);
         this.gamePlayScene = gamePlayScene;
         this.player = actorContainer.getMainChara();
@@ -44,6 +50,15 @@ public class ToNextStageEvent extends GameEvent{
         this.centerPosiotion.x -= BitmapSizeStatic.player.x * 0.5f;
 
         this.player.applyRecovery(new Recovery(this.recoveryBonus) );
+
+
+        StageType stageType =stage.getCurrentType();
+        if(stageType == StageType.Type01){
+            uiChangeBullePanel.unlockToHomingButton();
+        } // if
+        else if(stageType == StageType.Type02){
+            uiChangeBullePanel.unlockToThreeWayButton();
+        } // else if
     }
 
     public void toCenter(){

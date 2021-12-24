@@ -18,7 +18,6 @@ public class EnemySpawnSystem {
     List<EnemySpawnData> spawnDataProto = new ArrayList<>();
     List<EnemySpawnData> spawnDataProtoA = new ArrayList<>();
     List<EnemySpawnData> spawnDataProtoB = new ArrayList<>();
-    List<EnemySpawnData> spawnDataProtoC = new ArrayList<>();
 
     private void constructProtoType() {
         {
@@ -34,20 +33,25 @@ public class EnemySpawnSystem {
                     0.0f, 800.0f));
         }
         {
+            spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Basic,
+                    0.0f, 0.0f));
+            spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Basic,
+                    0.0f, 200.0f));
+            spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Basic,
+                    0.0f, 400.0f));
+            spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Basic,
+                    0.0f, 600.0f));
+            spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Basic,
+                    0.0f, 800.0f));
+
             spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Weak,
-                    0.0f, 100.0f));
+                    1.0f, 100.0f));
             spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Weak,
-                    0.4f, 300.0f));
+                    1.0f, 450.0f));
             spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Weak,
-                    0.8f, 600.0f));
+                    1.0f, 800.0f));
         }
         {
-            spawnDataProtoC.add(new EnemySpawnData(EnemyPlaneType.Weak,
-                    0.0f, 600.0f));
-            spawnDataProtoC.add(new EnemySpawnData(EnemyPlaneType.Weak,
-                    0.4f, 300.0f));
-            spawnDataProtoC.add(new EnemySpawnData(EnemyPlaneType.Weak,
-                    0.8f, 100.0f));
         }
     }
 
@@ -80,13 +84,16 @@ public class EnemySpawnSystem {
     }
 
     private void constructStage02() {
-//        this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
-//        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 2));
-//        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 1));
-//        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 1));
-//        this.waves.add(new EnemySpawnWave(1.5f, spawnDataProtoB, 2));
-//        this.waves.add(new EnemySpawnWave(1.5f, spawnDataProtoC, 2));
-//        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 2));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
     }
 
     private void constructStage03() {
@@ -111,7 +118,7 @@ public class EnemySpawnSystem {
                           StageType type) {
         if (this.currentWaveIndex != this.waves.size()) {
             EnemySpawnWave wave = this.waves.get(this.currentWaveIndex);
-            if (wave.update(deltaTime, actorFactory)) {
+            if (wave.update(deltaTime, actorFactory,type)) {
                 this.currentWaveIndex++;
             } // if
         } // if

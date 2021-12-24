@@ -34,6 +34,7 @@ import com.example.game.render.render_component.PlaneHpBarRenderComponent;
 import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 import com.example.game.render.render_component.SpriteRenderComponent;
 import com.example.game.scene.GamePlayScene;
+import com.example.game.stage.StageType;
 import com.example.game.ui.UIChangeBullePanel;
 import com.example.game.weapon.AnyWayGun;
 import com.example.game.weapon.BasicGun;
@@ -71,11 +72,11 @@ public class ActorFactory {
     public ActorFactory(
             GamePlayScene gamePlayScene,
             Resources resources,
-                        ActorContainer actorContainer,
-                        ComponentExecutor componentExecutor,
-                        GameSystem gameSystem,
-                        UIChangeBullePanel uiChangeBullePanel,
-                        EffectSystem effectSystem) {
+            ActorContainer actorContainer,
+            ComponentExecutor componentExecutor,
+            GameSystem gameSystem,
+            UIChangeBullePanel uiChangeBullePanel,
+            EffectSystem effectSystem) {
         this.gamePlayScene = gamePlayScene;
         this.resources = resources;
         this.actorContainer = actorContainer;
@@ -101,7 +102,7 @@ public class ActorFactory {
                 this.playerBitmapSize, R.drawable.plane1up);
         PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
         hpBarRenderComponent.setHpBarRenderer(new PlayerPlaneHpBarRenderer(hpBarRenderComponent, resources));
-        collisionable.setCollisionRectSizeOffset(-playerCollisionRectSizeDecrease,-playerCollisionRectSizeDecrease);
+        collisionable.setCollisionRectSizeOffset(-playerCollisionRectSizeDecrease, -playerCollisionRectSizeDecrease);
         PlaneActionComponent actionComponent =
                 componentFactory.createPlayerPlaneActionComponent(actionLayer, weapon, this);
 
@@ -112,9 +113,8 @@ public class ActorFactory {
         actor.addComponent(hpBarRenderComponent);
 
 
-
         weapon.setPosition(new PointF(
-                spriteRenderComponent.getBitmapSize().x * 0.5f,0.0f
+                spriteRenderComponent.getBitmapSize().x * 0.5f, 0.0f
         ));
 
         float bitmapHalfSizeX = spriteRenderComponent.getBitmapSize().x * 0.5f;
@@ -172,10 +172,31 @@ public class ActorFactory {
         actor.setRotation(rotation);
         return actor;
     }
-    public EnemyPlane createEnemy(float positionX, float positionY, String tag, EnemyPlaneType enemyPlaneType) {
+
+    private int clacEnemyHp(EnemyPlaneType enemyPlaneType,
+                            StageType stageType) {
+        switch (enemyPlaneType) {
+            case Boss:
+                return 50;
+            case Boss2:
+                return 100;
+            case Boss3:
+                return 510;
+            case Basic:
+                    return stageType.ordinal() + 1;
+            case Weak:
+                return 2 + stageType.ordinal();
+        } // switch
+        return 1;
+    }
+
+    public EnemyPlane createEnemy(
+            float positionX, float positionY,
+            String tag, EnemyPlaneType enemyPlaneType,
+            StageType stageType) {
         EnemyPlane actor = null;
 
-        switch (enemyPlaneType){
+        switch (enemyPlaneType) {
             case Boss:
             case Boss2:
             case Boss3:
@@ -184,58 +205,69 @@ public class ActorFactory {
                 bossEnemyDeadSubject.addObserver(gamePlayScene);
                 temp.setBossEnemyDeadSubject(bossEnemyDeadSubject);
                 actor = temp;
-                actor.resetHp(50);
                 break;
             default:
                 actor = new EnemyPlane(actorContainer, tag);
-                actor.resetHp(1);
         } // switch
-        Weapon weapon = new BasicGun();
-        actor.setWeapon(weapon);
 
+        {
+            int clacedHp = this.clacEnemyHp(enemyPlaneType, stageType);
+            actor.resetHp(clacedHp);
+        }
+
+        Weapon weapon = null;
         actor.setActorType(ActorType.Plane);
         actor.setGameScorer(this.gameSystem.getGameScorer());
         actor.setScoreEffectEmitter(this.effectSystem.getSharedEmitter(EffectType.Score));
         actor.setExplosionEffectEmitter(this.effectSystem.getSharedEmitter(EffectType.Explosion));
 
         PlaneActionComponent actionComponent = null;
-        switch (enemyPlaneType){
+        switch (enemyPlaneType) {
             case Basic:
+                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createBasicPlaneActionComponent(
-                        actionLayer, this,this.actorContainer,weapon );
+                        actionLayer, this, this.actorContainer, weapon,stageType);
                 break;
             case Weak:
+                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createWeakPlaneActionComponent(
-                        actionLayer, this,this.actorContainer,weapon );
+                        actionLayer, this, this.actorContainer, weapon,stageType);
                 break;
             case Strong:
+                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createStrongPlaneActionComponent(
-                        actionLayer, this,this.actorContainer,weapon );
+                        actionLayer, this, this.actorContainer, weapon,stageType);
                 break;
             case Commander:
+                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createBasicPlaneActionComponent(
-                        actionLayer, this,this.actorContainer,weapon );
+                        actionLayer, this, this.actorContainer, weapon,stageType);
                 break;
             case Follow:
+                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createFollowPlaneActionComponent(
-                        actionLayer, this,this.actorContainer,weapon );
+                        actionLayer, this, this.actorContainer, weapon,stageType);
                 break;
             case Boss:
+                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this,this.actorContainer,weapon );
+                        actionLayer, this, this.actorContainer, weapon,stageType);
                 break;
             case Boss2:
+                weapon = new AnyWayGun();
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this,this.actorContainer,weapon );
+                        actionLayer, this, this.actorContainer, weapon,stageType);
                 break;
             case Boss3:
+                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this,this.actorContainer,weapon );
+                        actionLayer, this, this.actorContainer, weapon,stageType);
                 break;
         } // switch
+        actor.setWeapon(weapon);
         PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
         SpriteRenderComponent spriteRenderComponent = null;
-        switch (enemyPlaneType){
+        switch (enemyPlaneType) {
             case Basic:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         enemyBitmapSize, R.drawable.enemy01);
@@ -279,9 +311,6 @@ public class ActorFactory {
         } // switch
 
 
-
-
-
         EnemyCollisionComponent collisionable = new EnemyCollisionComponent(collisionLayer);
 
 
@@ -294,7 +323,7 @@ public class ActorFactory {
         actor.addComponent(hpBarRenderComponent);
 
         weapon.setPosition(new PointF(
-                spriteRenderComponent.getBitmapSize().x * 0.5f,0.0f
+                spriteRenderComponent.getBitmapSize().x * 0.5f, 0.0f
         ));
 
         actor.setPosition(positionX, positionY);
@@ -326,8 +355,8 @@ public class ActorFactory {
     }
 
 
-
-    public void createBulletRequest(float positionX, float positionY, float rotation, BulletType type, String tag) {
+    public void createBulletRequest(float positionX, float positionY,
+                                    float rotation, BulletType type, String tag) {
         Transform2D transform = new Transform2D();
         transform.position.x = positionX;
         transform.position.y = positionY;

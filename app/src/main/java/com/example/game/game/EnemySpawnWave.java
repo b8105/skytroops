@@ -3,10 +3,12 @@ package com.example.game.game;
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.common.BitmapSizeStatic;
+import com.example.game.stage.StageType;
 import com.example.game.utility.StopWatch;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class EnemySpawnWave {
     private StopWatch enemySpawnRate = null;
@@ -22,8 +24,8 @@ public class EnemySpawnWave {
     }
 
 
-    public boolean update(float deltaTime, ActorFactory actorFactory) {
-        this.spawn(actorFactory);
+    public boolean update(float deltaTime, ActorFactory actorFactory, StageType stageType) {
+        this.spawn(actorFactory,stageType);
 
         if (this.enemySpawnRate.tick(deltaTime)) {
             if(this.loopCount == this.loopCountMax){
@@ -38,7 +40,7 @@ public class EnemySpawnWave {
         return false;
     }
 
-    private void spawn(ActorFactory actorFactory) {
+    private void spawn(ActorFactory actorFactory, StageType stageType) {
         int index = this.spawnIndex;
         float y = -BitmapSizeStatic.enemy.y;
 
@@ -47,8 +49,13 @@ public class EnemySpawnWave {
             if (spawnData.time > this.enemySpawnRate.getTime()) {
                 break;
             } // if
-            actorFactory.createEnemy(spawnData.positionX, y,
-                    ActorTagString.enemy, spawnData.type);
+            float offset = 0.0f;
+            if(spawnData.type == EnemyPlaneType.Weak ){
+                offset = new Random().nextInt(100);
+            } // if
+
+            actorFactory.createEnemy(spawnData.positionX + offset, y,
+                    ActorTagString.enemy, spawnData.type,stageType);
         } // for
         this.spawnIndex = index;
     }

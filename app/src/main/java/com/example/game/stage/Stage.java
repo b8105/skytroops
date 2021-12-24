@@ -21,8 +21,8 @@ public class Stage {
 
     StageCollisionComponent component;
     HashMap<StageType, Bitmap> stageTypeBitmapHashMap = null;
-    StageType currentType = StageType.Type00;
-    StageType prevType = StageType.Type00;
+    StageType currentType = StageType.Type01;
+    StageType prevType = StageType.Type01;
 
     public Stage(Point screenSize, ImageResource resources, CollisionLayer layer) {
         this.constructTransform(screenSize);
@@ -30,7 +30,6 @@ public class Stage {
         this.scrollSpeed = 10;
         this.stageTypeBitmapHashMap = new HashMap<>();
 
-        this.stageTypeBitmapHashMap.put(StageType.Type00, resources.getImageResource(ImageResourceType.StageBackground0));
         this.stageTypeBitmapHashMap.put(StageType.Type01, resources.getImageResource(ImageResourceType.StageBackground1));
         this.stageTypeBitmapHashMap.put(StageType.Type02, resources.getImageResource(ImageResourceType.StageBackground2));
         this.stageTypeBitmapHashMap.put(StageType.Type03, resources.getImageResource(ImageResourceType.StageBackground3));
@@ -80,12 +79,6 @@ public class Stage {
         this.background = this.stageTypeBitmapHashMap.get(type);
         this.prevType = currentType;
         this.currentType = type;
-    }
-
-    public void changeTransitionStage() {
-        this.background = this.stageTypeBitmapHashMap.get(StageType.Type00);
-        this.prevType = currentType;
-        this.currentType = StageType.Type00;
     }
 
     public StageType getCurrentType() {

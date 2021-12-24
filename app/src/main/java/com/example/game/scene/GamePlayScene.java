@@ -151,7 +151,11 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
     public void createToNextStageEvent() {
         this.gameEventContainer.addEvent(
                 new ToNextStageEvent(this,
-                        this.actorContainer));
+                        this.actorContainer,
+                        this.stage,
+                        this.uiChangeBullePanel
+
+                        ));
     }
 
     public void createTransitionStageExitEvent(
@@ -159,7 +163,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
             PointF centerPosiotion) {
         this.gameEventContainer.addEvent(
                 new TransitionStageExitEvent(
-                        this, this.stage,
+                        this,
                         player,centerPosiotion,
                         this.getGameSystem().getGameScorer()));
     }

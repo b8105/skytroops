@@ -23,7 +23,7 @@ public class ScoreRenderer {
         transform.position.y = 100;
 
         this.paint = new Paint();
-        this.paint.setColor(Color.GREEN);
+        this.paint.setColor(Color.BLACK);
         this.paint.setTextSize(72);
 
         this.textSize = 72;
