@@ -22,7 +22,7 @@ public class EnemyDestroyedEvent extends GameEvent {
     @Override
     public boolean update(float deltaIime) {
         if (existTimer.tick(deltaIime)) {
-            this.gamePlayScene.createToNextStageEvent();
+            this.gamePlayScene.createStageClearInfoDrawEvent();
             return true;
         } // if
         return false;

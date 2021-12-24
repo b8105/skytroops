@@ -5,9 +5,11 @@ import android.graphics.Point;
 import android.graphics.PointF;
 
 import com.example.game.actor.PlayerPlane;
+import com.example.game.game.GameScorer;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game_event.EnemyDestroyedEvent;
 import com.example.game.game_event.GameEventContainer;
+import com.example.game.game_event.StageClearInfoDrawEvent;
 import com.example.game.game_event.ToNextStageEvent;
 import com.example.game.game_event.TransitionStageEnterEvent;
 import com.example.game.game_event.TransitionStageExitEvent;
@@ -140,6 +142,11 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
                     new EnemyDestroyedEvent(this));
         } // else
     }
+    public void createStageClearInfoDrawEvent() {
+        this.gameEventContainer.addEvent(
+                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer())
+        );
+    }
 
     public void createToNextStageEvent() {
         this.gameEventContainer.addEvent(
@@ -151,8 +158,10 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
             PlayerPlane player,
             PointF centerPosiotion) {
         this.gameEventContainer.addEvent(
-                new TransitionStageExitEvent(this, this.stage,
-                        player,centerPosiotion));
+                new TransitionStageExitEvent(
+                        this, this.stage,
+                        player,centerPosiotion,
+                        this.getGameSystem().getGameScorer()));
     }
 
     public void createTransitionStageEnterEvent() {

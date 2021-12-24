@@ -5,6 +5,7 @@ import android.graphics.PointF;
 
 import com.example.game.actor.PlayerPlane;
 import com.example.game.common.shape.Rectangle;
+import com.example.game.game.GameScorer;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
@@ -22,12 +23,14 @@ public class TransitionStageExitEvent extends GameEvent {
     private Stage stage;
     private PlayerPlane player;
     private PointF idealPosiotion = new PointF();
+    private GameScorer gameScorer = null;
 
     public TransitionStageExitEvent(
             GamePlayScene gamePlayScene,
             Stage stage,
             PlayerPlane player,
-            PointF idealPosiotion
+            PointF idealPosiotion,
+            GameScorer gameScorer
     ) {
         this.existTimer = new StopWatch(time);
         this.transitionExistTimer = new StopWatch(time);
@@ -35,6 +38,7 @@ public class TransitionStageExitEvent extends GameEvent {
         this.stage = stage;
         this.player = player;
         this.idealPosiotion = idealPosiotion;
+        this.gameScorer = gameScorer;
     }
 
     @Override
@@ -42,6 +46,7 @@ public class TransitionStageExitEvent extends GameEvent {
         if (existTimer.tick(deltaIime)) {
             this.gamePlayScene.createTransitionStageEnterEvent();
             this.player.setPosition(this.idealPosiotion);
+            this.gameScorer.resetStageScore();
             return true;
         } // if
 
