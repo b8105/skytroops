@@ -7,7 +7,6 @@ import com.example.game.action.command.ShotCommand;
 import com.example.game.action.input.ActionInput;
 import com.example.game.actor.Actor;
 import com.example.game.common.InputEvent;
-import com.example.game.common.InputTouchType;
 import com.example.game.game.ActorContainer;
 import com.example.game.utility.MathUtilities;
 import com.example.game.utility.PointFUtilities;

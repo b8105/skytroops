@@ -4,10 +4,11 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.PointF;
 
+import com.example.game.game.resource.ImageResource;
 import com.example.game.game_event.EnemyDestroyedEvent;
-import com.example.game.game_event.GameEvent;
 import com.example.game.game_event.GameEventContainer;
 import com.example.game.game_event.ToNextStageEvent;
+import com.example.game.game_event.ToTransitionStageEvent;
 import com.example.game.observation.BossEnemyDeadListener;
 import com.example.game.observation.BossEnemyDeadMessage;
 import com.example.game.DebugRenderer;
@@ -30,6 +31,7 @@ import com.example.game.ui.UIChangeBullePanel;
 
 public class GamePlayScene extends Scene implements BossEnemyDeadListener {
     private SceneTransitionStateMachine transitionStateMachine = null;
+    private ImageResource imageResource = null;
     private GameEventContainer gameEventContainer = null;
     private ActorContainer actorContainer = null;
     private GameSystem gameSystem = null;
@@ -39,15 +41,11 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
     private ActorFactory actorFactory = null;
     private Stage stage = null;
 
-    private int stageCountMax = 2;
-    private int stageCount = 0;
-
-    private boolean bossDestroyed = false;
-
     public GamePlayScene(Game game, Point screenSize) {
         super(game, screenSize);
         Resources resources = game.getResources();
         this.transitionStateMachine = new SceneTransitionStateMachine(game);
+        this.imageResource = new ImageResource(resources, screenSize);
         this.gameEventContainer = new GameEventContainer();
         this.actorContainer = new ActorContainer();
         this.gameSystem = new GameSystem(4.0f);
@@ -72,7 +70,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
     }
 
     void gamePlayConstruct(Game game) {
-        this.stage = new Stage(game.getDefaultDisplayRealSize(), game.getResources(),
+        this.stage = new Stage(game.getDefaultDisplayRealSize(), this.imageResource,
                 this.componentExecutor.getCollisionLayer());
         float x = game.getDefaultDisplayRealSize().x * 0.5f;
         float y = game.getDefaultDisplayRealSize().y * 0.85f;
@@ -97,14 +95,13 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
     void updateSystem(float deltaTime) {
         this.actorFactory.update();
         this.actorContainer.update();
-        this.gameSystem.update(deltaTime, this.stage, this.actorContainer, this.actorFactory, this.stageCount);
+        this.gameSystem.update(deltaTime, this.stage,
+                this.actorContainer, this.actorFactory, this.stage.getCurrentType());
     }
 
     @Override
     public void update(float deltaTime) {
         this.transitionStateMachine.update(deltaTime);
-        if (this.stageCount == this.stageCountMax) {
-        } // if
 
         this.gameEventContainer.update(deltaTime);
         this.updateSystem(deltaTime);
@@ -137,28 +134,27 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
 
     @Override
     public void onNotify(BossEnemyDeadMessage maeeage) {
-        this.gameEventContainer.addEvent(new EnemyDestroyedEvent(this));
+        if (this.stage.getCurrentType() == StageType.Type02) {
+            this.sceneExit();
+        } // if
+        else {
+            this.gameEventContainer.addEvent(
+                    new EnemyDestroyedEvent(this));
+        } // else
+    }
+
+    public void createTransitionStageEvent() {
+        this.gameEventContainer.addEvent(
+                new ToTransitionStageEvent(this, this.stage));
     }
 
     public void createToNextStageEvent() {
-        this.gameEventContainer.addEvent(new ToNextStageEvent(this));
+        this.gameEventContainer.addEvent(
+                new ToNextStageEvent(this.gameSystem, this.stage));
     }
-
 
     public void toNextStage() {
-        this.stageCount++;
-        if (this.stageCount == 0) {
-            this.stage.resetBitmap(this.GetGame().getResources(), StageType.Type01);
-            this.gameSystem.resetSpawnSystem(StageType.Type01);
-        } // if
-        else if (this.stageCount == 1) {
-            this.stage.resetBitmap(this.GetGame().getResources(), StageType.Type02);
-            this.gameSystem.resetSpawnSystem(StageType.Type02);
-        } // if
-        else if (this.stageCount == 2) {
-            this.stage.resetBitmap(this.GetGame().getResources(), StageType.Type03);
-            this.gameSystem.resetSpawnSystem(StageType.Type03);
-        } // if
+        this.stage.changeType(stage.getNextType());
+        this.gameSystem.resetSpawnSystem(stage.getCurrentType());
     }
-
 }

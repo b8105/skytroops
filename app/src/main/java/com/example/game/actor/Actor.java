@@ -1,6 +1,5 @@
 package com.example.game.actor;
 
-import android.content.res.Resources;
 import android.graphics.PointF;
 
 import com.example.game.game.ActorContainer;

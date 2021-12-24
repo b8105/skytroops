@@ -3,9 +3,7 @@ package com.example.game.game;
 import android.graphics.PointF;
 
 import com.example.game.actor.Actor;
-import com.example.game.actor.Plane;
 import com.example.game.actor.enemy_plane.EnemyPlane;
-import com.example.game.game.ActorContainer;
 
 import java.util.List;
 

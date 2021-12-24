@@ -1,9 +1,5 @@
 package com.example.game.game;
 
-import com.example.game.game.ActorContainer;
-import com.example.game.game.ActorFactory;
-import com.example.game.game.EnemySpawnSystem;
-import com.example.game.game.GameLevelController;
 import com.example.game.stage.Stage;
 import com.example.game.stage.StageType;
 
@@ -37,22 +33,10 @@ public class GameSystem {
                        Stage stage,
                        ActorContainer actorContainer,
                        ActorFactory actorFactory,
-                       int currentStage) {
+                       StageType stageType) {
         this.gameLevelController.update(stage, this.enemySpawnSystem);
 
         if(this.enemySpawnSystem.isActive()){
-            StageType stageType = StageType.Type01;
-            if(currentStage == 0){
-                stageType = StageType.Type01;
-            } // if
-            else if(currentStage == 1){
-                stageType = StageType.Type02;
-            } // if
-            else if(currentStage == 2){
-                stageType = StageType.Type03;
-            } // if
-
-            //this.spawnEnd =
             this.enemySpawnSystem.update(deltaTime, actorFactory,stageType);
         } // if
     }

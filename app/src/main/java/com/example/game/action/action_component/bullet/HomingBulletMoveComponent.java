@@ -7,7 +7,6 @@ import com.example.game.game.FindNearestEnemyVisitor;
 import com.example.game.action.ActionLayer;
 import com.example.game.action.action_component.ActionComponent;
 import com.example.game.actor.Actor;
-import com.example.game.actor.bullet.Bullet;
 import com.example.game.component.ComponentType;
 import com.example.game.utility.MathUtilities;
 import com.example.game.utility.PointFUtilities;

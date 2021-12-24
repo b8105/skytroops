@@ -1,7 +1,5 @@
 package com.example.game.actor.bullet;
 
-import android.content.res.Resources;
-
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
 import com.example.game.game.ActorContainer;

@@ -34,6 +34,7 @@ public class EnemySpawnSystem {
     public boolean isActive() {
         return this.active;
     }
+
     public boolean update(float deltaTime, ActorFactory actorFactory,
                           StageType type) {
         if (this.currentWaveIndex != this.waves.size()) {
