@@ -60,11 +60,6 @@ abstract public class Plane extends Actor
         return this.scoreEffectEmitter;
     }
 
-    public void resetHp(int hp) {
-
-        this.hpParameter.resetHp(hp);
-    }
-
     public ActorType getActorType() {
         return ActorType.Plane;
     }
@@ -72,6 +67,15 @@ abstract public class Plane extends Actor
     public HpParameter getHp() {
         return this.hpParameter;
     }
+
+    public Weapon getWeapon() {
+        return this.weapon;
+    }
+
+    public void resetHp(int hp) {
+        this.hpParameter.resetHp(hp);
+    }
+
 
     public void release(ActorContainer actorContainer) {
         super.release(actorContainer);

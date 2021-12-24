@@ -6,6 +6,9 @@ public enum ImageResourceType {
     StageBackground2,
     StageBackground3,
 
-
     BulletLock,
+
+    BulletUpgradeEffect,
+    ExplosionEffect,
+    ScoreEffect,
 }

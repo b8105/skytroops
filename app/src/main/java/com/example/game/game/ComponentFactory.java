@@ -34,6 +34,9 @@ public class ComponentFactory {
     private RenderLayer renderLayer = null;
 
     private float basicEnemyShotInterval = 0.6f;
+    private float weakEnemyShotInterval = 1.5f;
+    private float bossEnemy2ShotInterval = 0.6f;
+
 
     public ComponentFactory(
             Resources resources,
@@ -82,8 +85,7 @@ public class ComponentFactory {
 
     public PlaneActionComponent createPlayerPlaneActionComponent(
             ActionLayer actionLayer,
-            Weapon weapon,
-            ActorFactory actorFactory) {
+            Weapon weapon, ActorFactory actorFactory) {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         PlayerActionInput playerActionInput = new PlayerActionInput();
         actionComponent.setActionInput(playerActionInput);
@@ -106,26 +108,23 @@ public class ComponentFactory {
     }
 
     public PlaneActionComponent createBasicPlaneActionComponent(
-            ActionLayer actionLayer,
-            ActorFactory actorFactory,
-            ActorContainer actorContainer, Weapon weapon, StageType stageType
-    ) {
+            ActionLayer actionLayer, ActorFactory actorFactory,
+            ActorContainer actorContainer, Weapon weapon, StageType stageType) {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
 
-            MoveComponent moveComponent = new MoveComponent(actionComponent);
-            AIStraightMoveInput input = new AIStraightMoveInput();
-            input.setMoveComponent(moveComponent);
-            moveComponent.setActionInput(input);
-            enemyPlaneActionInput.addActionInput(input);
+        MoveComponent moveComponent = new MoveComponent(actionComponent);
+        AIStraightMoveInput input = new AIStraightMoveInput();
+        input.setMoveComponent(moveComponent);
+        moveComponent.setActionInput(input);
+        enemyPlaneActionInput.addActionInput(input);
         return actionComponent;
     }
 
-    public PlaneActionComponent createWeakPlaneActionComponent(ActionLayer actionLayer, ActorFactory actorFactory, ActorContainer actorContainer
-            , Weapon weapon
-            , StageType stageType
-    ) {
+    public PlaneActionComponent createWeakPlaneActionComponent(
+            ActionLayer actionLayer, ActorFactory actorFactory,
+            ActorContainer actorContainer, Weapon weapon, StageType stageType) {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
@@ -136,16 +135,16 @@ public class ComponentFactory {
             AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
             shotComponent.setActorContainer(actorContainer);
             shotComponent.setWeapon(weapon);
-            shotComponent.setShotInterval(1.5f);
+            shotComponent.setShotInterval(this.weakEnemyShotInterval);
             weapon.setActorFactory(actorFactory);
         }
         return actionComponent;
     }
 
 
-    public PlaneActionComponent createFollowPlaneActionComponent(ActionLayer actionLayer, ActorFactory actorFactory, ActorContainer actorContainer, Weapon weapon
-            , StageType stageType
-    ) {
+    public PlaneActionComponent createFollowPlaneActionComponent(
+            ActionLayer actionLayer, ActorFactory actorFactory,
+            ActorContainer actorContainer, Weapon weapon, StageType stageType) {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
@@ -156,7 +155,6 @@ public class ComponentFactory {
         {
             AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
             shotComponent.setActorContainer(actorContainer);
-//            Weapon weapon = new BasicGun();
             shotComponent.setWeapon(weapon);
             shotComponent.setShotInterval(this.basicEnemyShotInterval);
             weapon.setActorFactory(actorFactory);
@@ -165,9 +163,9 @@ public class ComponentFactory {
     }
 
 
-    public PlaneActionComponent createStrongPlaneActionComponent(ActionLayer actionLayer, ActorFactory actorFactory, ActorContainer actorContainer, Weapon weapon
-            , StageType stageType
-    ) {
+    public PlaneActionComponent createStrongPlaneActionComponent(
+            ActionLayer actionLayer, ActorFactory actorFactory,
+            ActorContainer actorContainer, Weapon weapon, StageType stageType) {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
@@ -178,7 +176,6 @@ public class ComponentFactory {
         {
             aiShotInput.setActorContainer(actorContainer);
             aiShotInput.setShotComponent(shotComponent);
-            //        Weapon weapon = new BasicGun();
             shotComponent.setWeapon(weapon);
             shotComponent.setShotInterval(this.basicEnemyShotInterval);
             weapon.setActorFactory(actorFactory);
@@ -211,7 +208,7 @@ public class ComponentFactory {
             ShotComponent shotComponent = new ShotComponent(actionComponent);
             AIShotInput aiShotInput = new AIShotInput(shotComponent);
 
-            if(stageType == StageType.Type01){
+            if (stageType == StageType.Type01) {
                 {
                     AIBossMoveInput input = new AIBossMoveInput();
                     input.setShotInput(aiShotInput);
@@ -231,7 +228,7 @@ public class ComponentFactory {
                     enemyPlaneActionInput.addActionInput(aiShotInput);
                 }
             } // if
-            else if(stageType == StageType.Type02){
+            else if (stageType == StageType.Type02) {
                 {
                     AIBossTweenMoveInput input = new AIBossTweenMoveInput();
                     input.setMoveComponent(moveComponent);
@@ -246,8 +243,7 @@ public class ComponentFactory {
 
                     aiShotInput.setTargeting(false);
                     shotComponent.setWeapon(weapon);
-                    weapon.setShotCount(1);
-                    shotComponent.setShotInterval(0.6f);
+                    shotComponent.setShotInterval(this.bossEnemy2ShotInterval);
                     weapon.setActorFactory(actorFactory);
                     shotComponent.setActionInput(aiShotInput);
                     enemyPlaneActionInput.addActionInput(aiShotInput);

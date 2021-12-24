@@ -12,6 +12,9 @@ abstract public class Weapon {
     private PointF position = new PointF(); // local translation
     private float rotation = 0.0f; // local rotation
     private int shotCount = 0;
+    private float shotPower = 28.0f;
+    private float shotPowerIncremental = 2.0f;
+
 
     public Weapon() {
         this.bulletType = BulletType.Basic;
@@ -33,6 +36,11 @@ abstract public class Weapon {
         return this.shotCount;
     }
 
+    public void incrementShotPower(){
+        this.shotPower += this.shotPowerIncremental;
+    }
+
+
     protected void requestCreateBullet(PointF parentGlobalPosition, float parentGlobalRotation, String tag) {
         float sizeOffsetX = BitmapSizeStatic.bullet.x * 0.5f;
 
@@ -41,7 +49,8 @@ abstract public class Weapon {
                 parentGlobalPosition.y+ position.y,
                 parentGlobalRotation + rotation,
                 this.bulletType,
-                tag);
+                tag,
+                shotPower);
     }
 
     public void setActorFactory(ActorFactory actorFactory) {

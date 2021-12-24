@@ -16,7 +16,7 @@ import java.util.AbstractCollection;
 
 public class AIBossTweenMoveInput implements ActionInput {
     private MoveComponent moveComponent;
-    private float speed = 10.0f;
+    private float speed = 9.0f;
     private int moveSequence = 0;
     private float moveThresholdY = Game.getDisplayRealSize().y * 0.3f;
     private BossEnemyPlane bossEnemyPlane = null;

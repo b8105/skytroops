@@ -54,7 +54,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
         this.actorContainer = new ActorContainer();
         this.gameSystem = new GameSystem(4.0f);
         this.componentExecutor = new ComponentExecutor();
-        this.effectSystem = new EffectSystem(resources);
+        this.effectSystem = new EffectSystem(this.imageResource);
         PointF panelPosition = new PointF(
                 UIChangeBullePanel.getButtonHalfSizeStatic().x,
                 (UIChangeBullePanel.getButtonHalfSizeStatic().y * 4));
@@ -153,9 +153,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
                 new ToNextStageEvent(this,
                         this.actorContainer,
                         this.stage,
-                        this.uiChangeBullePanel
-
-                        ));
+                        this.uiChangeBullePanel));
     }
 
     public void createTransitionStageExitEvent(

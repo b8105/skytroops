@@ -1,12 +1,8 @@
 package com.example.game.effect;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Point;
-
-import com.example.game.R;
-import com.example.game.common.EffectBitmapSizeStatic;
+import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
@@ -17,56 +13,49 @@ import java.util.HashMap;
 import java.util.List;
 
 public class EffectSystem {
+    private HashMap<EffectType, Bitmap> effectBitmap;
+    private HashMap<EffectType, EffectPoolAndEmitTarget> effectPair;
+    private HashMap<EffectType, EffectEmitter> effectEmitter;
+    private HashMap<EffectType, RenderLayerType> effectRenderLayer;
+    private ImageResource resources;
 
-    HashMap<EffectType, Bitmap> effectBitmap;
-    HashMap<EffectType, EffectPoolAndEmitTarget> effectPair;
-    HashMap<EffectType, EffectEmitter> effectEmitter;
-    Resources resources;
-
-    public EffectSystem(Resources resources) {
+    public EffectSystem(ImageResource resources) {
         this.resources = resources;
         this.effectBitmap = new HashMap<>();
         this.effectPair = new HashMap<>();
         this.effectEmitter = new HashMap<>();
+        this.effectRenderLayer = new HashMap<>();
 
         this.generateEffectStruct(EffectType.Score, 10,
-                R.drawable.scores100, EffectBitmapSizeStatic.score);
+                ImageResourceType.ScoreEffect, RenderLayerType.UIEffect);
         this.generateEffectStruct(EffectType.Explosion, 10,
-                R.drawable.explosion, EffectBitmapSizeStatic.explosion);
+                ImageResourceType.ExplosionEffect, RenderLayerType.Effect);
+        this.generateEffectStruct(EffectType.BulletUpgrade, 1,
+                ImageResourceType.BulletUpgradeEffect, RenderLayerType.UIEffect);
     }
 
-    public List<Effect> getEffectList(EffectType effectType){
+    public List<Effect> getEffectList(EffectType effectType) {
         return this.effectPair.get(effectType).effects;
     }
 
-    public RenderLayerType getRenderLayer(EffectType effectType){
-        switch (effectType){
-            case Score:
-                return RenderLayerType.UIEffect;
-            case Explosion:
-                return RenderLayerType.Effect;
-        } // switch
-        return null;
-    }
-
-    private void generateEffectStruct(EffectType effectType, int poolSize,
-                                      int resouceId, int width, int height) {
-        Bitmap bitmap = BitmapFactory.decodeResource(resources, resouceId);
-        bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
-
-        this.effectBitmap.put(effectType, bitmap);
+    private void generateEffectStruct(
+            EffectType effectType, int poolSize,
+            ImageResourceType imageResourceType, RenderLayerType renderLayerType) {
+        this.effectBitmap.put(effectType, this.resources.getImageResource(imageResourceType));
         this.effectPair.put(effectType,
                 new EffectPoolAndEmitTarget(poolSize, effectType));
         this.effectEmitter.put(effectType, new EffectEmitter(
                 this.effectPair.get(effectType).effectPool,
                 this.effectPair.get(effectType).effects
         ));
+
+        this.effectRenderLayer.put(effectType, renderLayerType);
     }
 
-    private void generateEffectStruct(EffectType effectType, int poolSize,
-                                      int resouceId, Point size) {
-        this.generateEffectStruct(effectType, poolSize, resouceId, size.x, size.y);
-    }
+//    private void generateEffectStruct(EffectType effectType, int poolSize,
+//                                      int resouceId, Point size, RenderLayerType renderLayerType) {
+//        this.generateEffectStruct(effectType, poolSize, resouceId, size.x, size.y,renderLayerType);
+//    }
 
     public EffectEmitter getSharedEmitter(EffectType effectType) {
         return this.effectEmitter.get(effectType);
@@ -110,7 +99,7 @@ public class EffectSystem {
                 if (effect.isAnimationEnd()) {
                     continue;
                 } // if
-                RenderCommandList list = out.getRenderCommandList(this.getRenderLayer(key));
+                RenderCommandList list = out.getRenderCommandList(this.effectRenderLayer.get(key));
 
                 RenderSpriteInfo info = new RenderSpriteInfo(effect.getAnimationRect());
                 list.drawSprite(

@@ -4,6 +4,7 @@ import android.graphics.PointF;
 
 import com.example.game.actor.Plane;
 import com.example.game.actor.PlaneType;
+import com.example.game.actor.bullet.Bullet;
 import com.example.game.actor.enemy_plane.EnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.common.BitmapSizeStatic;
@@ -25,7 +26,6 @@ public class HomingBulletMoveComponent extends ActionComponent {
 
     public HomingBulletMoveComponent(ActionLayer layer) {
         super(layer);
-        this.speed = 28.0f;
         this.previsousMove = new PointF(0.0f, -this.speed);
         this.targetSize = new PointF();
     }
@@ -38,9 +38,6 @@ public class HomingBulletMoveComponent extends ActionComponent {
         this.actorContainer = actorContainer;
     }
 
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
     private void clacTargetSize() {
         if(this.target == null){
             return;
@@ -79,6 +76,13 @@ public class HomingBulletMoveComponent extends ActionComponent {
     private PointF moveDefault(float speed) {
         return this.previsousMove;
     }
+
+    @Override
+    public void onComponentInitialize(Actor owner) {
+        super.onComponentInitialize(owner);
+        this.speed = ((Bullet)(super.getOwner())).getAppliedShotSpeed();
+    }
+
 
     @Override
     public void execute(float deltaTime) {

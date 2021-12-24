@@ -48,6 +48,7 @@ public class ActorFactory {
         public Transform2D transform;
         public BulletType type;
         public String tag;
+        public BulletCreateConfig config;
     }
 
     private GamePlayScene gamePlayScene;
@@ -124,8 +125,8 @@ public class ActorFactory {
         return actor;
     }
 
-    public Bullet createBasicBullet(float positionX, float positionY, float rotation, String tag) {
-        Bullet actor = new Bullet(actorContainer, tag);
+    public Bullet createBasicBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
+        Bullet actor = new Bullet(actorContainer, tag,bulletCreateConfig);
         actor.setActorType(ActorType.Bullet);
 
         BasicBulletMoveComponent moveComponent = new BasicBulletMoveComponent(actionLayer);
@@ -149,8 +150,8 @@ public class ActorFactory {
         return actor;
     }
 
-    public Bullet createHomingBullet(float positionX, float positionY, float rotation, String tag) {
-        Bullet actor = new Bullet(actorContainer, tag);
+    public Bullet createHomingBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
+        Bullet actor = new Bullet(actorContainer, tag,bulletCreateConfig);
         actor.setActorType(ActorType.Bullet);
 
         HomingBulletMoveComponent moveComponent = new HomingBulletMoveComponent(actionLayer);
@@ -339,14 +340,16 @@ public class ActorFactory {
                             request.transform.position.x,
                             request.transform.position.y,
                             request.transform.rotation,
-                            request.tag);
+                            request.tag,
+                            request.config);
                     break;
                 case Homing:
                     this.createHomingBullet(
                             request.transform.position.x,
                             request.transform.position.y,
                             request.transform.rotation,
-                            request.tag
+                            request.tag,
+                            request.config
                     );
                     break;
             } // switch
@@ -356,16 +359,20 @@ public class ActorFactory {
 
 
     public void createBulletRequest(float positionX, float positionY,
-                                    float rotation, BulletType type, String tag) {
+                                    float rotation, BulletType type, String tag, float force) {
         Transform2D transform = new Transform2D();
         transform.position.x = positionX;
         transform.position.y = positionY;
         transform.rotation = rotation;
 
+        BulletCreateConfig config = new BulletCreateConfig();
+        config.shotSpeed = force;
+
         BulletCreateRequest bulletCreateRequest = new BulletCreateRequest();
         bulletCreateRequest.transform = transform;
         bulletCreateRequest.type = type;
         bulletCreateRequest.tag = tag;
+        bulletCreateRequest.config = config;
         this.bulletCreateRequest.add(
                 bulletCreateRequest
         );

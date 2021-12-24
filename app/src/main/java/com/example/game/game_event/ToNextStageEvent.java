@@ -103,9 +103,9 @@ public class ToNextStageEvent extends GameEvent{
         } // switch
 
         if (existTimer.tick(deltaIime)) {
+            this.player.getWeapon().incrementShotPower();
             this.planeActionComponent.activate();
             this.planeCollisionComponent.activate();
-
             this.gamePlayScene.createTransitionStageExitEvent(
             this.player,
             this.centerPosiotion);

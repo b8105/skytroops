@@ -5,6 +5,7 @@ import android.graphics.PointF;
 import com.example.game.action.ActionLayer;
 import com.example.game.action.action_component.ActionComponent;
 import com.example.game.actor.Actor;
+import com.example.game.actor.bullet.Bullet;
 import com.example.game.component.ComponentType;
 import com.example.game.utility.PointFUtilities;
 
@@ -13,7 +14,12 @@ public class BasicBulletMoveComponent extends ActionComponent {
 
     public BasicBulletMoveComponent(ActionLayer layer) {
         super(layer);
-        this.speed = 28.0f;
+    }
+
+    @Override
+    public void onComponentInitialize(Actor owner) {
+        super.onComponentInitialize(owner);
+        this.speed = ((Bullet)(super.getOwner())).getAppliedShotSpeed();
     }
 
     @Override
