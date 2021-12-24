@@ -4,11 +4,13 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.PointF;
 
+import com.example.game.actor.PlayerPlane;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game_event.EnemyDestroyedEvent;
 import com.example.game.game_event.GameEventContainer;
 import com.example.game.game_event.ToNextStageEvent;
-import com.example.game.game_event.ToTransitionStageEvent;
+import com.example.game.game_event.TransitionStageEnterEvent;
+import com.example.game.game_event.TransitionStageExitEvent;
 import com.example.game.observation.BossEnemyDeadListener;
 import com.example.game.observation.BossEnemyDeadMessage;
 import com.example.game.DebugRenderer;
@@ -108,14 +110,9 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
         this.stage.update();
         this.componentExecutor.update(deltaTime);
 
-        {
-            if (actorContainer.getMainChara() != null) {
-                actorContainer.getMainChara().getInvincibleParameter().setPlaneSpriteRenderComponent(
-                        actorContainer.getMainChara().getComponent(ComponentType.PlaneSpriteRender)
-                );
-                actorContainer.getMainChara().getInvincibleParameter().update(deltaTime);
-            } // if
-        }
+        for(Actor actor : this.actorContainer.getActors()){
+            actor.update(deltaTime);
+        } // for
 
         this.effectSystem.update(deltaTime);
     }
@@ -143,18 +140,22 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
         } // else
     }
 
-    public void createTransitionStageEvent() {
-        this.gameEventContainer.addEvent(
-                new ToTransitionStageEvent(this, this.stage));
-    }
-
     public void createToNextStageEvent() {
         this.gameEventContainer.addEvent(
-                new ToNextStageEvent(this.gameSystem, this.stage));
+                new ToNextStageEvent(this,
+                        this.actorContainer));
     }
 
-    public void toNextStage() {
-        this.stage.changeType(stage.getNextType());
-        this.gameSystem.resetSpawnSystem(stage.getCurrentType());
+    public void createTransitionStageExitEvent(
+            PlayerPlane player,
+            PointF centerPosiotion) {
+        this.gameEventContainer.addEvent(
+                new TransitionStageExitEvent(this, this.stage,
+                        player,centerPosiotion));
+    }
+
+    public void createTransitionStageEnterEvent() {
+        this.gameEventContainer.addEvent(
+                new TransitionStageEnterEvent(this.gameSystem, this.stage));
     }
 }

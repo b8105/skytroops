@@ -5,6 +5,7 @@ import com.example.game.action.ActionLayer;
 import com.example.game.action.Actionable;
 import com.example.game.actor.Actor;
 import com.example.game.component.Component;
+import com.example.game.component.ComponentType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ abstract public class ActionComponent implements Actionable, Component {
 
     ActionComponent parent = null;
     List<ActionComponent> children = new ArrayList<>();
+    boolean active = true;
 
     public ActionComponent(ActionComponent parent) {
         this.parent = parent;
@@ -36,6 +38,20 @@ abstract public class ActionComponent implements Actionable, Component {
     public ActionInput getActionInput() {
         return this.input;
     }
+
+    public boolean isActive() {
+        return this.active;
+    }
+
+
+    public void activate() {
+        this.active  = true;
+    }
+    public void inactivate() {
+        this.active  = false;
+    }
+
+
 
     @Override
     public void onActionableDestroy() {
@@ -70,6 +86,10 @@ abstract public class ActionComponent implements Actionable, Component {
     }
 
     protected void childrenExecute(float deltaTime) {
+        if(!this.isActive()){
+            return;
+        } // if
+
         for (ActionComponent actionComponent : this.children) {
             actionComponent.execute(deltaTime);
         } // for

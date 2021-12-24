@@ -180,7 +180,6 @@ public class ActorFactory {
             case Boss2:
             case Boss3:
                 BossEnemyPlane temp = new BossEnemyPlane(actorContainer, tag);
-
                 BossEnemyDeadSubject bossEnemyDeadSubject = new BossEnemyDeadSubject();
                 bossEnemyDeadSubject.addObserver(gamePlayScene);
                 temp.setBossEnemyDeadSubject(bossEnemyDeadSubject);
@@ -189,7 +188,7 @@ public class ActorFactory {
                 break;
             default:
                 actor = new EnemyPlane(actorContainer, tag);
-                actor.resetHp(2);
+                actor.resetHp(1);
         } // switch
         Weapon weapon = new BasicGun();
         actor.setWeapon(weapon);

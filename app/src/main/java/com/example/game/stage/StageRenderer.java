@@ -16,21 +16,6 @@ public class StageRenderer {
         this.stage = stage;
     }
 
-    private void drawScroll(RenderCommandQueue out) {
-        RenderCommandList list = out.getRenderCommandList(
-                RenderLayerType.UI);
-        Float scroll = this.stage.getScroll();
-
-        Transform2D drawTransform = new Transform2D();
-        drawTransform.position.x = 700;
-        drawTransform.position.y = 100;
-
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setTextSize(64);
-        list.drawText(scroll.toString(), drawTransform, paint);
-    }
-
     public void execute(RenderCommandQueue out) {
         assert (this.stage != null);
 
@@ -52,6 +37,5 @@ public class StageRenderer {
                     t,
                     new RenderSpriteInfo());
         } // for
-        this.drawScroll(out);
     }
 }

@@ -33,8 +33,6 @@ public class TransitionEnterAction extends TransitionAction {
         RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
         Rectangle rectangle = new Rectangle();
 
-//        TransitionState state = this.stateMachine.getCurrentState();
-//        TransitionAction action = state.getAction();
         StopWatch time = super.getTime();
         float alpha = 255 - (time.getDevidedTime() * 255.0f);
         RenderRectangleInfo info = new RenderRectangleInfo(
@@ -47,6 +45,5 @@ public class TransitionEnterAction extends TransitionAction {
                 rectangle,
                 info
         );
-
     }
 }

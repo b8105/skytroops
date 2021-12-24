@@ -93,16 +93,15 @@ public class Stage {
     }
 
     public StageType getNextType() {
-        if(currentType != StageType.Type00){
-            return StageType.Type00;
-        } // if
-        switch (this.prevType){
+        switch (this.currentType){
             case Type01:
                 return StageType.Type02;
             case Type02:
                 return StageType.Type03;
             case Type03:
-                return StageType.Type00;
+                return StageType.Type04;
+            case Type04:
+                return StageType.Type05;
         } // switch
         return this.currentType;
     }

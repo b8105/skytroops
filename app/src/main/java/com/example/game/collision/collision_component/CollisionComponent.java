@@ -27,6 +27,7 @@ abstract public class CollisionComponent implements Collisionable, Component {
     private Actor owner = null;
     private SpriteRenderComponent spriteRenderComponent = null;
     private PointF collisionRectSizeOffset = new PointF();
+    private boolean active = true;
 
     public CollisionComponent(CollisionLayer layer) {
         this.layer = layer;
@@ -70,6 +71,10 @@ abstract public class CollisionComponent implements Collisionable, Component {
         return rect;
     }
 
+    public boolean isActive() {
+        return this.active;
+    }
+
     protected boolean isCollisionRect(
             Collisionable my,
             Collisionable target,
@@ -99,6 +104,15 @@ abstract public class CollisionComponent implements Collisionable, Component {
     protected PointF getCollisionRectSizeOffset() {
         return this.collisionRectSizeOffset;
     }
+
+
+    public void activate(){
+        this.active = true;
+    }
+    public void inactivate(){
+        this.active = false;
+    }
+
 
     @Override
     public void visitorAccept(BulletCollisionComponentVisitor visitor) {

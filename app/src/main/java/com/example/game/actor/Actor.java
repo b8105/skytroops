@@ -115,6 +115,10 @@ public class Actor {
         } // for
     }
 
+    public void update(float deltaTime){
+    }
+
+
     public void release(ActorContainer actorContainer) {
         for (Component component : this.components) {
             component.onComponentDestory(this);

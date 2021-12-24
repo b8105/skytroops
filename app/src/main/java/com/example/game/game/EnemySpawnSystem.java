@@ -67,12 +67,18 @@ public class EnemySpawnSystem {
             case Type03:
                 this.constructStage03();
                 break;
+            case Type04:
+                this.constructStage04();
+                break;
+            case Type05:
+                this.constructStage05();
+                break;
         } // switch
     }
 
     private void constructStage01() {
-        //this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
-        //this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 10));
+        this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 5));
     }
 
     private void constructStage02() {
@@ -86,6 +92,15 @@ public class EnemySpawnSystem {
     }
 
     private void constructStage03() {
+//        this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
+//        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 2));
+    }
+
+    private void constructStage04() {
+//        this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
+//        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 2));
+    }
+    private void constructStage05() {
 //        this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
 //        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 2));
     }

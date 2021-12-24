@@ -30,6 +30,7 @@ public class PlaneCollisionComponent
         return (Plane) super.getOwner();
     }
 
+
     public boolean isCollisionAtBullet(Collisionable target, CollisionInfo info) {
         BulletCollisionComponentVisitor visitor = new BulletCollisionComponentVisitor();
         target.visitorAccept(visitor);
@@ -54,8 +55,11 @@ public class PlaneCollisionComponent
     }
 
     public boolean isCollision(Collisionable target, CollisionInfo info) {
-        boolean activeInvincible = ((PlayerPlane) (super.getOwner())).getInvincibleParameter().isActive();
+        if(!super.isActive()){
+            return false;
+        } // if
 
+        boolean activeInvincible = ((PlayerPlane) (super.getOwner())).getInvincibleParameter().isActive();
         if (!activeInvincible) {
             if (target.getCollisionableType() == CollisionableType.Bullet) {
                 info.force = 1;
