@@ -6,6 +6,8 @@ import android.graphics.PointF;
 
 import com.example.game.R;
 import com.example.game.actor.bullet.BulletType;
+import com.example.game.common.BitmapSizeStatic;
+import com.example.game.game.resource.ImageResource;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.weapon.Weapon;
 
@@ -20,18 +22,24 @@ public class UIChangeBulletButton extends UIButton {
     private final int singleShotCount = 0;
     private final int threeWayCount = 1;
     private UILabel background;
+    private UILabel lockBitmap;
+    private boolean lockFlag = false;
 
-    public UIChangeBulletButton(Resources resources, int id, PointF position, Point size) {
-        super(resources, id, position, size);
+    public UIChangeBulletButton(
+            ImageResource imageResource,Resources resources, int id, PointF position, Point size) {
+        super(imageResource,resources, id, position, size);
 
         this.background = new UILabel(
-                resources, R.drawable.boxbackground, position, size
+                imageResource,  resources, R.drawable.boxbackground, position, size
+        );
+        this.lockBitmap = new UILabel(
+                imageResource,  resources, R.drawable.lock, position, BitmapSizeStatic.buttonLock
         );
     }
 
-    public UIChangeBulletButton(Resources resources, int id, PointF position, Point size,
+    public UIChangeBulletButton(ImageResource imageResource,Resources resources, int id, PointF position, Point size,
                                 Weapon weapon, UIChangeBulletButtonEventType type) {
-        super(resources, id, position, size);
+        super(imageResource,resources, id, position, size);
         this.setTarget(weapon, type);
     }
 
@@ -39,6 +47,18 @@ public class UIChangeBulletButton extends UIButton {
         this.weapon = weapon;
         this.type = type;
     }
+
+    public boolean isLock() {
+        return this.lockFlag;
+    }
+
+    public void lock(){
+        this.lockFlag = true;
+    }
+    public void unlock(){
+        this.lockFlag = false;
+    }
+
 
     @Override
     public void onTouch() {
@@ -63,5 +83,9 @@ public class UIChangeBulletButton extends UIButton {
     public void draw(RenderCommandQueue out) {
         this.background.draw(out);
         super.draw(out);
+
+        if(this.lockFlag){
+            this.lockBitmap.draw(out);
+        } // if
     }
 }

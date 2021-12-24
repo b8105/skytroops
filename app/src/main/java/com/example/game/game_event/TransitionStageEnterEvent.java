@@ -41,7 +41,7 @@ public class TransitionStageEnterEvent extends GameEvent {
 
     @Override
     public void draw(RenderCommandQueue out) {
-        RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
+        RenderCommandList list = out.getRenderCommandList(RenderLayerType.Blackout);
         Rectangle rectangle = new Rectangle();
 
         StopWatch time = this.existTimer;

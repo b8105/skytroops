@@ -42,6 +42,8 @@ abstract public class Plane extends Actor
         this.explosionEffectEmitter = explosionEffectEmitter;
     }
 
+    public abstract PlaneType getPlaneType();
+
     public GameScorer getGameScorer() {
         return this.gameScorer;
     }

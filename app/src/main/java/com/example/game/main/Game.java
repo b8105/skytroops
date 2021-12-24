@@ -17,6 +17,7 @@ import com.example.game.common.InputTouchType;
 import com.example.game.common.Transform2D;
 import com.example.game.common.shape.Circle;
 import com.example.game.game.GameScorer;
+import com.example.game.game.resource.ImageResource;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GameOverScene;
 import com.example.game.scene.GamePlayScene;
@@ -47,6 +48,7 @@ public class Game extends SurfaceView implements Runnable {
     //! system
     private InputEvent inputEvent = new InputEvent();
     private RenderCommandQueue renderCommandQueue;
+    private ImageResource imageResource;
 
     //! scene
     private Scene currentScene = null;
@@ -111,13 +113,15 @@ public class Game extends SurfaceView implements Runnable {
 
         this.start();
         renderCommandQueue = new RenderCommandQueue();
+        imageResource = new ImageResource(this.getResources(), this.getDefaultDisplayRealSize());
         currentScene = new TitleScene(this, this.getDefaultDisplayRealSize());
 
         debugSwitch = new UIButton(
+                imageResource,
                 super.getResources(),
                 R.drawable.restartbtn,
-                new PointF(900.0f,30.0f),
-                new Point(32,32));
+                new PointF(900.0f, 30.0f),
+                new Point(32, 32));
 
         try {
             this.load();
@@ -175,7 +179,7 @@ public class Game extends SurfaceView implements Runnable {
             case (MotionEvent.ACTION_DOWN):
                 enableTouch = true;
 
-                if(debugSwitch.containCircle(new Circle(event.getX(),event.getY(),4))){
+                if (debugSwitch.containCircle(new Circle(event.getX(), event.getY(), 4))) {
                     this.debugFlag = !this.debugFlag;
                 } // if
             case (MotionEvent.ACTION_MOVE):
@@ -199,11 +203,11 @@ public class Game extends SurfaceView implements Runnable {
         } // if
         else if (this.scene == 1) {
             this.currentScene = null;
-            this.currentScene = new GamePlayScene(this, this.getDefaultDisplayRealSize());
+            this.currentScene = new GamePlayScene(this, this.imageResource, this.getDefaultDisplayRealSize());
         } // if
         else if (this.scene == 2) {
             int score = ((GamePlayScene) this.currentScene).getGameSystem().getGameScorer().getGameScore();
-            GameOverScene gameOverScene = new GameOverScene(this, this.getDefaultDisplayRealSize());
+            GameOverScene gameOverScene = new GameOverScene(this, this.imageResource, this.getDefaultDisplayRealSize());
             gameOverScene.setGameScorerValue(score);
             this.currentScene = null;
             this.currentScene = gameOverScene;
@@ -278,7 +282,7 @@ public class Game extends SurfaceView implements Runnable {
             currentScene.draw(renderCommandQueue);
         } // if
 
-        if(!this.debugFlag){
+        if (!this.debugFlag) {
             debugSwitch.draw(renderCommandQueue);
         } // if
 

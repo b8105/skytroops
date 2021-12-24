@@ -43,20 +43,21 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
     private ActorFactory actorFactory = null;
     private Stage stage = null;
 
-    public GamePlayScene(Game game, Point screenSize) {
+    public GamePlayScene(Game game, ImageResource imageResource, Point screenSize) {
         super(game, screenSize);
         Resources resources = game.getResources();
         this.transitionStateMachine = new SceneTransitionStateMachine(game);
-        this.imageResource = new ImageResource(resources, screenSize);
+        this.imageResource = imageResource;
         this.gameEventContainer = new GameEventContainer();
         this.actorContainer = new ActorContainer();
         this.gameSystem = new GameSystem(4.0f);
         this.componentExecutor = new ComponentExecutor();
         this.effectSystem = new EffectSystem(resources);
         PointF panelPosition = new PointF(
-                screenSize.x - UIChangeBullePanel.getSizeStatic().x + UIChangeBullePanel.getButtonHalfSizeStatic().x,
-                screenSize.y - UIChangeBullePanel.getSizeStatic().y + UIChangeBullePanel.getButtonHalfSizeStatic().y);
+                UIChangeBullePanel.getButtonHalfSizeStatic().x,
+                UIChangeBullePanel.getButtonHalfSizeStatic().y * 3);
         this.uiChangeBullePanel = new UIChangeBullePanel(
+                this.imageResource,
                 resources,
                 panelPosition);
         this.actorFactory = new ActorFactory(this,

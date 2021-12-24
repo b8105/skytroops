@@ -7,8 +7,10 @@ import android.view.MotionEvent;
 
 import com.example.game.R;
 import com.example.game.collision.detector.RectangleCollisionDetector;
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.InputEvent;
 import com.example.game.common.shape.Circle;
+import com.example.game.game.resource.ImageResource;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.transition_state.TransitionStateType;
 import com.example.game.weapon.Weapon;
@@ -25,28 +27,31 @@ public class UIChangeBullePanel {
     private UIChangeBulletButton toBasicButton;
     private UIChangeBulletButton toThreeWayButton;
     private UIChangeBulletButton toHomingButton;
-    static private Point buttonSize = new Point(86 * 2,86 * 2) ;
     static private int elementCount = 3;
 
     public UIChangeBullePanel(
+            ImageResource imageResource,
             Resources resources,
             PointF position     ) {
         float x = position.x;
         float y = position.y;
 
-        this. toBasicButton = new UIChangeBulletButton(resources,
+        this. toBasicButton = new UIChangeBulletButton(imageResource,resources,
                 R.drawable.bullet01,
-                new PointF(x, y), buttonSize);
-        x += buttonSize.x;
+                new PointF(x, y), BitmapSizeStatic.bulletButton);
+        x += BitmapSizeStatic.bulletButton.x;
+        this.toBasicButton.unlock();
 
-        this.toHomingButton= new UIChangeBulletButton (resources,
+        this.toHomingButton= new UIChangeBulletButton (imageResource,resources,
                 R.drawable.bullet02,
-                new PointF(x, y), buttonSize);
-        x += buttonSize.x;
+                new PointF(x, y), BitmapSizeStatic.bulletButton);
+        x += BitmapSizeStatic.bulletButton.x;
+        this.toHomingButton.lock();
 
-        this. toThreeWayButton= new UIChangeBulletButton(resources,
+        this. toThreeWayButton= new UIChangeBulletButton(imageResource,resources,
                 R.drawable.bullet03,
-                new PointF(x, y), buttonSize);
+                new PointF(x, y), BitmapSizeStatic.bulletButton);
+        this.toThreeWayButton.lock();
 
 
         bulletButtons.add(toBasicButton);
@@ -63,13 +68,13 @@ public class UIChangeBullePanel {
 
     static public PointF getButtonHalfSizeStatic(){
         return new PointF(
-                buttonSize.x * 0.5f,
-                buttonSize.y * 0.5f);
+                BitmapSizeStatic.bulletButton.x * 0.5f,
+                BitmapSizeStatic.bulletButton.y * 0.5f);
     }
     static public PointF getSizeStatic(){
         return new PointF(
-                buttonSize.x * elementCount,
-                buttonSize.y);
+                BitmapSizeStatic.bulletButton.x * elementCount,
+                BitmapSizeStatic.bulletButton.y);
     }
 
     public void input(InputEvent input){
@@ -86,6 +91,9 @@ public class UIChangeBullePanel {
         switch (input.actionType) {
             case (MotionEvent.ACTION_DOWN):
                 for(UIChangeBulletButton bulletButton : this.bulletButtons){
+                    if(bulletButton.isLock()){
+                        continue;
+                    } // if
                     if (detector.CollisionCircle(bulletButton.getRectangle(), touchCircle)) {
                         bulletButton.onTouch();
                     } // if

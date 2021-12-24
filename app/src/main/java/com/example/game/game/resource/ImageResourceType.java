@@ -5,4 +5,7 @@ public enum ImageResourceType {
     StageBackground1,
     StageBackground2,
     StageBackground3,
+
+
+    BulletLock,
 }

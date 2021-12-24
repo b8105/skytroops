@@ -2,6 +2,11 @@ package com.example.game.action.action_component.bullet;
 
 import android.graphics.PointF;
 
+import com.example.game.actor.Plane;
+import com.example.game.actor.PlaneType;
+import com.example.game.actor.enemy_plane.EnemyPlane;
+import com.example.game.actor.enemy_plane.EnemyPlaneType;
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.game.ActorContainer;
 import com.example.game.game.FindNearestEnemyVisitor;
 import com.example.game.action.ActionLayer;
@@ -14,13 +19,15 @@ import com.example.game.utility.PointFUtilities;
 public class HomingBulletMoveComponent extends ActionComponent {
     private float speed = 0.0f;
     private ActorContainer actorContainer;
-    private Actor target;
+    private Plane target;
     private PointF previsousMove;
+    private PointF targetSize;
 
     public HomingBulletMoveComponent(ActionLayer layer) {
         super(layer);
         this.speed = 28.0f;
         this.previsousMove = new PointF(0.0f, -this.speed);
+        this.targetSize = new PointF();
     }
 
     public void setOwner(Actor owner) {
@@ -34,8 +41,23 @@ public class HomingBulletMoveComponent extends ActionComponent {
     public void setSpeed(float speed) {
         this.speed = speed;
     }
-
-    void clacTarget() {
+    private void clacTargetSize() {
+        if(this.target == null){
+            return;
+        } // if
+        if(this.target.getPlaneType() == PlaneType.Enemy){
+            EnemyPlane enemy = ((EnemyPlane)(this.target));
+            if(enemy.getEnemyPlaneType() == EnemyPlaneType.Boss){
+                this.targetSize.x = BitmapSizeStatic.boss.x;
+                this.targetSize.y = BitmapSizeStatic.boss.y;
+            } // if
+            else{
+                this.targetSize.x = BitmapSizeStatic.enemy.x;
+                this.targetSize.y = BitmapSizeStatic.enemy.y;
+            } // else
+        } // if
+    }
+    private void clacTarget() {
         assert (this.actorContainer != null);
         FindNearestEnemyVisitor visitor = new FindNearestEnemyVisitor(
                 getOwner().getPosition()
@@ -45,7 +67,10 @@ public class HomingBulletMoveComponent extends ActionComponent {
     }
 
     private PointF moveHoming(float speed, final PointF position, final PointF targetPosition) {
-        PointF normalize = PointFUtilities.normal(position, targetPosition);
+        PointF normalize = PointFUtilities.normal(position,
+                new PointF(
+                        targetPosition.x + this.targetSize.x * 0.5f - BitmapSizeStatic.bullet.x * 0.5f,
+                        targetPosition.y + this.targetSize.y* 0.5f));
         return new PointF(
                 normalize.x * speed,
                 normalize.y * speed);
@@ -58,6 +83,7 @@ public class HomingBulletMoveComponent extends ActionComponent {
     @Override
     public void execute(float deltaTime) {
         this.clacTarget();
+        this.clacTargetSize();
         Actor owner = super.getOwner();
 
         PointF position = this.getOwner().getPosition();

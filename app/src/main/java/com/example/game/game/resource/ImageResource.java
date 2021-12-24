@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 
 import com.example.game.R;
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.game.resource.ImageResourceType;
 
 import java.util.HashMap;
@@ -18,6 +19,13 @@ public class ImageResource {
         this.resources = resources;
         this.imageResourceTypeBitmapHashMap = new HashMap<>();
         this.constructStageBackground(screenSize);
+
+
+        HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
+
+        hash.put(ImageResourceType.BulletLock,
+                this.createScaledBitmap(R.drawable.lock, BitmapSizeStatic. buttonLock.x, BitmapSizeStatic.buttonLock.y));
+
     }
     private void constructStageBackground( Point screenSize){
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
@@ -30,7 +38,6 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.background02, screenSize.x, screenSize.y));
         hash.put(ImageResourceType.StageBackground3,
                 this.createScaledBitmap(R.drawable.background03, screenSize.x, screenSize.y));
-
     }
 
 

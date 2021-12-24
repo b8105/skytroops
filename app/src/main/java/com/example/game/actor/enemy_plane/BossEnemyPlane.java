@@ -26,6 +26,10 @@ public class BossEnemyPlane extends EnemyPlane {
         assert (super.getTag().equals(ActorTagString.enemy));
         actorContainer.setBossEnemy(this);
     }
+    public EnemyPlaneType getEnemyPlaneType(){
+        return EnemyPlaneType.Boss;
+    }
+
 
     public void release(ActorContainer actorContainer) {
         super.release(actorContainer);

@@ -12,5 +12,6 @@ public enum RenderLayerType {
     UIEffectDebug,
     UI,
     UIDebug,
+    Blackout,
     CountMax
 };

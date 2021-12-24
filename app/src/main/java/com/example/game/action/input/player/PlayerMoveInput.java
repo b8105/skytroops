@@ -67,7 +67,7 @@ public class PlayerMoveInput implements ActionInput {
 
 
         out.speed.x = diffX;
-        out.speed.y = diffY;
+        //out.speed.y = diffY;
 
         this.prevPosition.x = touchX;
         this.prevPosition.y = touchY;

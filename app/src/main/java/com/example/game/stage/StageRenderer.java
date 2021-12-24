@@ -12,8 +12,26 @@ import com.example.game.render.info.RenderSpriteInfo;
 
 public class StageRenderer {
     private Stage stage = null;
+    private Paint paint;
+    private int textSize = 32;
+    Transform2D textTransform = new Transform2D();
+
     public StageRenderer(Stage stage) {
         this.stage = stage;
+        this.paint = new Paint();
+        Transform2D textTransform = new Transform2D();
+        this.textTransform.position.x = this.textSize;
+        this.textTransform.position.y = this.textSize;
+    }
+
+    private void drawStageType(RenderCommandQueue out) {
+        RenderCommandList list = out.getRenderCommandList(
+                RenderLayerType.UI);
+        this.paint.setTextSize(this.textSize);
+        {
+            String text = "stage no : " + stage.getCurrentType().ordinal();
+            list.drawText(text, this.textTransform, this.paint);
+        }
     }
 
     public void execute(RenderCommandQueue out) {
@@ -37,5 +55,7 @@ public class StageRenderer {
                     t,
                     new RenderSpriteInfo());
         } // for
+
+        this.drawStageType(out);
     }
 }

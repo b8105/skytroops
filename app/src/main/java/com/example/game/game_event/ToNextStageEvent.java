@@ -9,6 +9,7 @@ import com.example.game.common.BitmapSizeStatic;
 import com.example.game.component.ComponentType;
 import com.example.game.game.ActorContainer;
 import com.example.game.main.Game;
+import com.example.game.parameter.recovery.Recovery;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.utility.PointFUtilities;
@@ -27,6 +28,8 @@ public class ToNextStageEvent extends GameEvent{
     private int moveSequence = 0;
     private PointF centerPosiotion = new PointF();
 
+    private int recoveryBonus = 5;
+
     public ToNextStageEvent(GamePlayScene gamePlayScene,
                             ActorContainer actorContainer) {
         this.existTimer = new StopWatch(time);
@@ -39,6 +42,8 @@ public class ToNextStageEvent extends GameEvent{
         this.centerPosiotion.x = Game.getDisplayRealSize().x * 0.5f;
         this.centerPosiotion.y = Game.getDisplayRealSize().y * 0.8f;
         this.centerPosiotion.x -= BitmapSizeStatic.player.x * 0.5f;
+
+        this.player.applyRecovery(new Recovery(this.recoveryBonus) );
     }
 
     public void toCenter(){

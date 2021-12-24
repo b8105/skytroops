@@ -11,7 +11,7 @@ import com.example.game.utility.StopWatch;
 
 public class ShotComponent extends ActionComponent {
     private ShotCommand command = null;
-    private StopWatch shotTime = new StopWatch(0.2f);
+    private StopWatch shotTime = new StopWatch(0.16f);
     private Weapon weapon;
 
     public ShotComponent(ActionComponent actionComponent) {

@@ -1,5 +1,6 @@
 package com.example.game.actor.enemy_plane;
 
+import com.example.game.actor.PlaneType;
 import com.example.game.parameter.damage.Damage;
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.Plane;
@@ -15,6 +16,15 @@ public class EnemyPlane extends Plane {
         super(actorContainer, tag);
         assert (super.getTag().equals(ActorTagString.enemy));
         actorContainer.addEnemyPlane(this);
+    }
+
+    @Override
+    public PlaneType getPlaneType() {
+        return PlaneType.Enemy;
+    }
+
+    public EnemyPlaneType getEnemyPlaneType(){
+        return EnemyPlaneType.Basic;
     }
 
     public void release(ActorContainer actorContainer) {

@@ -26,6 +26,8 @@ public class PlayerPlaneHpBarRenderer extends PlaneHpBarRenderer {
         this.bar = super.constructBitmap(resources, R.drawable.playerhealthbar,
                 BitmapSizeStatic.playerHpBar);
         this.transform = new Transform2D();
+        this.transform.position.x = 0.0f;
+        this.transform.position.y = BitmapSizeStatic.playerHpBar.y * 0.5f;
     }
 
     public Point getSize(){
@@ -48,16 +50,8 @@ public class PlayerPlaneHpBarRenderer extends PlaneHpBarRenderer {
         out.drawSprite(this.bar, this.transform,info);
     }
 
-    public void clacPosition() {
-        if (this.owner != null) {
-            this.transform.position.x = 0.0f;
-            this.transform.position.y = 200.0f;
-        } // if
-    }
-
     public void execute(HpParameter hpParameter, RenderCommandQueue out) {
         RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
-        this.clacPosition();
         this.drawBar(hpParameter,list);
     }
 }

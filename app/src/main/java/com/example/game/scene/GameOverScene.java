@@ -9,6 +9,7 @@ import android.graphics.PointF;
 import android.view.MotionEvent;
 
 import com.example.game.R;
+import com.example.game.game.resource.ImageResource;
 import com.example.game.ui.UIButton;
 import com.example.game.collision.detector.RectangleCollisionDetector;
 import com.example.game.common.InputEvent;
@@ -36,12 +37,13 @@ public class GameOverScene extends Scene {
     private Game game;
     private int gameScorer;
 
-    public GameOverScene(Game game, Point screenSize) {
+    public GameOverScene(Game game, ImageResource imageResource, Point screenSize) {
         super(game, screenSize);
         this.game = game;
         this.transitionStateMachine = new SceneTransitionStateMachine(game);
 
         startButton = new UIButton(
+                imageResource,
                 game.getResources(), R.drawable.restartbtn,
                 new PointF(screenSize.x * 0.5f, screenSize.y * 0.5f),
                 new Point(450, 150)
