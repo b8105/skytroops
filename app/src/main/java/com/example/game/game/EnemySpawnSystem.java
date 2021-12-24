@@ -17,25 +17,25 @@ public class EnemySpawnSystem {
     public EnemySpawnSystem(StageType type) {
         this.waves = new ArrayList<EnemySpawnWave>();
 
-        List<EnemySpawnData> spawnDataList = new ArrayList<>();
-        spawnDataList.add(new EnemySpawnData(EnemyPlaneType.Strong,
-                0.0f, 200.0f));
-        spawnDataList.add(new EnemySpawnData(EnemyPlaneType.Basic,
-                1.0f, 300.0f));
-        spawnDataList.add(new EnemySpawnData(EnemyPlaneType.Strong,
-                3.0f, 600.0f));
+        {
+            List<EnemySpawnData> spawnDataList = new ArrayList<>();
+            this.waves.add(new EnemySpawnWave(1.0f, spawnDataList, 0));
+        }
+        {
+            List<EnemySpawnData> spawnDataList = new ArrayList<>();
+            spawnDataList.add(new EnemySpawnData(EnemyPlaneType.Basic,
+                    0.0f, 0.0f));
+            spawnDataList.add(new EnemySpawnData(EnemyPlaneType.Basic,
+                    0.0f, 200.0f));
+            spawnDataList.add(new EnemySpawnData(EnemyPlaneType.Basic,
+                    0.0f, 400.0f));
+            spawnDataList.add(new EnemySpawnData(EnemyPlaneType.Basic,
+                    0.0f, 600.0f));
+            spawnDataList.add(new EnemySpawnData(EnemyPlaneType.Basic,
+                    0.0f, 800.0f));
+            this.waves.add(new EnemySpawnWave(2.0f, spawnDataList, 10));
+        }
 
-        switch (type) {
-            case Type01:
-                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.B, 4.0f, spawnDataList, 2));
-                break;
-            case Type02:
-                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.Dummy, 2.0f, 1));
-                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.A, 2.0f, 2));
-                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.B, 2.0f, 2));
-                this.waves.add(new EnemySpawnWave(EnemySpawnWaveType.A, 2.0f, 2));
-                break;
-        } // switch
     }
 
     public boolean isActive() {
