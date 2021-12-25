@@ -5,6 +5,7 @@ import com.example.game.actor.ActorState;
 import com.example.game.actor.PlayerPlane;
 import com.example.game.actor.bullet.Bullet;
 import com.example.game.actor.enemy_plane.BossEnemyPlane;
+import com.example.game.actor.enemy_plane.CommanderEnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlane;
 import com.example.game.game.FindNearestEnemyVisitor;
 
@@ -15,6 +16,7 @@ public class ActorContainer {
     List<Actor> actors = new ArrayList<Actor>();
     PlayerPlane mainChara = null;
     List<EnemyPlane> enemyPlanes = new ArrayList<EnemyPlane>();
+    List<CommanderEnemyPlane> commanderEnemyPlane = new ArrayList<CommanderEnemyPlane>();
     List<Bullet> bullets = new ArrayList<Bullet>();
     List<Bullet> playerBullets = new ArrayList<Bullet>();
     List<Bullet> enemyBullets = new ArrayList<Bullet>();
@@ -43,6 +45,9 @@ public class ActorContainer {
     public List<EnemyPlane> getEnemies() {
         return this.enemyPlanes;
     }
+    public List<CommanderEnemyPlane> getCommanderEnemies() {
+        return this.commanderEnemyPlane;
+    }
 
     public List<Bullet> getBullets() {
         return this.bullets;
@@ -62,6 +67,11 @@ public class ActorContainer {
         this.enemyPlanes.add(plane);
     }
 
+    public void addCommanderEnemyPlane(CommanderEnemyPlane plane) {
+        this.commanderEnemyPlane.add(plane);
+    }
+
+
     public void addBullet(Bullet bullet) {
         this.bullets.add(bullet);
     }
@@ -79,6 +89,10 @@ public class ActorContainer {
     public void removeEnemyPlane(EnemyPlane plane) {
         this.enemyPlanes.remove(plane);
     }
+    public void removeCommanderEnemyPlane(CommanderEnemyPlane plane) {
+        this.commanderEnemyPlane.remove(plane);
+    }
+
 
     public void removeBullet(Bullet bullet) {
         this.bullets.remove(bullet);
@@ -93,6 +107,9 @@ public class ActorContainer {
     }
 
     public void visitorAccept(FindNearestEnemyVisitor visitor) {
+        visitor.visit(this);
+    }
+    public void visitorAccept(CommanderEnemyPlaneVisitor visitor) {
         visitor.visit(this);
     }
 

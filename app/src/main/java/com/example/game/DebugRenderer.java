@@ -81,6 +81,15 @@ public class DebugRenderer {
         }
 
         {
+            Integer size = actorContainer.getCommanderEnemies().size();
+            String s = "commander count = " + size.toString();
+            Transform2D t = new Transform2D();
+            t.position.x = 300;
+            t.position.y = 1100;
+            list.drawText(s, t, p);
+        }
+
+        {
             Integer size = effectSystem.getEffectList(EffectType.Explosion).size();
             String s = "";
 

@@ -21,11 +21,9 @@ public class EnemyPlane extends Plane {
         super(actorContainer, tag);
         assert (super.getTag().equals(ActorTagString.enemy));
         actorContainer.addEnemyPlane(this);
-//        super.weapon = new BasicGun();
 
         BasicGun basicGun = new BasicGun();
         super.addWeapon("BasicGun",basicGun);
-//        basicGun.resetShotInterval(defaultShotInterval);
     }
 
     @Override

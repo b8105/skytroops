@@ -17,27 +17,27 @@ public class BossEnemySpawner {
             case Type01:
                 actorFactory.createEnemy(300,
                         0 - BitmapSizeStatic.boss.y,
-                        ActorTagString.enemy, EnemyPlaneType.Stage01Boss,stageType);
+                        ActorTagString.enemy, EnemyPlaneType.Stage01Boss,stageType, new EnemyCreateConfig());
                 break;
             case Type02:
                 actorFactory.createEnemy(300,
                         0 - BitmapSizeStatic.boss.y,
-                        ActorTagString.enemy, EnemyPlaneType.Stage02Boss,stageType);
+                        ActorTagString.enemy, EnemyPlaneType.Stage02Boss,stageType, new EnemyCreateConfig());
                 break;
             case Type03:
                 actorFactory.createEnemy(300,
                         0 - BitmapSizeStatic.boss.y,
-                        ActorTagString.enemy, EnemyPlaneType.Stage03Boss,stageType);
+                        ActorTagString.enemy, EnemyPlaneType.Stage03Boss,stageType, new EnemyCreateConfig());
                 break;
             case Type04:
                 actorFactory.createEnemy(300,
                         0 - BitmapSizeStatic.boss.y,
-                        ActorTagString.enemy, EnemyPlaneType.Stage04Boss,stageType);
+                        ActorTagString.enemy, EnemyPlaneType.Stage04Boss,stageType, new EnemyCreateConfig());
                 break;
             case Type05:
                 actorFactory.createEnemy(300,
                         0 - BitmapSizeStatic.boss.y,
-                        ActorTagString.enemy, EnemyPlaneType.Stage05Boss,stageType);
+                        ActorTagString.enemy, EnemyPlaneType.Stage05Boss,stageType, new EnemyCreateConfig());
                 break;
         } // switch
     }

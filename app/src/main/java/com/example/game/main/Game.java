@@ -61,7 +61,7 @@ public class Game extends SurfaceView implements Runnable {
     boolean currentTouch = false;
 
     UIButton debugSwitch;
-    private boolean debugFlag = true;
+    private boolean debugFlag = false;
 
     private JSONObject parseJson(String fileName) throws JSONException, IOException {
         InputStream inputStream = activity.getAssets().open(fileName);

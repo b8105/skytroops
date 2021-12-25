@@ -40,7 +40,7 @@ public class GameSystem {
         } // if
         else{
             if(actorContainer.getBossEnemy() != null){
-                this.enemySpawnSystem.updateExistBoss(deltaTime, actorFactory,stageType);
+//                this.enemySpawnSystem.updateExistBoss(deltaTime, actorFactory,stageType);
             } // if
         } // else
     }

@@ -65,7 +65,7 @@ public class EnemySpawnWave {
             } // if
 
             actorFactory.createEnemy(spawnData.positionX + offset, y,
-                    ActorTagString.enemy, spawnData.type,stageType);
+                    ActorTagString.enemy, spawnData.type,stageType,spawnData.config);
         } // for
         this.spawnIndex = index;
     }

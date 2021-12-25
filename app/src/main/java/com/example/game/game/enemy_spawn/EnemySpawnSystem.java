@@ -24,6 +24,8 @@ public class EnemySpawnSystem {
     List<EnemySpawnData> spawnDataProtoC = new ArrayList<>();
     List<EnemySpawnData> spawnDataProtoD = new ArrayList<>();
 
+    List<EnemySpawnData> spawnDataProtoE = new ArrayList<>();
+
     HashMap<StageType, List<EnemySpawnWave>> bossWave = new HashMap<>();
 
     private void constructProtoType() {
@@ -131,8 +133,12 @@ public class EnemySpawnSystem {
                     9.0f, 600.0f));
             spawnDataProtoD.add(new EnemySpawnData(EnemyPlaneType.Basic,
                     9.0f, 800.0f));
-
         }
+
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Commander,
+                0.0f, 500.0f));
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Follow,
+                0.0f, 600.0f));
     }
 
     public EnemySpawnSystem(StageType type) {
@@ -167,9 +173,11 @@ public class EnemySpawnSystem {
 //                this.constructStage04();
                break;
             case Type05:
- //               this.constructStage05();
+//               this.constructStage05();
                 break;
         } // switch
+
+        this.waves.add(new EnemySpawnWave(10.0f, spawnDataProtoE, 0));
     }
 
     private void constructStage01() {

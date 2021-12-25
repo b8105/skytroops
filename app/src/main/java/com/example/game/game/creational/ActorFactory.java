@@ -5,6 +5,8 @@ import android.graphics.PointF;
 import com.example.game.actor.bullet.BulletForStage01Boss;
 import com.example.game.actor.bullet.BulletForStage02Boss;
 import com.example.game.actor.bullet.HomingBullet;
+import com.example.game.actor.enemy_plane.CommanderEnemyPlane;
+import com.example.game.actor.enemy_plane.FollowEnemyPlane;
 import com.example.game.actor.enemy_plane.Stage01BossEnemy;
 import com.example.game.actor.enemy_plane.Stage02BossEnemy;
 import com.example.game.actor.enemy_plane.Stage03BossEnemy;
@@ -275,7 +277,8 @@ public class ActorFactory {
     public EnemyPlane createEnemy(
             float positionX, float positionY,
             String tag, EnemyPlaneType enemyPlaneType,
-            StageType stageType) {
+            StageType stageType,
+            EnemyCreateConfig config) {
         EnemyPlane actor = null;
 
         switch (enemyPlaneType) {
@@ -318,7 +321,14 @@ public class ActorFactory {
                 temp.setBossEnemyDeadSubject(bossEnemyDeadSubject);
                 actor = temp;
                 break;
-            }
+            } // case
+
+            case Commander:
+                actor = new CommanderEnemyPlane(actorContainer, tag);
+                break;
+            case Follow:
+                actor = new FollowEnemyPlane(actorContainer, tag);
+                break;
             default:
                 actor = new EnemyPlane(actorContainer, tag);
         } // switch
