@@ -32,7 +32,6 @@ import com.example.game.weapon.Weapon;
 import java.util.HashMap;
 
 public class ComponentFactory {
-    private Resources resources = null;
     private RenderLayer renderLayer = null;
 
     private float basicEnemyShotInterval = 0.6f;
@@ -42,9 +41,7 @@ public class ComponentFactory {
     HashMap<StageType, Float> basicEnemyMoveSpeedOnStage = new HashMap<>();
 
     public ComponentFactory(
-            Resources resources,
             RenderLayer renderLayer) {
-        this.resources = resources;
         this.renderLayer = renderLayer;
 
         basicEnemyMoveSpeedOnStage.put(StageType.Type01, 24.0f);
@@ -52,20 +49,6 @@ public class ComponentFactory {
         basicEnemyMoveSpeedOnStage.put(StageType.Type03, 36.0f);
         basicEnemyMoveSpeedOnStage.put(StageType.Type04, 42.0f);
         basicEnemyMoveSpeedOnStage.put(StageType.Type05, 48.0f);
-    }
-
-    public SpriteRenderComponent createSpriteRenderComponent(int bitmapSize, int drawableId) {
-        SpriteRenderComponent spriteRenderComponent = new SpriteRenderComponent(renderLayer);
-
-        Bitmap bitmap = BitmapFactory.decodeResource(this.resources, drawableId);
-        bitmap = Bitmap.createScaledBitmap(
-                bitmap,
-                bitmapSize,
-                bitmapSize,
-                false);
-        spriteRenderComponent.setBitmap(bitmap);
-
-        return spriteRenderComponent;
     }
 
     public SpriteRenderComponent createSpriteRenderComponent(
@@ -77,20 +60,15 @@ public class ComponentFactory {
         return spriteRenderComponent;
     }
 
-    public PlaneSpriteRenderComponent createPlaneSpriteRenderComponent(int bitmapSize, int drawableId) {
+
+    public PlaneSpriteRenderComponent createPlaneSpriteRenderComponent(ImageResource imageResource, ImageResourceType imageResourceType) {
         PlaneSpriteRenderComponent spriteRenderComponent = new PlaneSpriteRenderComponent(renderLayer);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(this.resources, drawableId);
-        bitmap = Bitmap.createScaledBitmap(
-                bitmap,
-                bitmapSize,
-                bitmapSize,
-                false);
+        Bitmap bitmap = imageResource.getImageResource(imageResourceType);
         spriteRenderComponent.setBitmap(bitmap);
 
         return spriteRenderComponent;
     }
-
 
     public PlaneActionComponent createPlayerPlaneActionComponent(
             ActionLayer actionLayer,

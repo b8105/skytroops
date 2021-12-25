@@ -15,6 +15,7 @@ public class Effect {
     private boolean enable = false;
     private StopWatch lifeDuration = null;
     private EffectInfoBasicParam effectInfoBasicParam = new EffectInfoBasicParam();
+    private EffectInfoUpdateParam effectInfoUpdateParam = new EffectInfoUpdateParam();
     private SpriteAnimation animation = null;
 
     public SpriteAnimation createExplosionAnimation() {
@@ -107,9 +108,9 @@ public class Effect {
         return this.effectInfoBasicParam.alpha;
     }
 
-    public EffectInfoBasicParam getBasicParam() {
-        return this.effectInfoBasicParam;
-    }
+//    public EffectInfoBasicParam getBasicParam() {
+//        return this.effectInfoBasicParam;
+//    }
 
     //! ゲッター
     public EffectType getEffectType() {
@@ -143,6 +144,8 @@ public class Effect {
 
     //! 更新
     public boolean update(float deltaTime) {
+        this.effectInfoBasicParam.update(this.effectInfoUpdateParam);
+
         if(this.isExistAnimation()){
             this.animation.addTimer(deltaTime);
         } // if
@@ -156,6 +159,7 @@ public class Effect {
     //! 開始
     public void start(EffectInfo info) {
         this.effectInfoBasicParam = info.initParam;
+        this.effectInfoUpdateParam = info.updateParam;
         this.enable = true;
         this.lifeDuration.reset(this.effectInfoBasicParam.lifeDuration);
         if(this.isExistAnimation()){

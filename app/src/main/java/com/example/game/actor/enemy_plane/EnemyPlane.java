@@ -1,5 +1,7 @@
 package com.example.game.actor.enemy_plane;
 
+import android.graphics.PointF;
+
 import com.example.game.actor.PlaneType;
 import com.example.game.parameter.damage.Damage;
 import com.example.game.actor.ActorTagString;
@@ -52,7 +54,8 @@ public class EnemyPlane extends Plane {
                 EffectInfo info = new EffectInfo(
                         EffectType.Score,
                         super.getPosition(),
-                        2.0f
+                        2.0f,
+                        new PointF(0.0f, -1.0f)
                 );
                 scoreEffectEmitter.emit(info);
             }

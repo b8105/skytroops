@@ -22,7 +22,17 @@ public enum ImageResourceType {
     Stage02BossEnemyPlane,
     Stage03BossEnemyPlane,
 
+    ScoreBackground,
+
     BasicBullet,
     HomingBullet,
     Stage01BossBullet,
+    Stage02BossBullet,
+    Stage03BossBullet,
+    Stage04BossBullet,
+
+    EnemyPlaneHpBar,
+    EnemyPlaneHpFrame,
+    BossEnemyPlaneHpBar,
+    PlayerPlaneHpBar,
 }

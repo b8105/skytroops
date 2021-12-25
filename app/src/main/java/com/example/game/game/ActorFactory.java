@@ -8,7 +8,10 @@ import android.media.Image;
 
 import com.example.game.actor.bullet.BulletForStage01Boss;
 import com.example.game.actor.bullet.BulletForStage02Boss;
+import com.example.game.actor.bullet.HomingBullet;
 import com.example.game.actor.enemy_plane.Stage01BossEnemy;
+import com.example.game.actor.enemy_plane.Stage02BossEnemy;
+import com.example.game.actor.enemy_plane.Stage03BossEnemy;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
 import com.example.game.observation.BossEnemyDeadSubject;
@@ -58,7 +61,6 @@ public class ActorFactory {
     }
 
     private GamePlayScene gamePlayScene;
-    private Resources resources = null;
     private ImageResource imageResource = null;
     private ActorContainer actorContainer = null;
     private GameSystem gameSystem = null;
@@ -70,16 +72,12 @@ public class ActorFactory {
     private UIChangeBullePanel uiChangeBullePanel = null;
     private EffectSystem effectSystem = null;
 
-    private int playerBitmapSize = BitmapSizeStatic.player.x;
-    private int enemyBitmapSize = BitmapSizeStatic.enemy.y;
-
     private int playerCollisionRectSizeDecrease = 60;
     private int enemyCollisionRectSizeDecrease = 40;
     private int bulletCollisionRectSizeDecrease = 60;
 
     public ActorFactory(
             GamePlayScene gamePlayScene,
-            Resources resources,
             ImageResource imageResource,
             ActorContainer actorContainer,
             ComponentExecutor componentExecutor,
@@ -87,7 +85,6 @@ public class ActorFactory {
             UIChangeBullePanel uiChangeBullePanel,
             EffectSystem effectSystem) {
         this.gamePlayScene = gamePlayScene;
-        this.resources = resources;
         this.imageResource = imageResource;
         this.actorContainer = actorContainer;
         this.gameSystem = gameSystem;
@@ -97,7 +94,7 @@ public class ActorFactory {
         this.uiChangeBullePanel = uiChangeBullePanel;
         this.effectSystem = effectSystem;
 
-        this.componentFactory = new ComponentFactory(resources, this.renderLayer);
+        this.componentFactory = new ComponentFactory(this.renderLayer);
     }
 
     public PlayerPlane createPlayerPlane(float positionX, float positionY, String tag) {
@@ -110,9 +107,11 @@ public class ActorFactory {
 
         PlaneCollisionComponent collisionable = new PlaneCollisionComponent(collisionLayer);
         PlaneSpriteRenderComponent spriteRenderComponent = this.componentFactory.createPlaneSpriteRenderComponent(
-                this.playerBitmapSize, R.drawable.plane1up);
+                this.imageResource,
+                ImageResourceType.PlayerPlane
+        );
         PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
-        hpBarRenderComponent.setHpBarRenderer(new PlayerPlaneHpBarRenderer(hpBarRenderComponent, resources));
+        hpBarRenderComponent.setHpBarRenderer(new PlayerPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
         collisionable.setCollisionRectSizeOffset(-playerCollisionRectSizeDecrease, -playerCollisionRectSizeDecrease);
         PlaneActionComponent actionComponent =
                 componentFactory.createPlayerPlaneActionComponent(actionLayer, weapon, this);
@@ -140,13 +139,13 @@ public class ActorFactory {
         actor.setActorType(ActorType.Bullet);
 
         BasicBulletMoveComponent moveComponent = new BasicBulletMoveComponent(actionLayer);
-        SpriteRenderComponent spriteRenderComponent = new SpriteRenderComponent(renderLayer);
+        //SpriteRenderComponent spriteRenderComponent = new SpriteRenderComponent(renderLayer);
         BulletCollisionComponent collisionable = new BulletCollisionComponent(collisionLayer);
         collisionable.setCollisionRectSizeOffset(-bulletCollisionRectSizeDecrease);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.bullet01);
-        bitmap = Bitmap.createScaledBitmap(bitmap, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y, false);
-        spriteRenderComponent.setBitmap(bitmap);
+        SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                this.imageResource, ImageResourceType.BasicBullet
+        );
 
         // add
         actor.addComponent(collisionable);
@@ -162,15 +161,13 @@ public class ActorFactory {
 
     public BulletForStage01Boss createStage01BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
         BulletForStage01Boss actor = new BulletForStage01Boss(actorContainer, tag, bulletCreateConfig);
-
         BasicBulletMoveComponent moveComponent = new BasicBulletMoveComponent(actionLayer);
-        SpriteRenderComponent spriteRenderComponent = new SpriteRenderComponent(renderLayer);
+        SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                this.imageResource, ImageResourceType.Stage01BossBullet
+        );
+
         BulletCollisionComponent collisionable = new BulletCollisionComponent(collisionLayer);
         collisionable.setCollisionRectSizeOffset(-bulletCollisionRectSizeDecrease);
-
-        Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.bullet05);
-        bitmap = Bitmap.createScaledBitmap(bitmap, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y, false);
-        spriteRenderComponent.setBitmap(bitmap);
 
         // add
         actor.addComponent(collisionable);
@@ -187,15 +184,12 @@ public class ActorFactory {
 
     public BulletForStage02Boss createStage02BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
         BulletForStage02Boss actor = new BulletForStage02Boss(actorContainer, tag, bulletCreateConfig);
-
         BasicBulletMoveComponent moveComponent = new BasicBulletMoveComponent(actionLayer);
-        SpriteRenderComponent spriteRenderComponent = new SpriteRenderComponent(renderLayer);
+        SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                this.imageResource, ImageResourceType.Stage02BossBullet
+        );
         BulletCollisionComponent collisionable = new BulletCollisionComponent(collisionLayer);
         collisionable.setCollisionRectSizeOffset(-bulletCollisionRectSizeDecrease);
-
-        Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.bullet06);
-        bitmap = Bitmap.createScaledBitmap(bitmap, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y, false);
-        spriteRenderComponent.setBitmap(bitmap);
 
         // add
         actor.addComponent(collisionable);
@@ -211,18 +205,15 @@ public class ActorFactory {
 
 
     public Bullet createHomingBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
-        Bullet actor = new Bullet(actorContainer, tag, bulletCreateConfig);
-        actor.setActorType(ActorType.Bullet);
-
+        HomingBullet actor = new HomingBullet(actorContainer, tag, bulletCreateConfig);
         HomingBulletMoveComponent moveComponent = new HomingBulletMoveComponent(actionLayer);
-        SpriteRenderComponent spriteRenderComponent = new SpriteRenderComponent(renderLayer);
+        SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                this.imageResource, ImageResourceType.HomingBullet
+        );
         BulletCollisionComponent collisionable = new BulletCollisionComponent(collisionLayer);
         collisionable.setCollisionRectSizeOffset(-bulletCollisionRectSizeDecrease);
 
         moveComponent.setActorContainer(this.actorContainer);
-        Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.bullet02);
-        spriteRenderComponent.setBitmap(bitmap);
-
         // add
         actor.addComponent(collisionable);
         actor.addComponent(moveComponent);
@@ -264,24 +255,24 @@ public class ActorFactory {
                 bossEnemyDeadSubject.addObserver(gamePlayScene);
                 temp.setBossEnemyDeadSubject(bossEnemyDeadSubject);
                 actor = temp;
+                break;
             }
             case Stage02Boss: {
-                BossEnemyPlane temp = new Stage01BossEnemy(actorContainer, tag);
+                BossEnemyPlane temp = new Stage02BossEnemy(actorContainer, tag);
                 BossEnemyDeadSubject bossEnemyDeadSubject = new BossEnemyDeadSubject();
                 bossEnemyDeadSubject.addObserver(gamePlayScene);
                 temp.setBossEnemyDeadSubject(bossEnemyDeadSubject);
                 actor = temp;
+                break;
             }
-            break;
             case Stage03Boss: {
-                BossEnemyPlane temp = new Stage01BossEnemy(actorContainer, tag);
+                BossEnemyPlane temp = new Stage03BossEnemy(actorContainer, tag);
                 BossEnemyDeadSubject bossEnemyDeadSubject = new BossEnemyDeadSubject();
                 bossEnemyDeadSubject.addObserver(gamePlayScene);
                 temp.setBossEnemyDeadSubject(bossEnemyDeadSubject);
                 actor = temp;
+                break;
             }
-
-            break;
             default:
                 actor = new EnemyPlane(actorContainer, tag);
         } // switch
@@ -326,13 +317,11 @@ public class ActorFactory {
                 break;
             case Stage01Boss:
                 weapon = new BasicGun();
-                weapon.setBulletType(BulletType.Stage01Boss);
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
                         actionLayer, this, this.actorContainer, weapon, stageType);
                 break;
             case Stage02Boss:
                 weapon = new AnyWayGun();
-                weapon.setBulletType(BulletType.Stage02Boss);
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
                         actionLayer, this, this.actorContainer, weapon, stageType);
                 break;
@@ -348,43 +337,47 @@ public class ActorFactory {
         switch (enemyPlaneType) {
             case Basic:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
-                        enemyBitmapSize, R.drawable.enemy01);
-                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
+                        this.imageResource, ImageResourceType.BasicEnemyPlane);
+                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
                 break;
             case Weak:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
-                        enemyBitmapSize, R.drawable.enemy02);
-                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
+                        this.imageResource, ImageResourceType.WeakEnemyPlane);
+
+                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
                 break;
             case Strong:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
-                        enemyBitmapSize, R.drawable.enemy05);
-                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
+                        this.imageResource, ImageResourceType.StrongEnemyPlane);
+
+                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
                 break;
             case Commander:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
-                        enemyBitmapSize, R.drawable.enemy04);
-                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
+                        this.imageResource, ImageResourceType.CommanderEnemyPlane);
+
+                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
                 break;
             case Follow:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
-                        enemyBitmapSize, R.drawable.enemy03);
-                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
+                        this.imageResource, ImageResourceType.FollowEnemyPlane);
+
+                hpBarRenderComponent.setHpBarRenderer(new EnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
                 break;
             case Stage01Boss:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         this.imageResource, ImageResourceType.Stage01BossEnemyPlane);
-                hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
+                hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
                 break;
             case Stage02Boss:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
-                        BitmapSizeStatic.boss.x, R.drawable.enemy13);
-                hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
+                        this.imageResource, ImageResourceType.Stage02BossEnemyPlane);
+                hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
                 break;
             case Stage03Boss:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
-                        BitmapSizeStatic.boss.x, R.drawable.enemy14);
-                hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, resources));
+                        this.imageResource, ImageResourceType.Stage03BossEnemyPlane);
+                hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
                 break;
         } // switch
 

@@ -8,6 +8,8 @@ import com.example.game.R;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.Transform2D;
 import com.example.game.common.shape.Rectangle;
+import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.parameter.HpParameter;
 import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
@@ -21,9 +23,9 @@ public class BossEnemyPlaneHpBarRenderer extends PlaneHpBarRenderer {
     private Transform2D transform = null;
 
     public BossEnemyPlaneHpBarRenderer(PlaneHpBarRenderComponent owner,
-                                   Resources resources) {
+                                       ImageResource imageResource) {
         this.owner = owner;
-        this.bar = super.constructBitmap(resources, R.drawable.redhealthbar, BitmapSizeStatic.bossEnemyHpBar);
+        this.bar = super.constructBitmap(imageResource, ImageResourceType.BossEnemyPlaneHpBar);
         this.transform = new Transform2D();
     }
 

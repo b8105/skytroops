@@ -40,6 +40,12 @@ abstract public class Weapon {
         this.shotPower += this.shotPowerIncremental;
     }
 
+    private float clacShotSpeed(BulletType bulletType){
+        if(bulletType == BulletType.Homing){
+            return this.shotPower * 0.5f;
+        } // if
+        return this.shotPower;
+    }
 
     protected void requestCreateBullet(PointF parentGlobalPosition, float parentGlobalRotation, String tag) {
         float sizeOffsetX = BitmapSizeStatic.bullet.x * 0.5f;
@@ -50,7 +56,7 @@ abstract public class Weapon {
                 parentGlobalRotation + rotation,
                 this.bulletType,
                 tag,
-                shotPower);
+                this.clacShotSpeed(this.bulletType));
     }
 
     public void setActorFactory(ActorFactory actorFactory) {

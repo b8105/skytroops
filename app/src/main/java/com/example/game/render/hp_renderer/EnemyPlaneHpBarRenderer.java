@@ -3,7 +3,10 @@ package com.example.game.render.hp_renderer;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.media.Image;
 
+import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.parameter.HpParameter;
 import com.example.game.R;
 import com.example.game.common.BitmapSizeStatic;
@@ -22,10 +25,10 @@ public class EnemyPlaneHpBarRenderer extends PlaneHpBarRenderer {
     private Transform2D transform = null;
     private boolean centerFlag = false;
     public EnemyPlaneHpBarRenderer(PlaneHpBarRenderComponent owner,
-                                   Resources resources) {
+                                   ImageResource imageResource) {
         this.owner = owner;
-        this.bar = super.constructBitmap(resources, R.drawable.redhealthbar,BitmapSizeStatic.enemyHpBar);
-        this.frame = super.constructBitmap(resources, R.drawable.healthframe,BitmapSizeStatic.enemyHpBar);
+        this.bar = super.constructBitmap(imageResource, ImageResourceType.EnemyPlaneHpBar);
+        this.frame = super.constructBitmap(imageResource, ImageResourceType.EnemyPlaneHpFrame);
         this.transform = new Transform2D();
     }
 

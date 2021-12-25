@@ -27,6 +27,20 @@ public class ImageResource {
 
         hash.put(ImageResourceType.BulletLock,
                 this.createScaledBitmap(R.drawable.lock, BitmapSizeStatic. buttonLock.x, BitmapSizeStatic.buttonLock.y));
+        hash.put(ImageResourceType.ScoreBackground,
+                this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic. buttonLock.x, BitmapSizeStatic.buttonLock.y));
+
+
+        hash.put(ImageResourceType.EnemyPlaneHpBar,
+                this.createScaledBitmap(R.drawable.redhealthbar, BitmapSizeStatic.enemyHpBar.x, BitmapSizeStatic.enemyHpBar.y));
+        hash.put(ImageResourceType.EnemyPlaneHpFrame,
+                this.createScaledBitmap(R.drawable.healthframe, BitmapSizeStatic.enemyHpBar.x, BitmapSizeStatic.enemyHpBar.y));
+        hash.put(ImageResourceType.PlayerPlaneHpBar,
+                this.createScaledBitmap(R.drawable.playerhealthbar, BitmapSizeStatic.playerHpBar.x, BitmapSizeStatic.playerHpBar.y));
+        hash.put(ImageResourceType.BossEnemyPlaneHpBar,
+                this.createScaledBitmap(R.drawable.redhealthbar, BitmapSizeStatic.bossEnemyHpBar.x, BitmapSizeStatic.bossEnemyHpBar.y));
+
+
 
     }
     private void constructPlane( Point screenSize){
@@ -61,6 +75,13 @@ public class ImageResource {
                 R.drawable.bullet02, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y));
         hash.put(ImageResourceType.Stage01BossBullet, this.createScaledBitmap(
                 R.drawable.bullet05, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y));
+        hash.put(ImageResourceType.Stage02BossBullet, this.createScaledBitmap(
+                R.drawable.bullet06, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y));
+        hash.put(ImageResourceType.Stage03BossBullet, this.createScaledBitmap(
+                R.drawable.bullet08, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y));
+        hash.put(ImageResourceType.Stage04BossBullet, this.createScaledBitmap(
+                R.drawable.bullet09, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y));
+
     }
     private void constructEffect( Point screenSize){
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
