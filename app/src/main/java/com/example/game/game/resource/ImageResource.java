@@ -22,14 +22,18 @@ public class ImageResource {
         this.constructBullet(screenSize);
         this.constructStageBackground(screenSize);
         this.constructEffect(screenSize);
+        this.constructHpRenderer(screenSize);
 
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
 
         hash.put(ImageResourceType.BulletLock,
                 this.createScaledBitmap(R.drawable.lock, BitmapSizeStatic. buttonLock.x, BitmapSizeStatic.buttonLock.y));
         hash.put(ImageResourceType.ScoreBackground,
-                this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic. buttonLock.x, BitmapSizeStatic.buttonLock.y));
+                this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.scoreBackground.x, BitmapSizeStatic.scoreBackground.y));
 
+    }
+    private void constructHpRenderer( Point screenSize){
+        HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
 
         hash.put(ImageResourceType.EnemyPlaneHpBar,
                 this.createScaledBitmap(R.drawable.redhealthbar, BitmapSizeStatic.enemyHpBar.x, BitmapSizeStatic.enemyHpBar.y));
@@ -39,10 +43,8 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.playerhealthbar, BitmapSizeStatic.playerHpBar.x, BitmapSizeStatic.playerHpBar.y));
         hash.put(ImageResourceType.BossEnemyPlaneHpBar,
                 this.createScaledBitmap(R.drawable.redhealthbar, BitmapSizeStatic.bossEnemyHpBar.x, BitmapSizeStatic.bossEnemyHpBar.y));
-
-
-
     }
+
     private void constructPlane( Point screenSize){
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
 

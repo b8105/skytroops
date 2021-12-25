@@ -128,7 +128,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
         this.componentExecutor.draw(out);
         this.effectSystem.draw(out);
         this.uiChangeBullePanel.draw(out);
-        new ScoreRenderer().execute(this.getGameSystem(), out);
+        new ScoreRenderer(this.imageResource).execute(this.getGameSystem(), out);
         new DebugRenderer().execute(this.actorContainer, this.effectSystem, out);
     }
 

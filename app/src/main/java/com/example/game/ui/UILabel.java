@@ -11,6 +11,7 @@ import com.example.game.common.Transform2D;
 import com.example.game.common.shape.Circle;
 import com.example.game.common.shape.Rectangle;
 import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
@@ -22,10 +23,9 @@ public class UILabel {
     private Bitmap bitmap;
     private Point bitmapSize;
 
-    public UILabel(
-            ImageResource imageResource,
-            Resources resources,int id,
-            PointF position, Point size) {
+    public UILabel(ImageResource imageResource,
+                   Resources resources,int id,
+                   PointF position, Point size) {
         this.transform = new Transform2D();
         this.transform.position.x = position.x;
         this.transform.position.y = position.y;
@@ -37,6 +37,16 @@ public class UILabel {
                 this.bitmapSize.x,
                 this.bitmapSize.y,
                 false);
+    }
+
+    public UILabel(ImageResource imageResource,
+                   ImageResourceType imageResourceType,
+                   PointF position) {
+        this.transform = new Transform2D();
+        this.transform.position.x = position.x;
+        this.transform.position.y = position.y;
+
+        this.bitmap = imageResource.getImageResource(imageResourceType);
     }
 
     public Rectangle getRectangle() {
@@ -61,11 +71,19 @@ public class UILabel {
         transform.position.x -= this.bitmap.getWidth() * 0.5f;
         transform.position.y -= this.bitmap.getHeight() * 0.5f;
 
-//        list.drawRectangle(this.getRectangle(), new RenderRectangleInfo());
         list.drawSprite(
                 this.bitmap,
                 transform,
                 new RenderSpriteInfo());
     }
+    public void draw(RenderCommandList list){
+        Transform2D transform = new Transform2D(this.transform);
+        transform.position.x -= this.bitmap.getWidth() * 0.5f;
+        transform.position.y -= this.bitmap.getHeight() * 0.5f;
 
+        list.drawSprite(
+                this.bitmap,
+                transform,
+                new RenderSpriteInfo());
+    }
 }
