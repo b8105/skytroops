@@ -17,6 +17,11 @@ import com.example.game.component.ComponentType;
 import com.example.game.utility.MathUtilities;
 import com.example.game.utility.PointFUtilities;
 
+
+// 敵キャラがこれを使うとバランスが壊れるので
+// EnemyPlaneの系譜が持つWeaponから撃たれることは想定していない
+// ActorContainerから最寄りのPlaneを探してきて追跡対象とする
+// もし対象がなかったら前のフレームと同じ動きをする
 public class HomingBulletMoveComponent extends ActionComponent {
     private float speed = 0.0f;
     private ActorContainer actorContainer;

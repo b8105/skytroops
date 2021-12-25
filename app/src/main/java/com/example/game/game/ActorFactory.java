@@ -186,7 +186,7 @@ public class ActorFactory {
             case Basic:
                     return stageType.ordinal() + 1;
             case Weak:
-                return 2 + stageType.ordinal();
+                return stageType.ordinal() + 2;
         } // switch
         return 1;
     }

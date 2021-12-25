@@ -4,6 +4,8 @@ import android.graphics.PointF;
 
 import com.example.game.actor.ActorState;
 import com.example.game.actor.PlayerPlane;
+import com.example.game.actor.enemy_plane.EnemyPlane;
+import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.parameter.damage.Damage;
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
@@ -41,7 +43,14 @@ public class PlaneCollisionComponent
     public boolean isCollisionAtEnemy(Collisionable target, CollisionInfo info) {
         EnemyCollisionComponentVisitor visitor = new EnemyCollisionComponentVisitor();
         target.visitorAccept(visitor);
-        Actor targetOwner = visitor.actor;
+        EnemyPlane targetOwner = visitor.actor;
+        // 突撃してくる敵は敵のHP分ダメージを受ける
+        if( targetOwner.getEnemyPlaneType() == EnemyPlaneType.Basic){
+            info.force = targetOwner.getHpParameter().getValue();
+        } // if
+        else{
+            info.force = 1;
+        } // else
         return super.isCollisionRect(this, target, this.getOwner(), targetOwner, info);
     }
 
@@ -66,7 +75,6 @@ public class PlaneCollisionComponent
                 return this.isCollisionAtBullet(target, info);
             } // if
             else if (target.getCollisionableType() == CollisionableType.Enemy) {
-                info.force = 1;
                 return this.isCollisionAtEnemy(target, info);
             } // else if
         } // if

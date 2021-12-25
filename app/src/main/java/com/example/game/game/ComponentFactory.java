@@ -29,6 +29,8 @@ import com.example.game.stage.StageType;
 import com.example.game.weapon.BasicGun;
 import com.example.game.weapon.Weapon;
 
+import java.util.HashMap;
+
 public class ComponentFactory {
     private Resources resources = null;
     private RenderLayer renderLayer = null;
@@ -37,12 +39,19 @@ public class ComponentFactory {
     private float weakEnemyShotInterval = 1.5f;
     private float bossEnemy2ShotInterval = 0.6f;
 
+    HashMap<StageType, Float> basicEnemyMoveSpeedOnStage = new HashMap<>();
 
     public ComponentFactory(
             Resources resources,
             RenderLayer renderLayer) {
         this.resources = resources;
         this.renderLayer = renderLayer;
+
+        basicEnemyMoveSpeedOnStage.put(StageType.Type01, 24.0f);
+        basicEnemyMoveSpeedOnStage.put(StageType.Type02, 30.0f);
+        basicEnemyMoveSpeedOnStage.put(StageType.Type03, 36.0f);
+        basicEnemyMoveSpeedOnStage.put(StageType.Type04, 42.0f);
+        basicEnemyMoveSpeedOnStage.put(StageType.Type05, 48.0f);
     }
 
     public SpriteRenderComponent createSpriteRenderComponent(int bitmapSize, int drawableId) {
@@ -115,7 +124,12 @@ public class ComponentFactory {
         actionComponent.setActionInput(enemyPlaneActionInput);
 
         MoveComponent moveComponent = new MoveComponent(actionComponent);
+
+
         AIStraightMoveInput input = new AIStraightMoveInput();
+        input.setSpeed(this.basicEnemyMoveSpeedOnStage.get(stageType));
+
+
         input.setMoveComponent(moveComponent);
         moveComponent.setActionInput(input);
         enemyPlaneActionInput.addActionInput(input);
@@ -169,7 +183,6 @@ public class ComponentFactory {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
-
 
         ShotComponent shotComponent = new ShotComponent(actionComponent);
         AIShotInput aiShotInput = new AIShotInput(shotComponent);

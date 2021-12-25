@@ -7,7 +7,7 @@ import com.example.game.common.InputEvent;
 
 public class AIStraightMoveInput implements ActionInput {
     private MoveComponent moveComponent;
-    private float speed = 24.0f;
+    private float speed = 0.0f;
 
     public void setMoveComponent(MoveComponent moveComponent) {
         this.moveComponent = moveComponent;

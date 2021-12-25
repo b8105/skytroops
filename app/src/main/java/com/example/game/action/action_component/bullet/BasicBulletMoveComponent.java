@@ -9,6 +9,10 @@ import com.example.game.actor.bullet.Bullet;
 import com.example.game.component.ComponentType;
 import com.example.game.utility.PointFUtilities;
 
+
+//　1度射出された弾は止まらないので
+// 入力コマンドも受け付けず向ている方向に動き続ける
+// Weaponの撃つ力を速さとして受け取る
 public class BasicBulletMoveComponent extends ActionComponent {
     private float speed;
 
