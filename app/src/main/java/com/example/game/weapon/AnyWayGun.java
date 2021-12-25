@@ -15,18 +15,23 @@ public class AnyWayGun extends Weapon {
     }
 
     public void shot(PointF parentGlobalPosition, float parentGlobalRotation, String tag) {
-        PointF pos = parentGlobalPosition;
-        float rot = parentGlobalRotation;
+        if (super.isReady()) {
+            super.setReady(false);
+            super.resetShotInterval();
 
-        // 正面に１発
-        if(this.frontShotFlag){
-            super.requestCreateBullet(pos, rot,tag);
+            PointF pos = parentGlobalPosition;
+            float rot = parentGlobalRotation;
+
+            // 正面に１発
+            if (this.frontShotFlag) {
+                super.requestCreateBullet(pos, rot, tag);
+            } // if
+
+            for (int i = 0; i < super.getShotCount(); i++) {
+                rot += this.wayAngle;
+                super.requestCreateBullet(pos, rot, tag);
+                super.requestCreateBullet(pos, -rot, tag);
+            } // for
         } // if
-
-        for (int i = 0; i < super.getShotCount(); i++) {
-            rot += this.wayAngle;
-            super.requestCreateBullet(pos, rot,tag);
-            super.requestCreateBullet(pos, -rot,tag);
-        } // for
     }
 }

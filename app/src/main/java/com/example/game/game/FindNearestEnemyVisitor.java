@@ -9,6 +9,10 @@ import com.example.game.actor.enemy_plane.EnemyPlane;
 
 import java.util.List;
 
+
+// ActorContainerから指定の位置に最も近いPlaneを抽出します
+// もし範囲を指定する場合は
+// float range を持たせて for分の中でdistanceと比較する
 public class FindNearestEnemyVisitor {
     public Plane find;
     public PointF position;
@@ -31,6 +35,7 @@ public class FindNearestEnemyVisitor {
             float diffX = targetPos.x - this.position.x;
             float diffY = targetPos.y - this.position.y;
 
+            // 平方根をとる必要はない
             float distance = (diffX * diffX) + (diffY * diffY);
             if(distanceMin > distance){
                 distanceMin = distance;

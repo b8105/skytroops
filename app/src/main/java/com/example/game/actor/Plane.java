@@ -1,6 +1,7 @@
 package com.example.game.actor;
 
 import com.example.game.actor.enemy_plane.CommanderEnemyPlane;
+import com.example.game.component.ComponentType;
 import com.example.game.parameter.damage.DamageApplicable;
 import com.example.game.parameter.HpParameter;
 import com.example.game.effect.EffectEmitter;
@@ -15,7 +16,7 @@ abstract public class Plane extends Actor
     private HpParameter hpParameter = new HpParameter(1);
     private EffectEmitter scoreEffectEmitter = null;
     private EffectEmitter explosionEffectEmitter = null;
-    private Weapon weapon;
+    protected Weapon weapon;
     private Weapon subWeapon;
     private Weapon subWeapon2;
     private CommanderEnemyPlane commanderEnemyPlane;
@@ -35,9 +36,11 @@ abstract public class Plane extends Actor
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
+
     public void setSubWeapon(Weapon weapon) {
         this.subWeapon = weapon;
     }
+
     public void setSubWeapon2(Weapon weapon) {
         this.subWeapon2 = weapon;
     }
@@ -79,9 +82,11 @@ abstract public class Plane extends Actor
     public Weapon getWeapon() {
         return this.weapon;
     }
+
     public Weapon getSubWeapon() {
         return this.subWeapon;
     }
+
     public Weapon getSubWeapon2() {
         return this.subWeapon2;
     }
@@ -90,6 +95,20 @@ abstract public class Plane extends Actor
         this.hpParameter.resetHp(hp);
     }
 
+
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        if (this.weapon != null) {
+            this.weapon.update(deltaTime);
+        } // if
+        if (this.subWeapon != null) {
+            this.subWeapon.update(deltaTime);
+        } // if
+        if (this.subWeapon2 != null) {
+            this.subWeapon2.update(deltaTime);
+
+        } // if
+    }
 
     public void release(ActorContainer actorContainer) {
         super.release(actorContainer);

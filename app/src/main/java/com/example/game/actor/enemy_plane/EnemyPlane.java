@@ -30,6 +30,15 @@ public class EnemyPlane extends Plane {
         return EnemyPlaneType.Basic;
     }
 
+    @Override
+    public PointF getCenterPosition() {
+        PointF position = super.getPosition();
+
+        position.x += BitmapSizeStatic.enemy.x * 0.5f;
+        position.y += BitmapSizeStatic.enemy.y * 0.5f;
+        return position;
+    }
+
     public boolean isBoss(){
         return false;
     }

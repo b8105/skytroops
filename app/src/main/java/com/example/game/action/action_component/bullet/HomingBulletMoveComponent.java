@@ -114,17 +114,11 @@ public class HomingBulletMoveComponent extends ActionComponent {
         float rotateRadian = 0.0f;
 
         if (this.target != null) {
-            PointF targetPosition = new PointF(
-//                    this.target.getPosition().x + this.targetSize.x * 0.5f - BitmapSizeStatic.bullet.x * 0.5f,
-                    this.target.getPosition().x,
-                    this.target.getPosition().y
-//                    this.target.getPosition().y + this.targetSize.y * 0.5f - BitmapSizeStatic.bullet.y * 0.5f
-            );
-
+            PointF targetPosition = this.target.getCenterPosition();
 
             move = this.moveHoming(
                     this.speed,
-                    position,
+                    this.getOwner().getCenterPosition(),
                     targetPosition);
             this.previsousMove.x = move.x;
             this.previsousMove.y = move.y;

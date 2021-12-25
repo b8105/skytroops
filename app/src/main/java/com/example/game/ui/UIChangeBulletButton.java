@@ -92,7 +92,6 @@ public class UIChangeBulletButton extends UIButton {
                 break;
             case ToThreeWay:
                 this.weapon.setBulletType(BulletType.Homing);
-
                 this.weapon.setBulletType(BulletType.Basic);
                 this.weapon.setShotCount(threeWayCount);
                 break;

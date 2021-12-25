@@ -99,10 +99,7 @@ public class ActorFactory {
 
     public PlayerPlane createPlayerPlane(float positionX, float positionY, String tag) {
         PlayerPlane actor = new PlayerPlane(actorContainer, tag);
-        Weapon weapon = new AnyWayGun();
-        this.uiChangeBullePanel.setEvent(weapon);
-
-        actor.setWeapon(weapon);
+        this.uiChangeBullePanel.setEvent(actor.getWeapon());
         actor.resetHp(50);
 
         PlaneCollisionComponent collisionable = new PlaneCollisionComponent(collisionLayer);
@@ -114,7 +111,7 @@ public class ActorFactory {
         hpBarRenderComponent.setHpBarRenderer(new PlayerPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
         collisionable.setCollisionRectSizeOffset(-playerCollisionRectSizeDecrease, -playerCollisionRectSizeDecrease);
         PlaneActionComponent actionComponent =
-                componentFactory.createPlayerPlaneActionComponent(actionLayer, weapon, this);
+                componentFactory.createPlayerPlaneActionComponent(actionLayer, actor.getWeapon(), this);
 
         // add
         actor.addComponent(actionComponent);
@@ -123,7 +120,7 @@ public class ActorFactory {
         actor.addComponent(hpBarRenderComponent);
 
 
-        weapon.setPosition(new PointF(
+        actor.getWeapon().setPosition(new PointF(
                 spriteRenderComponent.getBitmapSize().x * 0.5f, 0.0f
         ));
 

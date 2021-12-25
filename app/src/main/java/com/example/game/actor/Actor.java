@@ -10,7 +10,7 @@ import com.example.game.component.ComponentType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Actor {
+public abstract class Actor {
     private ActorType actorType;
     private ActorState actorState;
     private String tag = "";
@@ -84,6 +84,8 @@ public class Actor {
     public PointF getInitialPosition() {
         return this.initialPosition;
     }
+
+    public abstract PointF getCenterPosition();
 
     public <T> T getComponent(ComponentType componentType) {
         for (Component component : this.components) {

@@ -140,8 +140,9 @@ public class ComponentFactory {
             AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
             shotComponent.setActorContainer(actorContainer);
             shotComponent.setWeapon(weapon);
-            shotComponent.setShotInterval(this.weakEnemyShotInterval);
+//            shotComponent.setShotInterval(this.weakEnemyShotInterval);
             weapon.setActorFactory(actorFactory);
+            weapon.resetShotInterval(this.weakEnemyShotInterval);
         }
         return actionComponent;
     }
@@ -161,7 +162,8 @@ public class ComponentFactory {
             AutoTargetingShotComponent shotComponent = new AutoTargetingShotComponent(actionComponent);
             shotComponent.setActorContainer(actorContainer);
             shotComponent.setWeapon(weapon);
-            shotComponent.setShotInterval(this.basicEnemyShotInterval);
+            weapon.resetShotInterval(this.basicEnemyShotInterval);
+//            shotComponent.setShotInterval(this.basicEnemyShotInterval);
             weapon.setActorFactory(actorFactory);
         }
         return actionComponent;
@@ -182,7 +184,8 @@ public class ComponentFactory {
             aiShotInput.setShotComponent(shotComponent);
             shotComponent.setInstanceFlag(true);
             shotComponent.setWeapon(weapon);
-            shotComponent.setShotInterval(this.strongEnemyShotInterval);
+//            shotComponent.setShotInterval(this.strongEnemyShotInterval);
+            weapon.resetShotInterval(this.strongEnemyShotInterval);
             weapon.setActorFactory(actorFactory);
             shotComponent.setActionInput(aiShotInput);
             enemyPlaneActionInput.addActionInput(aiShotInput);
@@ -225,7 +228,8 @@ public class ComponentFactory {
                 aiShotInput.inactivate();
 
                 shotComponent.setWeapon(weapon);
-                shotComponent.setShotInterval(this.bossEnemyShotInterval);
+                weapon.resetShotInterval(this.bossEnemyShotInterval);
+//                shotComponent.setShotInterval(this.bossEnemyShotInterval);
                 weapon.setActorFactory(actorFactory);
                 shotComponent.setActionInput(aiShotInput);
                 enemyPlaneActionInput.addActionInput(aiShotInput);
@@ -263,7 +267,9 @@ public class ComponentFactory {
 
                 aiShotInput.setTargeting(false);
                 shotComponent.setWeapon(weapon);
-                shotComponent.setShotInterval(this.bossEnemy2ShotInterval);
+                weapon.resetShotInterval(this.bossEnemy2ShotInterval);
+
+//                shotComponent.setShotInterval(this.bossEnemy2ShotInterval);
                 weapon.setActorFactory(actorFactory);
                 shotComponent.setActionInput(aiShotInput);
                 enemyPlaneActionInput.addActionInput(aiShotInput);
@@ -307,7 +313,9 @@ public class ComponentFactory {
                 aiShotInput.inactivate();
 
                 shotComponent.setWeapon(weapon);
-                shotComponent.setShotInterval(this.bossEnemy3ShotInterval);
+                weapon.resetShotInterval(this.bossEnemy3ShotInterval);
+
+//                shotComponent.setShotInterval(this.bossEnemy3ShotInterval);
                 weapon.setActorFactory(actorFactory);
                 shotComponent.setActionInput(aiShotInput);
                 enemyPlaneActionInput.addActionInput(aiShotInput);
@@ -321,7 +329,8 @@ public class ComponentFactory {
                 ((AnyWayGun)(subWeapon)).setFrontShotFlag(false);
                 ((AnyWayGun)(subWeapon)).setShotCount(2);
                 subShotComponent.setWeapon(subWeapon);
-                subShotComponent.setShotInterval(this.bossEnemy2ShotInterval);
+                subWeapon.resetShotInterval(this.bossEnemy2ShotInterval);
+                //subShotComponent.setShotInterval(this.bossEnemy2ShotInterval);
                 subWeapon.setActorFactory(actorFactory);
                 subShotComponent.setActionInput(subAiShotInput);
                 enemyPlaneActionInput.addActionInput(subAiShotInput);
@@ -367,7 +376,9 @@ public class ComponentFactory {
 
                 aiShotInput.setTargeting(false);
                 shotComponent.setWeapon(weapon);
-                shotComponent.setShotInterval(this.bossEnemy2ShotInterval);
+                weapon.resetShotInterval(this.bossEnemy2ShotInterval);
+
+//                shotComponent.setShotInterval(this.bossEnemy2ShotInterval);
                 weapon.setActorFactory(actorFactory);
                 shotComponent.setActionInput(aiShotInput);
                 enemyPlaneActionInput.addActionInput(aiShotInput);
@@ -378,7 +389,9 @@ public class ComponentFactory {
                 subAiShotInput.inactivate();
 
                 subShotComponent.setWeapon(subWeapon);
-                subShotComponent.setShotInterval(this.bossEnemy3ShotInterval);
+                subWeapon.resetShotInterval(this.bossEnemy3ShotInterval);
+
+//                subShotComponent.setShotInterval(this.bossEnemy3ShotInterval);
                 subWeapon.setActorFactory(actorFactory);
                 subShotComponent.setActionInput(subAiShotInput);
                 enemyPlaneActionInput.addActionInput(subAiShotInput);
@@ -424,7 +437,8 @@ public class ComponentFactory {
 
                 aiShotInput.setTargeting(false);
                 shotComponent.setWeapon(weapon);
-                shotComponent.setShotInterval(this.bossEnemy4ShotInterval);
+                weapon.resetShotInterval(this.bossEnemy4ShotInterval);
+                //shotComponent.setShotInterval(this.bossEnemy4ShotInterval);
                 weapon.setActorFactory(actorFactory);
                 shotComponent.setActionInput(aiShotInput);
                 enemyPlaneActionInput.addActionInput(aiShotInput);
@@ -435,7 +449,8 @@ public class ComponentFactory {
                 subAiShotInput.inactivate();
 
                 subShotComponent.setWeapon(subWeapon);
-                subShotComponent.setShotInterval(this.bossEnemy4ShotInterval);
+                subWeapon.resetShotInterval(this.bossEnemy4ShotInterval);
+                //subShotComponent.setShotInterval(this.bossEnemy4ShotInterval);
                 subWeapon.setActorFactory(actorFactory);
                 subShotComponent.setActionInput(subAiShotInput);
                 enemyPlaneActionInput.addActionInput(subAiShotInput);
@@ -485,7 +500,9 @@ public class ComponentFactory {
 
                 aiShotInput.setTargeting(false);
                 shotComponent.setWeapon(weapon);
-                shotComponent.setShotInterval(this.bossEnemy5ShotInterval);
+//                shotComponent.setShotInterval(this.bossEnemy5ShotInterval);
+                weapon.resetShotInterval(this.bossEnemy5ShotInterval);
+
                 weapon.setActorFactory(actorFactory);
                 shotComponent.setActionInput(aiShotInput);
                 enemyPlaneActionInput.addActionInput(aiShotInput);
@@ -496,7 +513,9 @@ public class ComponentFactory {
                 subAiShotInput.inactivate();
 
                 subShotComponent.setWeapon(subWeapon);
-                subShotComponent.setShotInterval(this.bossEnemy5SubShotInterval);
+                subWeapon.resetShotInterval(this.bossEnemy5SubShotInterval);
+
+//                subShotComponent.setShotInterval(this.bossEnemy5SubShotInterval);
                 subWeapon.setActorFactory(actorFactory);
                 subShotComponent.setActionInput(subAiShotInput);
                 enemyPlaneActionInput.addActionInput(subAiShotInput);
@@ -509,7 +528,9 @@ public class ComponentFactory {
                 aiShotInput.setTargeting(false);
 
                 subShotComponent2.setWeapon(subWeapon2);
-                subShotComponent2.setShotInterval(this.bossEnemy5SubShotInterval2);
+                subWeapon2.resetShotInterval(this.bossEnemy5SubShotInterval2);
+
+//                subShotComponent2.setShotInterval(this.bossEnemy5SubShotInterval2);
                 subWeapon2.setActorFactory(actorFactory);
                 subShotComponent2.setActionInput(subAiShotInput2);
                 enemyPlaneActionInput.addActionInput(subAiShotInput2);

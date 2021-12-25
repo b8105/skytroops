@@ -35,8 +35,18 @@ public abstract class BossEnemyPlane extends EnemyPlane {
         return true;
     }
 
+    @Override
+    public PointF getCenterPosition() {
+        PointF position = super.getPosition();
+
+        position.x += BitmapSizeStatic.boss.x * 0.5f;
+        position.y += BitmapSizeStatic.boss.y * 0.5f;
+        return position;
+    }
+
 
     public void update(float deltaTime){
+        super.update(deltaTime);
         if(this.invincibleParameter != null){
             this.invincibleParameter.update(deltaTime);
         } // if

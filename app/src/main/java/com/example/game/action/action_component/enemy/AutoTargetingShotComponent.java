@@ -43,10 +43,8 @@ public class AutoTargetingShotComponent extends ShotComponent {
             return;
         } // if
 
-        StopWatch stopWatch = super.getShotTime();
         Weapon weapon = super.getWeapon();
-
-        if (stopWatch.tick(deltaTime)) {
+        if(weapon.isReady()){
             weapon.setRotation(MathUtilities.radianToDegree(this.clacDirection(
                     this.getOwner().getPosition(),
                     this.target.getPosition()
@@ -57,8 +55,8 @@ public class AutoTargetingShotComponent extends ShotComponent {
                     this.getOwner().getRotation(),
                     this.getOwner().getTag()
             );
-            stopWatch.reset();
         } // if
+
     }
 
     @Override

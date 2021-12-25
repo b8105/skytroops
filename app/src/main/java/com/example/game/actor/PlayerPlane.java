@@ -2,6 +2,7 @@ package com.example.game.actor;
 
 import android.graphics.PointF;
 
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.component.ComponentType;
 import com.example.game.parameter.damage.Damage;
 import com.example.game.parameter.HpParameter;
@@ -9,6 +10,7 @@ import com.example.game.parameter.invincible.PlaneInvincibleParameter;
 import com.example.game.game.ActorContainer;
 import com.example.game.parameter.recovery.Recovery;
 import com.example.game.parameter.recovery.RecoveryApplicable;
+import com.example.game.weapon.AnyWayGun;
 
 public class PlayerPlane extends Plane implements RecoveryApplicable {
     private PlaneInvincibleParameter invincibleParameter = new PlaneInvincibleParameter();
@@ -17,6 +19,18 @@ public class PlayerPlane extends Plane implements RecoveryApplicable {
         super(actorContainer, tag);
         assert (super.getTag().equals(ActorTagString.player));
         actorContainer.setMainChara(this);
+
+        super.weapon = new AnyWayGun();
+        super.weapon.resetShotInterval(0.2f);
+    }
+
+    @Override
+    public PointF getCenterPosition() {
+        PointF position = super.getPosition();
+
+        position.x += BitmapSizeStatic.player.x * 0.5f;
+        position.y += BitmapSizeStatic.player.y * 0.5f;
+        return position;
     }
 
     @Override
@@ -25,6 +39,7 @@ public class PlayerPlane extends Plane implements RecoveryApplicable {
     }
 
     public void update(float deltaTime){
+        super.update(deltaTime);
         if(this.invincibleParameter != null){
             invincibleParameter.setPlaneSpriteRenderComponent(
                     super.getComponent(ComponentType.PlaneSpriteRender));

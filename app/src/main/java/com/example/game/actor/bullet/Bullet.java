@@ -1,8 +1,11 @@
 package com.example.game.actor.bullet;
 
+import android.graphics.PointF;
+
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.ActorType;
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.game.ActorContainer;
 import com.example.game.game.creational.BulletCreateConfig;
 
@@ -43,6 +46,15 @@ public class Bullet extends Actor {
 
     public int getMass() {
         return this.mass;
+    }
+
+    @Override
+    public PointF getCenterPosition() {
+        PointF position = super.getPosition();
+
+        position.x += BitmapSizeStatic.bullet.x * 0.5f;
+        position.y += BitmapSizeStatic.bullet.y * 0.5f;
+        return position;
     }
 
     public void release(ActorContainer actorContainer) {
