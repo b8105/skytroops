@@ -24,20 +24,19 @@ public class ScoreRenderer {
 
     public ScoreRenderer(ImageResource imageResource) {
         this.transform = new Transform2D();
-        transform.position.x = 700;
-        transform.position.y = 120;
+        transform.position.x = 620;
+        transform.position.y = 60;
 
         this.paint = new Paint();
         this.paint.setColor(Color.BLACK);
-        this.paint.setTextSize(72);
-
-        this.textSize = 72;
+        this.textSize = 42;
+        this.paint.setTextSize(this.textSize );
         this.textMargin = 4;
         this.offsetX = this.textSize * 0.5f;
 
         background = new UILabel(
                 imageResource, ImageResourceType.ScoreBackground,
-                new PointF(820.0f, 90.0f));
+                new PointF(950.0f, 40.0f));
     }
 
     private void clacPosition(String text){

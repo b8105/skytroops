@@ -251,7 +251,7 @@ public class ActorFactory {
                             StageType stageType) {
         switch (enemyPlaneType) {
             case Stage01Boss:
-                return 50;
+                return 20;
 //                return 1;
             case Stage02Boss:
                 return 100;

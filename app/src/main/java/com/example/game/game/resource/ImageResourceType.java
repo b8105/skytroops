@@ -27,6 +27,7 @@ public enum ImageResourceType {
     Stage05BossEnemyPlane,
 
     ScoreBackground,
+    ClearInfoBackground,
 
     BasicBullet,
     HomingBullet,

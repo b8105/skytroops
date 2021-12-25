@@ -30,6 +30,8 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.lock, BitmapSizeStatic. buttonLock.x, BitmapSizeStatic.buttonLock.y));
         hash.put(ImageResourceType.ScoreBackground,
                 this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.scoreBackground.x, BitmapSizeStatic.scoreBackground.y));
+        hash.put(ImageResourceType.ClearInfoBackground,
+                this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.clearInfoBackground.x, BitmapSizeStatic.clearInfoBackground.y));
 
     }
     private void constructHpRenderer( Point screenSize){

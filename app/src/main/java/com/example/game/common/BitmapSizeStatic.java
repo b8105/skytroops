@@ -21,6 +21,6 @@ public class BitmapSizeStatic {
     public static Point explosionUnit = new Point(800 / 4, 200);
     public static Point bulletUpgrade = new Point(800 / 4, 200);
 
-
-    public static Point scoreBackground = new Point(500, 140);
+    public static Point scoreBackground = new Point(250, 70);
+    public static Point clearInfoBackground = new Point(780, 680);
 }

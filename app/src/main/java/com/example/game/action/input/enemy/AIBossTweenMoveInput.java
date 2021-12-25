@@ -28,6 +28,10 @@ public class AIBossTweenMoveInput implements ActionInput {
         this.moveComponent = moveComponent;
     }
 
+    public void setInputSpeed(float speed) {
+        this.speed = speed;
+    }
+
     public void setShotInput(AIShotInput shotInput) {
         this.shotInput = shotInput;
     }

@@ -5,13 +5,17 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 
 import com.example.game.actor.PlayerPlane;
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.Transform2D;
 import com.example.game.game.GameScorer;
+import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 import com.example.game.scene.GamePlayScene;
+import com.example.game.ui.UILabel;
 import com.example.game.utility.StopWatch;
 
 public class StageClearInfoDrawEvent extends GameEvent {
@@ -31,8 +35,12 @@ public class StageClearInfoDrawEvent extends GameEvent {
     private String destroyedCountText;
     private String scoreText;
 
+    private UILabel background = null;
 
-    public StageClearInfoDrawEvent(GamePlayScene gamePlayScene,GameScorer gameScorer) {
+
+    public StageClearInfoDrawEvent(GamePlayScene gamePlayScene,
+                                   GameScorer gameScorer,
+                                   ImageResource imageResource) {
         this.existTimer = new StopWatch(time);
         this.transform = new Transform2D();
         this.transformDestroyedCount = new Transform2D();
@@ -51,9 +59,17 @@ public class StageClearInfoDrawEvent extends GameEvent {
         this.transformScoreText.position.x = this.transform.position.x;
         this.transformScoreText.position.y = this.transformDestroyedCount.position.y + (this.textSize * 2);
 
-        this.paint.setColor(Color.YELLOW);
+        this.paint.setColor(Color.BLACK);
         this.paint.setTextSize(this.textSize);
 
+
+
+        background = new UILabel(
+                imageResource, ImageResourceType.ClearInfoBackground,
+                new PointF(
+                        (Game.getDisplayRealSize().x * 0.5f) ,
+                        this.transform.position.y + 160
+                ));
 
     }
 
@@ -70,6 +86,7 @@ public class StageClearInfoDrawEvent extends GameEvent {
     public void draw(RenderCommandQueue out) {
         RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
 
+        background.draw(out);
         list.drawText(this.text, this.transform, this.paint);
         list.drawText(this.destroyedCountText, this.transformDestroyedCount, this.paint);
         list.drawText(this.scoreText, this.transformScoreText, this.paint);

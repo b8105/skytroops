@@ -144,7 +144,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
     }
     public void createStageClearInfoDrawEvent() {
         this.gameEventContainer.addEvent(
-                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer())
+                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(),this.imageResource)
         );
     }
 
