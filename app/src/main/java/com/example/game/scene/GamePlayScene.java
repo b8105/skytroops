@@ -57,6 +57,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
                 UIChangeBullePanel.getButtonHalfSizeStatic().x,
                 (UIChangeBullePanel.getButtonHalfSizeStatic().y * 4.5f));
         this.uiChangeBullePanel = new UIChangeBullePanel(
+                null,
                 this.imageResource,
                 resources,
                 panelPosition);

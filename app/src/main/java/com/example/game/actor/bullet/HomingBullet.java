@@ -6,11 +6,9 @@ import com.example.game.game.creational.BulletCreateConfig;
 public class HomingBullet extends Bullet{
     public HomingBullet(ActorContainer actorContainer, String tag, BulletCreateConfig config) {
         super(actorContainer, tag, config);
-        super.changeMass(2);
+        super.changeMass(1);
     }
-
     public BulletType getBulletType(){
         return BulletType.Homing;
     }
-
 }

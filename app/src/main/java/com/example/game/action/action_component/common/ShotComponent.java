@@ -20,6 +20,7 @@ public class ShotComponent extends ActionComponent {
     }
 
     public void setShotInterval(float time) {
+
         this.shotTime.reset(time);
     }
 
@@ -52,7 +53,6 @@ public class ShotComponent extends ActionComponent {
 
         if (shotTime.tick(deltaTime)) {
             weapon.setRotation(command.angle);
-
             this.weapon.shot(
                     this.getOwner().getPosition(),
                     this.getOwner().getRotation(),

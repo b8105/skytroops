@@ -34,6 +34,7 @@ import java.util.HashMap;
 public class ComponentFactory {
     private RenderLayer renderLayer = null;
 
+    private float strongEnemyShotInterval = 0.1f;
     private float basicEnemyShotInterval = 0.6f;
     private float weakEnemyShotInterval = 1.5f;
     private float bossEnemyShotInterval = 0.6f;
@@ -180,7 +181,7 @@ public class ComponentFactory {
             aiShotInput.setActorContainer(actorContainer);
             aiShotInput.setShotComponent(shotComponent);
             shotComponent.setWeapon(weapon);
-            shotComponent.setShotInterval(this.basicEnemyShotInterval);
+            shotComponent.setShotInterval(this.strongEnemyShotInterval);
             weapon.setActorFactory(actorFactory);
             shotComponent.setActionInput(aiShotInput);
             enemyPlaneActionInput.addActionInput(aiShotInput);

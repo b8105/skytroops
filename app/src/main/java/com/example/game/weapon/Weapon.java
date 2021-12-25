@@ -20,6 +20,10 @@ abstract public class Weapon {
         this.bulletType = BulletType.Basic;
     }
 
+    public BulletType getBulletType() {
+        return this.bulletType;
+    }
+
     public void setShotCount(int shotCount) {
         this.shotCount = shotCount;
     }
@@ -42,7 +46,7 @@ abstract public class Weapon {
 
     private float clacShotSpeed(BulletType bulletType){
         if(bulletType == BulletType.Homing){
-            return this.shotPower * 0.85f;
+            return this.shotPower * 0.55f;
         } // if
         return this.shotPower;
     }

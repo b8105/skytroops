@@ -32,7 +32,7 @@ public class HomingBulletMoveComponent extends ActionComponent {
 
     public HomingBulletMoveComponent(ActionLayer layer) {
         super(layer);
-        this.previsousMove = new PointF(0.0f, -10.0f);
+        this.previsousMove = new PointF(0.0f, -7.0f);
         this.targetSize = new PointF();
     }
 

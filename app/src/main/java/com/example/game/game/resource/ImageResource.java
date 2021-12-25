@@ -28,6 +28,8 @@ public class ImageResource {
 
         hash.put(ImageResourceType.BulletLock,
                 this.createScaledBitmap(R.drawable.lock, BitmapSizeStatic. buttonLock.x, BitmapSizeStatic.buttonLock.y));
+        hash.put(ImageResourceType.BulletButtonSelect,
+                this.createScaledBitmap(R.drawable.bullet_button_frame, BitmapSizeStatic. bulletButton.x, BitmapSizeStatic.bulletButton.y));
         hash.put(ImageResourceType.ScoreBackground,
                 this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.scoreBackground.x, BitmapSizeStatic.scoreBackground.y));
         hash.put(ImageResourceType.ClearInfoBackground,

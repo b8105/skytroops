@@ -9,6 +9,7 @@ public enum ImageResourceType {
     StageBackground5,
 
     BulletLock,
+    BulletButtonSelect,
 
     BulletUpgradeEffect,
     ExplosionEffect,

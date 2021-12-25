@@ -6,6 +6,7 @@ import android.graphics.PointF;
 import android.view.MotionEvent;
 
 import com.example.game.R;
+import com.example.game.actor.PlayerPlane;
 import com.example.game.collision.detector.RectangleCollisionDetector;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.InputEvent;
@@ -30,28 +31,36 @@ public class UIChangeBullePanel {
     private float positionMarginX =6.0f;
     static private int elementCount = 3;
 
+    private UIChangeBulletButton currentButton = null;
 
     public UIChangeBullePanel(
+            PlayerPlane playerPlane,
             ImageResource imageResource,
             Resources resources,
             PointF position) {
         float x = position.x;
         float y = position.y;
-        x += this.positionMarginX;
+        x += BitmapSizeStatic.bulletButton.x + this.positionMarginX;
 
-        this.toBasicButton = new UIChangeBulletButton(imageResource, resources,
+        this.toBasicButton = new UIChangeBulletButton(
+                playerPlane,
+                imageResource, resources,
                 R.drawable.bullet01,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
         x += BitmapSizeStatic.bulletButton.x + this.positionMarginX;
         this.toBasicButton.unlock();
 
-        this.toHomingButton = new UIChangeBulletButton(imageResource, resources,
+        this.toHomingButton = new UIChangeBulletButton(
+                playerPlane,
+                imageResource, resources,
                 R.drawable.bullet02,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
         x += BitmapSizeStatic.bulletButton.x+ this.positionMarginX;
         this.toHomingButton.lock();
 
-        this.toThreeWayButton = new UIChangeBulletButton(imageResource, resources,
+        this.toThreeWayButton = new UIChangeBulletButton(
+                playerPlane,
+                imageResource, resources,
                 R.drawable.bullet03,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
         this.toThreeWayButton.lock();
@@ -59,6 +68,12 @@ public class UIChangeBullePanel {
         bulletButtons.add(toBasicButton);
         bulletButtons.add(toThreeWayButton);
         bulletButtons.add(toHomingButton);
+
+
+        this.currentButton = toBasicButton;
+        this.currentButton.setSelectFlag(true);
+        toHomingButton.unlock();
+        toThreeWayButton.unlock();
     }
 
     public void setEvent(Weapon weapon) {
@@ -107,7 +122,10 @@ public class UIChangeBullePanel {
                         continue;
                     } // if
                     if (detector.CollisionCircle(bulletButton.getRectangle(), touchCircle)) {
+                        currentButton.setSelectFlag(false);
                         bulletButton.onTouch();
+                        currentButton = bulletButton;
+                        currentButton.setSelectFlag(true);
                     } // if
                 } // for
                 break;

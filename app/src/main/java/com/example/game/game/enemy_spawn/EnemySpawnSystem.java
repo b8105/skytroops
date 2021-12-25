@@ -155,10 +155,10 @@ public class EnemySpawnSystem {
 
         switch (type) {
             case Type01:
-                this.constructStage01();
+//                this.constructStage01();
                 break;
             case Type02:
-                this.constructStage02();
+//                this.constructStage02();
                break;
             case Type03:
                 this.constructStage03();
@@ -173,7 +173,7 @@ public class EnemySpawnSystem {
     }
 
     private void constructStage01() {
-        this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
+        this.waves.add(new EnemySpawnWave(4.0f, spawnDataProto, 0));
         this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 5));
     }
 

@@ -13,7 +13,7 @@ import com.example.game.utility.PointFUtilities;
 
 public class AIFadeoutMoveInput implements ActionInput {
     private MoveComponent moveComponent;
-    private float speed = 10.0f;
+    private float speed = 20.0f;
     private int moveSequence = 0;
     private float defaultFadeoutDirection = 45.0f;
     private float fadeoutDirection = 45.0f;
@@ -26,6 +26,10 @@ public class AIFadeoutMoveInput implements ActionInput {
 
     public void setShotInput(AIShotInput shotInput) {
         this.shotInput = shotInput;
+    }
+
+    public void setInputSpeed(float speed) {
+        this.speed = speed;
     }
 
     private void clacDirection() {
