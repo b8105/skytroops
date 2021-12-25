@@ -75,6 +75,7 @@ public class ActorFactory {
     private int enemyCollisionRectSizeDecrease = 40;
     private int bulletCollisionRectSizeDecrease = 60;
 
+
     public ActorFactory(
             GamePlayScene gamePlayScene,
             ImageResource imageResource,
@@ -253,7 +254,7 @@ public class ActorFactory {
                 return 40;
 //                return 1;
             case Stage03Boss:
-                return 150;
+                return 80;
 //                return 10;
             case Stage04Boss:
                 return 300;
@@ -373,7 +374,9 @@ public class ActorFactory {
                 break;
             case Stage03Boss:
                 weapon = new BasicGun();
-                subWeapon = new AnyWayGun();
+                AnyWayGun temp = new AnyWayGun();
+                temp.setWayAngle(15);
+                        subWeapon = temp;
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
                         actionLayer, this, this.actorContainer, weapon,subWeapon, null, stageType);
                 actor.setSubWeapon(subWeapon);

@@ -29,7 +29,7 @@ public class StageRenderer {
                 RenderLayerType.UI);
         this.paint.setTextSize(this.textSize);
         {
-            String text = "stage no : " + stage.getCurrentType().ordinal();
+            String text = "stage no : " + stage.getCurrentType().ordinal() + 1;
             list.drawText(text, this.textTransform, this.paint);
         }
     }

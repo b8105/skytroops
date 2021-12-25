@@ -10,6 +10,10 @@ public class ShotComponent extends ActionComponent {
     private ShotCommand command = null;
     private StopWatch shotTime = new StopWatch(0.16f);
     private Weapon weapon;
+    private boolean instanceFlag = false;
+    private boolean active = true;
+
+
 
     public ShotComponent(ActionComponent actionComponent) {
         super(actionComponent);
@@ -19,9 +23,18 @@ public class ShotComponent extends ActionComponent {
         this.weapon = weapon;
     }
 
-    public void setShotInterval(float time) {
 
+    public void setInstanceFlag(boolean instance) {
+        this.instanceFlag = instance;
+    }
+
+    public void setShotInterval(float time) {
         this.shotTime.reset(time);
+    }
+
+    @Override
+    public boolean isActive() {
+        return this.active;
     }
 
     protected ShotCommand getCommand() {
@@ -50,8 +63,16 @@ public class ShotComponent extends ActionComponent {
         if (!command.fire) {
             return;
         } // if
+        if(!this.isActive()){
+            return;
+        } // if
+
 
         if (shotTime.tick(deltaTime)) {
+            if(this.instanceFlag){
+                this.active = false;
+            } // if
+
             weapon.setRotation(command.angle);
             this.weapon.shot(
                     this.getOwner().getPosition(),

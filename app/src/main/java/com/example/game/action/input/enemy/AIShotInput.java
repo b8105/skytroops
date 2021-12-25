@@ -19,8 +19,6 @@ public class AIShotInput implements ActionInput {
     private boolean targeting = true;
     private float defaultAngle = 180.0f;
     private float playerHalfSizeX = 0.0f;
-//    private int shot
-
 
     public AIShotInput(ShotComponent shotComponent) {
         this.playerHalfSizeX = BitmapSizeStatic.player.x * 0.5f;

@@ -180,6 +180,7 @@ public class ComponentFactory {
         {
             aiShotInput.setActorContainer(actorContainer);
             aiShotInput.setShotComponent(shotComponent);
+            shotComponent.setInstanceFlag(true);
             shotComponent.setWeapon(weapon);
             shotComponent.setShotInterval(this.strongEnemyShotInterval);
             weapon.setActorFactory(actorFactory);

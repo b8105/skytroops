@@ -3,6 +3,7 @@ package com.example.game.actor.enemy_plane;
 import android.graphics.PointF;
 
 import com.example.game.actor.PlaneType;
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.parameter.damage.Damage;
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.Plane;
@@ -51,9 +52,11 @@ public class EnemyPlane extends Plane {
         if (hpParameter.isLessEqualZero()) {
             gameScorer.addScore(100);
             {
+                PointF emitPos = super.getPosition();
+                emitPos.y -= BitmapSizeStatic.score.y * 0.5f;
                 EffectInfo info = new EffectInfo(
                         EffectType.Score,
-                        super.getPosition(),
+                        emitPos,
                         0.3f,
                         new PointF(0.0f, -6.0f)
                 );
