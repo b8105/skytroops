@@ -60,8 +60,8 @@ public class UIChangeBullePanel {
 
     public void setEvent(Weapon weapon) {
         this.toBasicButton.setTarget(weapon, UIChangeBulletButtonEventType.ToBasic);
-        this.toHomingButton.setTarget(weapon, UIChangeBulletButtonEventType.ToHoming);
         this.toThreeWayButton.setTarget(weapon, UIChangeBulletButtonEventType.ToThreeWay);
+        this.toHomingButton.setTarget(weapon, UIChangeBulletButtonEventType.ToHoming);
     }
 
 
@@ -83,7 +83,7 @@ public class UIChangeBullePanel {
         this.toHomingButton.unlock();
     }
     public void unlockToThreeWayButton(){
-        this.toBasicButton.unlock();
+        this.toThreeWayButton.unlock();
     }
 
     public void input(InputEvent input) {

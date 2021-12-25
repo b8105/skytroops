@@ -54,10 +54,10 @@ public class ToNextStageEvent extends GameEvent{
 
         StageType stageType =stage.getCurrentType();
         if(stageType == StageType.Type01){
-            uiChangeBullePanel.unlockToHomingButton();
+            uiChangeBullePanel.unlockToThreeWayButton();
         } // if
         else if(stageType == StageType.Type02){
-            uiChangeBullePanel.unlockToThreeWayButton();
+            uiChangeBullePanel.unlockToHomingButton();
         } // else if
     }
 

@@ -6,6 +6,7 @@ import com.example.game.action.action_component.common.ShotComponent;
 import com.example.game.action.command.ShotCommand;
 import com.example.game.action.input.ActionInput;
 import com.example.game.actor.Actor;
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.InputEvent;
 import com.example.game.game.ActorContainer;
 import com.example.game.utility.MathUtilities;
@@ -17,8 +18,10 @@ public class AIShotInput implements ActionInput {
     private ActorContainer actorContainer;
     private boolean targeting = true;
     private float defaultAngle = 180.0f;
+    private float playerHalfSizeX = 0.0f;
 
     public AIShotInput(ShotComponent shotComponent) {
+        this.playerHalfSizeX = BitmapSizeStatic.player.x * 0.5f;
         this.setShotComponent(shotComponent);
     }
 
@@ -70,9 +73,13 @@ public class AIShotInput implements ActionInput {
         if(target != null){
             command.fire = true;
             if(this.targeting){
+                PointF targetPosition = new PointF(
+                        target.getPosition().x  - this.playerHalfSizeX,
+                        target.getPosition().y
+                );
                 command.angle = MathUtilities.radianToDegree(this.clacDirection(
                         this.shotComponent.getOwner().getPosition(),
-                        target.getPosition()));
+                        targetPosition));
             } // if
             else{
                 command.angle = defaultAngle;

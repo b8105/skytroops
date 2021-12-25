@@ -2,6 +2,7 @@ package com.example.game.actor.bullet;
 
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
+import com.example.game.actor.ActorType;
 import com.example.game.game.ActorContainer;
 import com.example.game.game.BulletCreateConfig;
 
@@ -9,6 +10,10 @@ import com.example.game.game.BulletCreateConfig;
 public class Bullet extends Actor {
     private float appliedShotSpeed = 0.0f;
     private int mass = 1;
+
+    protected void changeMass(int mass){
+        this.mass = mass;
+    }
 
     public Bullet(ActorContainer actorContainer, String tag, BulletCreateConfig config) {
         super(actorContainer, tag);
@@ -26,6 +31,10 @@ public class Bullet extends Actor {
 
     public float getAppliedShotSpeed() {
         return this.appliedShotSpeed;
+    }
+
+    public ActorType getActorType() {
+        return ActorType.Bullet;
     }
 
     public BulletType getBulletType(){

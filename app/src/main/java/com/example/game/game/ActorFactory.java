@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 
+import com.example.game.actor.bullet.BulletForStage01Boss;
 import com.example.game.observation.BossEnemyDeadSubject;
 import com.example.game.actor.enemy_plane.BossEnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlane;
@@ -150,6 +151,33 @@ public class ActorFactory {
         actor.setRotation(rotation);
         return actor;
     }
+
+    public BulletForStage01Boss createStage01BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
+        BulletForStage01Boss actor = new BulletForStage01Boss(actorContainer, tag,bulletCreateConfig);
+
+        BasicBulletMoveComponent moveComponent = new BasicBulletMoveComponent(actionLayer);
+        SpriteRenderComponent spriteRenderComponent = new SpriteRenderComponent(renderLayer);
+        BulletCollisionComponent collisionable = new BulletCollisionComponent(collisionLayer);
+        collisionable.setCollisionRectSizeOffset(-bulletCollisionRectSizeDecrease);
+
+        Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.bullet05);
+        bitmap = Bitmap.createScaledBitmap(bitmap, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y, false);
+        spriteRenderComponent.setBitmap(bitmap);
+
+        // add
+        actor.addComponent(collisionable);
+        actor.addComponent(moveComponent);
+        actor.addComponent(spriteRenderComponent);
+
+        actor.initialize();
+
+        actor.setPosition(positionX, positionY);
+        actor.setRotation(rotation);
+        return actor;
+    }
+
+
+
 
     public Bullet createHomingBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
         Bullet actor = new Bullet(actorContainer, tag,bulletCreateConfig);

@@ -242,6 +242,7 @@ public class ComponentFactory {
                 }
             } // if
             else if (stageType == StageType.Type02) {
+                weapon.setShotCount(1);
                 {
                     AIBossTweenMoveInput input = new AIBossTweenMoveInput();
                     input.setMoveComponent(moveComponent);

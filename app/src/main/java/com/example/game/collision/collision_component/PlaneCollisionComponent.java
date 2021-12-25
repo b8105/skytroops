@@ -45,7 +45,8 @@ public class PlaneCollisionComponent
         } // else
     }
     private void clacCollisionInfoForce(Bullet bullet, CollisionInfo info) {
-        info.force = collisionForceBullet.get(bullet.getBulletType()).intValue();
+        //info.force = collisionForceBullet.get(bullet.getBulletType()).intValue();
+        info.force = bullet.getMass();
     }
 
     public Plane getPlaneOwner() {
@@ -86,7 +87,6 @@ public class PlaneCollisionComponent
         boolean activeInvincible = ((PlayerPlane) (super.getOwner())).getInvincibleParameter().isActive();
         if (!activeInvincible) {
             if (target.getCollisionableType() == CollisionableType.Bullet) {
-                info.force = 1;
                 return this.isCollisionAtBullet(target, info);
             } // if
             else if (target.getCollisionableType() == CollisionableType.Enemy) {
