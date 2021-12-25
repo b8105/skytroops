@@ -1,8 +1,9 @@
-package com.example.game.game;
+package com.example.game.game.creational;
 
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.common.BitmapSizeStatic;
+import com.example.game.game.creational.ActorFactory;
 import com.example.game.stage.StageType;
 
 

@@ -1,25 +1,21 @@
 package com.example.game.game_event;
 
-import android.content.res.Resources;
 import android.graphics.Color;
 
 import com.example.game.common.shape.Rectangle;
-import com.example.game.game.EnemySpawnSystem;
 import com.example.game.game.GameSystem;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 import com.example.game.render.info.RenderRectangleInfo;
-import com.example.game.scene.GamePlayScene;
 import com.example.game.stage.Stage;
-import com.example.game.stage.StageType;
 import com.example.game.utility.StopWatch;
 
 public class TransitionStageEnterEvent extends GameEvent {
     private StopWatch existTimer;
     private float time = 1.0f;
-    private float timeCoefficient = 2.0f;
+    private float timeCoefficient = 3.0f;
     private Stage stage = null;
     private GameSystem gameSystem= null;
     public TransitionStageEnterEvent(

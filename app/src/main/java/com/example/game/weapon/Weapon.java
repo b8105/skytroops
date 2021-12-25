@@ -4,7 +4,7 @@ import android.graphics.PointF;
 
 import com.example.game.actor.bullet.BulletType;
 import com.example.game.common.BitmapSizeStatic;
-import com.example.game.game.ActorFactory;
+import com.example.game.game.creational.ActorFactory;
 
 abstract public class Weapon {
     private ActorFactory actorFactory;

@@ -17,7 +17,7 @@ import com.example.game.utility.StopWatch;
 
 public class TransitionStageExitEvent extends GameEvent {
     private float time = 1.0f;
-    private float timeCoefficient = 2.0f;
+    private float timeCoefficient = 3.0f;
     private StopWatch existTimer;
     private StopWatch transitionExistTimer;
     private GamePlayScene gamePlayScene;

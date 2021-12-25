@@ -1,7 +1,7 @@
 package com.example.game.actor.bullet;
 
 import com.example.game.game.ActorContainer;
-import com.example.game.game.BulletCreateConfig;
+import com.example.game.game.creational.BulletCreateConfig;
 
 public class HomingBullet extends Bullet{
     public HomingBullet(ActorContainer actorContainer, String tag, BulletCreateConfig config) {

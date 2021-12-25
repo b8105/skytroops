@@ -5,7 +5,6 @@ import android.graphics.Point;
 import android.graphics.PointF;
 
 import com.example.game.actor.PlayerPlane;
-import com.example.game.game.GameScorer;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game_event.EnemyDestroyedEvent;
 import com.example.game.game_event.GameEventContainer;
@@ -17,11 +16,10 @@ import com.example.game.observation.BossEnemyDeadListener;
 import com.example.game.observation.BossEnemyDeadMessage;
 import com.example.game.DebugRenderer;
 import com.example.game.render.ScoreRenderer;
-import com.example.game.component.ComponentType;
 import com.example.game.actor.ActorTagString;
 import com.example.game.effect.EffectSystem;
 import com.example.game.game.ActorContainer;
-import com.example.game.game.ActorFactory;
+import com.example.game.game.creational.ActorFactory;
 import com.example.game.game.ComponentExecutor;
 import com.example.game.game.GameSystem;
 import com.example.game.actor.Actor;
@@ -52,7 +50,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
         this.imageResource = imageResource;
         this.gameEventContainer = new GameEventContainer();
         this.actorContainer = new ActorContainer();
-        this.gameSystem = new GameSystem(4.0f);
+        this.gameSystem = new GameSystem();
         this.componentExecutor = new ComponentExecutor();
         this.effectSystem = new EffectSystem(this.imageResource);
         PointF panelPosition = new PointF(

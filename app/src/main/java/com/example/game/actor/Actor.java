@@ -123,6 +123,12 @@ public class Actor {
         this.initialPosition.y = this.transform.position.y;
     }
 
+    public void initialize(PointF position, float rotation) {
+        this.setPosition(position);
+        this.setRotation(rotation);
+        this.initialize();
+    }
+
     public void update(float deltaTime){
     }
 

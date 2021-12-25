@@ -1,8 +1,6 @@
-package com.example.game.game;
+package com.example.game.game.creational;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import com.example.game.action.ActionLayer;
 import com.example.game.action.action_component.enemy.AutoTargetingShotComponent;
@@ -20,13 +18,14 @@ import com.example.game.action.input.enemy.EnemyPlaneActionInput;
 import com.example.game.action.input.player.PlayerActionInput;
 import com.example.game.action.input.player.PlayerMoveInput;
 import com.example.game.action.input.player.PlayerShotInput;
+import com.example.game.game.ActorContainer;
+import com.example.game.game.creational.ActorFactory;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
 import com.example.game.render.RenderLayer;
 import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 import com.example.game.render.render_component.SpriteRenderComponent;
 import com.example.game.stage.StageType;
-import com.example.game.weapon.BasicGun;
 import com.example.game.weapon.Weapon;
 
 import java.util.HashMap;

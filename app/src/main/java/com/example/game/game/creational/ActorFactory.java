@@ -1,10 +1,6 @@
-package com.example.game.game;
+package com.example.game.game.creational;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.PointF;
-import android.media.Image;
 
 import com.example.game.actor.bullet.BulletForStage01Boss;
 import com.example.game.actor.bullet.BulletForStage02Boss;
@@ -14,6 +10,9 @@ import com.example.game.actor.enemy_plane.Stage02BossEnemy;
 import com.example.game.actor.enemy_plane.Stage03BossEnemy;
 import com.example.game.actor.enemy_plane.Stage04BossEnemy;
 import com.example.game.actor.enemy_plane.Stage05BossEnemy;
+import com.example.game.game.ActorContainer;
+import com.example.game.game.ComponentExecutor;
+import com.example.game.game.GameSystem;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
 import com.example.game.observation.BossEnemyDeadSubject;
@@ -23,7 +22,6 @@ import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.actor.PlayerPlane;
 import com.example.game.render.hp_renderer.BossEnemyPlaneHpBarRenderer;
 import com.example.game.render.hp_renderer.EnemyPlaneHpBarRenderer;
-import com.example.game.R;
 import com.example.game.action.action_component.bullet.BasicBulletMoveComponent;
 import com.example.game.action.action_component.bullet.HomingBulletMoveComponent;
 import com.example.game.action.action_component.PlaneActionComponent;
@@ -35,7 +33,6 @@ import com.example.game.collision.CollisionLayer;
 import com.example.game.collision.collision_component.BulletCollisionComponent;
 import com.example.game.collision.collision_component.EnemyCollisionComponent;
 import com.example.game.collision.collision_component.PlaneCollisionComponent;
-import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.Transform2D;
 import com.example.game.effect.EffectSystem;
 import com.example.game.effect.EffectType;
@@ -141,7 +138,6 @@ public class ActorFactory {
         actor.setActorType(ActorType.Bullet);
 
         BasicBulletMoveComponent moveComponent = new BasicBulletMoveComponent(actionLayer);
-        //SpriteRenderComponent spriteRenderComponent = new SpriteRenderComponent(renderLayer);
         BulletCollisionComponent collisionable = new BulletCollisionComponent(collisionLayer);
         collisionable.setCollisionRectSizeOffset(-bulletCollisionRectSizeDecrease);
 
@@ -254,7 +250,7 @@ public class ActorFactory {
                 return 20;
 //                return 1;
             case Stage02Boss:
-                return 100;
+                return 40;
 //                return 1;
             case Stage03Boss:
                 return 150;
@@ -462,8 +458,6 @@ public class ActorFactory {
 
 
         EnemyCollisionComponent collisionable = new EnemyCollisionComponent(collisionLayer);
-
-
         collisionable.setCollisionRectSizeOffset(-enemyCollisionRectSizeDecrease);
 
 

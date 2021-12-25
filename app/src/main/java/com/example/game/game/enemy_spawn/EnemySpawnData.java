@@ -1,4 +1,4 @@
-package com.example.game.game;
+package com.example.game.game.enemy_spawn;
 
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
 

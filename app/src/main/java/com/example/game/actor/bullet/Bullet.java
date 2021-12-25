@@ -4,7 +4,7 @@ import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.ActorType;
 import com.example.game.game.ActorContainer;
-import com.example.game.game.BulletCreateConfig;
+import com.example.game.game.creational.BulletCreateConfig;
 
 // mass(重さは)衝突ダメージの時に参照する
 public class Bullet extends Actor {

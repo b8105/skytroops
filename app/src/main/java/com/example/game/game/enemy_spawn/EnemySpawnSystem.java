@@ -1,10 +1,9 @@
-package com.example.game.game;
+package com.example.game.game.enemy_spawn;
 
-import com.example.game.actor.ActorTagString;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
-import com.example.game.common.BitmapSizeStatic;
+import com.example.game.game.creational.ActorFactory;
+import com.example.game.game.creational.BossEnemySpawner;
 import com.example.game.stage.StageType;
-import com.example.game.utility.StopWatch;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +17,9 @@ public class EnemySpawnSystem {
 
     List<EnemySpawnData> spawnDataProto = new ArrayList<>();
     List<EnemySpawnData> spawnDataProtoA = new ArrayList<>();
+    List<EnemySpawnData> spawnDataProtoB1 = new ArrayList<>();
+    List<EnemySpawnData> spawnDataProtoB2 = new ArrayList<>();
+    List<EnemySpawnData> spawnDataProtoB3 = new ArrayList<>();
     List<EnemySpawnData> spawnDataProtoB = new ArrayList<>();
     List<EnemySpawnData> spawnDataProtoC = new ArrayList<>();
     List<EnemySpawnData> spawnDataProtoD = new ArrayList<>();
@@ -41,6 +43,23 @@ public class EnemySpawnSystem {
             for (EnemySpawnData spawn : this.spawnDataProtoA) {
                 spawnDataProtoC.add(spawn);
             } // for
+
+            spawnDataProtoB1.add(new EnemySpawnData(EnemyPlaneType.Weak,
+                    1.0f, 400.0f));
+
+            spawnDataProtoB2.add(new EnemySpawnData(EnemyPlaneType.Weak,
+                    1.0f, 120.0f));
+            spawnDataProtoB2.add(new EnemySpawnData(EnemyPlaneType.Weak,
+                    1.0f, 680.0f));
+
+
+            spawnDataProtoB3.add(new EnemySpawnData(EnemyPlaneType.Weak,
+                    1.0f, 120.0f));
+            spawnDataProtoB3.add(new EnemySpawnData(EnemyPlaneType.Weak,
+                    1.0f, 400.0f));
+            spawnDataProtoB3.add(new EnemySpawnData(EnemyPlaneType.Weak,
+                    1.0f, 680.0f));
+
 
             spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Weak,
                     1.0f, 120.0f));
@@ -160,15 +179,15 @@ public class EnemySpawnSystem {
 
     private void constructStage02() {
         this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB1, 0));
         this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB2, 0));
         this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB1, 0));
         this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB2, 0));
         this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB3, 0));
     }
 
     private void constructStage03() {
