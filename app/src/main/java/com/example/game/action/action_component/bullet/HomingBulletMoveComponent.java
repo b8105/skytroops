@@ -49,7 +49,7 @@ public class HomingBulletMoveComponent extends ActionComponent {
         } // if
         if(this.target.getPlaneType() == PlaneType.Enemy){
             EnemyPlane enemy = ((EnemyPlane)(this.target));
-            if(enemy.getEnemyPlaneType() == EnemyPlaneType.Boss){
+            if(enemy.isBoss()){
                 this.targetSize.x = BitmapSizeStatic.boss.x;
                 this.targetSize.y = BitmapSizeStatic.boss.y;
             } // if

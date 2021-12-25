@@ -27,6 +27,10 @@ public class EnemyPlane extends Plane {
         return EnemyPlaneType.Basic;
     }
 
+    public boolean isBoss(){
+        return false;
+    }
+
     public void release(ActorContainer actorContainer) {
         super.release(actorContainer);
         assert (super.getTag().equals(ActorTagString.enemy));

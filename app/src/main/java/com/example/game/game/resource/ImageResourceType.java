@@ -11,4 +11,18 @@ public enum ImageResourceType {
     BulletUpgradeEffect,
     ExplosionEffect,
     ScoreEffect,
+
+    PlayerPlane,
+    BasicEnemyPlane,
+    WeakEnemyPlane,
+    StrongEnemyPlane,
+    FollowEnemyPlane,
+    CommanderEnemyPlane,
+    Stage01BossEnemyPlane,
+    Stage02BossEnemyPlane,
+    Stage03BossEnemyPlane,
+
+    BasicBullet,
+    HomingBullet,
+    Stage01BossBullet,
 }

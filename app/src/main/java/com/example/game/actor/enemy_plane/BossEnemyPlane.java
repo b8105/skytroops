@@ -19,7 +19,7 @@ import com.example.game.parameter.invincible.PlaneInvincibleParameter;
 
 import java.util.Random;
 
-public class BossEnemyPlane extends EnemyPlane {
+public abstract class BossEnemyPlane extends EnemyPlane {
     private int explosionEffectCount = 10;
     private BossEnemyDeadSubject bossEnemyDeadSubject = null;
     private PlaneInvincibleParameter invincibleParameter = new PlaneInvincibleParameter();
@@ -30,9 +30,11 @@ public class BossEnemyPlane extends EnemyPlane {
         actorContainer.setBossEnemy(this);
         this.invincibleParameter.setInvincibleTime(60.0f);
     }
-    public EnemyPlaneType getEnemyPlaneType(){
-        return EnemyPlaneType.Boss;
+    public abstract EnemyPlaneType getEnemyPlaneType();
+    public boolean isBoss(){
+        return true;
     }
+
 
     public void update(float deltaTime){
         if(this.invincibleParameter != null){

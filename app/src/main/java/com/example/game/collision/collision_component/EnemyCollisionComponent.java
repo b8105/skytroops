@@ -51,7 +51,7 @@ public class EnemyCollisionComponent
     public boolean isCollision(Collisionable target, CollisionInfo info) {
         EnemyPlane enemyPlane =this.getEnemyPlaneOwner();
         if(enemyPlane != null){
-            if(enemyPlane.getEnemyPlaneType() == EnemyPlaneType.Boss){
+            if(enemyPlane.isBoss()){
                 BossEnemyPlane boss = (BossEnemyPlane)(enemyPlane);
                 if(boss.getInvincibleParameter().isActive()){
                     return false;

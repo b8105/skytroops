@@ -54,8 +54,8 @@ public class UIChangeBullePanel {
         this.toThreeWayButton.lock();
 
         bulletButtons.add(toBasicButton);
-        bulletButtons.add(toHomingButton);
         bulletButtons.add(toThreeWayButton);
+        bulletButtons.add(toHomingButton);
     }
 
     public void setEvent(Weapon weapon) {

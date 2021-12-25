@@ -6,7 +6,7 @@ public enum EnemyPlaneType {
     Strong,
     Commander,
     Follow,
-    Boss,
-    Boss2,
-    Boss3,
+    Stage01Boss,
+    Stage02Boss,
+    Stage03Boss,
 }

@@ -18,6 +18,8 @@ public class ImageResource {
     public ImageResource(Resources resources, Point screenSize) {
         this.resources = resources;
         this.imageResourceTypeBitmapHashMap = new HashMap<>();
+        this.constructPlane(screenSize);
+        this.constructBullet(screenSize);
         this.constructStageBackground(screenSize);
         this.constructEffect(screenSize);
 
@@ -26,6 +28,39 @@ public class ImageResource {
         hash.put(ImageResourceType.BulletLock,
                 this.createScaledBitmap(R.drawable.lock, BitmapSizeStatic. buttonLock.x, BitmapSizeStatic.buttonLock.y));
 
+    }
+    private void constructPlane( Point screenSize){
+        HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
+
+        hash.put(ImageResourceType.PlayerPlane, this.createScaledBitmap(
+                R.drawable.plane1up, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
+        hash.put(ImageResourceType.BasicEnemyPlane, this.createScaledBitmap(
+                R.drawable.enemy01, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
+        hash.put(ImageResourceType.WeakEnemyPlane, this.createScaledBitmap(
+                R.drawable.enemy02, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
+        hash.put(ImageResourceType.StrongEnemyPlane, this.createScaledBitmap(
+                R.drawable.enemy05, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
+        hash.put(ImageResourceType.FollowEnemyPlane, this.createScaledBitmap(
+                R.drawable.enemy03, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
+        hash.put(ImageResourceType.CommanderEnemyPlane, this.createScaledBitmap(
+                R.drawable.enemy04, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
+
+        hash.put(ImageResourceType.Stage01BossEnemyPlane, this.createScaledBitmap(
+                R.drawable.enemy08, BitmapSizeStatic.boss.x, BitmapSizeStatic.boss.y));
+        hash.put(ImageResourceType.Stage02BossEnemyPlane, this.createScaledBitmap(
+                R.drawable.enemy13, BitmapSizeStatic.boss.x, BitmapSizeStatic.boss.y));
+        hash.put(ImageResourceType.Stage03BossEnemyPlane, this.createScaledBitmap(
+                R.drawable.enemy14, BitmapSizeStatic.boss.x, BitmapSizeStatic.boss.y));
+    }
+    private void constructBullet( Point screenSize){
+        HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
+
+        hash.put(ImageResourceType.BasicBullet, this.createScaledBitmap(
+                R.drawable.bullet01, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y));
+        hash.put(ImageResourceType.HomingBullet, this.createScaledBitmap(
+                R.drawable.bullet02, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y));
+        hash.put(ImageResourceType.Stage01BossBullet, this.createScaledBitmap(
+                R.drawable.bullet05, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y));
     }
     private void constructEffect( Point screenSize){
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
@@ -38,6 +73,7 @@ public class ImageResource {
         hash.put(ImageResourceType.BulletUpgradeEffect, this.createScaledBitmap(
                 R.drawable.upgtext, BitmapSizeStatic.bulletUpgrade.x, BitmapSizeStatic.bulletUpgrade.y));
     }
+
     private void constructStageBackground( Point screenSize){
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
 

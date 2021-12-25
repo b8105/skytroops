@@ -64,6 +64,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
                 panelPosition);
         this.actorFactory = new ActorFactory(this,
                 resources,
+                imageResource,
                 this.actorContainer,
                 this.componentExecutor,
                 this.gameSystem,
