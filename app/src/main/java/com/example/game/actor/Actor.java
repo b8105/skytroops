@@ -15,6 +15,7 @@ public class Actor {
     private ActorState actorState;
     private String tag = "";
     private Transform2D transform = null;
+    private PointF initialPosition = null;
 
     private List<Component> components = new ArrayList<Component>();
 
@@ -22,6 +23,7 @@ public class Actor {
         this.actorState = ActorState.Active;
         this.tag = tag;
         this.transform = new Transform2D();
+        this.initialPosition = new PointF();
         actorContainer.addActor(this);
     }
 
@@ -79,6 +81,10 @@ public class Actor {
                 transform.scale.y);
     }
 
+    public PointF getInitialPosition() {
+        return this.initialPosition;
+    }
+
     public <T> T getComponent(ComponentType componentType) {
         for (Component component : this.components) {
             if (component.getComponentType() == componentType) {
@@ -113,6 +119,8 @@ public class Actor {
         for (Component component : this.components) {
             component.onComponentInitialize(this);
         } // for
+        this.initialPosition.x = this.transform.position.x;
+        this.initialPosition.y = this.transform.position.y;
     }
 
     public void update(float deltaTime){

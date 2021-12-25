@@ -9,4 +9,6 @@ public enum EnemyPlaneType {
     Stage01Boss,
     Stage02Boss,
     Stage03Boss,
+    Stage04Boss,
+    Stage05Boss,
 }

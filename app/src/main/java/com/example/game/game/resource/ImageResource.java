@@ -55,7 +55,7 @@ public class ImageResource {
         hash.put(ImageResourceType.WeakEnemyPlane, this.createScaledBitmap(
                 R.drawable.enemy02, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
         hash.put(ImageResourceType.StrongEnemyPlane, this.createScaledBitmap(
-                R.drawable.enemy05, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
+                R.drawable.enemy06, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
         hash.put(ImageResourceType.FollowEnemyPlane, this.createScaledBitmap(
                 R.drawable.enemy03, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
         hash.put(ImageResourceType.CommanderEnemyPlane, this.createScaledBitmap(

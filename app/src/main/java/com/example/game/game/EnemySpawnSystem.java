@@ -18,6 +18,7 @@ public class EnemySpawnSystem {
     List<EnemySpawnData> spawnDataProto = new ArrayList<>();
     List<EnemySpawnData> spawnDataProtoA = new ArrayList<>();
     List<EnemySpawnData> spawnDataProtoB = new ArrayList<>();
+    List<EnemySpawnData> spawnDataProtoC = new ArrayList<>();
 
     private void constructProtoType() {
         {
@@ -33,25 +34,27 @@ public class EnemySpawnSystem {
                     0.0f, 800.0f));
         }
         {
-            spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Basic,
-                    0.0f, 0.0f));
-            spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Basic,
-                    0.0f, 200.0f));
-            spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Basic,
-                    0.0f, 400.0f));
-            spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Basic,
-                    0.0f, 600.0f));
-            spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Basic,
-                    0.0f, 800.0f));
+            for(EnemySpawnData spawn : this.spawnDataProtoA ){
+                spawnDataProtoC.add(spawn);
+            } // for
 
             spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Weak,
-                    1.0f, 100.0f));
+                    1.0f, 120.0f));
             spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Weak,
-                    1.0f, 450.0f));
+                    1.0f, 400.0f));
             spawnDataProtoB.add(new EnemySpawnData(EnemyPlaneType.Weak,
-                    1.0f, 800.0f));
+                    1.0f, 680.0f));
         }
         {
+            for(EnemySpawnData spawn : this.spawnDataProtoA ){
+                spawnDataProtoC.add(spawn);
+            } // for
+            spawnDataProtoC.add(new EnemySpawnData(EnemyPlaneType.Strong,
+                    0.6f, 0.0f));
+            spawnDataProtoC.add(new EnemySpawnData(EnemyPlaneType.Strong,
+                    1.2f, 0.0f));
+            spawnDataProtoC.add(new EnemySpawnData(EnemyPlaneType.Strong,
+                    1.8f, 0.0f));
         }
     }
 
@@ -61,10 +64,10 @@ public class EnemySpawnSystem {
         this.constructProtoType();
         switch (type) {
             case Type01:
-                this.constructStage01();
+//                this.constructStage01();
                 break;
             case Type02:
-                this.constructStage02();
+//                this.constructStage02();
                 break;
             case Type03:
                 this.constructStage03();
@@ -97,8 +100,24 @@ public class EnemySpawnSystem {
     }
 
     private void constructStage03() {
-//        this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
-//        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 2));
+        this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
+
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+
     }
 
     private void constructStage04() {

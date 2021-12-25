@@ -28,6 +28,16 @@ public class BossEnemySpawner {
                         0 - BitmapSizeStatic.boss.y,
                         ActorTagString.enemy, EnemyPlaneType.Stage03Boss,stageType);
                 break;
+            case Type04:
+                actorFactory.createEnemy(300,
+                        0 - BitmapSizeStatic.boss.y,
+                        ActorTagString.enemy, EnemyPlaneType.Stage04Boss,stageType);
+                break;
+            case Type05:
+                actorFactory.createEnemy(300,
+                        0 - BitmapSizeStatic.boss.y,
+                        ActorTagString.enemy, EnemyPlaneType.Stage05Boss,stageType);
+                break;
         } // switch
     }
 }

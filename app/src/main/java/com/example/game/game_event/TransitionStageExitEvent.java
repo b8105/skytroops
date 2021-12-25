@@ -17,6 +17,7 @@ import com.example.game.utility.StopWatch;
 
 public class TransitionStageExitEvent extends GameEvent {
     private float time = 1.0f;
+    private float timeCoefficient = 2.0f;
     private StopWatch existTimer;
     private StopWatch transitionExistTimer;
     private GamePlayScene gamePlayScene;
@@ -40,7 +41,7 @@ public class TransitionStageExitEvent extends GameEvent {
 
     @Override
     public boolean update(float deltaIime) {
-        if (existTimer.tick(deltaIime)) {
+        if (existTimer.tick(deltaIime * timeCoefficient)) {
             this.gamePlayScene.createTransitionStageEnterEvent();
             this.player.setPosition(this.idealPosiotion);
             this.gameScorer.resetStageScore();

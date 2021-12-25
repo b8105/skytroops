@@ -3,6 +3,7 @@ package com.example.game.game;
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.common.BitmapSizeStatic;
+import com.example.game.main.Game;
 import com.example.game.stage.StageType;
 import com.example.game.utility.StopWatch;
 
@@ -16,6 +17,10 @@ public class EnemySpawnWave {
     private List<EnemySpawnData> spawnDataList = new ArrayList<>();
     private int loopCount = 0;
     private int loopCountMax = 0;
+
+
+    private int randomRangeWeak = 140;
+    private int randomRangeStrong = (int)(Game.getDisplayRealSize().x -  BitmapSizeStatic.enemy.x);
 
     public EnemySpawnWave(float requiredTime, List<EnemySpawnData> spawnDataList,int moreCount) {
         this.enemySpawnRate = new StopWatch(requiredTime);
@@ -51,7 +56,10 @@ public class EnemySpawnWave {
             } // if
             float offset = 0.0f;
             if(spawnData.type == EnemyPlaneType.Weak ){
-                offset = new Random().nextInt(100);
+                offset = new Random().nextInt(this.randomRangeWeak);
+            } // if
+            else if(spawnData.type == EnemyPlaneType.Strong){
+                offset = new Random().nextInt(this.randomRangeStrong);
             } // if
 
             actorFactory.createEnemy(spawnData.positionX + offset, y,

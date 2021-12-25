@@ -203,6 +203,26 @@ public class ActorFactory {
         return actor;
     }
 
+    private BulletForStage02Boss createStage03BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
+        BulletForStage02Boss actor = new BulletForStage02Boss(actorContainer, tag, bulletCreateConfig);
+        BasicBulletMoveComponent moveComponent = new BasicBulletMoveComponent(actionLayer);
+        SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                this.imageResource, ImageResourceType.Stage03BossBullet
+        );
+        BulletCollisionComponent collisionable = new BulletCollisionComponent(collisionLayer);
+        collisionable.setCollisionRectSizeOffset(-bulletCollisionRectSizeDecrease);
+
+        // add
+        actor.addComponent(collisionable);
+        actor.addComponent(moveComponent);
+        actor.addComponent(spriteRenderComponent);
+
+        actor.initialize();
+
+        actor.setPosition(positionX, positionY);
+        actor.setRotation(rotation);
+        return actor;
+    }
 
     public Bullet createHomingBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
         HomingBullet actor = new HomingBullet(actorContainer, tag, bulletCreateConfig);
@@ -229,15 +249,20 @@ public class ActorFactory {
                             StageType stageType) {
         switch (enemyPlaneType) {
             case Stage01Boss:
-                return 50;
+//                return 50;
+                return 1;
             case Stage02Boss:
-                return 100;
+//                return 100;
+                return 1;
             case Stage03Boss:
-                return 510;
+//                return 150;
+                return 10;
             case Basic:
                 return stageType.ordinal() + 1;
             case Weak:
                 return stageType.ordinal() + 2;
+            case Strong:
+                return 3;
         } // switch
         return 1;
     }
@@ -433,6 +458,15 @@ public class ActorFactory {
                     break;
                 case Stage02Boss:
                     this.createStage02BossBullet(
+                            request.transform.position.x,
+                            request.transform.position.y,
+                            request.transform.rotation,
+                            request.tag,
+                            request.config
+                    );
+                    break;
+                case Stage03Boss:
+                    this.createStage03BossBullet(
                             request.transform.position.x,
                             request.transform.position.y,
                             request.transform.rotation,

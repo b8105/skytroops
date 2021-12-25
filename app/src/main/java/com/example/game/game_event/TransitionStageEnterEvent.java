@@ -19,6 +19,7 @@ import com.example.game.utility.StopWatch;
 public class TransitionStageEnterEvent extends GameEvent {
     private StopWatch existTimer;
     private float time = 1.0f;
+    private float timeCoefficient = 2.0f;
     private Stage stage = null;
     private GameSystem gameSystem= null;
     public TransitionStageEnterEvent(
@@ -32,7 +33,7 @@ public class TransitionStageEnterEvent extends GameEvent {
 
     @Override
     public boolean update(float deltaIime) {
-        if (existTimer.tick(deltaIime)) {
+        if (existTimer.tick(deltaIime * timeCoefficient)) {
             this.gameSystem.resetSpawnSystem(this.stage.getCurrentType());
             return true;
         } // if
