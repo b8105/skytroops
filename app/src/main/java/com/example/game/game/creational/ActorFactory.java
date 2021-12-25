@@ -49,6 +49,7 @@ import com.example.game.weapon.BasicGun;
 import com.example.game.weapon.Weapon;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ActorFactory {
@@ -99,7 +100,7 @@ public class ActorFactory {
 
     public PlayerPlane createPlayerPlane(float positionX, float positionY, String tag) {
         PlayerPlane actor = new PlayerPlane(actorContainer, tag);
-        this.uiChangeBullePanel.setEvent(actor.getWeapon());
+        this.uiChangeBullePanel.setEvent(actor.getWeapon("MainWeapon"));
         actor.resetHp(50);
 
         PlaneCollisionComponent collisionable = new PlaneCollisionComponent(collisionLayer);
@@ -111,7 +112,7 @@ public class ActorFactory {
         hpBarRenderComponent.setHpBarRenderer(new PlayerPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
         collisionable.setCollisionRectSizeOffset(-playerCollisionRectSizeDecrease, -playerCollisionRectSizeDecrease);
         PlaneActionComponent actionComponent =
-                componentFactory.createPlayerPlaneActionComponent(actionLayer, actor.getWeapon(), this);
+                componentFactory.createPlayerPlaneActionComponent(actionLayer, actor.getWeapon("MainWeapon"), this);
 
         // add
         actor.addComponent(actionComponent);
@@ -120,14 +121,16 @@ public class ActorFactory {
         actor.addComponent(hpBarRenderComponent);
 
 
-        actor.getWeapon().setPosition(new PointF(
+        actor.getWeapon("MainWeapon").setPosition(new PointF(
                 spriteRenderComponent.getBitmapSize().x * 0.5f, 0.0f
         ));
 
         float bitmapHalfSizeX = spriteRenderComponent.getBitmapSize().x * 0.5f;
         float bitmapHalfSizeY = spriteRenderComponent.getBitmapSize().y * 0.5f;
-        actor.setPosition(positionX - bitmapHalfSizeX, positionY - bitmapHalfSizeY);
-        actor.initialize();
+        //actor.setPosition(positionX - bitmapHalfSizeX, positionY - bitmapHalfSizeY);
+        actor.initialize(
+                new PointF(positionX - bitmapHalfSizeX, positionY - bitmapHalfSizeY), 0.0f
+        );
         return actor;
     }
 
@@ -254,7 +257,7 @@ public class ActorFactory {
                 return 80;
 //                return 10;
             case Stage04Boss:
-                return 300;
+                return 100;
 //                return 10;
             case Stage05Boss:
                 return 700;
@@ -324,9 +327,6 @@ public class ActorFactory {
             int clacedHp = this.clacEnemyHp(enemyPlaneType, stageType);
             actor.resetHp(clacedHp);
         }
-        Weapon subWeapon2 = null;
-        Weapon subWeapon = null;
-        Weapon weapon = null;
         actor.setActorType(ActorType.Plane);
         actor.setGameScorer(this.gameSystem.getGameScorer());
         actor.setScoreEffectEmitter(this.effectSystem.getSharedEmitter(EffectType.Score));
@@ -335,68 +335,48 @@ public class ActorFactory {
         PlaneActionComponent actionComponent = null;
         switch (enemyPlaneType) {
             case Basic:
-                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createBasicPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon, stageType);
+                        actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), stageType);
                 break;
             case Weak:
-                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createWeakPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon, stageType);
+                        actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), stageType);
                 break;
             case Strong:
-                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createStrongPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon, stageType);
+                        actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), stageType);
                 break;
             case Commander:
-                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createBasicPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon, stageType);
+                        actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), stageType);
                 break;
             case Follow:
-                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createFollowPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon, stageType);
+                        actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), stageType);
                 break;
             case Stage01Boss:
-                weapon = new BasicGun();
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon, null, null, stageType);
+                        actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), null, null, stageType);
                 break;
             case Stage02Boss:
-                weapon = new AnyWayGun();
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon, null, null, stageType);
+                        actionLayer, this, this.actorContainer, actor.getWeapon("AnyWayGun"), null, null, stageType);
                 break;
             case Stage03Boss:
-                weapon = new BasicGun();
-                AnyWayGun temp = new AnyWayGun();
-                temp.setWayAngle(15);
-                        subWeapon = temp;
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon,subWeapon, null, stageType);
-                actor.setSubWeapon(subWeapon);
+                        actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), actor.getWeapon("AnyWayGun"), null, stageType);
                 break;
             case Stage04Boss:
-                weapon = new BasicGun();
-                subWeapon = new AnyWayGun();
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon,subWeapon,null, stageType);
-                actor.setSubWeapon(subWeapon);
+                        actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), actor.getWeapon("AnyWayGun"), null, stageType);
                 break;
             case Stage05Boss:
-                weapon = new BasicGun();
-                subWeapon = new BasicGun();
-                subWeapon2 = new AnyWayGun();
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon,subWeapon,subWeapon2, stageType);
-                actor.setSubWeapon(subWeapon);
-                actor.setSubWeapon2(subWeapon2);
+                        actionLayer, this, this.actorContainer,
+                        actor.getWeapon("BasicGun"), actor.getWeapon("SubBasicGun"), actor.getWeapon("SubAnyWayGun"), stageType);
                 break;
 
         } // switch
-        actor.setWeapon(weapon);
         PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
         SpriteRenderComponent spriteRenderComponent = null;
         switch (enemyPlaneType) {
@@ -466,22 +446,14 @@ public class ActorFactory {
         actor.addComponent(spriteRenderComponent);
         actor.addComponent(hpBarRenderComponent);
 
-        weapon.setPosition(new PointF(
-                spriteRenderComponent.getBitmapSize().x * 0.5f, 0.0f
-        ));
-        if(subWeapon != null){
-            subWeapon.setPosition(new PointF(
-                    spriteRenderComponent.getBitmapSize().x * 0.5f, 0.0f
-            ));
-        } // if
-        if(subWeapon2 != null){
-            subWeapon2.setPosition(new PointF(
+
+        for (HashMap.Entry<String, Weapon> pair : actor.getWeaponHashMap().entrySet()) {
+            pair.getValue().setPosition(new PointF(
                     spriteRenderComponent.getBitmapSize().x * 0.5f, 0.0f
             ));
         } // if
 
-        actor.setPosition(positionX, positionY);
-        actor.initialize();
+        actor.initialize(new PointF(positionX, positionY), 0.0f);
         return actor;
     }
 

@@ -14,14 +14,15 @@ import com.example.game.weapon.AnyWayGun;
 
 public class PlayerPlane extends Plane implements RecoveryApplicable {
     private PlaneInvincibleParameter invincibleParameter = new PlaneInvincibleParameter();
-
+    private float defaultShotInterval = 0.2f;
     public PlayerPlane(ActorContainer actorContainer, String tag) {
         super(actorContainer, tag);
         assert (super.getTag().equals(ActorTagString.player));
         actorContainer.setMainChara(this);
 
-        super.weapon = new AnyWayGun();
-        super.weapon.resetShotInterval(0.2f);
+        AnyWayGun anyWayGun = new AnyWayGun();
+        super.addWeapon("MainWeapon",anyWayGun);
+        anyWayGun.resetShotInterval(defaultShotInterval);
     }
 
     @Override

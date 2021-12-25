@@ -13,12 +13,19 @@ import com.example.game.effect.EffectType;
 import com.example.game.game.ActorContainer;
 import com.example.game.game.GameScorer;
 import com.example.game.parameter.HpParameter;
+import com.example.game.weapon.AnyWayGun;
+import com.example.game.weapon.BasicGun;
 
 public class EnemyPlane extends Plane {
     public EnemyPlane(ActorContainer actorContainer, String tag) {
         super(actorContainer, tag);
         assert (super.getTag().equals(ActorTagString.enemy));
         actorContainer.addEnemyPlane(this);
+//        super.weapon = new BasicGun();
+
+        BasicGun basicGun = new BasicGun();
+        super.addWeapon("BasicGun",basicGun);
+//        basicGun.resetShotInterval(defaultShotInterval);
     }
 
     @Override

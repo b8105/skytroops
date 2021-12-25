@@ -1,5 +1,7 @@
 package com.example.game.actor;
 
+import android.graphics.PointF;
+
 import com.example.game.actor.enemy_plane.CommanderEnemyPlane;
 import com.example.game.component.ComponentType;
 import com.example.game.parameter.damage.DamageApplicable;
@@ -9,6 +11,9 @@ import com.example.game.game.ActorContainer;
 import com.example.game.game.GameScorer;
 import com.example.game.weapon.Weapon;
 
+import java.util.HashMap;
+import java.util.Map;
+
 abstract public class Plane extends Actor
         implements DamageApplicable {
 
@@ -16,13 +21,16 @@ abstract public class Plane extends Actor
     private HpParameter hpParameter = new HpParameter(1);
     private EffectEmitter scoreEffectEmitter = null;
     private EffectEmitter explosionEffectEmitter = null;
-    protected Weapon weapon;
-    private Weapon subWeapon;
-    private Weapon subWeapon2;
+
+    private HashMap<String,Weapon> weaponHashMap  = null;
+    //protected Weapon weapon;
+    //private Weapon subWeapon;
+    //private Weapon subWeapon2;
     private CommanderEnemyPlane commanderEnemyPlane;
 
     public Plane(ActorContainer actorContainer, String tag) {
         super(actorContainer, tag);
+        this.weaponHashMap = new HashMap<>();
     }
 
     public void setGameScorer(GameScorer gameScorer) {
@@ -33,16 +41,24 @@ abstract public class Plane extends Actor
         this.scoreEffectEmitter = scoreEffectEmitter;
     }
 
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
+    //public void setWeapon(Weapon weapon) {
+    //  this.weapon = weapon;
+    //}
+
+    //public void setSubWeapon(Weapon weapon) {
+    //  this.subWeapon = weapon;
+    //}
+
+    //public void setSubWeapon2(Weapon weapon) {
+    //  this.subWeapon2 = weapon;
+    //}
+
+    public void addWeapon(String key, Weapon weapon){
+        this.weaponHashMap.put(key, weapon);
     }
 
-    public void setSubWeapon(Weapon weapon) {
-        this.subWeapon = weapon;
-    }
-
-    public void setSubWeapon2(Weapon weapon) {
-        this.subWeapon2 = weapon;
+    public Weapon getWeapon(String key){
+        return this.weaponHashMap.get(key);
     }
 
     public void setCommanderEnemyPlane(CommanderEnemyPlane commanderEnemyPlane) {
@@ -79,34 +95,41 @@ abstract public class Plane extends Actor
         return this.hpParameter;
     }
 
-    public Weapon getWeapon() {
-        return this.weapon;
-    }
-
-    public Weapon getSubWeapon() {
-        return this.subWeapon;
-    }
-
-    public Weapon getSubWeapon2() {
-        return this.subWeapon2;
-    }
+//    public Weapon getWeapon() {
+//        return this.weapon;
+//    }
+//
+//    public Weapon getSubWeapon() {
+//        return this.subWeapon;
+//    }
+//
+//    public Weapon getSubWeapon2() {
+//        return this.subWeapon2;
+//    }
 
     public void resetHp(int hp) {
         this.hpParameter.resetHp(hp);
     }
 
+    public HashMap<String, Weapon> getWeaponHashMap() {
+        return this.weaponHashMap;
+    }
+
+    @Override
+    public void initialize() {
+        super.initialize();
+
+        PointF position = this.getCenterPosition();
+        position.y = this.getPosition().y;
+        for (HashMap.Entry<String, Weapon> pair : this.weaponHashMap.entrySet()) {
+//            pair.getValue().setPosition(position);
+        } // if
+    }
 
     public void update(float deltaTime) {
         super.update(deltaTime);
-        if (this.weapon != null) {
-            this.weapon.update(deltaTime);
-        } // if
-        if (this.subWeapon != null) {
-            this.subWeapon.update(deltaTime);
-        } // if
-        if (this.subWeapon2 != null) {
-            this.subWeapon2.update(deltaTime);
-
+        for (HashMap.Entry<String, Weapon> pair : this.weaponHashMap.entrySet()) {
+            pair.getValue().update(deltaTime);
         } // if
     }
 

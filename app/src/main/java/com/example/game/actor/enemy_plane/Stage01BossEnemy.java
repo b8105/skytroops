@@ -7,6 +7,8 @@ import com.example.game.game.ActorContainer;
 public class Stage01BossEnemy extends BossEnemyPlane{
     public Stage01BossEnemy(ActorContainer actorContainer, String tag) {
         super(actorContainer, tag);
+
+        super.getWeapon("BasicGun").setBulletType(BulletType.Stage01Boss);
     }
 
     @Override
@@ -16,6 +18,5 @@ public class Stage01BossEnemy extends BossEnemyPlane{
 
     public void initialize() {
         super.initialize();
-        super.getWeapon().setBulletType(BulletType.Stage01Boss);
     }
 }
