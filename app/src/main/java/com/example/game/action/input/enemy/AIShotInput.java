@@ -12,8 +12,8 @@ import com.example.game.utility.MathUtilities;
 import com.example.game.utility.PointFUtilities;
 
 public class AIShotInput implements ActionInput {
-    private ShotComponent shotComponent;
     private boolean active = false;
+    private ShotComponent shotComponent;
     private ActorContainer actorContainer;
     private boolean targeting = true;
     private float defaultAngle = 180.0f;

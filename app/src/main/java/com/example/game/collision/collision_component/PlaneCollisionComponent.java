@@ -4,6 +4,8 @@ import android.graphics.PointF;
 
 import com.example.game.actor.ActorState;
 import com.example.game.actor.PlayerPlane;
+import com.example.game.actor.bullet.Bullet;
+import com.example.game.actor.bullet.BulletType;
 import com.example.game.actor.enemy_plane.EnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.parameter.damage.Damage;
@@ -21,11 +23,29 @@ import com.example.game.collision.visitor.EnemyCollisionComponentVisitor;
 import com.example.game.collision.visitor.StageCollisionComponentVisitor;
 import com.example.game.component.ComponentType;
 
+import java.util.HashMap;
+
 public class PlaneCollisionComponent
         extends CollisionComponent {
 
+    private HashMap <BulletType, Integer> collisionForceBullet = new HashMap();
+
     public PlaneCollisionComponent(CollisionLayer layer) {
         super(layer);
+        collisionForceBullet.put(BulletType.Basic, 2);
+    }
+
+    private void clacCollisionInfoForce(EnemyPlane enemyPlane, CollisionInfo info) {
+        // 突撃してくる敵は敵のHP分ダメージを受ける
+        if(enemyPlane.getEnemyPlaneType() == EnemyPlaneType.Basic){
+            info.force = enemyPlane.getHpParameter().getValue();
+        } // if
+        else{
+            info.force = 1;
+        } // else
+    }
+    private void clacCollisionInfoForce(Bullet bullet, CollisionInfo info) {
+        info.force = collisionForceBullet.get(bullet.getBulletType()).intValue();
     }
 
     public Plane getPlaneOwner() {
@@ -37,6 +57,7 @@ public class PlaneCollisionComponent
         BulletCollisionComponentVisitor visitor = new BulletCollisionComponentVisitor();
         target.visitorAccept(visitor);
         Actor targetOwner = visitor.actor;
+        this.clacCollisionInfoForce(visitor.actor, info);
         return super.isCollisionRect(this, target, this.getOwner(), targetOwner, info);
     }
 
@@ -44,13 +65,7 @@ public class PlaneCollisionComponent
         EnemyCollisionComponentVisitor visitor = new EnemyCollisionComponentVisitor();
         target.visitorAccept(visitor);
         EnemyPlane targetOwner = visitor.actor;
-        // 突撃してくる敵は敵のHP分ダメージを受ける
-        if( targetOwner.getEnemyPlaneType() == EnemyPlaneType.Basic){
-            info.force = targetOwner.getHpParameter().getValue();
-        } // if
-        else{
-            info.force = 1;
-        } // else
+        this.clacCollisionInfoForce(targetOwner, info);
         return super.isCollisionRect(this, target, this.getOwner(), targetOwner, info);
     }
 

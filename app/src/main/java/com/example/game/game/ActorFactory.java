@@ -96,6 +96,7 @@ public class ActorFactory {
         Weapon weapon = new AnyWayGun();
         this.uiChangeBullePanel.setEvent(weapon);
 
+        actor.setWeapon(weapon);
         actor.resetHp(10);
 
         PlaneCollisionComponent collisionable = new PlaneCollisionComponent(collisionLayer);

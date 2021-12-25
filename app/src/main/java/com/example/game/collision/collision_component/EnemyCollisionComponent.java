@@ -2,6 +2,8 @@ package com.example.game.collision.collision_component;
 
 import com.example.game.actor.ActorState;
 import com.example.game.actor.PlaneType;
+import com.example.game.actor.bullet.Bullet;
+import com.example.game.actor.bullet.BulletType;
 import com.example.game.actor.enemy_plane.BossEnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
@@ -17,17 +19,22 @@ import com.example.game.collision.CollisionableType;
 import com.example.game.collision.detector.RectangleCollisionDetector;
 import com.example.game.component.ComponentType;
 
+import java.util.HashMap;
+
 public class EnemyCollisionComponent
         extends CollisionComponent {
-
     public EnemyCollisionComponent(CollisionLayer layer) {
         super(layer);
     }
 
+    private void clacCollisionInfoForce(Bullet bullet, CollisionInfo info) {
+        info.force = bullet.getMass();
+    }
     public boolean isCollisionAtBullet(Collisionable target, CollisionInfo info) {
         BulletCollisionComponentVisitor visitor = new BulletCollisionComponentVisitor();
         target.visitorAccept(visitor);
-        Actor targetOwner = visitor.actor;
+        Bullet targetOwner = visitor.actor;
+        this.clacCollisionInfoForce(targetOwner, info);
         return super.isCollisionRect(this, target, this.getOwner(), targetOwner, info);
     }
 
@@ -53,7 +60,6 @@ public class EnemyCollisionComponent
         } // if
 
         if (target.getCollisionableType() == CollisionableType.Bullet) {
-            info.force = 1;
             return this.isCollisionAtBullet(target, info);
         } // if
         else if (target.getCollisionableType() == CollisionableType.Stage) {

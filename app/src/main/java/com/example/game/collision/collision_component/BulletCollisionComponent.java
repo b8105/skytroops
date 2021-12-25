@@ -5,6 +5,8 @@ import android.graphics.Rect;
 
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorState;
+import com.example.game.actor.Plane;
+import com.example.game.actor.bullet.Bullet;
 import com.example.game.collision.CollisionInfo;
 import com.example.game.collision.CollisionLayer;
 import com.example.game.collision.Collisionable;
@@ -25,6 +27,10 @@ public class BulletCollisionComponent
 
     public CollisionableType getCollisionableType() {
         return CollisionableType.Bullet;
+    }
+
+    public Bullet getPlaneOwner(){
+        return (Bullet) super.getOwner();
     }
 
     public boolean isCollisionAtEnemy(Collisionable target, CollisionInfo info) {

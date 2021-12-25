@@ -37,8 +37,8 @@ public class ComponentFactory {
 
     private float basicEnemyShotInterval = 0.6f;
     private float weakEnemyShotInterval = 1.5f;
+    private float bossEnemyShotInterval = 0.6f;
     private float bossEnemy2ShotInterval = 0.6f;
-
     HashMap<StageType, Float> basicEnemyMoveSpeedOnStage = new HashMap<>();
 
     public ComponentFactory(
@@ -235,7 +235,7 @@ public class ComponentFactory {
                     aiShotInput.inactivate();
 
                     shotComponent.setWeapon(weapon);
-                    shotComponent.setShotInterval(this.basicEnemyShotInterval);
+                    shotComponent.setShotInterval(this.bossEnemyShotInterval);
                     weapon.setActorFactory(actorFactory);
                     shotComponent.setActionInput(aiShotInput);
                     enemyPlaneActionInput.addActionInput(aiShotInput);
