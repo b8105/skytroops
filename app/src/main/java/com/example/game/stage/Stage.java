@@ -17,7 +17,6 @@ public class Stage {
     private StageRenderer renderer = null;
     private float scrollSpeed = 0.0f;
     private float defaultScrollSpeed = 10.0f;
-    private float acceleScrollSpeed = 100.0f;
 
     StageCollisionComponent component;
     HashMap<StageType, Bitmap> stageTypeBitmapHashMap = null;
@@ -27,7 +26,7 @@ public class Stage {
     public Stage(Point screenSize, ImageResource resources, CollisionLayer layer) {
         this.constructTransform(screenSize);
         this.renderer = new StageRenderer(this);
-        this.scrollSpeed = 10;
+        this.scrollSpeed = this.defaultScrollSpeed;
         this.stageTypeBitmapHashMap = new HashMap<>();
 
         this.stageTypeBitmapHashMap.put(StageType.Type01, resources.getImageResource(ImageResourceType.StageBackground1));
@@ -36,14 +35,10 @@ public class Stage {
         this.stageTypeBitmapHashMap.put(StageType.Type04, resources.getImageResource(ImageResourceType.StageBackground4));
         this.stageTypeBitmapHashMap.put(StageType.Type05, resources.getImageResource(ImageResourceType.StageBackground5));
 
-        this.changeType(StageType.Type03);
+        this.changeType(StageType.Type01);
 
         component = new StageCollisionComponent(layer);
         component.setScreenSize(screenSize);
-    }
-
-    public void setScrollSpeed(float scrollSpeed) {
-        this.scrollSpeed = scrollSpeed;
     }
 
     public Bitmap getBitmap() {
@@ -56,20 +51,8 @@ public class Stage {
         return this.transform;
     }
 
-    public float getScrollSpeed() {
-        return this.scrollSpeed;
-    }
-
     public float getScroll() {
         return this.getTransform().position.y;
-    }
-
-    public float getDefaultScrollSpeed() {
-        return this.defaultScrollSpeed;
-    }
-
-    public float getAcceleScrollSpeed() {
-        return this.acceleScrollSpeed;
     }
 
     public StageRenderer getRenderer() {

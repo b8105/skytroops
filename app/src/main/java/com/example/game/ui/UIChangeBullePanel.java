@@ -27,7 +27,9 @@ public class UIChangeBullePanel {
     private UIChangeBulletButton toBasicButton;
     private UIChangeBulletButton toThreeWayButton;
     private UIChangeBulletButton toHomingButton;
+    private float positionMarginX =6.0f;
     static private int elementCount = 3;
+
 
     public UIChangeBullePanel(
             ImageResource imageResource,
@@ -35,17 +37,18 @@ public class UIChangeBullePanel {
             PointF position) {
         float x = position.x;
         float y = position.y;
+        x += this.positionMarginX;
 
         this.toBasicButton = new UIChangeBulletButton(imageResource, resources,
                 R.drawable.bullet01,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
-        x += BitmapSizeStatic.bulletButton.x;
+        x += BitmapSizeStatic.bulletButton.x + this.positionMarginX;
         this.toBasicButton.unlock();
 
         this.toHomingButton = new UIChangeBulletButton(imageResource, resources,
                 R.drawable.bullet02,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
-        x += BitmapSizeStatic.bulletButton.x;
+        x += BitmapSizeStatic.bulletButton.x+ this.positionMarginX;
         this.toHomingButton.lock();
 
         this.toThreeWayButton = new UIChangeBulletButton(imageResource, resources,

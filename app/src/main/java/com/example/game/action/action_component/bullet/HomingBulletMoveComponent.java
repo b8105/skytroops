@@ -32,7 +32,7 @@ public class HomingBulletMoveComponent extends ActionComponent {
 
     public HomingBulletMoveComponent(ActionLayer layer) {
         super(layer);
-        this.previsousMove = new PointF(0.0f, -this.speed);
+        this.previsousMove = new PointF(0.0f, -10.0f);
         this.targetSize = new PointF();
     }
 
@@ -83,8 +83,10 @@ public class HomingBulletMoveComponent extends ActionComponent {
     private PointF moveHoming(float speed, final PointF position, final PointF targetPosition) {
         PointF normalize = PointFUtilities.normal(position,
                 new PointF(
-                        targetPosition.x + this.targetSize.x * 0.5f - BitmapSizeStatic.bullet.x * 0.5f,
-                        targetPosition.y + this.targetSize.y * 0.5f));
+//                        targetPosition.x + this.targetSize.x * 0.5f - BitmapSizeStatic.bullet.x * 0.5f,
+                        targetPosition.x ,
+//                        targetPosition.y + this.targetSize.y * 0.5f -BitmapSizeStatic.bullet.y * 0.5f));
+                        targetPosition.y ));
         return new PointF(
                 normalize.x * speed,
                 normalize.y * speed);
@@ -113,8 +115,10 @@ public class HomingBulletMoveComponent extends ActionComponent {
 
         if (this.target != null) {
             PointF targetPosition = new PointF(
-                    this.target.getPosition().x + this.targetSize.x * 0.5f - BitmapSizeStatic.bullet.x * 0.5f,
-                    this.target.getPosition().y + this.targetSize.y * 0.5f
+//                    this.target.getPosition().x + this.targetSize.x * 0.5f - BitmapSizeStatic.bullet.x * 0.5f,
+                    this.target.getPosition().x,
+                    this.target.getPosition().y
+//                    this.target.getPosition().y + this.targetSize.y * 0.5f - BitmapSizeStatic.bullet.y * 0.5f
             );
 
 

@@ -178,6 +178,8 @@ public class EnemySpawnSystem {
     }
 
     private void constructStage02() {
+        this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
+
         this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
         this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB1, 0));
         this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));

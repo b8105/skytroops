@@ -42,7 +42,7 @@ abstract public class Weapon {
 
     private float clacShotSpeed(BulletType bulletType){
         if(bulletType == BulletType.Homing){
-            return this.shotPower * 0.5f;
+            return this.shotPower * 0.85f;
         } // if
         return this.shotPower;
     }

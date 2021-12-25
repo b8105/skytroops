@@ -12,8 +12,8 @@ public class BitmapSizeStatic {
     public static Point playerHpBarIcon = new Point(41  * 2,41  * 2);
     public static Point bullet = new Point(86 * 3,86 * 3);
 
-    public static Point bulletButton = new Point((int)(86 * 1.2f),(int)(86 * 1.2f));
-    public static Point buttonLock = new Point((int)(76 * 1.2),(int)(33 * 1.2f));
+    public static Point bulletButton = new Point((int)(86 * 0.8f),(int)(86 * 0.8f));
+    public static Point buttonLock = new Point((int)(76 * 0.8f),(int)(33 * 0.8f));
 
 
     public static Point score = new Point( (int)(150 * 1.5), (int)(150 * 1.5));

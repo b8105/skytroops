@@ -26,6 +26,7 @@ import com.example.game.render.RenderLayer;
 import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 import com.example.game.render.render_component.SpriteRenderComponent;
 import com.example.game.stage.StageType;
+import com.example.game.weapon.AnyWayGun;
 import com.example.game.weapon.Weapon;
 
 import java.util.HashMap;
@@ -45,6 +46,9 @@ public class ComponentFactory {
     private float bossEnemy5ShotInterval = 1.0f;
     private float bossEnemy5SubShotInterval = 2.0f;
     private float bossEnemy5SubShotInterval2 = 3.0f;
+
+    private float bossEnemy2MoveSpeed = 8.0f;
+    private float bossEnemy3MoveSpeed = 12.0f;
 
     HashMap<StageType, Float> basicEnemyMoveSpeedOnStage = new HashMap<>();
 
@@ -244,6 +248,7 @@ public class ComponentFactory {
             weapon.setShotCount(1);
             {
                 AIBossTweenMoveInput input = new AIBossTweenMoveInput();
+                input.setInputSpeed(this.bossEnemy2MoveSpeed);
                 input.setMoveComponent(moveComponent);
                 input.setShotInput(aiShotInput);
                 moveComponent.setActionInput(input);
@@ -285,9 +290,9 @@ public class ComponentFactory {
             AIShotInput subAiShotInput = new AIShotInput(subShotComponent);
 
             weapon.setShotCount(1);
-            subWeapon.setShotCount(1);
             {
                 AIBossTweenMoveInput input = new AIBossTweenMoveInput();
+                input.setInputSpeed(this.bossEnemy3MoveSpeed);
                 input.setMoveComponent(moveComponent);
                 input.setShotInput(aiShotInput);
                 input.setSubShotInput(subAiShotInput);
@@ -299,7 +304,6 @@ public class ComponentFactory {
                 aiShotInput.setShotComponent(shotComponent);
                 aiShotInput.inactivate();
 
-                aiShotInput.setTargeting(false);
                 shotComponent.setWeapon(weapon);
                 shotComponent.setShotInterval(this.bossEnemy3ShotInterval);
                 weapon.setActorFactory(actorFactory);
@@ -309,8 +313,11 @@ public class ComponentFactory {
             {
                 subAiShotInput.setActorContainer(actorContainer);
                 subAiShotInput.setShotComponent(subShotComponent);
+                subAiShotInput.setTargeting(false);
                 subAiShotInput.inactivate();
 
+                ((AnyWayGun)(subWeapon)).setFrontShotFlag(false);
+                ((AnyWayGun)(subWeapon)).setShotCount(2);
                 subShotComponent.setWeapon(subWeapon);
                 subShotComponent.setShotInterval(this.bossEnemy2ShotInterval);
                 subWeapon.setActorFactory(actorFactory);
@@ -344,6 +351,7 @@ public class ComponentFactory {
             subWeapon.setShotCount(1);
             {
                 AIBossTweenMoveInput input = new AIBossTweenMoveInput();
+                input.setInputSpeed(this.bossEnemy3MoveSpeed);
                 input.setMoveComponent(moveComponent);
                 input.setShotInput(aiShotInput);
                 input.setSubShotInput(subAiShotInput);
@@ -400,6 +408,7 @@ public class ComponentFactory {
             subWeapon.setShotCount(1);
             {
                 AIBossTweenMoveInput input = new AIBossTweenMoveInput();
+                input.setInputSpeed(this.bossEnemy3MoveSpeed);
                 input.setMoveComponent(moveComponent);
                 input.setShotInput(aiShotInput);
                 input.setSubShotInput(subAiShotInput);
@@ -459,6 +468,7 @@ public class ComponentFactory {
 
             {
                 AIBossTweenMoveInput input = new AIBossTweenMoveInput();
+                input.setInputSpeed(this.bossEnemy3MoveSpeed);
                 input.setMoveComponent(moveComponent);
                 input.setShotInput(aiShotInput);
                 input.setSubShotInput(subAiShotInput);
