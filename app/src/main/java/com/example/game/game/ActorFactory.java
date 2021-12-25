@@ -12,6 +12,8 @@ import com.example.game.actor.bullet.HomingBullet;
 import com.example.game.actor.enemy_plane.Stage01BossEnemy;
 import com.example.game.actor.enemy_plane.Stage02BossEnemy;
 import com.example.game.actor.enemy_plane.Stage03BossEnemy;
+import com.example.game.actor.enemy_plane.Stage04BossEnemy;
+import com.example.game.actor.enemy_plane.Stage05BossEnemy;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
 import com.example.game.observation.BossEnemyDeadSubject;
@@ -103,7 +105,7 @@ public class ActorFactory {
         this.uiChangeBullePanel.setEvent(weapon);
 
         actor.setWeapon(weapon);
-        actor.resetHp(10);
+        actor.resetHp(50);
 
         PlaneCollisionComponent collisionable = new PlaneCollisionComponent(collisionLayer);
         PlaneSpriteRenderComponent spriteRenderComponent = this.componentFactory.createPlaneSpriteRenderComponent(
@@ -249,14 +251,20 @@ public class ActorFactory {
                             StageType stageType) {
         switch (enemyPlaneType) {
             case Stage01Boss:
-//                return 50;
-                return 1;
+                return 50;
+//                return 1;
             case Stage02Boss:
-//                return 100;
-                return 1;
+                return 100;
+//                return 1;
             case Stage03Boss:
-//                return 150;
-                return 10;
+                return 150;
+//                return 10;
+            case Stage04Boss:
+                return 300;
+//                return 10;
+            case Stage05Boss:
+                return 700;
+//                return 10;
             case Basic:
                 return stageType.ordinal() + 1;
             case Weak:
@@ -298,6 +306,22 @@ public class ActorFactory {
                 actor = temp;
                 break;
             }
+            case Stage04Boss: {
+                BossEnemyPlane temp = new Stage04BossEnemy(actorContainer, tag);
+                BossEnemyDeadSubject bossEnemyDeadSubject = new BossEnemyDeadSubject();
+                bossEnemyDeadSubject.addObserver(gamePlayScene);
+                temp.setBossEnemyDeadSubject(bossEnemyDeadSubject);
+                actor = temp;
+                break;
+            }
+            case Stage05Boss: {
+                BossEnemyPlane temp = new Stage05BossEnemy(actorContainer, tag);
+                BossEnemyDeadSubject bossEnemyDeadSubject = new BossEnemyDeadSubject();
+                bossEnemyDeadSubject.addObserver(gamePlayScene);
+                temp.setBossEnemyDeadSubject(bossEnemyDeadSubject);
+                actor = temp;
+                break;
+            }
             default:
                 actor = new EnemyPlane(actorContainer, tag);
         } // switch
@@ -306,7 +330,8 @@ public class ActorFactory {
             int clacedHp = this.clacEnemyHp(enemyPlaneType, stageType);
             actor.resetHp(clacedHp);
         }
-
+        Weapon subWeapon2 = null;
+        Weapon subWeapon = null;
         Weapon weapon = null;
         actor.setActorType(ActorType.Plane);
         actor.setGameScorer(this.gameSystem.getGameScorer());
@@ -343,18 +368,37 @@ public class ActorFactory {
             case Stage01Boss:
                 weapon = new BasicGun();
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon, stageType);
+                        actionLayer, this, this.actorContainer, weapon, null, null, stageType);
                 break;
             case Stage02Boss:
                 weapon = new AnyWayGun();
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon, stageType);
+                        actionLayer, this, this.actorContainer, weapon, null, null, stageType);
                 break;
             case Stage03Boss:
                 weapon = new BasicGun();
+                subWeapon = new AnyWayGun();
                 actionComponent = this.componentFactory.createBossPlaneActionComponent(
-                        actionLayer, this, this.actorContainer, weapon, stageType);
+                        actionLayer, this, this.actorContainer, weapon,subWeapon, null, stageType);
+                actor.setSubWeapon(subWeapon);
                 break;
+            case Stage04Boss:
+                weapon = new BasicGun();
+                subWeapon = new AnyWayGun();
+                actionComponent = this.componentFactory.createBossPlaneActionComponent(
+                        actionLayer, this, this.actorContainer, weapon,subWeapon,null, stageType);
+                actor.setSubWeapon(subWeapon);
+                break;
+            case Stage05Boss:
+                weapon = new BasicGun();
+                subWeapon = new BasicGun();
+                subWeapon2 = new AnyWayGun();
+                actionComponent = this.componentFactory.createBossPlaneActionComponent(
+                        actionLayer, this, this.actorContainer, weapon,subWeapon,subWeapon2, stageType);
+                actor.setSubWeapon(subWeapon);
+                actor.setSubWeapon2(subWeapon2);
+                break;
+
         } // switch
         actor.setWeapon(weapon);
         PlaneHpBarRenderComponent hpBarRenderComponent = new PlaneHpBarRenderComponent(renderLayer);
@@ -404,6 +448,16 @@ public class ActorFactory {
                         this.imageResource, ImageResourceType.Stage03BossEnemyPlane);
                 hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
                 break;
+            case Stage04Boss:
+                spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                        this.imageResource, ImageResourceType.Stage04BossEnemyPlane);
+                hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
+                break;
+            case Stage05Boss:
+                spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                        this.imageResource, ImageResourceType.Stage05BossEnemyPlane);
+                hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
+                break;
         } // switch
 
 
@@ -421,6 +475,16 @@ public class ActorFactory {
         weapon.setPosition(new PointF(
                 spriteRenderComponent.getBitmapSize().x * 0.5f, 0.0f
         ));
+        if(subWeapon != null){
+            subWeapon.setPosition(new PointF(
+                    spriteRenderComponent.getBitmapSize().x * 0.5f, 0.0f
+            ));
+        } // if
+        if(subWeapon2 != null){
+            subWeapon2.setPosition(new PointF(
+                    spriteRenderComponent.getBitmapSize().x * 0.5f, 0.0f
+            ));
+        } // if
 
         actor.setPosition(positionX, positionY);
         actor.initialize();

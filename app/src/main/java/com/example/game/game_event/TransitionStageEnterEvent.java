@@ -28,7 +28,9 @@ public class TransitionStageEnterEvent extends GameEvent {
         this.existTimer = new StopWatch(time);
         this.stage = stage;
         this.gameSystem = gameSystem;
+
         this.stage.changeType(this.stage.getNextType());
+//        this.stage.changeType(StageType.Type05);
     }
 
     @Override

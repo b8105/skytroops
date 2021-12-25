@@ -5,6 +5,8 @@ public enum ImageResourceType {
     StageBackground1,
     StageBackground2,
     StageBackground3,
+    StageBackground4,
+    StageBackground5,
 
     BulletLock,
 
@@ -21,6 +23,8 @@ public enum ImageResourceType {
     Stage01BossEnemyPlane,
     Stage02BossEnemyPlane,
     Stage03BossEnemyPlane,
+    Stage04BossEnemyPlane,
+    Stage05BossEnemyPlane,
 
     ScoreBackground,
 

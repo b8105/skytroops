@@ -21,6 +21,8 @@ public class AIBossTweenMoveInput implements ActionInput {
     private float moveThresholdY = Game.getDisplayRealSize().y * 0.3f;
     private BossEnemyPlane bossEnemyPlane = null;
     private AIShotInput shotInput = null;
+    private AIShotInput subShotInput = null;
+    private AIShotInput subShotInput2 = null;
 
     public void setMoveComponent(MoveComponent moveComponent) {
         this.moveComponent = moveComponent;
@@ -28,6 +30,12 @@ public class AIBossTweenMoveInput implements ActionInput {
 
     public void setShotInput(AIShotInput shotInput) {
         this.shotInput = shotInput;
+    }
+    public void setSubShotInput(AIShotInput shotInput) {
+        this.subShotInput = shotInput;
+    }
+    public void setSubShotInput2(AIShotInput shotInput) {
+        this.subShotInput2 = shotInput;
     }
     private PointF clacMove() {
         PointF move = new PointF();
@@ -59,6 +67,12 @@ public class AIBossTweenMoveInput implements ActionInput {
                     this.moveSequence++;
                     ((BossEnemyPlane) (moveComponent.getOwner())).getInvincibleParameter().inactivate();
                     this.shotInput.activate();
+                    if(this.subShotInput != null){
+                        this.subShotInput.activate();
+                    } // if
+                    if(this.subShotInput2 != null){
+                        this.subShotInput2.activate();
+                    } // if
                 } // if
                 break;
             case 1:

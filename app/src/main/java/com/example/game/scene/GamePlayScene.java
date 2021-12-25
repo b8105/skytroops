@@ -134,7 +134,7 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
 
     @Override
     public void onNotify(BossEnemyDeadMessage maeeage) {
-        if (this.stage.getCurrentType() == StageType.Type03) {
+        if (this.stage.getCurrentType() == StageType.Type05) {
             this.sceneExit();
         } // if
         else {

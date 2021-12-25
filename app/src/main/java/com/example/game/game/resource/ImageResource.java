@@ -51,7 +51,7 @@ public class ImageResource {
         hash.put(ImageResourceType.PlayerPlane, this.createScaledBitmap(
                 R.drawable.plane1up, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
         hash.put(ImageResourceType.BasicEnemyPlane, this.createScaledBitmap(
-                R.drawable.enemy01, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
+                R.drawable.enemy10, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
         hash.put(ImageResourceType.WeakEnemyPlane, this.createScaledBitmap(
                 R.drawable.enemy02, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
         hash.put(ImageResourceType.StrongEnemyPlane, this.createScaledBitmap(
@@ -67,6 +67,11 @@ public class ImageResource {
                 R.drawable.enemy13, BitmapSizeStatic.boss.x, BitmapSizeStatic.boss.y));
         hash.put(ImageResourceType.Stage03BossEnemyPlane, this.createScaledBitmap(
                 R.drawable.enemy14, BitmapSizeStatic.boss.x, BitmapSizeStatic.boss.y));
+        hash.put(ImageResourceType.Stage04BossEnemyPlane, this.createScaledBitmap(
+                R.drawable.enemy01, BitmapSizeStatic.boss.x, BitmapSizeStatic.boss.y));
+        hash.put(ImageResourceType.Stage05BossEnemyPlane, this.createScaledBitmap(
+                R.drawable.enemy05, BitmapSizeStatic.boss.x, BitmapSizeStatic.boss.y));
+
     }
     private void constructBullet( Point screenSize){
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
@@ -108,6 +113,11 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.background02, screenSize.x, screenSize.y));
         hash.put(ImageResourceType.StageBackground3,
                 this.createScaledBitmap(R.drawable.background03, screenSize.x, screenSize.y));
+        hash.put(ImageResourceType.StageBackground4,
+                this.createScaledBitmap(R.drawable.background04, screenSize.x, screenSize.y));
+        hash.put(ImageResourceType.StageBackground5,
+                this.createScaledBitmap(R.drawable.background05, screenSize.x, screenSize.y));
+
     }
 
 

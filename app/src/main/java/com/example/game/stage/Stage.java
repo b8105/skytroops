@@ -33,6 +33,8 @@ public class Stage {
         this.stageTypeBitmapHashMap.put(StageType.Type01, resources.getImageResource(ImageResourceType.StageBackground1));
         this.stageTypeBitmapHashMap.put(StageType.Type02, resources.getImageResource(ImageResourceType.StageBackground2));
         this.stageTypeBitmapHashMap.put(StageType.Type03, resources.getImageResource(ImageResourceType.StageBackground3));
+        this.stageTypeBitmapHashMap.put(StageType.Type04, resources.getImageResource(ImageResourceType.StageBackground4));
+        this.stageTypeBitmapHashMap.put(StageType.Type05, resources.getImageResource(ImageResourceType.StageBackground5));
 
         this.changeType(StageType.Type01);
 

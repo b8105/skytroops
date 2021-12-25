@@ -38,7 +38,15 @@ public class ComponentFactory {
     private float weakEnemyShotInterval = 1.5f;
     private float bossEnemyShotInterval = 0.6f;
     private float bossEnemy2ShotInterval = 0.6f;
-    private float bossEnemy3ShotInterval = 2.0f;
+    private float bossEnemy3ShotInterval = 3.0f;
+
+    private float bossEnemy4ShotInterval = 6.0f;
+    private float bossEnemy4SubShotInterval = 3.0f;
+
+    private float bossEnemy5ShotInterval = 1.0f;
+    private float bossEnemy5SubShotInterval = 2.0f;
+    private float bossEnemy5SubShotInterval2 = 3.0f;
+
     HashMap<StageType, Float> basicEnemyMoveSpeedOnStage = new HashMap<>();
 
     public ComponentFactory(
@@ -263,7 +271,10 @@ public class ComponentFactory {
     private PlaneActionComponent createBoss3PlaneActionComponent(
             ActionLayer actionLayer,
             ActorFactory actorFactory,
-            ActorContainer actorContainer, Weapon weapon) {
+            ActorContainer actorContainer,
+            Weapon weapon,
+            Weapon subWeapon
+    ) {
         PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
         EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
         actionComponent.setActionInput(enemyPlaneActionInput);
@@ -271,11 +282,16 @@ public class ComponentFactory {
             MoveComponent moveComponent = new MoveComponent(actionComponent);
             ShotComponent shotComponent = new ShotComponent(actionComponent);
             AIShotInput aiShotInput = new AIShotInput(shotComponent);
+            ShotComponent subShotComponent = new ShotComponent(actionComponent);
+            AIShotInput subAiShotInput = new AIShotInput(subShotComponent);
+
             weapon.setShotCount(1);
+            subWeapon.setShotCount(1);
             {
                 AIBossTweenMoveInput input = new AIBossTweenMoveInput();
                 input.setMoveComponent(moveComponent);
                 input.setShotInput(aiShotInput);
+                input.setSubShotInput(subAiShotInput);
                 moveComponent.setActionInput(input);
                 enemyPlaneActionInput.addActionInput(input);
             }
@@ -284,11 +300,208 @@ public class ComponentFactory {
                 aiShotInput.setShotComponent(shotComponent);
                 aiShotInput.inactivate();
 
+                aiShotInput.setTargeting(false);
                 shotComponent.setWeapon(weapon);
                 shotComponent.setShotInterval(this.bossEnemy3ShotInterval);
                 weapon.setActorFactory(actorFactory);
                 shotComponent.setActionInput(aiShotInput);
                 enemyPlaneActionInput.addActionInput(aiShotInput);
+            }
+            {
+                subAiShotInput.setActorContainer(actorContainer);
+                subAiShotInput.setShotComponent(subShotComponent);
+                subAiShotInput.inactivate();
+
+                subShotComponent.setWeapon(subWeapon);
+                subShotComponent.setShotInterval(this.bossEnemy2ShotInterval);
+                subWeapon.setActorFactory(actorFactory);
+                subShotComponent.setActionInput(subAiShotInput);
+                enemyPlaneActionInput.addActionInput(subAiShotInput);
+            }
+
+        }
+        return actionComponent;
+    }
+
+
+    private PlaneActionComponent createBoss4PlaneActionComponent(
+            ActionLayer actionLayer,
+            ActorFactory actorFactory,
+            ActorContainer actorContainer,
+            Weapon weapon,
+            Weapon subWeapon
+    ) {
+        PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
+        EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
+        actionComponent.setActionInput(enemyPlaneActionInput);
+        {
+            MoveComponent moveComponent = new MoveComponent(actionComponent);
+            ShotComponent shotComponent = new ShotComponent(actionComponent);
+            AIShotInput aiShotInput = new AIShotInput(shotComponent);
+            ShotComponent subShotComponent = new ShotComponent(actionComponent);
+            AIShotInput subAiShotInput = new AIShotInput(subShotComponent);
+
+            weapon.setShotCount(1);
+            subWeapon.setShotCount(1);
+            {
+                AIBossTweenMoveInput input = new AIBossTweenMoveInput();
+                input.setMoveComponent(moveComponent);
+                input.setShotInput(aiShotInput);
+                input.setSubShotInput(subAiShotInput);
+                moveComponent.setActionInput(input);
+                enemyPlaneActionInput.addActionInput(input);
+            }
+            {
+                aiShotInput.setActorContainer(actorContainer);
+                aiShotInput.setShotComponent(shotComponent);
+                aiShotInput.inactivate();
+
+                aiShotInput.setTargeting(false);
+                shotComponent.setWeapon(weapon);
+                shotComponent.setShotInterval(this.bossEnemy2ShotInterval);
+                weapon.setActorFactory(actorFactory);
+                shotComponent.setActionInput(aiShotInput);
+                enemyPlaneActionInput.addActionInput(aiShotInput);
+            }
+            {
+                subAiShotInput.setActorContainer(actorContainer);
+                subAiShotInput.setShotComponent(subShotComponent);
+                subAiShotInput.inactivate();
+
+                subShotComponent.setWeapon(subWeapon);
+                subShotComponent.setShotInterval(this.bossEnemy3ShotInterval);
+                subWeapon.setActorFactory(actorFactory);
+                subShotComponent.setActionInput(subAiShotInput);
+                enemyPlaneActionInput.addActionInput(subAiShotInput);
+            }
+
+        }
+        return actionComponent;
+    }
+
+    private PlaneActionComponent createBoss4PlaneActionComponent(
+            ActionLayer actionLayer,
+            ActorFactory actorFactory,
+            ActorContainer actorContainer,
+            Weapon weapon,
+            Weapon subWeapon,
+            Weapon subWeapon2
+    ) {
+        PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
+        EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
+        actionComponent.setActionInput(enemyPlaneActionInput);
+        {
+            MoveComponent moveComponent = new MoveComponent(actionComponent);
+            ShotComponent shotComponent = new ShotComponent(actionComponent);
+            AIShotInput aiShotInput = new AIShotInput(shotComponent);
+            ShotComponent subShotComponent = new ShotComponent(actionComponent);
+            AIShotInput subAiShotInput = new AIShotInput(subShotComponent);
+
+            weapon.setShotCount(1);
+            subWeapon.setShotCount(1);
+            {
+                AIBossTweenMoveInput input = new AIBossTweenMoveInput();
+                input.setMoveComponent(moveComponent);
+                input.setShotInput(aiShotInput);
+                input.setSubShotInput(subAiShotInput);
+                moveComponent.setActionInput(input);
+                enemyPlaneActionInput.addActionInput(input);
+            }
+            {
+                aiShotInput.setActorContainer(actorContainer);
+                aiShotInput.setShotComponent(shotComponent);
+                aiShotInput.inactivate();
+
+                aiShotInput.setTargeting(false);
+                shotComponent.setWeapon(weapon);
+                shotComponent.setShotInterval(this.bossEnemy4ShotInterval);
+                weapon.setActorFactory(actorFactory);
+                shotComponent.setActionInput(aiShotInput);
+                enemyPlaneActionInput.addActionInput(aiShotInput);
+            }
+            {
+                subAiShotInput.setActorContainer(actorContainer);
+                subAiShotInput.setShotComponent(subShotComponent);
+                subAiShotInput.inactivate();
+
+                subShotComponent.setWeapon(subWeapon);
+                subShotComponent.setShotInterval(this.bossEnemy4ShotInterval);
+                subWeapon.setActorFactory(actorFactory);
+                subShotComponent.setActionInput(subAiShotInput);
+                enemyPlaneActionInput.addActionInput(subAiShotInput);
+            }
+
+        }
+        return actionComponent;
+    }
+
+    private PlaneActionComponent createBoss5PlaneActionComponent(
+            ActionLayer actionLayer,
+            ActorFactory actorFactory,
+            ActorContainer actorContainer,
+            Weapon weapon,
+            Weapon subWeapon,
+            Weapon subWeapon2
+    ) {
+        PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
+        EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
+        actionComponent.setActionInput(enemyPlaneActionInput);
+        {
+            MoveComponent moveComponent = new MoveComponent(actionComponent);
+            ShotComponent shotComponent = new ShotComponent(actionComponent);
+            AIShotInput aiShotInput = new AIShotInput(shotComponent);
+            ShotComponent subShotComponent = new ShotComponent(actionComponent);
+            ShotComponent subShotComponent2 = new ShotComponent(actionComponent);
+            AIShotInput subAiShotInput = new AIShotInput(subShotComponent);
+            AIShotInput subAiShotInput2 = new AIShotInput(subShotComponent2);
+            weapon.setShotCount(1);
+            subWeapon.setShotCount(1);
+            subWeapon2.setShotCount(2);
+
+            {
+                AIBossTweenMoveInput input = new AIBossTweenMoveInput();
+                input.setMoveComponent(moveComponent);
+                input.setShotInput(aiShotInput);
+                input.setSubShotInput(subAiShotInput);
+                input.setSubShotInput2(subAiShotInput2);
+                moveComponent.setActionInput(input);
+                enemyPlaneActionInput.addActionInput(input);
+            }
+            {
+                aiShotInput.setActorContainer(actorContainer);
+                aiShotInput.setShotComponent(shotComponent);
+                aiShotInput.inactivate();
+
+                aiShotInput.setTargeting(false);
+                shotComponent.setWeapon(weapon);
+                shotComponent.setShotInterval(this.bossEnemy5ShotInterval);
+                weapon.setActorFactory(actorFactory);
+                shotComponent.setActionInput(aiShotInput);
+                enemyPlaneActionInput.addActionInput(aiShotInput);
+            }
+            {
+                subAiShotInput.setActorContainer(actorContainer);
+                subAiShotInput.setShotComponent(subShotComponent);
+                subAiShotInput.inactivate();
+
+                subShotComponent.setWeapon(subWeapon);
+                subShotComponent.setShotInterval(this.bossEnemy5SubShotInterval);
+                subWeapon.setActorFactory(actorFactory);
+                subShotComponent.setActionInput(subAiShotInput);
+                enemyPlaneActionInput.addActionInput(subAiShotInput);
+            }
+
+            {
+                subAiShotInput2.setActorContainer(actorContainer);
+                subAiShotInput2.setShotComponent(subShotComponent2);
+                subAiShotInput2.inactivate();
+                aiShotInput.setTargeting(false);
+
+                subShotComponent2.setWeapon(subWeapon2);
+                subShotComponent2.setShotInterval(this.bossEnemy5SubShotInterval2);
+                subWeapon2.setActorFactory(actorFactory);
+                subShotComponent2.setActionInput(subAiShotInput2);
+                enemyPlaneActionInput.addActionInput(subAiShotInput2);
             }
 
         }
@@ -299,7 +512,11 @@ public class ComponentFactory {
     public PlaneActionComponent createBossPlaneActionComponent(
             ActionLayer actionLayer,
             ActorFactory actorFactory,
-            ActorContainer actorContainer, Weapon weapon, StageType stageType) {
+            ActorContainer actorContainer,
+            Weapon weapon,
+            Weapon subWeapon,
+            Weapon subWeapon2,
+            StageType stageType) {
         if (stageType == StageType.Type01) {
             return this.createBoss1PlaneActionComponent(actionLayer, actorFactory, actorContainer, weapon);
         } // if
@@ -307,13 +524,13 @@ public class ComponentFactory {
             return this.createBoss2PlaneActionComponent(actionLayer, actorFactory, actorContainer, weapon);
         } // else if
         else if (stageType == StageType.Type03) {
-            return this.createBoss3PlaneActionComponent(actionLayer, actorFactory, actorContainer, weapon);
+            return this.createBoss3PlaneActionComponent(actionLayer, actorFactory, actorContainer, weapon,subWeapon);
         } // else if
         else if (stageType == StageType.Type04) {
-//            return this.createBoss4PlaneActionComponent(actionLayer, actorFactory, actorContainer, weapon);
+            return this.createBoss4PlaneActionComponent(actionLayer, actorFactory, actorContainer, weapon,subWeapon, subWeapon2);
         } // else if
         else if (stageType == StageType.Type05) {
-//            return this.createBoss5PlaneActionComponent(actionLayer, actorFactory, actorContainer, weapon);
+            return this.createBoss5PlaneActionComponent(actionLayer, actorFactory, actorContainer, weapon,subWeapon, subWeapon2);
         } // else if
         return null;
     }

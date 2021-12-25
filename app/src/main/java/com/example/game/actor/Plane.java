@@ -16,6 +16,8 @@ abstract public class Plane extends Actor
     private EffectEmitter scoreEffectEmitter = null;
     private EffectEmitter explosionEffectEmitter = null;
     private Weapon weapon;
+    private Weapon subWeapon;
+    private Weapon subWeapon2;
     private CommanderEnemyPlane commanderEnemyPlane;
 
     public Plane(ActorContainer actorContainer, String tag) {
@@ -32,6 +34,12 @@ abstract public class Plane extends Actor
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+    public void setSubWeapon(Weapon weapon) {
+        this.subWeapon = weapon;
+    }
+    public void setSubWeapon2(Weapon weapon) {
+        this.subWeapon2 = weapon;
     }
 
     public void setCommanderEnemyPlane(CommanderEnemyPlane commanderEnemyPlane) {
@@ -70,6 +78,12 @@ abstract public class Plane extends Actor
 
     public Weapon getWeapon() {
         return this.weapon;
+    }
+    public Weapon getSubWeapon() {
+        return this.subWeapon;
+    }
+    public Weapon getSubWeapon2() {
+        return this.subWeapon2;
     }
 
     public void resetHp(int hp) {

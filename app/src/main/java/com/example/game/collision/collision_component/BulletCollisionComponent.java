@@ -40,9 +40,19 @@ public class BulletCollisionComponent
         return super.isCollisionRect(this, target, this.getOwner(), targetOwner, info);
     }
 
+    public boolean isCollisionAtPlane(Collisionable target, CollisionInfo info) {
+        PlaneCollisionComponentVisitor visitor = new PlaneCollisionComponentVisitor();
+        target.visitorAccept(visitor);
+        Actor targetOwner = visitor.actor;
+        return super.isCollisionRect(this, target, this.getOwner(), targetOwner, info);
+    }
+
     public boolean isCollision(Collisionable target, CollisionInfo info) {
         if (target.getCollisionableType() == CollisionableType.Enemy) {
             return this.isCollisionAtEnemy(target, info);
+        } // else if
+        else if (target.getCollisionableType() == CollisionableType.Plane) {
+            return this.isCollisionAtPlane(target, info);
         } // else if
         else if (target.getCollisionableType() == CollisionableType.Stage) {
             RectangleCollisionDetector detector = new RectangleCollisionDetector();
@@ -58,16 +68,25 @@ public class BulletCollisionComponent
             return;
         } // if
 
-        if (target.getCollisionableType() == CollisionableType.Enemy) {
-            System.out.println("Buller End");
+        if (target.getCollisionableType() == CollisionableType.Enemy ) {
             this.getOwner().end();
         } // if
+        else if(target.getCollisionableType() == CollisionableType.Plane){
+            this.getOwner().end();
+        } // else if
     }
 
     public void executeStayFunction(Collisionable target, CollisionInfo info) {
         if(super.getOwner().getActorState() == ActorState.End){
             return;
         } // if
+
+        if (target.getCollisionableType() == CollisionableType.Enemy ) {
+            this.getOwner().end();
+        } // if
+        else if(target.getCollisionableType() == CollisionableType.Plane){
+            this.getOwner().end();
+        } // else if
 
     }
 

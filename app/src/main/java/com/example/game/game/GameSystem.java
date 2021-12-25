@@ -39,6 +39,11 @@ public class GameSystem {
         if(this.enemySpawnSystem.isActive()){
             this.enemySpawnSystem.update(deltaTime, actorFactory,stageType);
         } // if
+        else{
+            if(actorContainer.getBossEnemy() != null){
+                this.enemySpawnSystem.updateExistBoss(deltaTime, actorFactory,stageType);
+            } // if
+        } // else
     }
 
 }

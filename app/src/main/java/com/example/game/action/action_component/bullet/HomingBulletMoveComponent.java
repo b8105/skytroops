@@ -2,6 +2,7 @@ package com.example.game.action.action_component.bullet;
 
 import android.graphics.PointF;
 
+import com.example.game.actor.ActorTagString;
 import com.example.game.actor.Plane;
 import com.example.game.actor.PlaneType;
 import com.example.game.actor.bullet.Bullet;
@@ -44,35 +45,46 @@ public class HomingBulletMoveComponent extends ActionComponent {
     }
 
     private void clacTargetSize() {
-        if(this.target == null){
+        if (this.target == null) {
             return;
         } // if
-        if(this.target.getPlaneType() == PlaneType.Enemy){
-            EnemyPlane enemy = ((EnemyPlane)(this.target));
-            if(enemy.isBoss()){
+        if (this.target.getPlaneType() == PlaneType.Enemy) {
+            EnemyPlane enemy = ((EnemyPlane) (this.target));
+            if (enemy.isBoss()) {
                 this.targetSize.x = BitmapSizeStatic.boss.x;
                 this.targetSize.y = BitmapSizeStatic.boss.y;
             } // if
-            else{
+            else {
                 this.targetSize.x = BitmapSizeStatic.enemy.x;
                 this.targetSize.y = BitmapSizeStatic.enemy.y;
             } // else
         } // if
+        else if (this.target.getPlaneType() == PlaneType.Player) {
+            this.targetSize.x = BitmapSizeStatic.player.x;
+            this.targetSize.y = BitmapSizeStatic.player.y;
+        } // else if
     }
+
     private void clacTarget() {
         assert (this.actorContainer != null);
-        FindNearestEnemyVisitor visitor = new FindNearestEnemyVisitor(
-                getOwner().getPosition()
-        );
-        this.actorContainer.visitorAccept(visitor);
-        this.target = visitor.find;
+        String tag = super.getOwner().getTag();
+        if (tag == ActorTagString.player) {
+            FindNearestEnemyVisitor visitor = new FindNearestEnemyVisitor(
+                    getOwner().getPosition()
+            );
+            this.actorContainer.visitorAccept(visitor);
+            this.target = visitor.find;
+        } // if
+        else if (tag == ActorTagString.enemy) {
+            this.target = this.actorContainer.getMainChara();
+        } // else if
     }
 
     private PointF moveHoming(float speed, final PointF position, final PointF targetPosition) {
         PointF normalize = PointFUtilities.normal(position,
                 new PointF(
                         targetPosition.x + this.targetSize.x * 0.5f - BitmapSizeStatic.bullet.x * 0.5f,
-                        targetPosition.y + this.targetSize.y* 0.5f));
+                        targetPosition.y + this.targetSize.y * 0.5f));
         return new PointF(
                 normalize.x * speed,
                 normalize.y * speed);
@@ -85,7 +97,7 @@ public class HomingBulletMoveComponent extends ActionComponent {
     @Override
     public void onComponentInitialize(Actor owner) {
         super.onComponentInitialize(owner);
-        this.speed = ((Bullet)(super.getOwner())).getAppliedShotSpeed();
+        this.speed = ((Bullet) (super.getOwner())).getAppliedShotSpeed();
     }
 
 
@@ -100,10 +112,16 @@ public class HomingBulletMoveComponent extends ActionComponent {
         float rotateRadian = 0.0f;
 
         if (this.target != null) {
+            PointF targetPosition = new PointF(
+                    this.target.getPosition().x + this.targetSize.x * 0.5f - BitmapSizeStatic.bullet.x * 0.5f,
+                    this.target.getPosition().y + this.targetSize.y * 0.5f
+            );
+
+
             move = this.moveHoming(
                     this.speed,
                     position,
-                    this.target.getPosition());
+                    targetPosition);
             this.previsousMove.x = move.x;
             this.previsousMove.y = move.y;
             rotateRadian = (float) Math.atan2((double) (move.y), (double) (move.x));
