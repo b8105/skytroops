@@ -28,6 +28,8 @@ public class ImageResource {
 
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
 
+        hash.put(ImageResourceType.StartButton,
+                this.createScaledBitmap(R.drawable.start_flybtn, BitmapSizeStatic.startButton.x, BitmapSizeStatic.startButton.y));
         hash.put(ImageResourceType.RestartButton,
                 this.createScaledBitmap(R.drawable.restartbtn, BitmapSizeStatic.restartButton.x, BitmapSizeStatic.restartButton.y));
 
@@ -85,6 +87,11 @@ public class ImageResource {
 
         hash.put(ImageResourceType.PlayerPlane, this.createScaledBitmap(
                 R.drawable.plane1up, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
+        hash.put(ImageResourceType.PlayerPlane2, this.createScaledBitmap(
+                R.drawable.plane2up, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
+        hash.put(ImageResourceType.PlayerPlane3, this.createScaledBitmap(
+                R.drawable.plane3up, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
+
         hash.put(ImageResourceType.BasicEnemyPlane, this.createScaledBitmap(
                 R.drawable.enemy10, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
         hash.put(ImageResourceType.WeakEnemyPlane, this.createScaledBitmap(

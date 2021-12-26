@@ -105,6 +105,16 @@ public class GamePlayScene extends Scene
         return this.gameSystem;
     }
 
+    public GamePlaySceneStateType getGamePlaySceneStateType() {
+        return this.gamePlaySceneStateType;
+    }
+
+    public void sceneExitToTitle() {
+        this.transitionStateMachine.getState(TransitionStateType.Exit).getAction().setToTitle(true);
+        this.transitionStateMachine.transition(TransitionStateType.Exit);
+        this.gameEventContainer.clear();
+    }
+
     public void sceneExit() {
         this.transitionStateMachine.transition(TransitionStateType.Exit);
         this.gameEventContainer.clear();
@@ -227,7 +237,8 @@ public class GamePlayScene extends Scene
                 new ToNextStageEvent(this,
                         this.actorContainer,
                         this.stage,
-                        this.uiChangeBullePanel));
+                        this.uiChangeBullePanel,
+                        this.imageResource));
     }
 
     public void createToGameOverScene() {

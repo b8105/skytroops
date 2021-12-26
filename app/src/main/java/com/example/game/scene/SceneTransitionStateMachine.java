@@ -31,6 +31,10 @@ public class SceneTransitionStateMachine {
         this.stateMachine.register(exit);
         this.stateMachine.start(enter.getStateType());
     }
+
+    public TransitionState getState(TransitionStateType transitionStateType){
+        return (TransitionState)this.stateMachine.getStatus().get(transitionStateType);
+    }
     public void update(float deltaTime){
         TransitionState state = this.stateMachine.getCurrentState();
         TransitionAction action = state.getAction();
@@ -47,5 +51,4 @@ public class SceneTransitionStateMachine {
     public void transition(TransitionStateType type){
         this.stateMachine.transition(type);
     }
-
 }

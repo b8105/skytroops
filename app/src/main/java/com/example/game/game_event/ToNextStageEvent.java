@@ -8,9 +8,12 @@ import com.example.game.collision.collision_component.PlaneCollisionComponent;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.component.ComponentType;
 import com.example.game.game.ActorContainer;
+import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.main.Game;
 import com.example.game.parameter.recovery.Recovery;
 import com.example.game.render.RenderCommandQueue;
+import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.stage.Stage;
 import com.example.game.stage.StageType;
@@ -24,6 +27,7 @@ public class ToNextStageEvent extends GameEvent{
     private GamePlayScene gamePlayScene;
     private PlayerPlane player;
     private PlaneActionComponent planeActionComponent;
+    private PlaneSpriteRenderComponent planeSpriteRenderComponent;
     private PlaneCollisionComponent planeCollisionComponent;
 
     private float toCenterSpeed = 15.0f;
@@ -36,11 +40,13 @@ public class ToNextStageEvent extends GameEvent{
     public ToNextStageEvent(GamePlayScene gamePlayScene,
                             ActorContainer actorContainer,
                             Stage stage,
-                            UIChangeBulletPanel uiChangeBullePanel) {
+                            UIChangeBulletPanel uiChangeBullePanel,
+                            ImageResource imageResource) {
         this.existTimer = new StopWatch(time);
         this.gamePlayScene = gamePlayScene;
         this.player = actorContainer.getMainChara();
         this.planeActionComponent = this.player.getComponent(ComponentType.PlaneAction);
+        this.planeSpriteRenderComponent = this.player.getComponent(ComponentType.PlaneSpriteRender);
         this.planeCollisionComponent = this.player.getComponent(ComponentType.PlaneCollision);
         this.planeActionComponent.inactivate();
         this.planeCollisionComponent.inactivate();
@@ -51,12 +57,19 @@ public class ToNextStageEvent extends GameEvent{
         this.player.getHpParameter().increaseValueMax(this.recoveryBonus);
         this.player.applyRecovery(new Recovery(this.recoveryBonus) );
 
+
         StageType stageType =stage.getCurrentType();
         if(stageType == StageType.Type01){
             uiChangeBullePanel.unlockToHomingButton();
+            this.planeSpriteRenderComponent.setBitmap(
+                    imageResource.getImageResource(ImageResourceType.PlayerPlane2)
+            );
         } // if
         else if(stageType == StageType.Type02){
             uiChangeBullePanel.unlockToThreeWayButton();
+            this.planeSpriteRenderComponent.setBitmap(
+                    imageResource.getImageResource(ImageResourceType.PlayerPlane3)
+            );
         } // else if
     }
 

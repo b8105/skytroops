@@ -126,11 +126,11 @@ public class EnemySpawnSystem {
             spawnDataProtoE1.add(new EnemySpawnData(EnemyPlaneType.Commander,
                     0.0f, 200.0f, new EnemyCreateConfig(1)));
             spawnDataProtoE1.add(new EnemySpawnData(EnemyPlaneType.Follow,
-                    0.0f, 600.0f, new EnemyCreateConfig(1, new PointF(200.0f, -200.0f))));
+                    0.0f, 0.0f, new EnemyCreateConfig(1, new PointF(200.0f, -200.0f))));
             spawnDataProtoE1.add(new EnemySpawnData(EnemyPlaneType.Follow,
-                    0.0f, 600.0f, new EnemyCreateConfig(1, new PointF(-200.0f, -200.0f))));
+                    0.0f, 400.0f, new EnemyCreateConfig(1, new PointF(-200.0f, -200.0f))));
             spawnDataProtoE1.add(new EnemySpawnData(EnemyPlaneType.Follow,
-                    0.0f, 600.0f, new EnemyCreateConfig(1, new PointF(0.0f, -300.0f))));
+                    0.0f, 200.0f, new EnemyCreateConfig(1, new PointF(0.0f, -300.0f))));
         }
         {
             spawnDataProtoE2.add(new EnemySpawnData(EnemyPlaneType.Commander,
@@ -138,19 +138,19 @@ public class EnemySpawnSystem {
             spawnDataProtoE2.add(new EnemySpawnData(EnemyPlaneType.Follow,
                     0.0f, 600.0f, new EnemyCreateConfig(2, new PointF(200.0f, -200.0f))));
             spawnDataProtoE2.add(new EnemySpawnData(EnemyPlaneType.Follow,
-                    0.0f, 600.0f, new EnemyCreateConfig(2, new PointF(-200.0f, -200.0f))));
+                    0.0f, 200.0f, new EnemyCreateConfig(2, new PointF(-200.0f, -200.0f))));
             spawnDataProtoE2.add(new EnemySpawnData(EnemyPlaneType.Follow,
-                    0.0f, 600.0f, new EnemyCreateConfig(2, new PointF(0.0f, -300.0f))));
+                    0.0f, 400.0f, new EnemyCreateConfig(2, new PointF(0.0f, -300.0f))));
         }
         {
             spawnDataProtoE3.add(new EnemySpawnData(EnemyPlaneType.Commander,
                     0.0f, 700.0f, new EnemyCreateConfig(3)));
             spawnDataProtoE3.add(new EnemySpawnData(EnemyPlaneType.Follow,
-                    0.0f, 600.0f, new EnemyCreateConfig(3, new PointF(200.0f, -200.0f))));
+                    0.0f, 900.0f, new EnemyCreateConfig(3, new PointF(200.0f, -200.0f))));
             spawnDataProtoE3.add(new EnemySpawnData(EnemyPlaneType.Follow,
-                    0.0f, 600.0f, new EnemyCreateConfig(3, new PointF(-200.0f, -200.0f))));
+                    0.0f, 500.0f, new EnemyCreateConfig(3, new PointF(-200.0f, -200.0f))));
             spawnDataProtoE3.add(new EnemySpawnData(EnemyPlaneType.Follow,
-                    0.0f, 600.0f, new EnemyCreateConfig(3, new PointF(0.0f, -300.0f))));
+                    0.0f, 700.0f, new EnemyCreateConfig(3, new PointF(0.0f, -300.0f))));
         }
 
     }
@@ -175,13 +175,13 @@ public class EnemySpawnSystem {
 
         switch (type) {
             case Type01:
-                this.constructStage01();
+//                this.constructStage01();
                 break;
             case Type02:
-                this.constructStage02();
+//                this.constructStage02();
                 break;
             case Type03:
-                this.constructStage03();
+//                this.constructStage03();
                 break;
             case Type04:
                 this.constructStage04();
@@ -300,9 +300,7 @@ public class EnemySpawnSystem {
                     this.currentWaveIndex++;
                 } // if
             } // if
-
         } // if
-
     }
 
     public boolean update(float deltaTime, ActorFactory actorFactory,
