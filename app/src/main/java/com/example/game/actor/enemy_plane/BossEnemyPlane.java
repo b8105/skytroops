@@ -16,6 +16,7 @@ import com.example.game.parameter.HpParameter;
 import com.example.game.parameter.damage.Damage;
 import com.example.game.parameter.invincible.PlaneInvincibleParameter;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public abstract class BossEnemyPlane extends EnemyPlane {
@@ -23,11 +24,18 @@ public abstract class BossEnemyPlane extends EnemyPlane {
     private BossEnemyDeadSubject bossEnemyDeadSubject = null;
     private PlaneInvincibleParameter invincibleParameter = new PlaneInvincibleParameter();
 
+    private HashMap<EnemyPlaneType, Integer> scoreTable = new HashMap<>();
+
     public BossEnemyPlane(ActorContainer actorContainer, String tag) {
         super(actorContainer, tag);
         assert (super.getTag().equals(ActorTagString.enemy));
         actorContainer.setBossEnemy(this);
         this.invincibleParameter.setInvincibleTime(60.0f);
+        this.scoreTable.put(EnemyPlaneType.Stage01Boss, 500);
+        this.scoreTable.put(EnemyPlaneType.Stage02Boss, 1000);
+        this.scoreTable.put(EnemyPlaneType.Stage03Boss, 1500);
+        this.scoreTable.put(EnemyPlaneType.Stage04Boss, 2000);
+        this.scoreTable.put(EnemyPlaneType.Stage05Boss, 2500);
     }
     public abstract EnemyPlaneType getEnemyPlaneType();
     public boolean isBoss(){
@@ -81,6 +89,8 @@ public abstract class BossEnemyPlane extends EnemyPlane {
         hpParameter.decrease(damage.value);
 
         if (hpParameter.isLessEqualZero()) {
+            gameScorer.addScore(this.scoreTable.get(this.getEnemyPlaneType()).intValue());
+
             PointF position =  super.getPosition();
             PointF random =  new PointF();
 

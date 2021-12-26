@@ -21,6 +21,7 @@ public class BitmapSizeStatic {
 
     public static Point restartButton = new Point(450, 150);
 
+    public static Point menuIcon = new Point( (int)(76 * 1.0), (int)(73 * 1.0));
 
     public static Point score = new Point( (int)(150 * 1.5), (int)(150 * 1.5));
     public static Point explosion = new Point(800, 200);

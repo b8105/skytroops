@@ -48,7 +48,13 @@ public class EnemySpawnSystem {
         }
         {
             for (EnemySpawnData spawn : this.spawnDataProtoA) {
-                spawnDataProtoC.add(spawn);
+                spawnDataProtoB1.add(spawn);
+            } // for
+            for (EnemySpawnData spawn : this.spawnDataProtoA) {
+                spawnDataProtoB2.add(spawn);
+            } // for
+            for (EnemySpawnData spawn : this.spawnDataProtoA) {
+                spawnDataProtoB3.add(spawn);
             } // for
 
             spawnDataProtoB1.add(new EnemySpawnData(EnemyPlaneType.Weak,

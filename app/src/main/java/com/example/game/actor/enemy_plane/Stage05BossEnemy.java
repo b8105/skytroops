@@ -19,7 +19,7 @@ public class Stage05BossEnemy extends BossEnemyPlane {
 
     @Override
     public EnemyPlaneType getEnemyPlaneType() {
-        return EnemyPlaneType.Stage04Boss;
+        return EnemyPlaneType.Stage05Boss;
     }
 
     public void initialize() {
