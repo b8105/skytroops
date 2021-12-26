@@ -27,9 +27,11 @@ public class UIChangeBulletButton extends UIButton {
     private UILabel selectBitmap;
     private boolean lockFlag = false;
     private boolean selectFlag = false;
-
-
     private PlayerPlane playerPlane;
+
+    private float basicInterval = 0.16f;
+    private float homingInterval = 0.35f;
+    private float threewayInterval = 0.26f;
 
     public UIChangeBulletButton(
             PlayerPlane playerPlane,
@@ -59,7 +61,6 @@ public class UIChangeBulletButton extends UIButton {
         this.weapon = weapon;
         this.type = type;
     }
-
     public void setSelectFlag(boolean selectFlag) {
         this.selectFlag = selectFlag;
     }
@@ -75,22 +76,24 @@ public class UIChangeBulletButton extends UIButton {
         this.lockFlag = false;
     }
 
-
     @Override
     public void onTouch() {
         switch (this.type) {
             case ToBasic:
-                this.weapon.setShotCount(singleShotCount);
+                this.weapon.resetShotInterval(this.basicInterval);
+                this.weapon.setShotCount(this.singleShotCount);
                 this.weapon.setBulletType(BulletType.Basic);
                 break;
             case ToHoming:
-                this.weapon.setShotCount(singleShotCount);
+                this.weapon.resetShotInterval(this.homingInterval);
+                this.weapon.setShotCount(this.singleShotCount);
                 this.weapon.setBulletType(BulletType.Homing);
                 break;
             case ToThreeWay:
+                this.weapon.resetShotInterval(this.threewayInterval);
                 this.weapon.setBulletType(BulletType.Homing);
                 this.weapon.setBulletType(BulletType.Basic);
-                this.weapon.setShotCount(threeWayCount);
+                this.weapon.setShotCount(this.threeWayCount);
                 break;
         } // switch
     }

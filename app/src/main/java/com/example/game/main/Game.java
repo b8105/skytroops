@@ -6,9 +6,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
+import androidx.core.view.GestureDetectorCompat;
 import androidx.core.view.MotionEventCompat;
 
 import com.example.game.R;
@@ -35,7 +37,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 
-public class Game extends SurfaceView implements Runnable {
+public class Game extends SurfaceView
+        implements Runnable {
     public static PointF displayRealSize = new PointF();
     public static int highScore = 0;
 
@@ -44,8 +47,8 @@ public class Game extends SurfaceView implements Runnable {
     //! thread
     private Thread thread;
     private boolean running = true;
-    private float frameTime = 1.0f / 60.0f * 0.5f;
-    private float frameTimeCoefficientForGame = 3.0f;
+    private float frameTime = 1.0f / 60.0f;
+    private float frameTimeCoefficientForGame = 1.0f;
     //! system
     private InputEvent inputEvent = new InputEvent();
     private RenderCommandQueue renderCommandQueue;
@@ -54,7 +57,7 @@ public class Game extends SurfaceView implements Runnable {
     private Scene currentScene = null;
     private int scene = 0;
     private boolean changeSceneFlag = false;
-
+    private GestureDetectorCompat mDetector;
 
     private boolean enableTouch = false;
     private boolean prevTouch = false;
@@ -170,6 +173,7 @@ public class Game extends SurfaceView implements Runnable {
     }
 
     private void start() {
+
         this.running = true;
         thread = new Thread(this);
         thread.start();
@@ -270,7 +274,6 @@ public class Game extends SurfaceView implements Runnable {
         } // if
     }
 
-    //! 60FPSに保つ為にメインスレッドを休止させる
     private void sleep() {
         long time = (long) (this.frameTime * 1000.0f);
         try {

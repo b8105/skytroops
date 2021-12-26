@@ -8,6 +8,7 @@ import com.example.game.actor.bullet.Bullet;
 import com.example.game.actor.bullet.BulletType;
 import com.example.game.actor.enemy_plane.EnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.parameter.damage.Damage;
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
@@ -114,7 +115,10 @@ public class PlaneCollisionComponent
         if (owner.getActorType() == ActorType.Plane &&
                 owner.getTag() == ActorTagString.player) {
             PointF pos = owner.getPosition();
-            PointF size = this.getCollisionRectangle().getSize();
+            PointF size = new PointF(
+                    BitmapSizeStatic.player.x,
+                    BitmapSizeStatic.player.y
+            );
 
 
             if (pos.x < 0.0f) {

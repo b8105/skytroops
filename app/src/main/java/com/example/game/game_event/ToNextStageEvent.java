@@ -20,7 +20,7 @@ import com.example.game.utility.StopWatch;
 
 public class ToNextStageEvent extends GameEvent{
     private StopWatch existTimer;
-    private float time = 3.0f;
+    private float time = 1.4f;
     private GamePlayScene gamePlayScene;
     private PlayerPlane player;
     private PlaneActionComponent planeActionComponent;
@@ -36,8 +36,7 @@ public class ToNextStageEvent extends GameEvent{
     public ToNextStageEvent(GamePlayScene gamePlayScene,
                             ActorContainer actorContainer,
                             Stage stage,
-                            UIChangeBullePanel uiChangeBullePanel
-                            ) {
+                            UIChangeBullePanel uiChangeBullePanel) {
         this.existTimer = new StopWatch(time);
         this.gamePlayScene = gamePlayScene;
         this.player = actorContainer.getMainChara();
