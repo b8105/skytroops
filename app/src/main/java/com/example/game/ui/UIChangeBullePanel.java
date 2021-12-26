@@ -81,9 +81,6 @@ public class UIChangeBullePanel {
 
         this.currentButton = toBasicButton;
         this.currentButton.setSelectFlag(true);
-
-        this.unlockToHomingButton();
-        this.unlockToThreeWayButton();
     }
 
     public void setEvent(Weapon weapon) {
