@@ -11,6 +11,7 @@ import com.example.game.render.hp_renderer.PlaneHpBarRenderer;
 public class PlaneHpBarRenderComponent extends RenderComponent{
     PlaneHpBarRenderer hpBarRenderer= null;;
     HpParameter hpParameter = null;
+    boolean active = true;
 
     public PlaneHpBarRenderComponent(RenderLayer layer) {
         super(layer);
@@ -25,12 +26,29 @@ public class PlaneHpBarRenderComponent extends RenderComponent{
         return ComponentType.HpBarRender;
     }
 
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
+
+    @Override
+    public void activate() {
+        this.active = true;
+    }
+
+    @Override
+    public void inactivate() {
+        this.active = false;
+    }
+
     public void onComponentInitialize(Actor owner) {
         super.onComponentInitialize(owner);
         this.hpParameter = ((Plane)(owner)).getHp();
     }
     @Override
     public void execute(RenderCommandQueue out) {
-        this.hpBarRenderer.execute(this.hpParameter,out);
+        if(this.isActive()){
+            this.hpBarRenderer.execute(this.hpParameter,out);
+        } // if
     }
 }

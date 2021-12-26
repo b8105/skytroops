@@ -9,8 +9,7 @@ public class Stage02BossEnemy  extends BossEnemyPlane{
         super(actorContainer, tag);
         AnyWayGun anyWayGun = new AnyWayGun();
         super.addWeapon("AnyWayGun",anyWayGun);
-//        anyWayGun.resetShotInterval(defaultShotInterval);
-
+        anyWayGun.setWayAngle(15);
         anyWayGun.setBulletType(BulletType.Stage02Boss);
     }
 
@@ -21,6 +20,5 @@ public class Stage02BossEnemy  extends BossEnemyPlane{
 
     public void initialize() {
         super.initialize();
-//        super.getWeapon().setBulletType(BulletType.Stage02Boss);
     }
 }

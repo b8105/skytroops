@@ -10,7 +10,9 @@ import com.example.game.actor.Actor;
 import com.example.game.actor.enemy_plane.BossEnemyPlane;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.InputEvent;
+import com.example.game.component.ComponentType;
 import com.example.game.main.Game;
+import com.example.game.render.render_component.PlaneHpBarRenderComponent;
 
 import java.util.AbstractCollection;
 
@@ -71,6 +73,7 @@ public class AIBossTweenMoveInput implements ActionInput {
                     this.moveSequence++;
                     ((BossEnemyPlane) (moveComponent.getOwner())).getInvincibleParameter().inactivate();
                     this.shotInput.activate();
+                    ((PlaneHpBarRenderComponent)(this.bossEnemyPlane).getComponent(ComponentType.HpBarRender)).activate();
                     if(this.subShotInput != null){
                         this.subShotInput.activate();
                     } // if
@@ -104,5 +107,10 @@ public class AIBossTweenMoveInput implements ActionInput {
         command.speed.y = speed.y;
 
         moveComponent.writeCommand(command);
+    }
+
+    @Override
+    public void initialize() {
+
     }
 }

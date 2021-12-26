@@ -29,6 +29,11 @@ public class PlayerShotInput implements ActionInput {
         this.shotComponent.writeCommand(command);
     }
 
+    @Override
+    public void initialize() {
+
+    }
+
     void inputCommand(ShotCommand command) {
         command.fire = true;
     }

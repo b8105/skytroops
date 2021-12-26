@@ -30,10 +30,6 @@ public class SpriteRenderComponent extends RenderComponent {
         this.bitmap = bitmap;
     }
 
-//    public void setSourceRect(Rect sourceRect) {
-//        this.sourceRect = sourceRect;
-//    }
-
     public PointF getBitmapSize() {
         assert (this.bitmap != null);
         return new PointF(this.bitmap.getWidth(), this.bitmap.getHeight());
@@ -49,6 +45,21 @@ public class SpriteRenderComponent extends RenderComponent {
     @Override
     public ComponentType getComponentType() {
         return ComponentType.SpriteRender;
+    }
+
+    @Override
+    public boolean isActive() {
+        return false;
+    }
+
+    @Override
+    public void activate() {
+
+    }
+
+    @Override
+    public void inactivate() {
+
     }
 
     public boolean isCenterFlag() {

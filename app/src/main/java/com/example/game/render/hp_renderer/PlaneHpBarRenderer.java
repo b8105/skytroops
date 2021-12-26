@@ -14,24 +14,12 @@ public class PlaneHpBarRenderer {
     protected Bitmap constructBitmap(
             ImageResource imsgeResources, ImageResourceType imageResourceType) {
         Bitmap bitmap = imsgeResources.getImageResource(imageResourceType);
-        //BitmapFactory.decodeResource(resources, id);
-        //bitmap = Bitmap.createScaledBitmap(
-        //      bitmap, size.x, size.y,
-        //      false);
         return bitmap;
     }
 
     public Point getSize(){
         return new Point();
     }
-    public Point getHalfSize(){
-        Point size = this.getSize();
-        return new Point(
-                (int)(size.x * 0.5f),
-                (int)(size.y * 0.5f)
-        );
-    }
     public void execute(HpParameter hpParameter, RenderCommandQueue out) {
-
     }
 }
