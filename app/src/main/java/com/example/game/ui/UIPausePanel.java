@@ -3,10 +3,12 @@ package com.example.game.ui;
 import android.graphics.PointF;
 import android.media.Image;
 
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.InputEvent;
 import com.example.game.common.shape.Circle;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
+import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;
 
@@ -20,7 +22,9 @@ public class UIPausePanel implements UIPanel {
         this.uiPauseButton = new UIButton(
                 imageResource,
                 ImageResourceType.PauseMeneIcon,
-                new PointF(800.0f, 200.0f)
+                new PointF(
+                        Game.getDisplayRealSize().x -  BitmapSizeStatic.menuIcon.x *0.5f,
+                        BitmapSizeStatic.menuIcon.y * 0.5f )
         );
     }
 
@@ -39,6 +43,7 @@ public class UIPausePanel implements UIPanel {
 
     @Override
     public void draw(RenderCommandQueue out) {
-        this.uiPauseButton.draw(out);
+
+        //this.uiPauseButton.draw(out);
     }
 }

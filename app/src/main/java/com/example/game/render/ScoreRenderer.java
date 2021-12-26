@@ -23,9 +23,7 @@ public class ScoreRenderer {
     private UILabel background = null;
 
     public ScoreRenderer(ImageResource imageResource) {
-        this.transform = new Transform2D();
-        transform.position.x = 620;
-        transform.position.y = 60;
+        float positionY = 140.0f;
 
         this.paint = new Paint();
         this.paint.setColor(Color.BLACK);
@@ -36,7 +34,13 @@ public class ScoreRenderer {
 
         background = new UILabel(
                 imageResource, ImageResourceType.ScoreBackground,
-                new PointF(950.0f, 40.0f));
+                new PointF(950.0f, positionY));
+
+        this.transform = new Transform2D();
+        transform.position.x = 620;
+        transform.position.y = positionY + (this.textSize*0.5f);
+
+
     }
 
     private void clacPosition(String text){
