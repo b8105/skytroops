@@ -100,7 +100,7 @@ public class ActorFactory {
 
         enemyPlaneHp.put(EnemyPlaneType.Stage01Boss, 20);
         enemyPlaneHp.put(EnemyPlaneType.Stage02Boss, 40);
-        enemyPlaneHp.put(EnemyPlaneType.Stage03Boss, 60);
+        enemyPlaneHp.put(EnemyPlaneType.Stage03Boss, 1);
         enemyPlaneHp.put(EnemyPlaneType.Stage04Boss, 80);
         enemyPlaneHp.put(EnemyPlaneType.Stage05Boss, 120);
         enemyPlaneHp.put(EnemyPlaneType.Strong, 5);

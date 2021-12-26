@@ -4,4 +4,5 @@ import android.graphics.PointF;
 
 public class MoveCommand {
     public PointF speed = new PointF();
+    public float angluarSpeed = 0.0f;
 }
