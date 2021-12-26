@@ -61,7 +61,7 @@ public class ComponentFactory {
         basicEnemyMoveSpeedOnStage.put(StageType.Type02, 30.0f);
         basicEnemyMoveSpeedOnStage.put(StageType.Type03, 36.0f);
         basicEnemyMoveSpeedOnStage.put(StageType.Type04, 42.0f);
-        basicEnemyMoveSpeedOnStage.put(StageType.Type05, 8.0f);
+        basicEnemyMoveSpeedOnStage.put(StageType.Type05, 48.0f);
     }
 
     public SpriteRenderComponent createSpriteRenderComponent(
@@ -449,7 +449,7 @@ public class ComponentFactory {
                 subAiShotInput.inactivate();
 
                 subShotComponent.setWeapon(subWeapon);
-                subWeapon.resetShotInterval(this.bossEnemy4ShotInterval);
+                subWeapon.resetShotInterval(this.bossEnemy4SubShotInterval);
                 //subShotComponent.setShotInterval(this.bossEnemy4ShotInterval);
                 subWeapon.setActorFactory(actorFactory);
                 subShotComponent.setActionInput(subAiShotInput);

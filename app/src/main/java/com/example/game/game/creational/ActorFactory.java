@@ -72,9 +72,9 @@ public class ActorFactory {
     private UIChangeBullePanel uiChangeBullePanel = null;
     private EffectSystem effectSystem = null;
 
-    private int playerCollisionRectSizeDecrease = 60;
-    private int enemyCollisionRectSizeDecrease = 40;
-    private int bulletCollisionRectSizeDecrease = 60;
+    private int playerCollisionRectSizeDecrease = 100;
+    private int enemyCollisionRectSizeDecrease = 60;
+    private int bulletCollisionRectSizeDecrease = 80;
 
 
     public ActorFactory(
@@ -102,7 +102,7 @@ public class ActorFactory {
         PlayerPlane actor = new PlayerPlane(actorContainer, tag);
         actor.setExplosionEffectEmitter(this.effectSystem.getSharedEmitter(EffectType.Explosion));
         this.uiChangeBullePanel.setEvent(actor.getWeapon("MainWeapon"));
-        actor.resetHp(1);
+        actor.resetHp(10);
 
         PlaneCollisionComponent collisionable = new PlaneCollisionComponent(collisionLayer);
         PlaneSpriteRenderComponent spriteRenderComponent = this.componentFactory.createPlaneSpriteRenderComponent(
@@ -356,7 +356,7 @@ public class ActorFactory {
                         actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), stageType);
                 break;
             case Commander:
-                actionComponent = this.componentFactory.createBasicPlaneActionComponent(
+                actionComponent = this.componentFactory.createWeakPlaneActionComponent(
                         actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), stageType);
                 break;
             case Follow:

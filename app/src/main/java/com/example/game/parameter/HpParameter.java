@@ -29,6 +29,11 @@ public class HpParameter {
         this.valueMax = value;
     }
 
+    public void increaseValueMax(int value){
+        this.valueMax += value;
+    }
+
+
     public void increase(int value){
         this.value += value;
     }

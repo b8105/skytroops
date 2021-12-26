@@ -36,31 +36,31 @@ import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 
 public class Game extends SurfaceView implements Runnable {
-    static public PointF displayRealSize = new PointF();
+    public static PointF displayRealSize = new PointF();
+    public static int highScore = 0;
 
     //!
     public MainActivity activity;
     //! thread
     private Thread thread;
     private boolean running = true;
-    float frameTime = 1.0f / 60.0f * 0.5f;
-    float frameTimeCoefficientForGame = 3.0f;
+    private float frameTime = 1.0f / 60.0f * 0.5f;
+    private float frameTimeCoefficientForGame = 3.0f;
     //! system
     private InputEvent inputEvent = new InputEvent();
     private RenderCommandQueue renderCommandQueue;
     private ImageResource imageResource;
-
     //! scene
     private Scene currentScene = null;
-    int scene = 0;
-    boolean changeSceneFlag = false;
+    private int scene = 0;
+    private boolean changeSceneFlag = false;
 
 
-    boolean enableTouch = false;
-    boolean prevTouch = false;
-    boolean currentTouch = false;
+    private boolean enableTouch = false;
+    private boolean prevTouch = false;
+    private boolean currentTouch = false;
 
-    UIButton debugSwitch;
+    private UIButton debugSwitch;
     private boolean debugFlag = true;
 
     private JSONObject parseJson(String fileName) throws JSONException, IOException {
@@ -141,6 +141,15 @@ public class Game extends SurfaceView implements Runnable {
 
     public static PointF getDisplayRealSize() {
         return displayRealSize;
+    }
+
+
+    public static void setHighScore(int highScore) {
+        Game.highScore = highScore;
+    }
+
+    public static int getHighScore() {
+        return highScore;
     }
 
     public Point getDefaultDisplayRealSize() {

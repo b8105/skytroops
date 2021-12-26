@@ -48,10 +48,6 @@ abstract public class CollisionComponent implements Collisionable, Component {
         this.setCollisionRectSizeOffset(size, size);
     }
 
-    public void setCollisionRectSizeOffset(PointF collisionRectSizeOffset) {
-        this.setCollisionRectSizeOffset(collisionRectSizeOffset.x, collisionRectSizeOffset.y);
-    }
-
     public void setSpriteRenderComponent(SpriteRenderComponent spriteRenderComponent) {
         this.spriteRenderComponent = spriteRenderComponent;
     }
@@ -61,7 +57,6 @@ abstract public class CollisionComponent implements Collisionable, Component {
         PointF position = this.getOwner().getPosition();
         PointF expansion = this.getCollisionRectSizeOffset();
         Rectangle rect = new Rectangle(0, 0, sourceRect.width(), sourceRect.height());
-
         rect.offset((int) position.x, (int) position.y);
         if (this.spriteRenderComponent.isCenterFlag()) {
             rect.offset(-rect.getSize().x *0.5f,

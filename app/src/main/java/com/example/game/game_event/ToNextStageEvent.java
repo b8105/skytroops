@@ -49,8 +49,8 @@ public class ToNextStageEvent extends GameEvent{
         this.centerPosiotion.y = Game.getDisplayRealSize().y * 0.8f;
         this.centerPosiotion.x -= BitmapSizeStatic.player.x * 0.5f;
 
+        this.player.getHpParameter().increaseValueMax(this.recoveryBonus);
         this.player.applyRecovery(new Recovery(this.recoveryBonus) );
-
 
         StageType stageType =stage.getCurrentType();
         if(stageType == StageType.Type01){

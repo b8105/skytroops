@@ -68,8 +68,6 @@ public class StageClearInfoDrawEvent extends GameEvent {
         this.paint.setColor(Color.BLACK);
         this.paint.setTextSize(this.textSize);
 
-
-
         background = new UILabel(
                 imageResource, ImageResourceType.ClearInfoBackground,
                 new PointF(
