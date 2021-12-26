@@ -35,7 +35,7 @@ public class Stage {
         this.stageTypeBitmapHashMap.put(StageType.Type04, resources.getImageResource(ImageResourceType.StageBackground4));
         this.stageTypeBitmapHashMap.put(StageType.Type05, resources.getImageResource(ImageResourceType.StageBackground5));
 
-        this.changeType(StageType.Type01);
+        this.changeType(StageType.Type04);
 
         component = new StageCollisionComponent(layer);
         component.setScreenSize(screenSize);

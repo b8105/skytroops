@@ -132,6 +132,8 @@ public class HomingBulletMoveComponent extends ActionComponent {
         } // else
         position.x += move.x;
         position.y += move.y;
+
+
         owner.setRotation(MathUtilities.radianToDegree(rotateRadian));
         owner.setPosition(position);
     }
