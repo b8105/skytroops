@@ -9,6 +9,7 @@ import com.example.game.action.action_component.PlaneActionComponent;
 import com.example.game.action.action_component.common.ShotComponent;
 import com.example.game.action.action_component.enemy.FollowMoveComponent;
 import com.example.game.action.action_component.enemy.WaveMoveComponent;
+import com.example.game.action.input.enemy.AIBoss4TweenMoveInput;
 import com.example.game.action.input.enemy.AIBossMoveInput;
 import com.example.game.action.input.enemy.AIBossTweenMoveInput;
 import com.example.game.action.input.enemy.AICornerMoveInput;
@@ -380,7 +381,7 @@ public class ComponentFactory {
             weapon.setShotCount(1);
             subWeapon.setShotCount(1);
             {
-                AIBossTweenMoveInput input = new AIBossTweenMoveInput();
+                AIBoss4TweenMoveInput input = new AIBoss4TweenMoveInput();
                 input.setInputSpeed(this.bossEnemy3MoveSpeed);
                 input.setMoveComponent(moveComponent);
                 input.setShotInput(aiShotInput);

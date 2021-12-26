@@ -111,6 +111,5 @@ public class AIBossTweenMoveInput implements ActionInput {
 
     @Override
     public void initialize() {
-
     }
 }
