@@ -67,7 +67,7 @@ public class GameOverStartEvent extends GameEvent {
     private List<GameOverDrawPositionController> drawPositionController = new ArrayList<>();
     private List<UILabel> images = new ArrayList<>();
     private StopWatch stopWatch = new StopWatch(0.1f);
-    private StopWatch existStopWatch = new StopWatch(3.0f);
+    private StopWatch existStopWatch = new StopWatch(1.8f);
     private int index = 0;
 
     public GameOverStartEvent(
