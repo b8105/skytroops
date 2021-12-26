@@ -19,6 +19,7 @@ public class BitmapSizeStatic {
     public static Point gameResultBackground = new Point(316 * 3, 342 * 3);
     public static Point gameOverBackground = new Point((int)Game.getDisplayRealSize().x, (int)Game.getDisplayRealSize().y);
 
+    public static Point startButton = new Point(450, 150);
     public static Point restartButton = new Point(450, 150);
 
     public static Point menuIcon = new Point( (int)(76 * 1.0), (int)(73 * 1.0));

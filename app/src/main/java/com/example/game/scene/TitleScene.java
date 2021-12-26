@@ -156,7 +156,6 @@ public class TitleScene extends Scene {
         transform.position.x -= this.startButtonBitmap.getWidth() * 0.5f;
         transform.position.y -= this.startButtonBitmap.getHeight() * 0.15f;
 
-        //list.drawRectangle(this.getStartButtonRectangle(), new RenderRectangleInfo());
         list.drawSprite(
                 this.startButtonBitmap,
                 transform,

@@ -11,6 +11,7 @@ import com.example.game.action.action_component.enemy.FollowMoveComponent;
 import com.example.game.action.action_component.enemy.WaveMoveComponent;
 import com.example.game.action.input.enemy.AIBossMoveInput;
 import com.example.game.action.input.enemy.AIBossTweenMoveInput;
+import com.example.game.action.input.enemy.AICornerMoveInput;
 import com.example.game.action.input.enemy.AIFadeoutMoveInput;
 import com.example.game.action.input.enemy.AIShotInput;
 import com.example.game.action.input.enemy.AIStraightMoveInput;
@@ -48,7 +49,7 @@ public class ComponentFactory {
     private float bossEnemy5SubShotInterval = 2.0f;
     private float bossEnemy5SubShotInterval2 = 3.0f;
 
-    private float commanderPlane = 28.0f;
+    private float commanderEnemyMoveSpeed = 22.0f;
     private float bossEnemy2MoveSpeed = 8.0f;
     private float bossEnemy3MoveSpeed = 12.0f;
 
@@ -133,31 +134,13 @@ public class ComponentFactory {
         actionComponent.setActionInput(enemyPlaneActionInput);
 
         MoveComponent moveComponent = new MoveComponent(actionComponent);
-        AIStraightMoveInput input = new AIStraightMoveInput();
-        input.setSpeed(20.0f);
+        AICornerMoveInput input = new AICornerMoveInput();
+        input.setSpeed(this.commanderEnemyMoveSpeed);
 
         input.setMoveComponent(moveComponent);
         moveComponent.setActionInput(input);
         enemyPlaneActionInput.addActionInput(input);
         return actionComponent;
-        //        {
-//
-//
-//            PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
-//            EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
-//            actionComponent.setActionInput(enemyPlaneActionInput);
-//
-//            MoveComponent moveComponent = new MoveComponent(actionComponent);
-//            AIStraightMoveInput input = new AIStraightMoveInput();
-//            input.setSpeed(this.commanderPlane);
-//
-//            input.setMoveComponent(moveComponent);
-//            moveComponent.setActionInput(input);
-//            enemyPlaneActionInput.addActionInput(input);
-//            return actionComponent;
-//        }
-//
-
     }
 
     public PlaneActionComponent createWeakPlaneActionComponent(
@@ -367,67 +350,6 @@ public class ComponentFactory {
                 subShotComponent.setWeapon(subWeapon);
                 subWeapon.resetShotInterval(this.bossEnemy2ShotInterval);
                 //subShotComponent.setShotInterval(this.bossEnemy2ShotInterval);
-                subWeapon.setActorFactory(actorFactory);
-                subShotComponent.setActionInput(subAiShotInput);
-                enemyPlaneActionInput.addActionInput(subAiShotInput);
-            }
-
-        }
-        return actionComponent;
-    }
-
-
-    private PlaneActionComponent createBoss4PlaneActionComponent(
-            ActionLayer actionLayer,
-            ActorFactory actorFactory,
-            ActorContainer actorContainer,
-            Weapon weapon,
-            Weapon subWeapon
-    ) {
-        PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
-        EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
-        actionComponent.setActionInput(enemyPlaneActionInput);
-        {
-            MoveComponent moveComponent = new MoveComponent(actionComponent);
-            ShotComponent shotComponent = new ShotComponent(actionComponent);
-            AIShotInput aiShotInput = new AIShotInput(shotComponent);
-            ShotComponent subShotComponent = new ShotComponent(actionComponent);
-            AIShotInput subAiShotInput = new AIShotInput(subShotComponent);
-
-            weapon.setShotCount(1);
-            subWeapon.setShotCount(1);
-            {
-                AIBossTweenMoveInput input = new AIBossTweenMoveInput();
-                input.setInputSpeed(this.bossEnemy3MoveSpeed);
-                input.setMoveComponent(moveComponent);
-                input.setShotInput(aiShotInput);
-                input.setSubShotInput(subAiShotInput);
-                moveComponent.setActionInput(input);
-                enemyPlaneActionInput.addActionInput(input);
-            }
-            {
-                aiShotInput.setActorContainer(actorContainer);
-                aiShotInput.setShotComponent(shotComponent);
-                aiShotInput.inactivate();
-
-                aiShotInput.setTargeting(false);
-                shotComponent.setWeapon(weapon);
-                weapon.resetShotInterval(this.bossEnemy2ShotInterval);
-
-//                shotComponent.setShotInterval(this.bossEnemy2ShotInterval);
-                weapon.setActorFactory(actorFactory);
-                shotComponent.setActionInput(aiShotInput);
-                enemyPlaneActionInput.addActionInput(aiShotInput);
-            }
-            {
-                subAiShotInput.setActorContainer(actorContainer);
-                subAiShotInput.setShotComponent(subShotComponent);
-                subAiShotInput.inactivate();
-
-                subShotComponent.setWeapon(subWeapon);
-                subWeapon.resetShotInterval(this.bossEnemy3ShotInterval);
-
-//                subShotComponent.setShotInterval(this.bossEnemy3ShotInterval);
                 subWeapon.setActorFactory(actorFactory);
                 subShotComponent.setActionInput(subAiShotInput);
                 enemyPlaneActionInput.addActionInput(subAiShotInput);

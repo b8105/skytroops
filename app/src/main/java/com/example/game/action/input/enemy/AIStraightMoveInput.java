@@ -30,6 +30,5 @@ public class AIStraightMoveInput implements ActionInput {
 
     @Override
     public void initialize() {
-
     }
 }

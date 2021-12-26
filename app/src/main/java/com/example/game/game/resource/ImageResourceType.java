@@ -8,6 +8,7 @@ public enum ImageResourceType {
     StageBackground4,
     StageBackground5,
 
+    StartButton,
     RestartButton,
 
     BulletLock,
@@ -18,6 +19,8 @@ public enum ImageResourceType {
     ScoreEffect,
 
     PlayerPlane,
+    PlayerPlane2,
+    PlayerPlane3,
     BasicEnemyPlane,
     WeakEnemyPlane,
     StrongEnemyPlane,
@@ -55,5 +58,6 @@ public enum ImageResourceType {
 
     GameOverBackground,
 
-    PauseMeneIcon
+    PauseMeneIcon,
+    PauseMeneLebel
 }

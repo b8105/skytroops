@@ -10,6 +10,7 @@ public abstract class TransitionAction {
     private StopWatch time = null;
     private float timeCoefficient = 0.0f;
     private Game game;
+    private boolean toTitle = false;
 
     TransitionAction(float time, Game game) {
         this.time = new StopWatch(time);
@@ -17,8 +18,17 @@ public abstract class TransitionAction {
         this.game = game;
     }
 
+    public void setToTitle(boolean toTitle) {
+        this.toTitle = toTitle;
+    }
+
     protected void sceneTransition() {
-        this.game.IncremenntSceneNo();
+        if(this.toTitle){
+            this.game.toTitleScene();
+        } // if
+        else {
+            this.game.IncremenntSceneNo();
+        } // else
     }
 
     protected float getTimeCoefficient() {
