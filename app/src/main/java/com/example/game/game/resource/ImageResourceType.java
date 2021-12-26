@@ -41,4 +41,12 @@ public enum ImageResourceType {
     EnemyPlaneHpFrame,
     BossEnemyPlaneHpBar,
     PlayerPlaneHpBar,
+
+    GameOverG,
+    GameOverA,
+    GameOverM,
+    GameOverE,
+    GameOverO,
+    GameOverV,
+    GameOverR,
 }

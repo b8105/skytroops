@@ -4,17 +4,22 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.PointF;
 
-import com.example.game.actor.PlayerPlane;
+import com.example.game.actor.player.PlayerPlane;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game_event.EnemyDestroyedEvent;
 import com.example.game.game_event.GameEventContainer;
+import com.example.game.game_event.GameOverStartEvent;
 import com.example.game.game_event.StageClearInfoDrawEvent;
 import com.example.game.game_event.ToNextStageEvent;
 import com.example.game.game_event.TransitionStageEnterEvent;
 import com.example.game.game_event.TransitionStageExitEvent;
-import com.example.game.observation.BossEnemyDeadListener;
-import com.example.game.observation.BossEnemyDeadMessage;
+import com.example.game.observation.boss_enemy_dead.BossEnemyDeadListener;
+import com.example.game.observation.boss_enemy_dead.BossEnemyDeadMessage;
 import com.example.game.DebugRenderer;
+import com.example.game.observation.boss_enemy_dead.BossEnemyDeadSubject;
+import com.example.game.observation.player_dead.PlayerDeadListener;
+import com.example.game.observation.player_dead.PlayerDeadMessage;
+import com.example.game.observation.player_dead.PlayerDeadSubject;
 import com.example.game.render.ScoreRenderer;
 import com.example.game.actor.ActorTagString;
 import com.example.game.effect.EffectSystem;
@@ -31,7 +36,8 @@ import com.example.game.render.RenderCommandQueue;
 import com.example.game.stage.StageType;
 import com.example.game.ui.UIChangeBullePanel;
 
-public class GamePlayScene extends Scene implements BossEnemyDeadListener {
+public class GamePlayScene extends Scene
+        implements PlayerDeadListener, BossEnemyDeadListener {
     private SceneTransitionStateMachine transitionStateMachine = null;
     private ImageResource imageResource = null;
     private GameEventContainer gameEventContainer = null;
@@ -78,7 +84,10 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
                 this.componentExecutor.getCollisionLayer());
         float x = game.getDefaultDisplayRealSize().x * 0.5f;
         float y = game.getDefaultDisplayRealSize().y * 0.85f;
-        Actor plane = actorFactory.createPlayerPlane(x, y, ActorTagString.player);
+        PlayerPlane plane = actorFactory.createPlayerPlane(x, y, ActorTagString.player);
+        PlayerDeadSubject deadSubject = new PlayerDeadSubject();
+        deadSubject.addObserver(this);
+        plane.setPlayerDeadSubject(deadSubject);
     }
 
     public GameSystem getGameSystem() {
@@ -141,6 +150,12 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
                     new EnemyDestroyedEvent(this));
         } // else
     }
+    @Override
+    public void onNotify(PlayerDeadMessage maeeage) {
+        this.gameEventContainer.addEvent(
+                new GameOverStartEvent(this.imageResource)
+        );
+    }
     public void createStageClearInfoDrawEvent() {
         this.gameEventContainer.addEvent(
                 new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(),this.imageResource)
@@ -169,4 +184,5 @@ public class GamePlayScene extends Scene implements BossEnemyDeadListener {
         this.gameEventContainer.addEvent(
                 new TransitionStageEnterEvent(this.gameSystem, this.stage));
     }
+
 }

@@ -23,6 +23,7 @@ public class ImageResource {
         this.constructStageBackground(screenSize);
         this.constructEffect(screenSize);
         this.constructHpRenderer(screenSize);
+        this.constructGameOver(screenSize);
 
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
 
@@ -34,6 +35,11 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.scoreBackground.x, BitmapSizeStatic.scoreBackground.y));
         hash.put(ImageResourceType.ClearInfoBackground,
                 this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.clearInfoBackground.x, BitmapSizeStatic.clearInfoBackground.y));
+    }
+    private void constructGameOver( Point screenSize){
+        HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
+        hash.put(ImageResourceType.GameOverG,
+                this.createScaledBitmap(R.drawable.game_over_g, BitmapSizeStatic.gameOverText.x, BitmapSizeStatic.gameOverText.y));
 
     }
     private void constructHpRenderer( Point screenSize){

@@ -1,5 +1,8 @@
-package com.example.game.observation;
+package com.example.game.observation.boss_enemy_dead;
 
+
+import com.example.game.observation.boss_enemy_dead.BossEnemyDeadListener;
+import com.example.game.observation.boss_enemy_dead.BossEnemyDeadMessage;
 
 import java.util.ArrayList;
 import java.util.List;

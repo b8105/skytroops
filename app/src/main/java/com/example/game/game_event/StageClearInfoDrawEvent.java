@@ -4,8 +4,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
-import com.example.game.actor.PlayerPlane;
-import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.Transform2D;
 import com.example.game.game.GameScorer;
 import com.example.game.game.resource.ImageResource;

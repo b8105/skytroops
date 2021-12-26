@@ -2,10 +2,9 @@ package com.example.game.actor.enemy_plane;
 
 import android.graphics.PointF;
 
-import com.example.game.component.Component;
 import com.example.game.component.ComponentType;
-import com.example.game.observation.BossEnemyDeadMessage;
-import com.example.game.observation.BossEnemyDeadSubject;
+import com.example.game.observation.boss_enemy_dead.BossEnemyDeadMessage;
+import com.example.game.observation.boss_enemy_dead.BossEnemyDeadSubject;
 import com.example.game.actor.ActorTagString;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.effect.EffectEmitter;

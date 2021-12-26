@@ -3,7 +3,7 @@ package com.example.game.game_event;
 import android.graphics.Color;
 import android.graphics.PointF;
 
-import com.example.game.actor.PlayerPlane;
+import com.example.game.actor.player.PlayerPlane;
 import com.example.game.common.shape.Rectangle;
 import com.example.game.game.GameScorer;
 import com.example.game.main.Game;
@@ -12,7 +12,6 @@ import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 import com.example.game.render.info.RenderRectangleInfo;
 import com.example.game.scene.GamePlayScene;
-import com.example.game.stage.Stage;
 import com.example.game.utility.StopWatch;
 
 public class TransitionStageExitEvent extends GameEvent {

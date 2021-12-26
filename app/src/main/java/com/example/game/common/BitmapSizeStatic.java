@@ -23,4 +23,5 @@ public class BitmapSizeStatic {
 
     public static Point scoreBackground = new Point(250, 70);
     public static Point clearInfoBackground = new Point(780, 680);
+    public static Point gameOverText = new Point(120, 120);
 }

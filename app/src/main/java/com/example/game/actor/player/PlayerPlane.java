@@ -1,9 +1,15 @@
-package com.example.game.actor;
+package com.example.game.actor.player;
 
 import android.graphics.PointF;
 
+import com.example.game.actor.ActorTagString;
+import com.example.game.actor.Plane;
+import com.example.game.actor.PlaneType;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.component.ComponentType;
+import com.example.game.observation.boss_enemy_dead.BossEnemyDeadSubject;
+import com.example.game.observation.player_dead.PlayerDeadMessage;
+import com.example.game.observation.player_dead.PlayerDeadSubject;
 import com.example.game.parameter.damage.Damage;
 import com.example.game.parameter.HpParameter;
 import com.example.game.parameter.invincible.PlaneInvincibleParameter;
@@ -15,6 +21,8 @@ import com.example.game.weapon.AnyWayGun;
 public class PlayerPlane extends Plane implements RecoveryApplicable {
     private PlaneInvincibleParameter invincibleParameter = new PlaneInvincibleParameter();
     private float defaultShotInterval = 0.2f;
+    private PlayerDeadSubject playerDeadSubject = null;
+
     public PlayerPlane(ActorContainer actorContainer, String tag) {
         super(actorContainer, tag);
         assert (super.getTag().equals(ActorTagString.player));
@@ -23,6 +31,10 @@ public class PlayerPlane extends Plane implements RecoveryApplicable {
         AnyWayGun anyWayGun = new AnyWayGun();
         super.addWeapon("MainWeapon",anyWayGun);
         anyWayGun.resetShotInterval(defaultShotInterval);
+    }
+
+    public void setPlayerDeadSubject(PlayerDeadSubject playerDeadSubject) {
+        this.playerDeadSubject = playerDeadSubject;
     }
 
     @Override
@@ -68,10 +80,10 @@ public class PlayerPlane extends Plane implements RecoveryApplicable {
         hpParameter.clampZeroMax();
         this.invincibleParameter.activate();
         if (hpParameter.isLessEqualZero()) {
+            this.playerDeadSubject.notify(new PlayerDeadMessage());
             super.end();
         } // if
     }
-
     @Override
     public void applyRecovery(Recovery recovery) {
         HpParameter hpParameter = super.getHpParameter();

@@ -3,7 +3,7 @@ package com.example.game.collision.collision_component;
 import android.graphics.PointF;
 
 import com.example.game.actor.ActorState;
-import com.example.game.actor.PlayerPlane;
+import com.example.game.actor.player.PlayerPlane;
 import com.example.game.actor.bullet.Bullet;
 import com.example.game.actor.bullet.BulletType;
 import com.example.game.actor.enemy_plane.EnemyPlane;

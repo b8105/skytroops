@@ -49,6 +49,11 @@ public class UILabel {
         this.bitmap = imageResource.getImageResource(imageResourceType);
     }
 
+    public void setPosition(PointF position) {
+        this.transform.position.x = position.x;
+        this.transform.position.y = position.y;
+    }
+
     public Rectangle getRectangle() {
         Transform2D transform = new Transform2D(this.transform);
         transform.position.x -= this.bitmap.getWidth() * 0.5f;

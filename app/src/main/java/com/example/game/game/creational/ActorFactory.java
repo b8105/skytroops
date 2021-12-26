@@ -17,11 +17,11 @@ import com.example.game.game.ComponentExecutor;
 import com.example.game.game.GameSystem;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
-import com.example.game.observation.BossEnemyDeadSubject;
+import com.example.game.observation.boss_enemy_dead.BossEnemyDeadSubject;
 import com.example.game.actor.enemy_plane.BossEnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
-import com.example.game.actor.PlayerPlane;
+import com.example.game.actor.player.PlayerPlane;
 import com.example.game.render.hp_renderer.BossEnemyPlaneHpBarRenderer;
 import com.example.game.render.hp_renderer.EnemyPlaneHpBarRenderer;
 import com.example.game.action.action_component.bullet.BasicBulletMoveComponent;
@@ -46,8 +46,6 @@ import com.example.game.render.render_component.SpriteRenderComponent;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.stage.StageType;
 import com.example.game.ui.UIChangeBullePanel;
-import com.example.game.weapon.AnyWayGun;
-import com.example.game.weapon.BasicGun;
 import com.example.game.weapon.Weapon;
 
 import java.util.ArrayList;
@@ -103,7 +101,7 @@ public class ActorFactory {
     public PlayerPlane createPlayerPlane(float positionX, float positionY, String tag) {
         PlayerPlane actor = new PlayerPlane(actorContainer, tag);
         this.uiChangeBullePanel.setEvent(actor.getWeapon("MainWeapon"));
-        actor.resetHp(50);
+        actor.resetHp(1);
 
         PlaneCollisionComponent collisionable = new PlaneCollisionComponent(collisionLayer);
         PlaneSpriteRenderComponent spriteRenderComponent = this.componentFactory.createPlaneSpriteRenderComponent(

@@ -3,7 +3,7 @@ package com.example.game.game_event;
 import android.graphics.PointF;
 
 import com.example.game.action.action_component.PlaneActionComponent;
-import com.example.game.actor.PlayerPlane;
+import com.example.game.actor.player.PlayerPlane;
 import com.example.game.collision.collision_component.PlaneCollisionComponent;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.component.ComponentType;

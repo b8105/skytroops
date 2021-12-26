@@ -1,18 +1,15 @@
 package com.example.game.ui;
 
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PointF;
 
 import com.example.game.R;
-import com.example.game.actor.PlayerPlane;
+import com.example.game.actor.player.PlayerPlane;
 import com.example.game.actor.bullet.BulletType;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.render.RenderCommandQueue;
-import com.example.game.render.RenderLayerType;
-import com.example.game.render.info.RenderRectangleInfo;
 import com.example.game.weapon.Weapon;
 
 
