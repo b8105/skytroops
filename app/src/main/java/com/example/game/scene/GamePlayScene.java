@@ -153,7 +153,7 @@ public class GamePlayScene extends Scene
     @Override
     public void onNotify(PlayerDeadMessage maeeage) {
         this.gameEventContainer.addEvent(
-                new GameOverStartEvent(this.imageResource)
+                new GameOverStartEvent(this,this.imageResource)
         );
     }
     public void createStageClearInfoDrawEvent() {
