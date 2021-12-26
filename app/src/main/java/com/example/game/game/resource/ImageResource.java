@@ -46,7 +46,7 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.gameover_background, BitmapSizeStatic.gameOverBackground.x, BitmapSizeStatic.gameOverBackground.y));
 
 
-        hash.put(ImageResourceType.MeneIcon,
+        hash.put(ImageResourceType.PauseMeneIcon,
                 this.createScaledBitmap(R.drawable.menu_icon, BitmapSizeStatic.menuIcon.x, BitmapSizeStatic.menuIcon.y));
     }
     private void constructGameOver( Point screenSize){

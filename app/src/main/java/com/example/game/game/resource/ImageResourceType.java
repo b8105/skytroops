@@ -55,5 +55,5 @@ public enum ImageResourceType {
 
     GameOverBackground,
 
-    MeneIcon
+    PauseMeneIcon
 }
