@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 
 import com.example.game.R;
 import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.ui.UIButton;
 import com.example.game.collision.detector.RectangleCollisionDetector;
 import com.example.game.common.InputEvent;
@@ -20,61 +21,32 @@ import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 import com.example.game.render.info.RenderSpriteInfo;
+import com.example.game.ui.UILabel;
 
 public class GameOverScene extends Scene {
     private SceneTransitionStateMachine transitionStateMachine = null;
-
-    private Transform2D backgroundTransform;
-    private Bitmap backgroundBitmap;
-    private Point backgroundBitmapSize;
-
-    private Transform2D leadrboardboxTransform;
-    private Bitmap leadrboardboxBitmap;
-    private Point leadrboardboxBitmapSize;
-
+    private UILabel background;
+    private UILabel leadrboard;
     private UIButton startButton;
-
     private Game game;
-    private int gameScorer;
+    private int gameScore;
 
     public GameOverScene(Game game, ImageResource imageResource, Point screenSize) {
         super(game, screenSize);
         this.game = game;
         this.transitionStateMachine = new SceneTransitionStateMachine(game);
 
-        startButton = new UIButton(
-                imageResource,
-                game.getResources(), R.drawable.restartbtn,
-                new PointF(screenSize.x * 0.5f, screenSize.y * 0.5f),
-                new Point(450, 150)
+        PointF center = new PointF(Game.getDisplayRealSize().x * 0.5f,
+                Game.getDisplayRealSize().y * 0.5f);
+        this.startButton = new UIButton(imageResource,ImageResourceType.RestartButton,
+                new PointF(screenSize.x * 0.5f, screenSize.y * 0.8f)
         );
-        {
-            backgroundTransform = new Transform2D();
-            this.backgroundTransform.position.x = 0;
-            this.backgroundTransform.position.y = 0;
-            this.backgroundBitmapSize = new Point(screenSize.x, screenSize.y);
-            this.backgroundBitmap = BitmapFactory.decodeResource(game.getResources(), R.drawable.gameover_background);
-            this.backgroundBitmap = Bitmap.createScaledBitmap(
-                    this.backgroundBitmap,
-                    this.backgroundBitmapSize.x,
-                    this.backgroundBitmapSize.y,
-                    false);
-        }
-
-        leadrboardboxTransform = new Transform2D();
-        this.leadrboardboxTransform.position.x = 100;
-        this.leadrboardboxTransform.position.y = 100;
-        this.leadrboardboxBitmapSize = new Point(316 * 3, 342 * 3);
-        this.leadrboardboxBitmap = BitmapFactory.decodeResource(game.getResources(), R.drawable.leadrboardbox);
-        this.leadrboardboxBitmap = Bitmap.createScaledBitmap(
-                this.leadrboardboxBitmap,
-                this.leadrboardboxBitmapSize.x,
-                this.leadrboardboxBitmapSize.y,
-                false);
+        this.background = new UILabel(imageResource, ImageResourceType.GameOverBackground, center);
+        this.leadrboard = new UILabel(imageResource, ImageResourceType.GameResultBackground,center);
     }
 
     public void setGameScorerValue(int gameScorer) {
-        this.gameScorer = gameScorer;
+        this.gameScore = gameScorer;
     }
 
     @Override
@@ -109,13 +81,8 @@ public class GameOverScene extends Scene {
         this.transitionStateMachine.drawTransitionEffect(out);
         RenderCommandList list = out.getRenderCommandList(
                 RenderLayerType.Background2D);
-
-        list.drawSprite(this.backgroundBitmap,
-                this.backgroundTransform,
-                new RenderSpriteInfo());
-        list.drawSprite(this.leadrboardboxBitmap,
-                this.leadrboardboxTransform,
-                new RenderSpriteInfo());
+        this.background.draw(list);
+        this.leadrboard.draw(list);
 
         {
             Transform2D t = new Transform2D();
@@ -124,7 +91,7 @@ public class GameOverScene extends Scene {
             Paint paint = new Paint();
             paint.setTextSize(100);
             paint.setColor(Color.BLUE);
-            list.drawText("Score = " + this.gameScorer, this.leadrboardboxTransform, paint);
+//            list.drawText("Score = " + this.gameScorer, this.leadrboardboxTransform, paint);
         }
         this.startButton.draw(out);
     }

@@ -15,6 +15,7 @@ public class ImageResource {
     Resources resources;
     HashMap<ImageResourceType, Bitmap> imageResourceTypeBitmapHashMap = null;
 
+
     public ImageResource(Resources resources, Point screenSize) {
         this.resources = resources;
         this.imageResourceTypeBitmapHashMap = new HashMap<>();
@@ -27,6 +28,10 @@ public class ImageResource {
 
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
 
+        hash.put(ImageResourceType.RestartButton,
+                this.createScaledBitmap(R.drawable.restartbtn, BitmapSizeStatic.restartButton.x, BitmapSizeStatic.restartButton.y));
+
+
         hash.put(ImageResourceType.BulletLock,
                 this.createScaledBitmap(R.drawable.lock, BitmapSizeStatic. buttonLock.x, BitmapSizeStatic.buttonLock.y));
         hash.put(ImageResourceType.BulletButtonSelect,
@@ -35,6 +40,11 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.scoreBackground.x, BitmapSizeStatic.scoreBackground.y));
         hash.put(ImageResourceType.ClearInfoBackground,
                 this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.clearInfoBackground.x, BitmapSizeStatic.clearInfoBackground.y));
+        hash.put(ImageResourceType.GameResultBackground,
+                this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.gameResultBackground.x, BitmapSizeStatic.gameResultBackground.y));
+        hash.put(ImageResourceType.GameOverBackground,
+                this.createScaledBitmap(R.drawable.gameover_background, BitmapSizeStatic.gameOverBackground.x, BitmapSizeStatic.gameOverBackground.y));
+
     }
     private void constructGameOver( Point screenSize){
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;

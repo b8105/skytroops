@@ -21,6 +21,10 @@ public class GameEventContainer {
         this.createdEvents.add(event);
     }
 
+    public void clear(){
+        this.events.clear();
+    }
+
     public void update(float deltaTime) {
         for (GameEvent event : this.createdEvents) {
             this.events.add(event);

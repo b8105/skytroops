@@ -8,6 +8,8 @@ public enum ImageResourceType {
     StageBackground4,
     StageBackground5,
 
+    RestartButton,
+
     BulletLock,
     BulletButtonSelect,
 
@@ -29,6 +31,7 @@ public enum ImageResourceType {
 
     ScoreBackground,
     ClearInfoBackground,
+    GameResultBackground,
 
     BasicBullet,
     HomingBullet,
@@ -49,4 +52,6 @@ public enum ImageResourceType {
     GameOverO,
     GameOverv,
     GameOverr,
+
+    GameOverBackground,
 }

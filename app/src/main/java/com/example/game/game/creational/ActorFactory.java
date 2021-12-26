@@ -100,6 +100,7 @@ public class ActorFactory {
 
     public PlayerPlane createPlayerPlane(float positionX, float positionY, String tag) {
         PlayerPlane actor = new PlayerPlane(actorContainer, tag);
+        actor.setExplosionEffectEmitter(this.effectSystem.getSharedEmitter(EffectType.Explosion));
         this.uiChangeBullePanel.setEvent(actor.getWeapon("MainWeapon"));
         actor.resetHp(1);
 

@@ -21,12 +21,7 @@ abstract public class Plane extends Actor
     private HpParameter hpParameter = new HpParameter(1);
     private EffectEmitter scoreEffectEmitter = null;
     private EffectEmitter explosionEffectEmitter = null;
-
     private HashMap<String,Weapon> weaponHashMap  = null;
-    //protected Weapon weapon;
-    //private Weapon subWeapon;
-    //private Weapon subWeapon2;
-    private CommanderEnemyPlane commanderEnemyPlane;
 
     public Plane(ActorContainer actorContainer, String tag) {
         super(actorContainer, tag);
@@ -41,28 +36,12 @@ abstract public class Plane extends Actor
         this.scoreEffectEmitter = scoreEffectEmitter;
     }
 
-    //public void setWeapon(Weapon weapon) {
-    //  this.weapon = weapon;
-    //}
-
-    //public void setSubWeapon(Weapon weapon) {
-    //  this.subWeapon = weapon;
-    //}
-
-    //public void setSubWeapon2(Weapon weapon) {
-    //  this.subWeapon2 = weapon;
-    //}
-
     public void addWeapon(String key, Weapon weapon){
         this.weaponHashMap.put(key, weapon);
     }
 
     public Weapon getWeapon(String key){
         return this.weaponHashMap.get(key);
-    }
-
-    public void setCommanderEnemyPlane(CommanderEnemyPlane commanderEnemyPlane) {
-        this.commanderEnemyPlane = commanderEnemyPlane;
     }
 
     public void setExplosionEffectEmitter(EffectEmitter explosionEffectEmitter) {
@@ -94,18 +73,6 @@ abstract public class Plane extends Actor
     public HpParameter getHp() {
         return this.hpParameter;
     }
-
-//    public Weapon getWeapon() {
-//        return this.weapon;
-//    }
-//
-//    public Weapon getSubWeapon() {
-//        return this.subWeapon;
-//    }
-//
-//    public Weapon getSubWeapon2() {
-//        return this.subWeapon2;
-//    }
 
     public void resetHp(int hp) {
         this.hpParameter.resetHp(hp);

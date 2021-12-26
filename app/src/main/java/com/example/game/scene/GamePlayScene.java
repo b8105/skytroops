@@ -101,13 +101,16 @@ public class GamePlayScene extends Scene
 
     public void sceneExit() {
         this.transitionStateMachine.transition(TransitionStateType.Exit);
+        this.gameEventContainer.clear();
     }
 
 
     @Override
     public void input(InputEvent input) {
         this.componentExecutor.input(input);
-        this.uiChangeBullePanel.input(input);
+        if(this.uiChangeBullePanel != null){
+            this.uiChangeBullePanel.input(input);
+        } // if
     }
 
     void updateSystem(float deltaTime) {
@@ -140,7 +143,9 @@ public class GamePlayScene extends Scene
         stage.getRenderer().execute(out);
         this.componentExecutor.draw(out);
         this.effectSystem.draw(out);
-        this.uiChangeBullePanel.draw(out);
+        if(this.uiChangeBullePanel != null){
+            this.uiChangeBullePanel.draw(out);
+        } // of
         new ScoreRenderer(this.imageResource).execute(this.getGameSystem(), out);
         new DebugRenderer().execute(this.actorContainer, this.effectSystem, out);
     }
@@ -160,18 +165,25 @@ public class GamePlayScene extends Scene
         this.gameEventContainer.addEvent(
                 new GameOverStartEvent(this,this.imageResource)
         );
+        this.uiChangeBullePanel = null;
     }
 
     public void createStageClearInfoDrawEvent() {
         this.gameEventContainer.addEvent(
-                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(),this.imageResource)
+                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(),this.imageResource, StageClearInfoDrawEvent.NextEventType.ToNextStageEvent)
+        );
+    }
+
+    public void createGameOverEvent() {
+        this.gameEventContainer.addEvent(
+                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(),this.imageResource, StageClearInfoDrawEvent.NextEventType.ToGameOverScene)
         );
     }
 
     public void createGameOverSlideEvent(List<UILabel> uiLabels) {
         this.gameEventContainer.addEvent(
                 new GameOverSlideEvent(
-                        uiLabels
+                        uiLabels,this
                 ));
     }
 
@@ -181,6 +193,9 @@ public class GamePlayScene extends Scene
                         this.actorContainer,
                         this.stage,
                         this.uiChangeBullePanel));
+    }
+    public void createToGameOverScene() {
+        this.sceneExit();
     }
 
     public void createTransitionStageExitEvent(

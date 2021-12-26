@@ -7,6 +7,8 @@ import com.example.game.actor.Plane;
 import com.example.game.actor.PlaneType;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.component.ComponentType;
+import com.example.game.effect.EffectInfo;
+import com.example.game.effect.EffectType;
 import com.example.game.observation.boss_enemy_dead.BossEnemyDeadSubject;
 import com.example.game.observation.player_dead.PlayerDeadMessage;
 import com.example.game.observation.player_dead.PlayerDeadSubject;
@@ -81,6 +83,16 @@ public class PlayerPlane extends Plane implements RecoveryApplicable {
         this.invincibleParameter.activate();
         if (hpParameter.isLessEqualZero()) {
             this.playerDeadSubject.notify(new PlayerDeadMessage());
+
+            {
+                EffectInfo info = new EffectInfo(
+                        EffectType.Explosion,
+                        super.getPosition(),
+                        1.0f
+                );
+                super.getExplosionEffectEmitter().emit(info);
+            }
+
             super.end();
         } // if
     }

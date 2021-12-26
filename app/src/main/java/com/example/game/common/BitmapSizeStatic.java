@@ -2,6 +2,8 @@ package com.example.game.common;
 
 import android.graphics.Point;
 
+import com.example.game.main.Game;
+
 public class BitmapSizeStatic {
     public static Point player = new Point( 256,256);
     public static Point enemy = new Point(256,256);
@@ -14,6 +16,10 @@ public class BitmapSizeStatic {
 
     public static Point bulletButton = new Point((int)(86 * 0.8f),(int)(86 * 0.8f));
     public static Point buttonLock = new Point((int)(76 * 0.8f),(int)(33 * 0.8f));
+    public static Point gameResultBackground = new Point(316 * 3, 342 * 3);
+    public static Point gameOverBackground = new Point((int)Game.getDisplayRealSize().x, (int)Game.getDisplayRealSize().y);
+
+    public static Point restartButton = new Point(450, 150);
 
 
     public static Point score = new Point( (int)(150 * 1.5), (int)(150 * 1.5));
