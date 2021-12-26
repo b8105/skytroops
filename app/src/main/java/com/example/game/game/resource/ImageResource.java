@@ -45,6 +45,9 @@ public class ImageResource {
         hash.put(ImageResourceType.GameOverBackground,
                 this.createScaledBitmap(R.drawable.gameover_background, BitmapSizeStatic.gameOverBackground.x, BitmapSizeStatic.gameOverBackground.y));
 
+
+        hash.put(ImageResourceType.MeneIcon,
+                this.createScaledBitmap(R.drawable.menu_icon, BitmapSizeStatic.menuIcon.x, BitmapSizeStatic.menuIcon.y));
     }
     private void constructGameOver( Point screenSize){
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
