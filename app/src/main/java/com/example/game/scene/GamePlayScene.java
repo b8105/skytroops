@@ -118,6 +118,9 @@ public class GamePlayScene extends Scene
         this.actorContainer.update();
         this.gameSystem.update(deltaTime, this.stage,
                 this.actorContainer, this.actorFactory, this.stage.getCurrentType());
+        if(this.uiChangeBullePanel != null){
+            this.uiChangeBullePanel.update(deltaTime);
+        } // if
     }
 
     @Override

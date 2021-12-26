@@ -2,6 +2,7 @@ package com.example.game.ui;
 
 import android.content.res.Resources;
 import android.graphics.PointF;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 
 import com.example.game.R;
@@ -9,6 +10,7 @@ import com.example.game.actor.player.PlayerPlane;
 import com.example.game.collision.detector.RectangleCollisionDetector;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.InputEvent;
+import com.example.game.common.InputTouchType;
 import com.example.game.common.shape.Circle;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.render.RenderCommandQueue;
@@ -26,10 +28,22 @@ public class UIChangeBullePanel {
     private UIChangeBulletButton toBasicButton;
     private UIChangeBulletButton toThreeWayButton;
     private UIChangeBulletButton toHomingButton;
-    private float positionMarginX =6.0f;
+    private UIChangeBulletButton currentButton = null;
+    private float positionMarginX = 6.0f;
     static private int elementCount = 3;
 
-    private UIChangeBulletButton currentButton = null;
+    private int doubleTapFrame = 0;
+    private int doubleTapFrameMax = 10;
+    private boolean singleTap = false;
+
+    public void update(float deltaTime) {
+        this.doubleTapFrame--;
+        if (this.doubleTapFrame <= 0) {
+            this.doubleTapFrame = 0;
+            this.singleTap = false;
+        } // if
+    }
+
 
     public UIChangeBullePanel(
             PlayerPlane playerPlane,
@@ -53,7 +67,7 @@ public class UIChangeBullePanel {
                 imageResource, resources,
                 R.drawable.bullet02,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
-        x += BitmapSizeStatic.bulletButton.x+ this.positionMarginX;
+        x += BitmapSizeStatic.bulletButton.x + this.positionMarginX;
         this.toHomingButton.lock();
 
         this.toThreeWayButton = new UIChangeBulletButton(
@@ -80,6 +94,22 @@ public class UIChangeBullePanel {
         this.toHomingButton.setTarget(weapon, UIChangeBulletButtonEventType.ToHoming);
     }
 
+    private UIChangeBulletButton getNextButton() {
+        if (currentButton == this.toBasicButton) {
+            if (!this.toHomingButton.isLock()) {
+                return this.toHomingButton;
+            } // if
+        } // if
+        else if (currentButton == this.toHomingButton) {
+            if (!this.toThreeWayButton.isLock()) {
+                return this.toThreeWayButton;
+            } // if
+            else {
+                return this.toBasicButton;
+            } // else
+        } // else if
+        return this.toBasicButton;
+    }
 
     static public PointF getButtonHalfSizeStatic() {
         return new PointF(
@@ -93,12 +123,11 @@ public class UIChangeBullePanel {
                 BitmapSizeStatic.bulletButton.y);
     }
 
-
-
-    public void unlockToHomingButton(){
+    public void unlockToHomingButton() {
         this.toHomingButton.unlock();
     }
-    public void unlockToThreeWayButton(){
+
+    public void unlockToThreeWayButton() {
         this.toThreeWayButton.unlock();
     }
 
@@ -113,23 +142,23 @@ public class UIChangeBullePanel {
         Circle touchCircle = new Circle(x, y, 16);
 
 
-        switch (input.actionType) {
-            case (MotionEvent.ACTION_DOWN):
-                for (UIChangeBulletButton bulletButton : this.bulletButtons) {
-                    if (bulletButton.isLock()) {
-                        continue;
-                    } // if
-                    if (detector.CollisionCircle(bulletButton.getRectangle(), touchCircle)) {
-                        currentButton.setSelectFlag(false);
-                        bulletButton.onTouch();
-                        currentButton = bulletButton;
-                        currentButton.setSelectFlag(true);
-                    } // if
-                } // for
-                break;
-            default:
-        } // switch
+        if (input.touchType == InputTouchType.Touch) {
+            if(this.doubleTapFrame > 0){
+                UIChangeBulletButton bulletButton = this.getNextButton();
+                currentButton.setSelectFlag(false);
+                bulletButton.onTouch();
+                currentButton = bulletButton;
+                currentButton.setSelectFlag(true);
+                System.out.println("this.doubleTapFrame = " + this.doubleTapFrame);
 
+            } // if
+            else if(!this.singleTap){
+                System.out.println("this.singleTap = true");
+
+                this.singleTap = true;
+                this.doubleTapFrame = this.doubleTapFrameMax;
+            } // if
+        } // if
     }
 
     public void draw(RenderCommandQueue out) {

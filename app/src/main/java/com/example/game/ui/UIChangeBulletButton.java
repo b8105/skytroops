@@ -27,9 +27,12 @@ public class UIChangeBulletButton extends UIButton {
     private UILabel selectBitmap;
     private boolean lockFlag = false;
     private boolean selectFlag = false;
-
-
     private PlayerPlane playerPlane;
+
+//    private boolean singleTap = false;
+//    private int doubleTapFrame = 0;
+//    private int doubleTapFrameMax = 10;
+
 
     public UIChangeBulletButton(
             PlayerPlane playerPlane,
@@ -60,6 +63,14 @@ public class UIChangeBulletButton extends UIButton {
         this.type = type;
     }
 
+//    public boolean isSingleTap() {
+//        return this.singleTap;
+//    }
+//
+//    public void setSingleTap(boolean singleTap) {
+//        this.singleTap = singleTap;
+//    }
+
     public void setSelectFlag(boolean selectFlag) {
         this.selectFlag = selectFlag;
     }
@@ -75,6 +86,13 @@ public class UIChangeBulletButton extends UIButton {
         this.lockFlag = false;
     }
 
+//    public void updateRequestTime(){
+//        this.doubleTapFrame--;
+//        if(this.doubleTapFrame < 0){
+//            this.doubleTapFrame = 0;
+//            this.singleTap = false;
+//        } // if
+//    }
 
     @Override
     public void onTouch() {

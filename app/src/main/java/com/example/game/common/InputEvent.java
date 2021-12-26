@@ -12,6 +12,7 @@ public class InputEvent {
     public float positionY;
     public int actionType = -1;
     public InputTouchType touchType;
+    public boolean doubleTop = false;
 
     public InputEvent() {
     }

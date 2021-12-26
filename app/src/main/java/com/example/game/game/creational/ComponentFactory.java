@@ -48,6 +48,7 @@ public class ComponentFactory {
     private float bossEnemy5SubShotInterval = 2.0f;
     private float bossEnemy5SubShotInterval2 = 3.0f;
 
+    private float commanderPlane = 28.0f;
     private float bossEnemy2MoveSpeed = 8.0f;
     private float bossEnemy3MoveSpeed = 12.0f;
 
@@ -117,6 +118,23 @@ public class ComponentFactory {
         MoveComponent moveComponent = new MoveComponent(actionComponent);
         AIStraightMoveInput input = new AIStraightMoveInput();
         input.setSpeed(this.basicEnemyMoveSpeedOnStage.get(stageType));
+
+        input.setMoveComponent(moveComponent);
+        moveComponent.setActionInput(input);
+        enemyPlaneActionInput.addActionInput(input);
+        return actionComponent;
+    }
+
+    public PlaneActionComponent createCommanderPlaneActionComponent(
+            ActionLayer actionLayer, ActorFactory actorFactory,
+            ActorContainer actorContainer, Weapon weapon, StageType stageType) {
+        PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
+        EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
+        actionComponent.setActionInput(enemyPlaneActionInput);
+
+        MoveComponent moveComponent = new MoveComponent(actionComponent);
+        AIStraightMoveInput input = new AIStraightMoveInput();
+        input.setSpeed(this.commanderPlane);
 
         input.setMoveComponent(moveComponent);
         moveComponent.setActionInput(input);

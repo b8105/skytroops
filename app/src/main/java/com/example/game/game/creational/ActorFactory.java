@@ -356,7 +356,7 @@ public class ActorFactory {
                         actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), stageType);
                 break;
             case Commander:
-                actionComponent = this.componentFactory.createWeakPlaneActionComponent(
+                actionComponent = this.componentFactory.createCommanderPlaneActionComponent(
                         actionLayer, this, this.actorContainer, actor.getWeapon("BasicGun"), stageType);
                 break;
             case Follow:
