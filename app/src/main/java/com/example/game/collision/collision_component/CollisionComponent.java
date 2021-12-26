@@ -27,6 +27,7 @@ abstract public class CollisionComponent implements Collisionable, Component {
     private Actor owner = null;
     private SpriteRenderComponent spriteRenderComponent = null;
     private PointF collisionRectSizeOffset = new PointF();
+    private boolean active = true;
 
     public CollisionComponent(CollisionLayer layer) {
         this.layer = layer;
@@ -44,11 +45,7 @@ abstract public class CollisionComponent implements Collisionable, Component {
     }
 
     public void setCollisionRectSizeOffset(float size) {
-        this.setCollisionRectSizeOffset(size,size);
-    }
-
-    public void setCollisionRectSizeOffset(PointF collisionRectSizeOffset) {
-        this.setCollisionRectSizeOffset(collisionRectSizeOffset.x, collisionRectSizeOffset.y);
+        this.setCollisionRectSizeOffset(size, size);
     }
 
     public void setSpriteRenderComponent(SpriteRenderComponent spriteRenderComponent) {
@@ -60,10 +57,17 @@ abstract public class CollisionComponent implements Collisionable, Component {
         PointF position = this.getOwner().getPosition();
         PointF expansion = this.getCollisionRectSizeOffset();
         Rectangle rect = new Rectangle(0, 0, sourceRect.width(), sourceRect.height());
-
-        rect.expansion(expansion.x, expansion.y);
         rect.offset((int) position.x, (int) position.y);
+        if (this.spriteRenderComponent.isCenterFlag()) {
+            rect.offset(-rect.getSize().x *0.5f,
+                    -rect.getSize().y * 0.5f);
+        } // if
+        rect.expansion(expansion.x, expansion.y);
         return rect;
+    }
+
+    public boolean isActive() {
+        return this.active;
     }
 
     protected boolean isCollisionRect(
@@ -95,6 +99,15 @@ abstract public class CollisionComponent implements Collisionable, Component {
     protected PointF getCollisionRectSizeOffset() {
         return this.collisionRectSizeOffset;
     }
+
+
+    public void activate(){
+        this.active = true;
+    }
+    public void inactivate(){
+        this.active = false;
+    }
+
 
     @Override
     public void visitorAccept(BulletCollisionComponentVisitor visitor) {

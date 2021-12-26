@@ -3,7 +3,10 @@ package com.example.game.render.hp_renderer;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.media.Image;
 
+import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.parameter.HpParameter;
 import com.example.game.R;
 import com.example.game.common.BitmapSizeStatic;
@@ -20,12 +23,12 @@ public class EnemyPlaneHpBarRenderer extends PlaneHpBarRenderer {
     private Bitmap frame;
     private Bitmap bar;
     private Transform2D transform = null;
-
+    private boolean centerFlag = false;
     public EnemyPlaneHpBarRenderer(PlaneHpBarRenderComponent owner,
-                                   Resources resources) {
+                                   ImageResource imageResource) {
         this.owner = owner;
-        this.bar = super.constructBitmap(resources, R.drawable.redhealthbar,BitmapSizeStatic.enemyHpBar);
-        this.frame = super.constructBitmap(resources, R.drawable.healthframe,BitmapSizeStatic.enemyHpBar);
+        this.bar = super.constructBitmap(imageResource, ImageResourceType.EnemyPlaneHpBar);
+        this.frame = super.constructBitmap(imageResource, ImageResourceType.EnemyPlaneHpFrame);
         this.transform = new Transform2D();
     }
 
@@ -36,26 +39,32 @@ public class EnemyPlaneHpBarRenderer extends PlaneHpBarRenderer {
         );
     }
     private void drawFrame(RenderCommandList out) {
+        RenderSpriteInfo info = new RenderSpriteInfo();
+        info.center  = centerFlag;
         out.drawSprite(frame, this.transform, new RenderSpriteInfo());
     }
     private void drawBar(HpParameter hpParameter,RenderCommandList out) {
+        Point size = this.getSize();
+
         Rectangle rectangle = new Rectangle();
         rectangle.left = 0.0f;
-        rectangle.right = BitmapSizeStatic.enemyHpBar.x * hpParameter.calcPercent();
+        rectangle.right = size.x * hpParameter.calcPercent();
         rectangle.top = 0.0f;
-        rectangle.bottom = BitmapSizeStatic.enemyHpBar.y;
+        rectangle.bottom = size.y;
 
         RenderSpriteInfo info = new RenderSpriteInfo(rectangle);
+        info.center  = centerFlag;
         out.drawSprite(this.bar, this.transform, info);
     }
 
     public void clacPosition() {
         if (this.owner != null) {
+            Point size = this.getSize();
+
             this.transform.position = this.owner.getOwner().getPosition();
             this.transform.position.x += BitmapSizeStatic.player.x * 0.5f;
-            this.transform.position.y += BitmapSizeStatic.player.y;
-            this.transform.position.x -= BitmapSizeStatic.enemyHpBar.x * 0.5f;
-            this.transform.position.y -= BitmapSizeStatic.enemyHpBar.y * 0.5f;
+            this.transform.position.x -= size.x * 0.5f;
+            this.transform.position.y += size.y * 1.5f;
         } // if
     }
 

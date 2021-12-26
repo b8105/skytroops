@@ -5,16 +5,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 
+import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.parameter.HpParameter;
 import com.example.game.render.RenderCommandQueue;
 
 public class PlaneHpBarRenderer {
-    protected Bitmap constructBitmap(Resources resources, int id,
-                                     Point size) {
-        Bitmap bitmap = BitmapFactory.decodeResource(resources, id);
-        bitmap = Bitmap.createScaledBitmap(
-                bitmap, size.x, size.y,
-                false);
+    protected Bitmap constructBitmap(
+            ImageResource imsgeResources, ImageResourceType imageResourceType) {
+        Bitmap bitmap = imsgeResources.getImageResource(imageResourceType);
+        //BitmapFactory.decodeResource(resources, id);
+        //bitmap = Bitmap.createScaledBitmap(
+        //      bitmap, size.x, size.y,
+        //      false);
         return bitmap;
     }
 

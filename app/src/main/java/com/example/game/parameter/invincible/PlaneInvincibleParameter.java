@@ -16,12 +16,14 @@ public class PlaneInvincibleParameter extends InvincibleParameter {
 
     public void inactivate() {
         super.inactivate();
-        this.planeSpriteRenderComponent.activate();
+        if(this.planeSpriteRenderComponent != null){
+            this.planeSpriteRenderComponent.activate();
+        } // if
     }
 
     public void update(float deltaTime) {
         super.update(deltaTime);
-        if (super.isActive()) {
+        if (super.isActive() && this.planeSpriteRenderComponent != null) {
             if (this.planeSpriteRenderComponent.isActive()) {
                 this.planeSpriteRenderComponent.inactivate();
             } // if

@@ -13,7 +13,7 @@ import com.example.game.render.RenderLayerType;
 public class DebugRenderer {
     public void execute(ActorContainer actorContainer,
                           EffectSystem effectSystem, RenderCommandQueue out) {
-        RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
+        RenderCommandList list = out.getRenderCommandList(RenderLayerType.UIDebug);
         Paint p = new Paint();
         p.setTextSize(60);
 
@@ -77,6 +77,15 @@ public class DebugRenderer {
             Transform2D t = new Transform2D();
             t.position.x = 300;
             t.position.y = 1000;
+            list.drawText(s, t, p);
+        }
+
+        {
+            Integer size = actorContainer.getCommanderEnemies().size();
+            String s = "commander count = " + size.toString();
+            Transform2D t = new Transform2D();
+            t.position.x = 300;
+            t.position.y = 1100;
             list.drawText(s, t, p);
         }
 

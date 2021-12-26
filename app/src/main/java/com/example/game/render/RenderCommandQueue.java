@@ -34,11 +34,26 @@ public class RenderCommandQueue {
         return this.lists.get(layer.ordinal());
     }
 
-    public void executeCommandList(Canvas canvas) {
+    public void executeCommandList(Canvas canvas, boolean debugFlag) {
+        int index = 0;
         for (RenderCommandList list : this.lists) {
+            if(debugFlag){
+                if(index == RenderLayerType.Background2DDebug.ordinal() ||
+                    index == RenderLayerType.BasicActorDebugBack.ordinal() ||
+                    index == RenderLayerType.BasicActorDebug.ordinal() ||
+                      index == RenderLayerType.EffectDebug.ordinal() ||
+                      index == RenderLayerType.UIEffectDebug.ordinal() ||
+                        index == RenderLayerType.UIDebug.ordinal()
+                ){
+                    index++;
+                    continue;
+                } // if
+            } // if
+
             for (RenderCommand command : list.commands) {
                 command.execute(canvas);
             } // for
+            index++;
         } // for
     }
 }

@@ -33,7 +33,7 @@ public class TransitionExitAction extends TransitionAction {
 
     @Override
     public void drawFadeTransition(RenderCommandQueue out) {
-        RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
+        RenderCommandList list = out.getRenderCommandList(RenderLayerType.Blackout);
         Rectangle rectangle = new Rectangle();
 
         StopWatch time = super.getTime();

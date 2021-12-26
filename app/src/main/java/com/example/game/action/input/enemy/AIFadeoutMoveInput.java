@@ -8,13 +8,15 @@ import com.example.game.action.input.ActionInput;
 import com.example.game.actor.Actor;
 import com.example.game.common.InputEvent;
 import com.example.game.main.Game;
+import com.example.game.utility.MathUtilities;
 import com.example.game.utility.PointFUtilities;
 
 public class AIFadeoutMoveInput implements ActionInput {
     private MoveComponent moveComponent;
-    private float speed = 10.0f;
+    private float speed = 20.0f;
     private int moveSequence = 0;
-    private float fadeoutDirection = 140.0f;
+    private float defaultFadeoutDirection = 45.0f;
+    private float fadeoutDirection = 45.0f;
     private float moveThresholdY = Game.getDisplayRealSize().y * 0.5f;
     private AIShotInput shotInput = null;
 
@@ -26,6 +28,17 @@ public class AIFadeoutMoveInput implements ActionInput {
         this.shotInput = shotInput;
     }
 
+    public void setInputSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    private void clacDirection() {
+        this.fadeoutDirection = this.defaultFadeoutDirection;
+        if(this.moveComponent.getOwner().getInitialPosition().x < Game.getDisplayRealSize().x * 0.5f){
+            this.fadeoutDirection =
+                    this.defaultFadeoutDirection + (float)MathUtilities.radianToDegree( Math.PI * 0.5f);
+        } // if
+    }
     private PointF clacMove() {
         PointF move = new PointF();
 
@@ -62,6 +75,7 @@ public class AIFadeoutMoveInput implements ActionInput {
         this.updateSequence();
         MoveCommand command = new MoveCommand();
 
+        this.clacDirection();
         PointF speed = this.clacMove();
 
         command.speed.x = speed.x;

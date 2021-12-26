@@ -20,6 +20,7 @@ public class SpriteRenderComponent extends RenderComponent {
     private Bitmap bitmap = null;
     private Rect sourceRect = null;
     private CollisionComponent collisionComponent = null;
+    private boolean centerFlag = false;
 
     public SpriteRenderComponent(RenderLayer layer) {
         super(layer);
@@ -29,9 +30,9 @@ public class SpriteRenderComponent extends RenderComponent {
         this.bitmap = bitmap;
     }
 
-    public void setSourceRect(Rect sourceRect) {
-        this.sourceRect = sourceRect;
-    }
+//    public void setSourceRect(Rect sourceRect) {
+//        this.sourceRect = sourceRect;
+//    }
 
     public PointF getBitmapSize() {
         assert (this.bitmap != null);
@@ -50,6 +51,10 @@ public class SpriteRenderComponent extends RenderComponent {
         return ComponentType.SpriteRender;
     }
 
+    public boolean isCenterFlag() {
+        return this.centerFlag;
+    }
+
     public void onComponentInitialize(Actor owner) {
         this.collisionComponent = owner.getComponent(
                 ComponentType.EnemyCollision,
@@ -63,22 +68,24 @@ public class SpriteRenderComponent extends RenderComponent {
     @Override
     public void execute(RenderCommandQueue out) {
         Actor owner = super.getOwner();
-
         Transform2D transform = new Transform2D(
                 owner.getPosition(),
                 owner.getRotation(),
                 owner.getScale()
         );
-
+        {
+            RenderCommandList list = out.getRenderCommandList(RenderLayerType.BasicActorDebug);
+            if (this.collisionComponent != null) {
+                RenderRectangleInfo info = new RenderRectangleInfo(Color.RED);
+                list.drawRectangle(
+                        this.collisionComponent.getCollisionRectangle(),
+                        info
+                );
+            } // if
+        }
         RenderCommandList list = out.getRenderCommandList(RenderLayerType.BasicActor);
-        if (this.collisionComponent != null) {
-            RenderRectangleInfo info = new RenderRectangleInfo(Color.RED);
-            list.drawLineRectangle(
-                    this.collisionComponent.getCollisionRectangle(),
-                    info
-            );
-        } // if
         RenderSpriteInfo info = new RenderSpriteInfo(this.getSourceRect());
+        info.center = this.isCenterFlag();
         list.drawSprite(
                 this.bitmap,
                 transform,

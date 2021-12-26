@@ -2,9 +2,10 @@ package com.example.game.game;
 
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorState;
-import com.example.game.actor.PlayerPlane;
+import com.example.game.actor.player.PlayerPlane;
 import com.example.game.actor.bullet.Bullet;
-import com.example.game.actor.Plane;
+import com.example.game.actor.enemy_plane.BossEnemyPlane;
+import com.example.game.actor.enemy_plane.CommanderEnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlane;
 
 import java.util.ArrayList;
@@ -14,16 +15,26 @@ public class ActorContainer {
     List<Actor> actors = new ArrayList<Actor>();
     PlayerPlane mainChara = null;
     List<EnemyPlane> enemyPlanes = new ArrayList<EnemyPlane>();
+    List<CommanderEnemyPlane> commanderEnemyPlane = new ArrayList<CommanderEnemyPlane>();
     List<Bullet> bullets = new ArrayList<Bullet>();
     List<Bullet> playerBullets = new ArrayList<Bullet>();
     List<Bullet> enemyBullets = new ArrayList<Bullet>();
+    BossEnemyPlane bossEnemy = null;
 
     public void setMainChara(PlayerPlane actor) {
         this.mainChara = actor;
     }
 
+    public void setBossEnemy(BossEnemyPlane bossEnemy) {
+        this.bossEnemy = bossEnemy;
+    }
+
     public PlayerPlane getMainChara() {
         return this.mainChara;
+    }
+
+    public BossEnemyPlane getBossEnemy() {
+        return this.bossEnemy;
     }
 
     public List<Actor> getActors() {
@@ -32,6 +43,9 @@ public class ActorContainer {
 
     public List<EnemyPlane> getEnemies() {
         return this.enemyPlanes;
+    }
+    public List<CommanderEnemyPlane> getCommanderEnemies() {
+        return this.commanderEnemyPlane;
     }
 
     public List<Bullet> getBullets() {
@@ -52,6 +66,11 @@ public class ActorContainer {
         this.enemyPlanes.add(plane);
     }
 
+    public void addCommanderEnemyPlane(CommanderEnemyPlane plane) {
+        this.commanderEnemyPlane.add(plane);
+    }
+
+
     public void addBullet(Bullet bullet) {
         this.bullets.add(bullet);
     }
@@ -69,6 +88,10 @@ public class ActorContainer {
     public void removeEnemyPlane(EnemyPlane plane) {
         this.enemyPlanes.remove(plane);
     }
+    public void removeCommanderEnemyPlane(CommanderEnemyPlane plane) {
+        this.commanderEnemyPlane.remove(plane);
+    }
+
 
     public void removeBullet(Bullet bullet) {
         this.bullets.remove(bullet);
@@ -83,6 +106,9 @@ public class ActorContainer {
     }
 
     public void visitorAccept(FindNearestEnemyVisitor visitor) {
+        visitor.visit(this);
+    }
+    public void visitorAccept(CommanderEnemyPlaneVisitor visitor) {
         visitor.visit(this);
     }
 

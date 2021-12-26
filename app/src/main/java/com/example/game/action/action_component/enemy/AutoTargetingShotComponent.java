@@ -6,12 +6,9 @@ import com.example.game.action.action_component.ActionComponent;
 import com.example.game.action.action_component.common.ShotComponent;
 import com.example.game.actor.Plane;
 import com.example.game.game.ActorContainer;
-import com.example.game.game.FindNearestEnemyVisitor;
 import com.example.game.utility.MathUtilities;
 import com.example.game.utility.PointFUtilities;
 import com.example.game.weapon.Weapon;
-import com.example.game.action.ActionLayer;
-import com.example.game.action.command.ShotCommand;
 import com.example.game.component.ComponentType;
 import com.example.game.utility.StopWatch;
 
@@ -42,15 +39,12 @@ public class AutoTargetingShotComponent extends ShotComponent {
     @Override
     public void execute(float deltaTime) {
         if(this.target == null){
+            this.aquareTarget();
             return;
         } // if
 
-        this.aquareTarget();
-
-        StopWatch stopWatch = super.getShotTime();
         Weapon weapon = super.getWeapon();
-
-        if (stopWatch.tick(deltaTime)) {
+        if(weapon.isReady()){
             weapon.setRotation(MathUtilities.radianToDegree(this.clacDirection(
                     this.getOwner().getPosition(),
                     this.target.getPosition()
@@ -61,8 +55,8 @@ public class AutoTargetingShotComponent extends ShotComponent {
                     this.getOwner().getRotation(),
                     this.getOwner().getTag()
             );
-            stopWatch.reset();
         } // if
+
     }
 
     @Override

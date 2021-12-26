@@ -20,9 +20,10 @@ public abstract class TransitionAction {
     protected void sceneTransition() {
         this.game.IncremenntSceneNo();
     }
-protected float getTimeCoefficient(){
-       return this.timeCoefficient;
-}
+
+    protected float getTimeCoefficient() {
+        return this.timeCoefficient;
+    }
 
     protected Point getScreenSize() {
         return new Point(

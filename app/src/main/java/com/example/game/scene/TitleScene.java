@@ -49,9 +49,17 @@ public class TitleScene extends Scene {
     private Bitmap startButtonBitmap;
     private Point startButtonBitmapSize;
 
+    Transform2D scoreTransform = new Transform2D();
+    Paint scorePaint = new Paint();
+
     void constructStartButton(Game game) {
         int screenX = super.getScreenSize().x;
         int screenY = super.getScreenSize().y;
+
+        this.scoreTransform .position.x = 640.0f;
+        this.scoreTransform .position.y = 50.0f;
+        this.scorePaint.setTextSize(50);
+        this.scorePaint.setColor(Color.BLACK);
 
         this.transitionStateMachine = new SceneTransitionStateMachine(game);
 
@@ -122,6 +130,11 @@ public class TitleScene extends Scene {
                 RenderLayerType.BasicActor);
 
         this.drawStartButton(out.getRenderCommandList(RenderLayerType.BasicActor));
+
+        if(Game.getHighScore() != 0){
+            list.drawText("Score : " + Game.getHighScore(), this.scoreTransform, this.scorePaint);
+        } // if
+
     }
 
     Rectangle getStartButtonRectangle() {
@@ -141,9 +154,9 @@ public class TitleScene extends Scene {
     void drawStartButton(RenderCommandList list) {
         Transform2D transform = new Transform2D(this.startButtonTransform);
         transform.position.x -= this.startButtonBitmap.getWidth() * 0.5f;
-        transform.position.y -= this.startButtonBitmap.getHeight() * 0.5f;
+        transform.position.y -= this.startButtonBitmap.getHeight() * 0.15f;
 
-        list.drawRectangle(this.getStartButtonRectangle(), new RenderRectangleInfo());
+        //list.drawRectangle(this.getStartButtonRectangle(), new RenderRectangleInfo());
         list.drawSprite(
                 this.startButtonBitmap,
                 transform,

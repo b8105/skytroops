@@ -27,4 +27,10 @@ public class EffectInfoBasicParam {
         this.transform.position.x = position.x;
         this.transform.position.y = position.y;
     }
+
+    public void update(EffectInfoUpdateParam updateParam){
+        this.transform.position.x += updateParam.translation.x;
+        this.transform.position.y += updateParam.translation.y;
+    }
+
 }

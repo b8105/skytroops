@@ -2,6 +2,7 @@ package com.example.game.render.command;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
@@ -27,6 +28,9 @@ public class RenderSpriteCommand extends RenderCommand {
         int destPosY = (int) transform.position.y;
         int sizeX = this.bitmap.getWidth();
         int sizeY = this.bitmap.getHeight();
+        int halfSizeX = (int) (sizeX * 0.5f);
+        int halfSizeY = (int) (sizeY * 0.5f);
+
 
         Rect source = new Rect(0, 0, sizeX, sizeY);
         if (this.info.rect != null) {
@@ -35,7 +39,16 @@ public class RenderSpriteCommand extends RenderCommand {
             source = this.info.rect;
         } // if
 
+        // draw point is center center
         Rect dest = new Rect(destPosX, destPosY, destPosX + sizeX, destPosY + sizeY);
+        if (info.center) {
+            dest = new Rect(
+                    destPosX - halfSizeX,
+                    destPosY - halfSizeY,
+                    destPosX + halfSizeX,
+                    destPosY + halfSizeY);
+
+        } // if
 
         if (Math.abs(this.transform.rotation) > 0.0005f) {
             canvas.save();
@@ -43,6 +56,8 @@ public class RenderSpriteCommand extends RenderCommand {
                     destPosX + sizeX * 0.5f,
                     destPosY + sizeY * 0.5f);
         } // if
+
+//        this.paint.setARGB(200,200,200,200);
         canvas.drawBitmap(
                 this.bitmap,
                 source,

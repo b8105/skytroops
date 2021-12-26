@@ -29,8 +29,24 @@ public class HpParameter {
         this.valueMax = value;
     }
 
+    public void increaseValueMax(int value){
+        this.valueMax += value;
+    }
+
+
+    public void increase(int value){
+        this.value += value;
+    }
     public void decrease(int value){
         this.value -= value;
+    }
+    public void clampZeroMax(){
+        if(this.value < 0){
+            this.value = 0;
+        } // if
+        else if(this.value > this.valueMax){
+            this.value = this.valueMax;
+        } // else if
     }
 
     public boolean isLessEqualZero(){

@@ -11,15 +11,19 @@ import android.view.SurfaceView;
 
 import androidx.core.view.MotionEventCompat;
 
+import com.example.game.R;
 import com.example.game.common.InputEvent;
 import com.example.game.common.InputTouchType;
 import com.example.game.common.Transform2D;
+import com.example.game.common.shape.Circle;
 import com.example.game.game.GameScorer;
+import com.example.game.game.resource.ImageResource;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GameOverScene;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.scene.Scene;
 import com.example.game.scene.TitleScene;
+import com.example.game.ui.UIButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,29 +36,32 @@ import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 
 public class Game extends SurfaceView implements Runnable {
-    static public PointF displayRealSize = new PointF();
+    public static PointF displayRealSize = new PointF();
+    public static int highScore = 0;
 
     //!
     public MainActivity activity;
     //! thread
     private Thread thread;
     private boolean running = true;
-    float frameTime = 1.0f / 60.0f * 0.5f;
-    float frameTimeCoefficientForGame = 3.0f;
+    private float frameTime = 1.0f / 60.0f * 0.5f;
+    private float frameTimeCoefficientForGame = 3.0f;
     //! system
     private InputEvent inputEvent = new InputEvent();
     private RenderCommandQueue renderCommandQueue;
-
+    private ImageResource imageResource;
     //! scene
     private Scene currentScene = null;
-    int scene = 0;
-    boolean changeSceneFlag = false;
+    private int scene = 0;
+    private boolean changeSceneFlag = false;
 
 
-    boolean enableTouch = false;
-    boolean prevTouch = false;
-    boolean currentTouch = false;
+    private boolean enableTouch = false;
+    private boolean prevTouch = false;
+    private boolean currentTouch = false;
 
+    private UIButton debugSwitch;
+    private boolean debugFlag = true;
 
     private JSONObject parseJson(String fileName) throws JSONException, IOException {
         InputStream inputStream = activity.getAssets().open(fileName);
@@ -106,7 +113,15 @@ public class Game extends SurfaceView implements Runnable {
 
         this.start();
         renderCommandQueue = new RenderCommandQueue();
+        imageResource = new ImageResource(this.getResources(), this.getDefaultDisplayRealSize());
         currentScene = new TitleScene(this, this.getDefaultDisplayRealSize());
+
+        debugSwitch = new UIButton(
+                imageResource,
+                super.getResources(),
+                R.drawable.restartbtn,
+                new PointF(900.0f, 30.0f),
+                new Point(32, 32));
 
         try {
             this.load();
@@ -126,6 +141,15 @@ public class Game extends SurfaceView implements Runnable {
 
     public static PointF getDisplayRealSize() {
         return displayRealSize;
+    }
+
+
+    public static void setHighScore(int highScore) {
+        Game.highScore = highScore;
+    }
+
+    public static int getHighScore() {
+        return highScore;
     }
 
     public Point getDefaultDisplayRealSize() {
@@ -163,6 +187,10 @@ public class Game extends SurfaceView implements Runnable {
         switch (action) {
             case (MotionEvent.ACTION_DOWN):
                 enableTouch = true;
+
+                if (debugSwitch.containCircle(new Circle(event.getX(), event.getY(), 4))) {
+                    this.debugFlag = !this.debugFlag;
+                } // if
             case (MotionEvent.ACTION_MOVE):
                 return true;
             case (MotionEvent.ACTION_UP):
@@ -184,11 +212,11 @@ public class Game extends SurfaceView implements Runnable {
         } // if
         else if (this.scene == 1) {
             this.currentScene = null;
-            this.currentScene = new GamePlayScene(this, this.getDefaultDisplayRealSize());
+            this.currentScene = new GamePlayScene(this, this.imageResource, this.getDefaultDisplayRealSize());
         } // if
         else if (this.scene == 2) {
             int score = ((GamePlayScene) this.currentScene).getGameSystem().getGameScorer().getGameScore();
-            GameOverScene gameOverScene = new GameOverScene(this, this.getDefaultDisplayRealSize());
+            GameOverScene gameOverScene = new GameOverScene(this, this.imageResource, this.getDefaultDisplayRealSize());
             gameOverScene.setGameScorerValue(score);
             this.currentScene = null;
             this.currentScene = gameOverScene;
@@ -263,7 +291,11 @@ public class Game extends SurfaceView implements Runnable {
             currentScene.draw(renderCommandQueue);
         } // if
 
-        renderCommandQueue.executeCommandList(canvas);
+        if (!this.debugFlag) {
+            debugSwitch.draw(renderCommandQueue);
+        } // if
+
+        renderCommandQueue.executeCommandList(canvas, this.debugFlag);
     }
 
     public void IncremenntSceneNo() {

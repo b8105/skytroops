@@ -8,6 +8,10 @@ import com.example.game.action.ActionLayer;
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.ActorType;
 import com.example.game.actor.Plane;
+import com.example.game.actor.enemy_plane.CommanderEnemyPlane;
+import com.example.game.actor.enemy_plane.EnemyPlane;
+import com.example.game.actor.enemy_plane.EnemyPlaneType;
+import com.example.game.actor.enemy_plane.FollowEnemyPlane;
 import com.example.game.collision.CollisionableType;
 import com.example.game.component.ComponentType;
 

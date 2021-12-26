@@ -1,11 +1,8 @@
 package com.example.game.effect;
 
-import com.example.game.common.EffectBitmapSizeStatic;
+import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.Transform2D;
 import com.example.game.common.shape.Rectangle;
-import com.example.game.render.RenderCommandList;
-import com.example.game.render.RenderLayer;
-import com.example.game.render.RenderLayerType;
 import com.example.game.utility.StopWatch;
 import com.example.game.utility.animation.SpriteAnimation;
 import com.example.game.utility.animation.SpriteAnimationPart;
@@ -18,27 +15,49 @@ public class Effect {
     private boolean enable = false;
     private StopWatch lifeDuration = null;
     private EffectInfoBasicParam effectInfoBasicParam = new EffectInfoBasicParam();
+    private EffectInfoUpdateParam effectInfoUpdateParam = new EffectInfoUpdateParam();
     private SpriteAnimation animation = null;
 
     public SpriteAnimation createExplosionAnimation() {
-            SpriteAnimation animation = new SpriteAnimation();
+        SpriteAnimation animation = new SpriteAnimation();
 
-            List<SpriteAnimationPart> anime = new ArrayList<>();
-            SpriteAnimationPart anim =  new SpriteAnimationPart();
-            anim.width = EffectBitmapSizeStatic.explosionUnit.x;
-            anim.height =  EffectBitmapSizeStatic.explosionUnit.y;
-            anim.name = "none";
-            anim.offsetX = 0;
-            anim.offsetY = 0;
-            anim.pattern.add(new SpriteAnimationPartPattern(10, 0,0));
-            anim.pattern.add(new SpriteAnimationPartPattern(10, 1,0));
-            anim.pattern.add(new SpriteAnimationPartPattern(10, 2,0));
-            anim.pattern.add(new SpriteAnimationPartPattern(10, 3,0));
-            anime.add(anim);
-            animation.create(anime);
-            animation.changeMotion(0);
+        List<SpriteAnimationPart> anime = new ArrayList<>();
+        SpriteAnimationPart anim =  new SpriteAnimationPart();
+        anim.width = BitmapSizeStatic.explosionUnit.x;
+        anim.height =  BitmapSizeStatic.explosionUnit.y;
+        anim.name = "none";
+        anim.offsetX = 0;
+        anim.offsetY = 0;
+        anim.pattern.add(new SpriteAnimationPartPattern(10, 0,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(10, 1,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(10, 2,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(10, 3,0));
+        anime.add(anim);
+        animation.create(anime);
+        animation.changeMotion(0);
 
-            return animation;
+        return animation;
+    }
+
+
+    public SpriteAnimation createBulletUpgradeAnimation() {
+        SpriteAnimation animation = new SpriteAnimation();
+
+        List<SpriteAnimationPart> anime = new ArrayList<>();
+        SpriteAnimationPart anim =  new SpriteAnimationPart();
+        anim.width = BitmapSizeStatic.bulletUpgrade.x;
+        anim.height =  BitmapSizeStatic.bulletUpgrade.y;
+        anim.name = "none";
+        anim.offsetX = 0;
+        anim.offsetY = 0;
+        anim.pattern.add(new SpriteAnimationPartPattern(10, 0,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(10, 1,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(10, 2,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(10, 3,0));
+        anime.add(anim);
+        animation.create(anime);
+        animation.changeMotion(0);
+        return animation;
     }
 
     public SpriteAnimation createScoreAnimation() {
@@ -46,12 +65,12 @@ public class Effect {
 
         List<SpriteAnimationPart> anime = new ArrayList<>();
         SpriteAnimationPart anim =  new SpriteAnimationPart();
-        anim.width = EffectBitmapSizeStatic.score.x;
-        anim.height = EffectBitmapSizeStatic.score.y;
+        anim.width = BitmapSizeStatic.score.x;
+        anim.height = BitmapSizeStatic.score.y;
         anim.name = "none";
         anim.offsetX = 0;
         anim.offsetY = 0;
-        anim.pattern.add(new SpriteAnimationPartPattern(15, 0,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(100, 0,0));
         anime.add(anim);
         animation.create(anime);
         animation.changeMotion(0);
@@ -65,6 +84,8 @@ public class Effect {
                 return this.createScoreAnimation();
             case Explosion:
                 return this.createExplosionAnimation();
+            case BulletUpgrade:
+                return this.createBulletUpgradeAnimation();
         } // switch
         return null;
     }
@@ -74,6 +95,10 @@ public class Effect {
         this.lifeDuration = new StopWatch(0.0f);
     }
 
+    public Effect(EffectType effectType, SpriteAnimation animation) {
+        this.animation = animation;
+        this.lifeDuration = new StopWatch(0.0f);
+    }
 
     public Transform2D getTransform() {
         return this.effectInfoBasicParam.transform;
@@ -83,9 +108,9 @@ public class Effect {
         return this.effectInfoBasicParam.alpha;
     }
 
-    public EffectInfoBasicParam getBasicParam() {
-        return this.effectInfoBasicParam;
-    }
+//    public EffectInfoBasicParam getBasicParam() {
+//        return this.effectInfoBasicParam;
+//    }
 
     //! ゲッター
     public EffectType getEffectType() {
@@ -94,12 +119,22 @@ public class Effect {
 
     //! ゲッター
     public Rectangle getAnimationRect() {
-        return this.animation.getSourceRectangle();
+        if(this.isExistAnimation()){
+            return this.animation.getSourceRectangle();
+        } // if
+        return new Rectangle();
     }
 
-    //! 判定
+    public boolean isExistAnimation(){
+        return this.animation != null;
+    }
+
+
     public boolean isAnimationEnd() {
-        return this.animation.isEndMotion();
+        if(this.isExistAnimation()){
+            return this.animation.isEndMotion();
+        } // if
+        return false;
     }
 
     //! 判定
@@ -109,8 +144,12 @@ public class Effect {
 
     //! 更新
     public boolean update(float deltaTime) {
-        this.animation.addTimer(deltaTime);
-        if (this.lifeDuration.tick(deltaTime) || this.animation.isEndMotion()) {
+        this.effectInfoBasicParam.update(this.effectInfoUpdateParam);
+
+        if(this.isExistAnimation()){
+            this.animation.addTimer(deltaTime);
+        } // if
+        if (this.lifeDuration.tick(deltaTime) || (this.isExistAnimation() && this.animation.isEndMotion())) {
             this.enable = false;
             return true;
         } // if
@@ -120,8 +159,11 @@ public class Effect {
     //! 開始
     public void start(EffectInfo info) {
         this.effectInfoBasicParam = info.initParam;
+        this.effectInfoUpdateParam = info.updateParam;
         this.enable = true;
         this.lifeDuration.reset(this.effectInfoBasicParam.lifeDuration);
-        this.animation.changeMotion(0);
+        if(this.isExistAnimation()){
+            this.animation.changeMotion(0);
+        } // if
     }
 };

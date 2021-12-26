@@ -12,24 +12,26 @@ import com.example.game.render.info.RenderSpriteInfo;
 
 public class StageRenderer {
     private Stage stage = null;
+    private Paint paint;
+    private int textSize = 32;
+    Transform2D textTransform = new Transform2D();
 
     public StageRenderer(Stage stage) {
         this.stage = stage;
+        this.paint = new Paint();
+        Transform2D textTransform = new Transform2D();
+        this.textTransform.position.x = this.textSize;
+        this.textTransform.position.y = this.textSize;
     }
 
-    private void drawScroll(RenderCommandQueue out) {
+    private void drawStageType(RenderCommandQueue out) {
         RenderCommandList list = out.getRenderCommandList(
                 RenderLayerType.UI);
-        Float scroll = this.stage.getScroll();
-
-        Transform2D drawTransform = new Transform2D();
-        drawTransform.position.x = 700;
-        drawTransform.position.y = 100;
-
-        Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setTextSize(64);
-        list.drawText(scroll.toString(), drawTransform, paint);
+        this.paint.setTextSize(this.textSize);
+        {
+            String text = "stage no : " + (stage.getCurrentType().ordinal() + 1);
+            list.drawText(text, this.textTransform, this.paint);
+        }
     }
 
     public void execute(RenderCommandQueue out) {
@@ -39,10 +41,8 @@ public class StageRenderer {
                 RenderLayerType.BasicActor);
 
         Bitmap bitmap = this.stage.getBitmap();
-//        Transform2D transform = this.stage.getTransform();
         Transform2D transform = new Transform2D();
         transform.position.y = this.stage.getScroll();
-        //this.stage.getTransform();
 
         int h = bitmap.getHeight();
         int screenHeight = h;
@@ -54,9 +54,8 @@ public class StageRenderer {
                     bitmap,
                     t,
                     new RenderSpriteInfo());
-
         } // for
-        this.drawScroll(out);
 
+        this.drawStageType(out);
     }
 }

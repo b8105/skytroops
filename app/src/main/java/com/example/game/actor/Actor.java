@@ -1,6 +1,5 @@
 package com.example.game.actor;
 
-import android.content.res.Resources;
 import android.graphics.PointF;
 
 import com.example.game.game.ActorContainer;
@@ -11,11 +10,12 @@ import com.example.game.component.ComponentType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Actor {
+public abstract class Actor {
     private ActorType actorType;
     private ActorState actorState;
     private String tag = "";
     private Transform2D transform = null;
+    private PointF initialPosition = null;
 
     private List<Component> components = new ArrayList<Component>();
 
@@ -23,6 +23,7 @@ public class Actor {
         this.actorState = ActorState.Active;
         this.tag = tag;
         this.transform = new Transform2D();
+        this.initialPosition = new PointF();
         actorContainer.addActor(this);
     }
 
@@ -80,6 +81,12 @@ public class Actor {
                 transform.scale.y);
     }
 
+    public PointF getInitialPosition() {
+        return this.initialPosition;
+    }
+
+    public abstract PointF getCenterPosition();
+
     public <T> T getComponent(ComponentType componentType) {
         for (Component component : this.components) {
             if (component.getComponentType() == componentType) {
@@ -114,7 +121,19 @@ public class Actor {
         for (Component component : this.components) {
             component.onComponentInitialize(this);
         } // for
+        this.initialPosition.x = this.transform.position.x;
+        this.initialPosition.y = this.transform.position.y;
     }
+
+    public void initialize(PointF position, float rotation) {
+        this.setPosition(position);
+        this.setRotation(rotation);
+        this.initialize();
+    }
+
+    public void update(float deltaTime){
+    }
+
 
     public void release(ActorContainer actorContainer) {
         for (Component component : this.components) {

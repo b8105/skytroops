@@ -4,6 +4,9 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 
 import com.example.game.actor.Actor;
+import com.example.game.actor.ActorState;
+import com.example.game.actor.Plane;
+import com.example.game.actor.bullet.Bullet;
 import com.example.game.collision.CollisionInfo;
 import com.example.game.collision.CollisionLayer;
 import com.example.game.collision.Collisionable;
@@ -26,15 +29,8 @@ public class BulletCollisionComponent
         return CollisionableType.Bullet;
     }
 
-    public Rectangle getCollisionRectangle() {
-        Rect sourceRect = super.getSpriteRenderComponent().getSourceRect();
-        PointF position = super.getOwner().getPosition();
-        PointF expansion = this.getCollisionRectSizeOffset();
-        Rectangle rect = new Rectangle(0, 0, sourceRect.width(), sourceRect.height());
-
-        rect.expansion(expansion.x, expansion.y);
-        rect.offset((int) position.x, (int) position.y);
-        return rect;
+    public Bullet getPlaneOwner(){
+        return (Bullet) super.getOwner();
     }
 
     public boolean isCollisionAtEnemy(Collisionable target, CollisionInfo info) {
@@ -44,9 +40,19 @@ public class BulletCollisionComponent
         return super.isCollisionRect(this, target, this.getOwner(), targetOwner, info);
     }
 
+    public boolean isCollisionAtPlane(Collisionable target, CollisionInfo info) {
+        PlaneCollisionComponentVisitor visitor = new PlaneCollisionComponentVisitor();
+        target.visitorAccept(visitor);
+        Actor targetOwner = visitor.actor;
+        return super.isCollisionRect(this, target, this.getOwner(), targetOwner, info);
+    }
+
     public boolean isCollision(Collisionable target, CollisionInfo info) {
         if (target.getCollisionableType() == CollisionableType.Enemy) {
             return this.isCollisionAtEnemy(target, info);
+        } // else if
+        else if (target.getCollisionableType() == CollisionableType.Plane) {
+            return this.isCollisionAtPlane(target, info);
         } // else if
         else if (target.getCollisionableType() == CollisionableType.Stage) {
             RectangleCollisionDetector detector = new RectangleCollisionDetector();
@@ -58,16 +64,37 @@ public class BulletCollisionComponent
     }
 
     public void executeEnterFunction(Collisionable target, CollisionInfo info) {
-        if (target.getCollisionableType() == CollisionableType.Enemy) {
-            System.out.println("Buller End");
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
+        if (target.getCollisionableType() == CollisionableType.Enemy ) {
             this.getOwner().end();
         } // if
+        else if(target.getCollisionableType() == CollisionableType.Plane){
+            this.getOwner().end();
+        } // else if
     }
 
     public void executeStayFunction(Collisionable target, CollisionInfo info) {
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
+        if (target.getCollisionableType() == CollisionableType.Enemy ) {
+            this.getOwner().end();
+        } // if
+        else if(target.getCollisionableType() == CollisionableType.Plane){
+            this.getOwner().end();
+        } // else if
+
     }
 
     public void executeExitFunction(Collisionable target, CollisionInfo info) {
+        if(super.getOwner().getActorState() == ActorState.End){
+            return;
+        } // if
+
         if (target.getCollisionableType() == CollisionableType.Stage) {
             this.getOwner().end();
         } // if
