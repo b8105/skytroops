@@ -30,10 +30,8 @@ public class GameOverScene extends Scene {
     private UIButton startButton;
     private Game game;
     private int gameScore;
-
-
-    Transform2D transform = new Transform2D();
-    Paint paint = new Paint();
+    private Transform2D transform = new Transform2D();
+    private Paint paint = new Paint();
 
     public GameOverScene(Game game, ImageResource imageResource, Point screenSize) {
         super(game, screenSize);
@@ -46,10 +44,11 @@ public class GameOverScene extends Scene {
                 new PointF(screenSize.x * 0.5f, screenSize.y * 0.8f)
         );
         this.background = new UILabel(imageResource, ImageResourceType.GameOverBackground, center);
-        this.leadrboard = new UILabel(imageResource, ImageResourceType.GameResultBackground,center);
+        this.leadrboard = new UILabel(imageResource, ImageResourceType.GameResultBackground,
+                new PointF(screenSize.x * 0.5f, screenSize.y * 0.35f));
 
         transform.position.x = 140.0f;
-        transform.position.y = 700.0f;
+        transform.position.y = 500.0f;
         paint.setTextSize(90);
         paint.setColor(Color.BLACK);
 
@@ -57,11 +56,9 @@ public class GameOverScene extends Scene {
 
     public void setGameScorerValue(int gameScorer) {
         this.gameScore = gameScorer;
-
         if(Game.getHighScore() < this.gameScore){
             Game.setHighScore(this.gameScore);
         } // if
-
     }
 
     @Override

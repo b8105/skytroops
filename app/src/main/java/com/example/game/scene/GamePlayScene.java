@@ -116,7 +116,7 @@ public class GamePlayScene extends Scene
     void updateSystem(float deltaTime) {
         this.actorFactory.update();
         this.actorContainer.update();
-        this.gameSystem.update(deltaTime, this.stage,
+        this.gameSystem.update(deltaTime,
                 this.actorContainer, this.actorFactory, this.stage.getCurrentType());
         if(this.uiChangeBullePanel != null){
             this.uiChangeBullePanel.update(deltaTime);
@@ -155,6 +155,12 @@ public class GamePlayScene extends Scene
 
     @Override
     public void onNotify(BossEnemyDeadMessage maeeage) {
+        PlayerPlane playerPlane = this.actorContainer.getMainChara();
+        if(playerPlane == null){
+            return;
+        } // if
+        playerPlane.getInvincibleParameter().activate();
+
         if (this.stage.getCurrentType() == StageType.Type05) {
             this.sceneExit();
         } // if

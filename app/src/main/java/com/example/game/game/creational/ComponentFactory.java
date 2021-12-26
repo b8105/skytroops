@@ -134,12 +134,30 @@ public class ComponentFactory {
 
         MoveComponent moveComponent = new MoveComponent(actionComponent);
         AIStraightMoveInput input = new AIStraightMoveInput();
-        input.setSpeed(this.commanderPlane);
+        input.setSpeed(20.0f);
 
         input.setMoveComponent(moveComponent);
         moveComponent.setActionInput(input);
         enemyPlaneActionInput.addActionInput(input);
         return actionComponent;
+        //        {
+//
+//
+//            PlaneActionComponent actionComponent = new PlaneActionComponent(actionLayer);
+//            EnemyPlaneActionInput enemyPlaneActionInput = new EnemyPlaneActionInput();
+//            actionComponent.setActionInput(enemyPlaneActionInput);
+//
+//            MoveComponent moveComponent = new MoveComponent(actionComponent);
+//            AIStraightMoveInput input = new AIStraightMoveInput();
+//            input.setSpeed(this.commanderPlane);
+//
+//            input.setMoveComponent(moveComponent);
+//            moveComponent.setActionInput(input);
+//            enemyPlaneActionInput.addActionInput(input);
+//            return actionComponent;
+//        }
+//
+
     }
 
     public PlaneActionComponent createWeakPlaneActionComponent(

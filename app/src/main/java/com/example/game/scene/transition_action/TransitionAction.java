@@ -13,7 +13,7 @@ public abstract class TransitionAction {
 
     TransitionAction(float time, Game game) {
         this.time = new StopWatch(time);
-        this.timeCoefficient = 2.0f;
+        this.timeCoefficient = 4.0f;
         this.game = game;
     }
 

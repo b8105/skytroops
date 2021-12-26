@@ -8,7 +8,7 @@ import com.example.game.utility.StopWatch;
 
 public class EnemyDestroyedEvent extends GameEvent {
     private StopWatch existTimer;
-    private float time = 3.0f;
+    private float time = 1.6f;
     private GamePlayScene gamePlayScene;
 
     public EnemyDestroyedEvent(GamePlayScene gamePlayScene) {

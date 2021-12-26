@@ -43,8 +43,6 @@ public class UIChangeBullePanel {
             this.singleTap = false;
         } // if
     }
-
-
     public UIChangeBullePanel(
             PlayerPlane playerPlane,
             ImageResource imageResource,
@@ -81,11 +79,11 @@ public class UIChangeBullePanel {
         bulletButtons.add(toThreeWayButton);
         bulletButtons.add(toHomingButton);
 
-
         this.currentButton = toBasicButton;
         this.currentButton.setSelectFlag(true);
-        toHomingButton.unlock();
-        toThreeWayButton.unlock();
+
+        this.unlockToHomingButton();
+        this.unlockToThreeWayButton();
     }
 
     public void setEvent(Weapon weapon) {
@@ -117,12 +115,6 @@ public class UIChangeBullePanel {
                 BitmapSizeStatic.bulletButton.y * 0.5f);
     }
 
-    static public PointF getSizeStatic() {
-        return new PointF(
-                BitmapSizeStatic.bulletButton.x * elementCount,
-                BitmapSizeStatic.bulletButton.y);
-    }
-
     public void unlockToHomingButton() {
         this.toHomingButton.unlock();
     }
@@ -136,12 +128,6 @@ public class UIChangeBullePanel {
             return;
         } // if
 
-        float x = input.positionX;
-        float y = input.positionY;
-        RectangleCollisionDetector detector = new RectangleCollisionDetector();
-        Circle touchCircle = new Circle(x, y, 16);
-
-
         if (input.touchType == InputTouchType.Touch) {
             if(this.doubleTapFrame > 0){
                 UIChangeBulletButton bulletButton = this.getNextButton();
@@ -149,12 +135,8 @@ public class UIChangeBullePanel {
                 bulletButton.onTouch();
                 currentButton = bulletButton;
                 currentButton.setSelectFlag(true);
-                System.out.println("this.doubleTapFrame = " + this.doubleTapFrame);
-
             } // if
             else if(!this.singleTap){
-                System.out.println("this.singleTap = true");
-
                 this.singleTap = true;
                 this.doubleTapFrame = this.doubleTapFrameMax;
             } // if
