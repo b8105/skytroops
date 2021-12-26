@@ -40,6 +40,18 @@ public class ImageResource {
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
         hash.put(ImageResourceType.GameOverG,
                 this.createScaledBitmap(R.drawable.game_over_g, BitmapSizeStatic.gameOverText.x, BitmapSizeStatic.gameOverText.y));
+        hash.put(ImageResourceType.GameOvera,
+                this.createScaledBitmap(R.drawable.game_over_a, BitmapSizeStatic.gameOverTextSmall.x, BitmapSizeStatic.gameOverTextSmall.y));
+        hash.put(ImageResourceType.GameOverm,
+                this.createScaledBitmap(R.drawable.game_over_m, BitmapSizeStatic.gameOverTextSmall.x, BitmapSizeStatic.gameOverTextSmall.y));
+        hash.put(ImageResourceType.GameOvere,
+                this.createScaledBitmap(R.drawable.game_over_e, BitmapSizeStatic.gameOverTextSmall.x, BitmapSizeStatic.gameOverTextSmall.y));
+        hash.put(ImageResourceType.GameOverO,
+                this.createScaledBitmap(R.drawable.game_over_o, BitmapSizeStatic.gameOverText.x, BitmapSizeStatic.gameOverText.y));
+        hash.put(ImageResourceType.GameOverv,
+                this.createScaledBitmap(R.drawable.game_over_v, BitmapSizeStatic.gameOverTextSmall.x, BitmapSizeStatic.gameOverTextSmall.y));
+        hash.put(ImageResourceType.GameOverr,
+                this.createScaledBitmap(R.drawable.game_over_r, BitmapSizeStatic.gameOverTextSmall.x, BitmapSizeStatic.gameOverTextSmall.y));
 
     }
     private void constructHpRenderer( Point screenSize){

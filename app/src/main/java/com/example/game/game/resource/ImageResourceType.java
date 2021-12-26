@@ -43,10 +43,10 @@ public enum ImageResourceType {
     PlayerPlaneHpBar,
 
     GameOverG,
-    GameOverA,
-    GameOverM,
-    GameOverE,
+    GameOvera,
+    GameOverm,
+    GameOvere,
     GameOverO,
-    GameOverV,
-    GameOverR,
+    GameOverv,
+    GameOverr,
 }

@@ -6,8 +6,10 @@ import android.graphics.PointF;
 
 import com.example.game.actor.player.PlayerPlane;
 import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.game_event.EnemyDestroyedEvent;
 import com.example.game.game_event.GameEventContainer;
+import com.example.game.game_event.GameOverSlideEvent;
 import com.example.game.game_event.GameOverStartEvent;
 import com.example.game.game_event.StageClearInfoDrawEvent;
 import com.example.game.game_event.ToNextStageEvent;
@@ -35,6 +37,9 @@ import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.stage.StageType;
 import com.example.game.ui.UIChangeBullePanel;
+import com.example.game.ui.UILabel;
+
+import java.util.List;
 
 public class GamePlayScene extends Scene
         implements PlayerDeadListener, BossEnemyDeadListener {
@@ -156,10 +161,18 @@ public class GamePlayScene extends Scene
                 new GameOverStartEvent(this,this.imageResource)
         );
     }
+
     public void createStageClearInfoDrawEvent() {
         this.gameEventContainer.addEvent(
                 new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(),this.imageResource)
         );
+    }
+
+    public void createGameOverSlideEvent(List<UILabel> uiLabels) {
+        this.gameEventContainer.addEvent(
+                new GameOverSlideEvent(
+                        uiLabels
+                ));
     }
 
     public void createToNextStageEvent() {

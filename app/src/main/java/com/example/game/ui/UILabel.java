@@ -53,6 +53,12 @@ public class UILabel {
         this.transform.position.x = position.x;
         this.transform.position.y = position.y;
     }
+    public void setPositionX(float x) {
+        this.transform.position.x = x;
+    }
+    public void setPositionY(float y) {
+        this.transform.position.y = y;
+    }
 
     public Rectangle getRectangle() {
         Transform2D transform = new Transform2D(this.transform);

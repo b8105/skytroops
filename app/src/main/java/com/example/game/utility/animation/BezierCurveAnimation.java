@@ -18,7 +18,7 @@ public class BezierCurveAnimation {
         this.animX.add(point.x);
         this.animY.add(point.y);
     }
-    public PointF calculatePointPosition(float time) {
+    public PointF calculatePoint(float time) {
         BezierCurve bezier_curve = new BezierCurve();
 
         PointF ret = new PointF();
