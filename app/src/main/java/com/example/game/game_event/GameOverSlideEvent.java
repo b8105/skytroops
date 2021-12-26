@@ -13,7 +13,7 @@ import java.util.List;
 public class GameOverSlideEvent extends GameEvent {
     List<UILabel> uiLabels = null;
     float positionY = Game.getDisplayRealSize().y * 0.5f;
-    final float speed = -36.0f;
+    final float speed = -24.0f;
     float time = 0.0f;
     final float timeMax = 0.5f;
     boolean eventFired = false;

@@ -76,6 +76,7 @@ public class ActorFactory {
     private int enemyCollisionRectSizeDecrease = 60;
     private int bulletCollisionRectSizeDecrease = 80;
 
+    private HashMap<EnemyPlaneType, Integer> enemyPlaneHp = new HashMap<>();
 
     public ActorFactory(
             GamePlayScene gamePlayScene,
@@ -96,6 +97,15 @@ public class ActorFactory {
         this.effectSystem = effectSystem;
 
         this.componentFactory = new ComponentFactory(this.renderLayer);
+
+        enemyPlaneHp.put(EnemyPlaneType.Stage01Boss, 20);
+        enemyPlaneHp.put(EnemyPlaneType.Stage02Boss, 40);
+        enemyPlaneHp.put(EnemyPlaneType.Stage03Boss, 60);
+        enemyPlaneHp.put(EnemyPlaneType.Stage04Boss, 80);
+        enemyPlaneHp.put(EnemyPlaneType.Stage05Boss, 120);
+        enemyPlaneHp.put(EnemyPlaneType.Strong, 3);
+        enemyPlaneHp.put(EnemyPlaneType.Commander, 9);
+        enemyPlaneHp.put(EnemyPlaneType.Follow, 7);
     }
 
     public PlayerPlane createPlayerPlane(float positionX, float positionY, String tag) {
@@ -247,30 +257,14 @@ public class ActorFactory {
 
     private int clacEnemyHp(EnemyPlaneType enemyPlaneType,
                             StageType stageType) {
-        switch (enemyPlaneType) {
-            case Stage01Boss:
-                return 20;
-//                return 1;
-            case Stage02Boss:
-                return 40;
-//                return 1;
-            case Stage03Boss:
-                return 80;
-//                return 10;
-            case Stage04Boss:
-                return 100;
-//                return 10;
-            case Stage05Boss:
-                return 700;
-//                return 10;
-            case Basic:
-                return stageType.ordinal() + 1;
-            case Weak:
-                return stageType.ordinal() + 2;
-            case Strong:
-                return 3;
-        } // switch
-        return 1;
+
+        if(enemyPlaneType == EnemyPlaneType.Basic){
+            return stageType.ordinal() + 1;
+        } // if
+        if(enemyPlaneType == EnemyPlaneType.Weak){
+            return stageType.ordinal() + 2;
+        } // else if
+        return this.enemyPlaneHp.get(enemyPlaneType).intValue();
     }
 
     public EnemyPlane createEnemy(
