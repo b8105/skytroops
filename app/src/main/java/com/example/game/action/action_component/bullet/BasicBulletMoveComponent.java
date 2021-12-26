@@ -14,7 +14,10 @@ import com.example.game.utility.PointFUtilities;
 // 入力コマンドも受け付けず向ている方向に動き続ける
 // Weaponの撃つ力を速さとして受け取る
 public class BasicBulletMoveComponent extends ActionComponent {
+    //private PointF speed;
     private float speed;
+
+//    private float speed;
 
     public BasicBulletMoveComponent(ActionLayer layer) {
         super(layer);
@@ -38,6 +41,7 @@ public class BasicBulletMoveComponent extends ActionComponent {
         position.y += move.y;
 
         super.getOwner().setPosition(position);
+        super.getOwner().setRotation(rotation);
     }
 
     @Override

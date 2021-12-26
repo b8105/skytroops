@@ -8,12 +8,10 @@ import com.example.game.utility.StopWatch;
 
 public class ShotComponent extends ActionComponent {
     private ShotCommand command = null;
-    //private StopWatch shotTime = new StopWatch(0.16f);
     private Weapon weapon;
     private boolean instanceFlag = false;
     private boolean active = true;
-
-
+    private boolean fixedRotation = false;
 
     public ShotComponent(ActionComponent actionComponent) {
         super(actionComponent);
@@ -23,14 +21,13 @@ public class ShotComponent extends ActionComponent {
         this.weapon = weapon;
     }
 
-
     public void setInstanceFlag(boolean instance) {
         this.instanceFlag = instance;
     }
 
-    //public void setShotInterval(float time) {
-        //this.shotTime.reset(time);
-    //}
+    public void setFixedRotation(boolean fixedRotation) {
+        this.fixedRotation = fixedRotation;
+    }
 
     @Override
     public boolean isActive() {
@@ -40,10 +37,6 @@ public class ShotComponent extends ActionComponent {
     protected ShotCommand getCommand() {
         return this.command;
     }
-
-    //protected StopWatch getShotTime() {
-        //return this.shotTime;
-    //}
 
     protected Weapon getWeapon() {
         return this.weapon;
@@ -63,38 +56,26 @@ public class ShotComponent extends ActionComponent {
         if (!command.fire) {
             return;
         } // if
-        if(!this.isActive()){
+        if (!this.isActive()) {
             return;
         } // if
 
 
-        if(this.weapon.isReady()){
-            if(this.instanceFlag){
+        if (this.weapon.isReady()) {
+            if (this.instanceFlag) {
                 this.active = false;
             } // if
 
-            this.weapon.setRotation(command.angle);
+            if (!this.fixedRotation) {
+                this.weapon.setRotation(command.angle);
+            } // if
             this.weapon.shot(
                     this.getOwner().getPosition(),
                     this.getOwner().getRotation(),
                     this.getOwner().getTag());
         } // if
-
-//
-//        if (shotTime.tick(deltaTime)) {
-//            if(this.instanceFlag){
-//                this.active = false;
-//            } // if
-//
-//            weapon.setRotation(command.angle);
-//            this.weapon.shot(
-//                    this.getOwner().getPosition(),
-//                    this.getOwner().getRotation(),
-//                    this.getOwner().getTag()
-//            );
-//            shotTime.reset();
-//        } // if
     }
+
     @Override
     public ComponentType getComponentType() {
         return ComponentType.Shot;

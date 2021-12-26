@@ -1,8 +1,11 @@
 package com.example.game.game.enemy_spawn;
 
+import android.graphics.PointF;
+
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.game.creational.ActorFactory;
 import com.example.game.game.creational.BossEnemySpawner;
+import com.example.game.game.creational.EnemyCreateConfig;
 import com.example.game.stage.StageType;
 
 import java.util.ArrayList;
@@ -136,9 +139,34 @@ public class EnemySpawnSystem {
         }
 
         spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Commander,
-                0.0f, 500.0f));
+                0.0f, 200.0f, new EnemyCreateConfig(0)));
         spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Follow,
-                0.0f, 600.0f));
+                0.0f, 600.0f,new EnemyCreateConfig(0, new PointF(200.0f,-200.0f))));
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Follow,
+                0.0f, 600.0f,new EnemyCreateConfig(0, new PointF(-200.0f,-200.0f))));
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Follow,
+                0.0f, 600.0f,new EnemyCreateConfig(0, new PointF(0.0f,-300.0f))));
+
+
+
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Commander,
+                2.0f, 500.0f, new EnemyCreateConfig(2)));
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Follow,
+                2.0f, 600.0f,new EnemyCreateConfig(2, new PointF(200.0f,-200.0f))));
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Follow,
+                2.0f, 600.0f,new EnemyCreateConfig(2, new PointF(-200.0f,-200.0f))));
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Follow,
+                2.0f, 600.0f,new EnemyCreateConfig(2, new PointF(0.0f,-300.0f))));
+
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Commander,
+                5.0f, 400.0f, new EnemyCreateConfig(5)));
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Follow,
+                7.0f, 800.0f,new EnemyCreateConfig(5, new PointF(200.0f,-200.0f))));
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Follow,
+                7.0f, 800.0f,new EnemyCreateConfig(5, new PointF(-200.0f,-200.0f))));
+        spawnDataProtoE.add(new EnemySpawnData(EnemyPlaneType.Follow,
+                7.0f, 800.0f,new EnemyCreateConfig(5, new PointF(0.0f,-300.0f))));
+
     }
 
     public EnemySpawnSystem(StageType type) {

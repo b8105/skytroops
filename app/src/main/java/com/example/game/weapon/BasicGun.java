@@ -9,7 +9,7 @@ public class BasicGun extends Weapon {
             super.resetShotInterval();
 
             PointF pos = parentGlobalPosition;
-            float rot = parentGlobalRotation;
+            float rot = 0.0f;
             super.requestCreateBullet(pos, rot,tag);
         } // if
     }

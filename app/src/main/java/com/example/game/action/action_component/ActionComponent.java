@@ -78,6 +78,9 @@ abstract public class ActionComponent implements Actionable, Component {
 
     @Override
     public void onComponentInitialize(Actor owner) {
+        for(ActionComponent actionComponent : this.children){
+            actionComponent.onComponentInitialize(owner);
+        } // for
     }
 
     @Override

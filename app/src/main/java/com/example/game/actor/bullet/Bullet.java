@@ -12,6 +12,7 @@ import com.example.game.game.creational.BulletCreateConfig;
 // mass(重さは)衝突ダメージの時に参照する
 public class Bullet extends Actor {
     private float appliedShotSpeed = 0.0f;
+    private PointF appliedShotDirection = new PointF();
     private int mass = 1;
 
     protected void changeMass(int mass){
@@ -30,10 +31,15 @@ public class Bullet extends Actor {
         } // else if
 
         this.appliedShotSpeed = config.shotSpeed;
+        this.appliedShotDirection.x = config.shotDirection.x;
+        this.appliedShotDirection.y = config.shotDirection.y;
     }
 
     public float getAppliedShotSpeed() {
         return this.appliedShotSpeed;
+    }
+    public PointF getAppliedShotDirection() {
+        return this.appliedShotDirection;
     }
 
     public ActorType getActorType() {

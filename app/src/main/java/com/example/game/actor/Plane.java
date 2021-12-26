@@ -121,9 +121,6 @@ abstract public class Plane extends Actor
 
         PointF position = this.getCenterPosition();
         position.y = this.getPosition().y;
-        for (HashMap.Entry<String, Weapon> pair : this.weaponHashMap.entrySet()) {
-//            pair.getValue().setPosition(position);
-        } // if
     }
 
     public void update(float deltaTime) {

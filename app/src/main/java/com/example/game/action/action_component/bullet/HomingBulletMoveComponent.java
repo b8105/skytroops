@@ -83,9 +83,7 @@ public class HomingBulletMoveComponent extends ActionComponent {
     private PointF moveHoming(float speed, final PointF position, final PointF targetPosition) {
         PointF normalize = PointFUtilities.normal(position,
                 new PointF(
-//                        targetPosition.x + this.targetSize.x * 0.5f - BitmapSizeStatic.bullet.x * 0.5f,
                         targetPosition.x ,
-//                        targetPosition.y + this.targetSize.y * 0.5f -BitmapSizeStatic.bullet.y * 0.5f));
                         targetPosition.y ));
         return new PointF(
                 normalize.x * speed,

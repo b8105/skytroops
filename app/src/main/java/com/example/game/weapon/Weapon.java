@@ -73,9 +73,9 @@ abstract public class Weapon {
         float sizeOffsetX = BitmapSizeStatic.bullet.x * 0.5f;
 
         this.actorFactory.createBulletRequest(
-                parentGlobalPosition.x + position.x - sizeOffsetX,
-                parentGlobalPosition.y+ position.y,
-                parentGlobalRotation + rotation,
+                parentGlobalPosition.x + this.position.x - sizeOffsetX,
+                parentGlobalPosition.y+ this.position.y,
+                parentGlobalRotation + this.rotation,
                 this.bulletType,
                 tag,
                 this.clacShotSpeed(this.bulletType));

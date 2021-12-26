@@ -20,7 +20,7 @@ public class AnyWayGun extends Weapon {
             super.resetShotInterval();
 
             PointF pos = parentGlobalPosition;
-            float rot = parentGlobalRotation;
+            float rot = 0.0f;
 
             // 正面に１発
             if (this.frontShotFlag) {

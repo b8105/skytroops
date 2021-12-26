@@ -324,10 +324,10 @@ public class ActorFactory {
             } // case
 
             case Commander:
-                actor = new CommanderEnemyPlane(actorContainer, tag);
+                actor = new CommanderEnemyPlane(actorContainer, tag,config);
                 break;
             case Follow:
-                actor = new FollowEnemyPlane(actorContainer, tag);
+                actor = new FollowEnemyPlane(actorContainer, tag,config);
                 break;
             default:
                 actor = new EnemyPlane(actorContainer, tag);
