@@ -45,7 +45,7 @@ import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 import com.example.game.render.render_component.SpriteRenderComponent;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.stage.StageType;
-import com.example.game.ui.UIChangeBullePanel;
+import com.example.game.ui.UIChangeBulletPanel;
 import com.example.game.weapon.Weapon;
 
 import java.util.ArrayList;
@@ -69,7 +69,7 @@ public class ActorFactory {
     private RenderLayer renderLayer = null;
     private List<BulletCreateRequest> bulletCreateRequest = new ArrayList<>();
     private ComponentFactory componentFactory = null;
-    private UIChangeBullePanel uiChangeBullePanel = null;
+    private UIChangeBulletPanel uiChangeBullePanel = null;
     private EffectSystem effectSystem = null;
 
     private int playerCollisionRectSizeDecrease = 100;
@@ -84,7 +84,7 @@ public class ActorFactory {
             ActorContainer actorContainer,
             ComponentExecutor componentExecutor,
             GameSystem gameSystem,
-            UIChangeBullePanel uiChangeBullePanel,
+            UIChangeBulletPanel uiChangeBullePanel,
             EffectSystem effectSystem) {
         this.gamePlayScene = gamePlayScene;
         this.imageResource = imageResource;

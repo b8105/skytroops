@@ -23,7 +23,7 @@ import java.util.List;
 //! ボタンのイベント実行時の処理対象となるWeaponは
 //! プレイヤーのWeaponであり,
 //! そのWeapon生成時にButtonにセットする
-public class UIChangeBullePanel {
+public class UIChangeBulletPanel implements UIPanel {
     private List<UIChangeBulletButton> bulletButtons = new ArrayList<>();
     private UIChangeBulletButton toBasicButton;
     private UIChangeBulletButton toThreeWayButton;
@@ -43,7 +43,7 @@ public class UIChangeBullePanel {
             this.singleTap = false;
         } // if
     }
-    public UIChangeBullePanel(
+    public UIChangeBulletPanel(
             PlayerPlane playerPlane,
             ImageResource imageResource,
             Resources resources,

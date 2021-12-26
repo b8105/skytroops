@@ -14,7 +14,7 @@ import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.stage.Stage;
 import com.example.game.stage.StageType;
-import com.example.game.ui.UIChangeBullePanel;
+import com.example.game.ui.UIChangeBulletPanel;
 import com.example.game.utility.PointFUtilities;
 import com.example.game.utility.StopWatch;
 
@@ -36,7 +36,7 @@ public class ToNextStageEvent extends GameEvent{
     public ToNextStageEvent(GamePlayScene gamePlayScene,
                             ActorContainer actorContainer,
                             Stage stage,
-                            UIChangeBullePanel uiChangeBullePanel) {
+                            UIChangeBulletPanel uiChangeBullePanel) {
         this.existTimer = new StopWatch(time);
         this.gamePlayScene = gamePlayScene;
         this.player = actorContainer.getMainChara();
