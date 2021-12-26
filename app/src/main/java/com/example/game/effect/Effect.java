@@ -28,10 +28,10 @@ public class Effect {
         anim.name = "none";
         anim.offsetX = 0;
         anim.offsetY = 0;
-        anim.pattern.add(new SpriteAnimationPartPattern(5, 0,0));
-        anim.pattern.add(new SpriteAnimationPartPattern(5, 1,0));
-        anim.pattern.add(new SpriteAnimationPartPattern(5, 2,0));
-        anim.pattern.add(new SpriteAnimationPartPattern(5, 3,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(3, 0,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(3, 1,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(3, 2,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(3, 3,0));
         anime.add(anim);
         animation.create(anime);
         animation.changeMotion(0);

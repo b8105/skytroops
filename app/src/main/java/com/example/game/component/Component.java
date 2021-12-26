@@ -5,6 +5,10 @@ import com.example.game.actor.Actor;
 public interface Component {
     public ComponentType getComponentType();
 
+    public boolean isActive() ;
+    public void activate() ;
+    public void inactivate() ;
+
     public void setOwner(Actor owner);
 
     public Actor getOwner();

@@ -10,7 +10,6 @@ public class ShotComponent extends ActionComponent {
     private ShotCommand command = null;
     private Weapon weapon;
     private boolean instanceFlag = false;
-    private boolean active = true;
     private boolean fixedRotation = false;
 
     public ShotComponent(ActionComponent actionComponent) {
@@ -27,11 +26,6 @@ public class ShotComponent extends ActionComponent {
 
     public void setFixedRotation(boolean fixedRotation) {
         this.fixedRotation = fixedRotation;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.active;
     }
 
     protected ShotCommand getCommand() {
@@ -63,7 +57,7 @@ public class ShotComponent extends ActionComponent {
 
         if (this.weapon.isReady()) {
             if (this.instanceFlag) {
-                this.active = false;
+                super.inactivate();
             } // if
 
             if (!this.fixedRotation) {

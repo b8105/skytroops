@@ -49,6 +49,11 @@ public class PlayerMoveInput implements ActionInput {
         moveComponent.writeCommand(command);
     }
 
+    @Override
+    public void initialize() {
+
+    }
+
     void inputCommand(float x, float y, MoveCommand out) {
         float touchX = x;
         float touchY = y;

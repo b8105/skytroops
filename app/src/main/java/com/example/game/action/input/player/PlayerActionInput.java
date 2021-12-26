@@ -25,4 +25,9 @@ public class PlayerActionInput implements ActionInput {
         this.playerMoveInput.execute(input);
         this.playerShotInput.execute(input);
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }

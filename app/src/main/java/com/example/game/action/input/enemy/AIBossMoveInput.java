@@ -8,7 +8,9 @@ import com.example.game.action.input.ActionInput;
 import com.example.game.actor.Actor;
 import com.example.game.actor.enemy_plane.BossEnemyPlane;
 import com.example.game.common.InputEvent;
+import com.example.game.component.ComponentType;
 import com.example.game.main.Game;
+import com.example.game.render.render_component.PlaneHpBarRenderComponent;
 import com.example.game.utility.PointFUtilities;
 
 public class AIBossMoveInput implements ActionInput {
@@ -53,6 +55,7 @@ public class AIBossMoveInput implements ActionInput {
                     this.moveSequence++;
                     ((BossEnemyPlane) (moveComponent.getOwner())).getInvincibleParameter().inactivate();
                     this.shotInput.activate();
+                    ((PlaneHpBarRenderComponent)(this.bossEnemyPlane).getComponent(ComponentType.HpBarRender)).activate();
                 } // if
                 break;
             case 1:
@@ -72,5 +75,10 @@ public class AIBossMoveInput implements ActionInput {
         command.speed.y = speed.y;
 
         moveComponent.writeCommand(command);
+    }
+
+    @Override
+    public void initialize() {
+
     }
 }

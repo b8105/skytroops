@@ -416,26 +416,31 @@ public class ActorFactory {
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         this.imageResource, ImageResourceType.Stage01BossEnemyPlane);
                 hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
+                hpBarRenderComponent.inactivate();
                 break;
             case Stage02Boss:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         this.imageResource, ImageResourceType.Stage02BossEnemyPlane);
                 hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
+                hpBarRenderComponent.inactivate();
                 break;
             case Stage03Boss:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         this.imageResource, ImageResourceType.Stage03BossEnemyPlane);
                 hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
+                hpBarRenderComponent.inactivate();
                 break;
             case Stage04Boss:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         this.imageResource, ImageResourceType.Stage04BossEnemyPlane);
                 hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
+                hpBarRenderComponent.inactivate();
                 break;
             case Stage05Boss:
                 spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                         this.imageResource, ImageResourceType.Stage05BossEnemyPlane);
                 hpBarRenderComponent.setHpBarRenderer(new BossEnemyPlaneHpBarRenderer(hpBarRenderComponent, this.imageResource));
+                hpBarRenderComponent.inactivate();
                 break;
         } // switch
 

@@ -42,8 +42,6 @@ abstract public class ActionComponent implements Actionable, Component {
     public boolean isActive() {
         return this.active;
     }
-
-
     public void activate() {
         this.active  = true;
     }

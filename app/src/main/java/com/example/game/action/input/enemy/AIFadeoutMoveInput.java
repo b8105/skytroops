@@ -83,4 +83,9 @@ public class AIFadeoutMoveInput implements ActionInput {
 
         moveComponent.writeCommand(command);
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }

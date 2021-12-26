@@ -68,6 +68,11 @@ public class AIShotInput implements ActionInput {
         this.shotComponent.writeCommand(command);
     }
 
+    @Override
+    public void initialize() {
+
+    }
+
     private void inputCommand(ShotCommand command) {
         Actor target = this.actorContainer.getMainChara();
         if(target != null){

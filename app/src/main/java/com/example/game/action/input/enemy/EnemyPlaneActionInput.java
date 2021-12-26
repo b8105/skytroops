@@ -20,4 +20,9 @@ public class EnemyPlaneActionInput implements ActionInput {
             actionInput.execute(input);
         } // for
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }

@@ -27,4 +27,9 @@ public class AIStraightMoveInput implements ActionInput {
 
         moveComponent.writeCommand(command);
     }
+
+    @Override
+    public void initialize() {
+
+    }
 }
