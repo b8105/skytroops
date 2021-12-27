@@ -8,7 +8,6 @@ public class BulletForStage01Boss extends Bullet {
         super(actorContainer, tag, config);
         super.changeMass(3);
     }
-
     public BulletType getBulletType(){
         return BulletType.Stage01Boss;
     }

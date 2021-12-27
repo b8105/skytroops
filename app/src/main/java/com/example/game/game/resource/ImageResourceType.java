@@ -49,6 +49,7 @@ public enum ImageResourceType {
     MissionFail,
 
     BasicBullet,
+    RapidBullet,
     HomingBullet,
     Stage01BossBullet,
     Stage02BossBullet,

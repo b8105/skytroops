@@ -29,17 +29,15 @@ public class UIChangeBulletButton extends UIButton {
     private UILabel selectBitmap;
     private boolean lockFlag = false;
     private boolean selectFlag = false;
-    private PlayerPlane playerPlane;
 
+    private float rapidInterval = 0.09f;
     private float basicInterval = 0.16f;
     private float homingInterval = 0.35f;
     private float threewayInterval = 0.26f;
 
     public UIChangeBulletButton(
-            PlayerPlane playerPlane,
             ImageResource imageResource,Resources resources, int id, PointF position, Point size) {
         super(imageResource,resources, id, position, size);
-        this.playerPlane = playerPlane;
 
         this.background = new UILabel(
                 imageResource,  resources, R.drawable.boxbackground, position, size
@@ -50,13 +48,16 @@ public class UIChangeBulletButton extends UIButton {
         this.selectBitmap = new UILabel(
                 imageResource,  resources, R.drawable.bullet_button_frame, position, BitmapSizeStatic.bulletButton
         );
-
     }
 
     public UIChangeBulletButton(ImageResource imageResource,Resources resources, int id, PointF position, Point size,
                                 Weapon weapon, UIChangeBulletButtonEventType type) {
         super(imageResource,resources, id, position, size);
         this.setTarget(weapon, type);
+    }
+
+    public void setType(UIChangeBulletButtonEventType type) {
+        this.type = type;
     }
 
     public void setTarget(Weapon weapon, UIChangeBulletButtonEventType type) {
@@ -86,6 +87,11 @@ public class UIChangeBulletButton extends UIButton {
                 this.weapon.setShotCount(this.singleShotCount);
                 this.weapon.setBulletType(BulletType.Basic);
                 break;
+            case ToRapid:
+                this.weapon.resetShotInterval(this.rapidInterval);
+                this.weapon.setShotCount(this.singleShotCount);
+                this.weapon.setBulletType(BulletType.Rapid);
+                break;
             case ToHoming:
                 this.weapon.resetShotInterval(this.homingInterval);
                 this.weapon.setShotCount(this.singleShotCount);
@@ -97,6 +103,7 @@ public class UIChangeBulletButton extends UIButton {
                 this.weapon.setBulletType(BulletType.Basic);
                 this.weapon.setShotCount(this.threeWayCount);
                 break;
+
         } // switch
     }
 

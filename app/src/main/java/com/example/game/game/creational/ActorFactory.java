@@ -6,6 +6,7 @@ import com.example.game.action.action_component.bullet.BulletFrontMoveComponent;
 import com.example.game.actor.bullet.BulletForStage01Boss;
 import com.example.game.actor.bullet.BulletForStage02Boss;
 import com.example.game.actor.bullet.HomingBullet;
+import com.example.game.actor.bullet.RapidBullet;
 import com.example.game.actor.enemy_plane.CommanderEnemyPlane;
 import com.example.game.actor.enemy_plane.FollowEnemyPlane;
 import com.example.game.actor.enemy_plane.Stage01BossEnemy;
@@ -156,6 +157,30 @@ public class ActorFactory {
 
         SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                 this.imageResource, ImageResourceType.BasicBullet
+        );
+
+        // add
+        actor.addComponent(collisionable);
+        actor.addComponent(moveComponent);
+        actor.addComponent(spriteRenderComponent);
+
+        actor.initialize();
+
+        actor.setPosition(positionX, positionY);
+        actor.setRotation(rotation);
+        return actor;
+    }
+
+    public Bullet createRapidBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
+        RapidBullet actor = new RapidBullet(actorContainer, tag, bulletCreateConfig);
+        actor.setActorType(ActorType.Bullet);
+
+        BasicBulletMoveComponent moveComponent = new BasicBulletMoveComponent(actionLayer);
+        BulletCollisionComponent collisionable = new BulletCollisionComponent(collisionLayer);
+        collisionable.setCollisionRectSizeOffset(-bulletCollisionRectSizeDecrease);
+
+        SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                this.imageResource, ImageResourceType.RapidBullet
         );
 
         // add
@@ -491,6 +516,14 @@ public class ActorFactory {
             switch (request.type) {
                 case Basic:
                     this.createBasicBullet(
+                            request.transform.position.x,
+                            request.transform.position.y,
+                            request.transform.rotation,
+                            request.tag,
+                            request.config);
+                    break;
+                case Rapid:
+                    this.createRapidBullet(
                             request.transform.position.x,
                             request.transform.position.y,
                             request.transform.rotation,

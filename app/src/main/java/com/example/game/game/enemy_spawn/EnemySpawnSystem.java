@@ -235,58 +235,59 @@ public class EnemySpawnSystem implements Activatable {
     }
 
     private void constructStage04() {
+        float time = 2.0f;
         this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoE1, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoE2, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoE3, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoE2, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoE1, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoC, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoC, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoE2, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoC, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoE3, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoC, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoE2, 0));
 
     }
 
     private void constructStage05() {
+        float time = 1.8f;
         this.waves.add(new EnemySpawnWave(1.0f, spawnDataProto, 0));
-
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoE1, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoE3, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoE2, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoC, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoE3, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoB, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoE2, 0));
-        this.waves.add(new EnemySpawnWave(2.0f, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoC, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoE1, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoC, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoE3, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoC, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoE2, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoC, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoE3, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoB, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoE2, 0));
+        this.waves.add(new EnemySpawnWave(time, spawnDataProtoA, 0));
     }
 
     public boolean isActive() {

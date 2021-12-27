@@ -76,14 +76,12 @@ public abstract class BossEnemyPlane extends EnemyPlane {
     @Override
     public void applyDamage(Damage damage) {
         HpParameter hpParameter = super.getHpParameter();
-        GameScorer gameScorer = super.getGameScorer();
-        EffectEmitter scoreEffectEmitter = super.getScoreEffectEmitter();
         EffectEmitter explosionEffectEmitter = super.getExplosionEffectEmitter();
 
         hpParameter.decrease(damage.value);
+        hpParameter.decrease(199);
 
         if (hpParameter.isLessEqualZero()) {
-
             PointF position =  super.getPosition();
             PointF random =  new PointF();
 

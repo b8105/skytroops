@@ -77,6 +77,7 @@ public class UpgradeEvent extends GameEvent{
             );
         } // else if
         else if(stageType == StageType.Type03){
+            uiChangeBullePanel.unlockToRapidButton();
             this.planeSpriteRenderComponent.setBitmap(
                     imageResource.getImageResource(ImageResourceType.PlayerPlane4)
             );

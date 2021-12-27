@@ -59,6 +59,11 @@ public class UILabel {
     public void setPositionY(float y) {
         this.transform.position.y = y;
     }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
     public PointF getPosition(){
         return  new PointF(this.transform.position.x, this.transform.position.y);
     }
