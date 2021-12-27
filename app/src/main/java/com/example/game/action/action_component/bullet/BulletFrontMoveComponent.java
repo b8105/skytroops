@@ -91,15 +91,14 @@ public class BulletFrontMoveComponent extends ActionComponent {
         Actor owner = super.getOwner();
 
         this.clacTarget();
-        float rotation = owner.getRotation();
-        if (this.target != null) {
-            this.updateRotation(owner, target);
+
+        if(this.target != null){
+            updateRotation(owner,this.target);
         } // if
-        super.getOwner().setRotation(rotation);
 
         // translate
         PointF position = super.getOwner().getPosition();
-        PointF move = PointFUtilities.rotate(0.0f, -this.speed, rotation, 0.0f, 0.0f);
+        PointF move = PointFUtilities.rotate(0.0f, -this.speed, owner.getRotation(), 0.0f, 0.0f);
         position.x += move.x;
         position.y += move.y;
         super.getOwner().setPosition(position);

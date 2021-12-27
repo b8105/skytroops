@@ -68,9 +68,18 @@ public class AIShotInput implements ActionInput {
         this.shotComponent.writeCommand(command);
     }
 
+    public void forceExecute(){
+        ShotCommand command = new ShotCommand();
+        this.inputCommand(command);
+        this.shotComponent.writeCommand(command);
+    }
+    public void forceReset(){
+        ShotCommand command = new ShotCommand();
+        this.shotComponent.writeCommand(command);
+    }
+
     @Override
     public void initialize() {
-
     }
 
     private void inputCommand(ShotCommand command) {
