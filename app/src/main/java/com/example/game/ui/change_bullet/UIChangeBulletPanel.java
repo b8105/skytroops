@@ -1,9 +1,11 @@
 package com.example.game.ui.change_bullet;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.PointF;
 
 import com.example.game.R;
+import com.example.game.actor.bullet.BulletType;
 import com.example.game.actor.player.PlayerPlane;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.InputEvent;
@@ -13,6 +15,7 @@ import com.example.game.effect.EffectInfo;
 import com.example.game.effect.EffectSystem;
 import com.example.game.effect.EffectType;
 import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.ui.UIPanel;
 import com.example.game.ui.change_bullet.UIChangeBulletButton;
@@ -20,6 +23,7 @@ import com.example.game.ui.change_bullet.UIChangeBulletButtonEventType;
 import com.example.game.weapon.Weapon;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 //! UIChangeBulletButtonのコンテナ
@@ -38,8 +42,9 @@ public class UIChangeBulletPanel implements UIPanel {
     private int doubleTapFrame = 0;
     private int doubleTapFrameMax = 10;
     private boolean singleTap = false;
-
     private EffectEmitter bulletUpgradeEffect;
+
+    HashMap<BulletType, Bitmap> requiredImage =null;
 
     public void update(float deltaTime) {
         this.doubleTapFrame--;
@@ -55,6 +60,9 @@ public class UIChangeBulletPanel implements UIPanel {
             Resources resources,
             EffectSystem effectSystem,
             PointF position) {
+        this.requiredImage =  new HashMap<>();
+        this.requiredImage.put(BulletType.Rapid,imageResource.getImageResource(ImageResourceType.RapidBullet));
+
         float x = position.x;
         float y = position.y;
         x += BitmapSizeStatic.bulletButton.x + this.positionMarginX;
@@ -66,7 +74,6 @@ public class UIChangeBulletPanel implements UIPanel {
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
         x += BitmapSizeStatic.bulletButton.x + this.positionMarginX;
         this.toBasicButton.unlock();
-
         this.toHomingButton = new UIChangeBulletButton(
                 imageResource, resources,
                 R.drawable.bullet02,
@@ -130,13 +137,20 @@ public class UIChangeBulletPanel implements UIPanel {
     }
 
     public void unlockToHomingButton() {
-        this.effectEmit(toHomingButton);
+        this.effectEmit(this.toHomingButton);
         this.toHomingButton.unlock();
     }
 
     public void unlockToThreeWayButton() {
-        this.effectEmit(toThreeWayButton);
+        this.effectEmit(this.toThreeWayButton);
         this.toThreeWayButton.unlock();
+    }
+    public void unlockToRapidButton() {
+        this.toBasicButton.setType(UIChangeBulletButtonEventType.ToRapid);
+        this.effectEmit(this.toBasicButton);
+        this.toBasicButton.unlock();
+        toBasicButton.setBitmap(this.requiredImage.get(BulletType.Rapid));
+        this.toBasicButton.onTouch();
     }
 
     public void change(UIChangeBulletButton bulletButton){

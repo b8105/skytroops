@@ -30,7 +30,7 @@ public class UIChangeBulletButton extends UIButton {
     private boolean lockFlag = false;
     private boolean selectFlag = false;
 
-    private float rapidInterval = 0.9f;
+    private float rapidInterval = 0.09f;
     private float basicInterval = 0.16f;
     private float homingInterval = 0.35f;
     private float threewayInterval = 0.26f;
@@ -54,6 +54,10 @@ public class UIChangeBulletButton extends UIButton {
                                 Weapon weapon, UIChangeBulletButtonEventType type) {
         super(imageResource,resources, id, position, size);
         this.setTarget(weapon, type);
+    }
+
+    public void setType(UIChangeBulletButtonEventType type) {
+        this.type = type;
     }
 
     public void setTarget(Weapon weapon, UIChangeBulletButtonEventType type) {

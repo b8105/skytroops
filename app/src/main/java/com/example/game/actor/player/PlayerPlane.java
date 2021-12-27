@@ -75,7 +75,6 @@ public class PlayerPlane extends Plane implements RecoveryApplicable {
     public void applyDamage(Damage damage) {
         HpParameter hpParameter = super.getHpParameter();
         hpParameter.decrease(damage.value);
-        hpParameter.decrease(100);
 
 
         hpParameter.clampZeroMax();
