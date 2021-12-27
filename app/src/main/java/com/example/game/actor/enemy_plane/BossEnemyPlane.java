@@ -87,7 +87,6 @@ public abstract class BossEnemyPlane extends EnemyPlane {
         EffectEmitter explosionEffectEmitter = super.getExplosionEffectEmitter();
 
         hpParameter.decrease(damage.value);
-//        hpParameter.decrease(200);
 
         if (hpParameter.isLessEqualZero()) {
             gameScorer.addScore(this.scoreTable.get(this.getEnemyPlaneType()).intValue());

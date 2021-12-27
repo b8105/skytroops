@@ -16,9 +16,11 @@ public enum ImageResourceType {
     BulletLock,
     BulletButtonSelect,
 
+    // Effect
     BulletUpgradeEffect,
     ExplosionEffect,
     ScoreEffect,
+    Score500Effect,
     PlaneUpgradeEffect,
     HPUpgradeEffect,
 

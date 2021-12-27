@@ -81,6 +81,24 @@ public class Effect {
         return animation;
     }
 
+    public SpriteAnimation createBossScoreAnimation() {
+        SpriteAnimation animation = new SpriteAnimation();
+
+        List<SpriteAnimationPart> anime = new ArrayList<>();
+        SpriteAnimationPart anim =  new SpriteAnimationPart();
+        anim.width = BitmapSizeStatic.score.x;
+        anim.height = BitmapSizeStatic.score.y;
+        anim.name = "none";
+        anim.offsetX = 0;
+        anim.offsetY = 0;
+        anim.pattern.add(new SpriteAnimationPartPattern(100, 0,0));
+        anime.add(anim);
+        animation.create(anime);
+        animation.changeMotion(0);
+
+        return animation;
+    }
+
     public SpriteAnimation createHpUpgrade() {
         SpriteAnimation animation = new SpriteAnimation();
 
@@ -129,6 +147,8 @@ public class Effect {
                 return this.createPlaneUpgrade();
             case HPUpgrade:
                 return this.createHpUpgrade();
+            case Score500:
+                return this.createBossScoreAnimation();
         } // switch
         return null;
     }

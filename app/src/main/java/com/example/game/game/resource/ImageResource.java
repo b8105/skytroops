@@ -158,6 +158,10 @@ public class ImageResource {
 
         hash.put(ImageResourceType.ScoreEffect, this.createScaledBitmap(
                 R.drawable.scores100, BitmapSizeStatic.score.x, BitmapSizeStatic.score.y));
+
+        hash.put(ImageResourceType.ScoreEffect, this.createScaledBitmap(
+                R.drawable.score500, BitmapSizeStatic.score.x, BitmapSizeStatic.score.y));
+
         hash.put(ImageResourceType.ExplosionEffect, this.createScaledBitmap(
                 R.drawable.explosion, BitmapSizeStatic.explosion.x, BitmapSizeStatic.explosion.y));
         hash.put(ImageResourceType.BulletUpgradeEffect, this.createScaledBitmap(

@@ -11,6 +11,8 @@ import android.view.MotionEvent;
 import com.example.game.R;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
+import com.example.game.main.LeaderBoard;
+import com.example.game.main.LeaderBoardData;
 import com.example.game.ui.UIButton;
 import com.example.game.collision.detector.RectangleCollisionDetector;
 import com.example.game.common.InputEvent;
@@ -22,8 +24,9 @@ import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 import com.example.game.render.info.RenderSpriteInfo;
 import com.example.game.ui.UILabel;
+import com.example.game.ui.UIText;
 
-public class GameOverScene extends Scene {
+public class GameResultScene extends Scene {
     private SceneTransitionStateMachine transitionStateMachine = null;
     private UILabel background;
     private UILabel leadrboard;
@@ -32,8 +35,9 @@ public class GameOverScene extends Scene {
     private int gameScore;
     private Transform2D transform = new Transform2D();
     private Paint paint = new Paint();
+    private UIText uiText;
 
-    public GameOverScene(Game game, ImageResource imageResource, Point screenSize) {
+    public GameResultScene(Game game, ImageResource imageResource, Point screenSize) {
         super(game, screenSize);
         this.game = game;
         this.transitionStateMachine = new SceneTransitionStateMachine(game);
@@ -52,6 +56,14 @@ public class GameOverScene extends Scene {
         paint.setTextSize(90);
         paint.setColor(Color.BLACK);
 
+        this.uiText = new UIText("",  transform.position, 96,
+                Color.BLACK, super.GetGame().getResources(),
+                R.font.luckiest_guy_regular);
+
+        LeaderBoard leaderBoard = Game.getLeaderBoard();
+        leaderBoard.getLeaderBoardDataList().add(
+                new LeaderBoardData("YOU", gameScore)
+        );
     }
 
     public void setGameScorerValue(int gameScorer) {
@@ -96,8 +108,38 @@ public class GameOverScene extends Scene {
         this.background.draw(list);
         this.leadrboard.draw(list);
 
-        list.drawText("Score : " + this.gameScore, this.transform, paint);
+//        this.uiText.setText("Score : " + this.gameScore);
+  //      this.uiText.draw(out);
+        this.drawLeaderBoard(out);
         this.restartButton.draw(out);
     }
 
+    private void drawLeaderBoard(RenderCommandQueue out){
+        int size = 96;
+        int nameLength = 7;
+        int index = 1;
+
+        float x = Game.getDisplayRealSize().x * 0.175f;
+        float y = Game.getDisplayRealSize().x * 0.35f;
+        PointF position = new PointF(
+                x,y
+        );
+        for(LeaderBoardData leaderBoardData : Game.getLeaderBoard().getLeaderBoardDataList()){
+            UIText name = new UIText(
+                    index + ". " + leaderBoardData.name, new PointF(x, position.y), size ,
+                    Color.BLACK, super.GetGame().getResources(),
+                    R.font.luckiest_guy_regular);
+            UIText score = new UIText(
+                     "" + leaderBoardData.score, new PointF(
+                             x + (size * nameLength * 0.5f) , position.y), size ,
+                    Color.BLACK, super.GetGame().getResources(),
+                    R.font.luckiest_guy_regular);
+
+            position.y += size;
+            name.draw(out);
+            score.draw(out);
+            index++;
+        } // for
+
+    }
 }
