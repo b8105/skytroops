@@ -7,21 +7,28 @@ import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
+import com.example.game.ui.UIButton;
 import com.example.game.ui.UILabel;
+import com.example.game.ui.UITutorialEndPanel;
 import com.example.game.utility.StopWatch;
 
 public class TutorialEvent extends GameEvent {
     private UILabel uiLabel;
     private StopWatch existStopWatch = new StopWatch(2.0f);
     private EnemySpawnSystem enemySpawnSystem;
+    private UITutorialEndPanel uiTutorialEndPanel;
+    private boolean endFlag = false;
 
     public TutorialEvent(
             ImageResource imageResource,
             ImageResourceType imageResourceType,
-            EnemySpawnSystem enemySpawnSystem
-    ) {
+            UITutorialEndPanel uiTutorialEndPanel,
+            EnemySpawnSystem enemySpawnSystem) {
         this.enemySpawnSystem = enemySpawnSystem;
+        this.uiTutorialEndPanel = uiTutorialEndPanel;
         this.enemySpawnSystem.inactivate();
+        this.uiTutorialEndPanel.setTutorialEvent(this);
+        this.uiTutorialEndPanel.activate();
 
         PointF position = Game.getDisplayHalfRealSize();
         position.x -= Game.getDisplayHalfRealSize().x * 0.5f;
@@ -31,9 +38,14 @@ public class TutorialEvent extends GameEvent {
                 position);
     }
 
+    public void setEndFlag(boolean endFlag) {
+        this.endFlag = endFlag;
+    }
+
     @Override
     public boolean update(float deltaTime) {
-        if (this.existStopWatch.tick(deltaTime)) {
+        if (this.endFlag) {
+            this.uiTutorialEndPanel.inactivate();
             this.enemySpawnSystem.activate();
             return true;
         } // if

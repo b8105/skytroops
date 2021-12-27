@@ -11,6 +11,7 @@ public enum ImageResourceType {
     StartButton,
     RestartButton,
     UpgradeButton,
+    ContinueButton,
 
     BulletLock,
     BulletButtonSelect,
@@ -66,4 +67,5 @@ public enum ImageResourceType {
 
     HowtoPlay,
     HowtoBulletChage,
+
 }

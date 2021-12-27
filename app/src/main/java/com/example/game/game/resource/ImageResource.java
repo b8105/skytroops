@@ -35,6 +35,8 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.restartbtn, BitmapSizeStatic.restartButton.x, BitmapSizeStatic.restartButton.y));
         hash.put(ImageResourceType.UpgradeButton,
                 this.createScaledBitmap(R.drawable.upgrade_button, BitmapSizeStatic.upgradeButton.x, BitmapSizeStatic.upgradeButton.y));
+        hash.put(ImageResourceType.ContinueButton,
+                this.createScaledBitmap(R.drawable.continue_button, BitmapSizeStatic.continueButton.x, BitmapSizeStatic.continueButton.y));
 
 
         hash.put(ImageResourceType.BulletLock,

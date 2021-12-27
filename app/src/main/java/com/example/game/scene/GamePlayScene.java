@@ -45,6 +45,7 @@ import com.example.game.ui.UIButton;
 import com.example.game.ui.UIChangeBulletPanel;
 import com.example.game.ui.UILabel;
 import com.example.game.ui.UIPausePanel;
+import com.example.game.ui.UITutorialEndPanel;
 import com.example.game.ui.UIUpgradeButton;
 import com.example.game.ui.UIUpgradePanel;
 
@@ -63,6 +64,7 @@ public class GamePlayScene extends Scene
     private UIChangeBulletPanel uiChangeBullePanel = null;
     private UIPausePanel uiPausePanel = null;
     private UIUpgradePanel uIUpgradePanel = null;
+    private UITutorialEndPanel uiTutorialEndPanel = null;
 
     private ActorFactory actorFactory = null;
     private Stage stage = null;
@@ -90,6 +92,9 @@ public class GamePlayScene extends Scene
                 this.imageResource,
                 this);
         this.uIUpgradePanel = new UIUpgradePanel(
+                this.imageResource,
+                this);
+        this.uiTutorialEndPanel = new UITutorialEndPanel(
                 this.imageResource,
                 this);
 
@@ -161,6 +166,12 @@ public class GamePlayScene extends Scene
                 this.uIUpgradePanel.input(input);
             } // if
         } // if
+        if (this.uiTutorialEndPanel != null) {
+            if (this.uiTutorialEndPanel.isActive()) {
+                this.uiTutorialEndPanel.input(input);
+            } // if
+        } // if
+
     }
 
     void updateSystem(float deltaTime) {
@@ -177,6 +188,11 @@ public class GamePlayScene extends Scene
         if (this.uIUpgradePanel != null) {
             if (this.uIUpgradePanel.isActive()) {
                 this.uIUpgradePanel.update(deltaTime);
+            } // if
+        } // if
+        if (this.uiTutorialEndPanel != null) {
+            if (this.uiTutorialEndPanel.isActive()) {
+                this.uiTutorialEndPanel.update(deltaTime);
             } // if
         } // if
 
@@ -217,6 +233,12 @@ public class GamePlayScene extends Scene
                 this.uIUpgradePanel.draw(out);
             } // if
         } // if
+        if (this.uiTutorialEndPanel != null) {
+            if (this.uiTutorialEndPanel.isActive()) {
+                this.uiTutorialEndPanel.draw(out);
+          } // if
+        } // if
+
 
         new ScoreRenderer(this.imageResource).execute(this.getGameSystem(), out);
         new DebugRenderer().execute(this.actorContainer, this.effectSystem, out);
@@ -288,7 +310,7 @@ public class GamePlayScene extends Scene
     }
     public void createTutorialEvent(ImageResourceType imageResourceType) {
         this.gameEventContainer.addEvent(
-                new TutorialEvent(this.imageResource, imageResourceType, this.gameSystem.getEnemySpawnSystem())
+                new TutorialEvent(this.imageResource, imageResourceType, this.uiTutorialEndPanel, this.gameSystem.getEnemySpawnSystem())
         );
     }
 
