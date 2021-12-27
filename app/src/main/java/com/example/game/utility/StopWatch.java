@@ -1,11 +1,12 @@
 package com.example.game.utility;
 
 
+//! 指定時に到達しても止まることなくなり続ける(trueを返し続ける)
+//! float型の時間を管理するクラスです
+//! 主にゲームイベントの生存期間,武器の発射インターバルに使っています
 public class StopWatch {
     private float timeMax;
     private float time;
-    //loop;
-    //stop;
 
     public StopWatch(float max) {
         this.timeMax = max;

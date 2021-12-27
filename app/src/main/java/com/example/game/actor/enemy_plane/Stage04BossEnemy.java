@@ -11,9 +11,8 @@ public class Stage04BossEnemy extends BossEnemyPlane {
         AnyWayGun anyWayGun = new AnyWayGun();
         super.addWeapon("AnyWayGun",anyWayGun);
 
-        super.getWeapon("BasicGun").setBulletType(BulletType.Homing);
+        super.getWeapon("BasicGun").setBulletType(BulletType.Stage04Boss);
         super.getWeapon("AnyWayGun").setBulletType(BulletType.Stage02Boss);
-//        super.getSubWeapon().setBulletType(BulletType.Stage02Boss);
     }
 
     @Override

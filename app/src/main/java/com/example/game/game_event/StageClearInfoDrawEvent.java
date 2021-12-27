@@ -1,9 +1,13 @@
 package com.example.game.game_event;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Typeface;
+import android.telecom.StatusHints;
 
+import com.example.game.R;
 import com.example.game.common.Transform2D;
 import com.example.game.game.GameScorer;
 import com.example.game.game.resource.ImageResource;
@@ -25,6 +29,8 @@ public class StageClearInfoDrawEvent extends GameEvent {
     private float time = 1.6f;
     private StopWatch existTimer;
 
+    Typeface font;
+
     private int textSize = 96;
 
     private Transform2D transform;
@@ -44,6 +50,7 @@ public class StageClearInfoDrawEvent extends GameEvent {
 
     public StageClearInfoDrawEvent(GamePlayScene gamePlayScene,
                                    GameScorer gameScorer,
+                                   Resources resource,
                                    ImageResource imageResource,
                                    NextEventType nextEventType     ) {
         this.existTimer = new StopWatch(time);
@@ -67,6 +74,9 @@ public class StageClearInfoDrawEvent extends GameEvent {
 
         this.paint.setColor(Color.BLACK);
         this.paint.setTextSize(this.textSize);
+        this.font = resource.getFont(R.font.luckiest_guy_regular);
+        this.paint.setTypeface(this.font);
+
 
         background = new UILabel(
                 imageResource, ImageResourceType.ClearInfoBackground,
@@ -95,6 +105,7 @@ public class StageClearInfoDrawEvent extends GameEvent {
         RenderCommandList list = out.getRenderCommandList(RenderLayerType.FrontEvent);
 
         background.draw( out.getRenderCommandList(RenderLayerType.FrontEvent));
+
         list.drawText(this.text, this.transform, this.paint);
         list.drawText(this.destroyedCountText, this.transformDestroyedCount, this.paint);
         list.drawText(this.scoreText, this.transformScoreText, this.paint);

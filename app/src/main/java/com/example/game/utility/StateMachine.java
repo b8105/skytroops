@@ -4,6 +4,9 @@ import com.example.game.scene.transition_state.TransitionState;
 
 import java.util.HashMap;
 
+//! 単純なステートマシンです
+//! update関数が無いのは持つStateがアクションのクラスを持つことを想定しているからです
+//! ステートのポップや遷移条件は現状不要なので入れてません
 public class StateMachine<StateType> {
     private State currentState;
     private HashMap<StateType, State> status;

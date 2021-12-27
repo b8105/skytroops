@@ -1,8 +1,10 @@
 package com.example.game.scene;
 
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.graphics.Typeface;
 
 import com.example.game.actor.player.PlayerPlane;
 import com.example.game.game.resource.ImageResource;
@@ -10,6 +12,7 @@ import com.example.game.game_event.EnemyDestroyedEvent;
 import com.example.game.game_event.GameEventContainer;
 import com.example.game.game_event.GameOverSlideEvent;
 import com.example.game.game_event.GameOverStartEvent;
+import com.example.game.game_event.PlaneMoveToCenterEvent;
 import com.example.game.game_event.StageClearInfoDrawEvent;
 import com.example.game.game_event.ToNextStageEvent;
 import com.example.game.game_event.TransitionStageEnterEvent;
@@ -20,6 +23,7 @@ import com.example.game.DebugRenderer;
 import com.example.game.observation.player_dead.PlayerDeadListener;
 import com.example.game.observation.player_dead.PlayerDeadMessage;
 import com.example.game.observation.player_dead.PlayerDeadSubject;
+import com.example.game.render.RenderLayerType;
 import com.example.game.render.ScoreRenderer;
 import com.example.game.actor.ActorTagString;
 import com.example.game.effect.EffectSystem;
@@ -186,6 +190,7 @@ public class GamePlayScene extends Scene
 
         new ScoreRenderer(this.imageResource).execute(this.getGameSystem(), out);
         new DebugRenderer().execute(this.actorContainer, this.effectSystem, out);
+
     }
 
     @Override
@@ -215,13 +220,13 @@ public class GamePlayScene extends Scene
 
     public void createStageClearInfoDrawEvent() {
         this.gameEventContainer.addEvent(
-                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(), this.imageResource, StageClearInfoDrawEvent.NextEventType.ToNextStageEvent)
+                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(),super.GetGame().getResources(), this.imageResource, StageClearInfoDrawEvent.NextEventType.ToNextStageEvent)
         );
     }
 
     public void createGameOverEvent() {
         this.gameEventContainer.addEvent(
-                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(), this.imageResource, StageClearInfoDrawEvent.NextEventType.ToGameOverScene)
+                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(),super.GetGame().getResources(), this.imageResource, StageClearInfoDrawEvent.NextEventType.ToGameOverScene)
         );
     }
 
@@ -235,6 +240,15 @@ public class GamePlayScene extends Scene
     public void createToNextStageEvent() {
         this.gameEventContainer.addEvent(
                 new ToNextStageEvent(this,
+                        this.actorContainer,
+                        this.stage,
+                        this.uiChangeBullePanel,
+                        this.imageResource));
+    }
+
+    public void createPlaneMoveToCenterEvent() {
+        this.gameEventContainer.addEvent(
+                new PlaneMoveToCenterEvent(this,
                         this.actorContainer,
                         this.stage,
                         this.uiChangeBullePanel,

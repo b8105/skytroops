@@ -6,4 +6,5 @@ public enum BulletType {
     Stage01Boss,
     Stage02Boss,
     Stage03Boss,
+    Stage04Boss,
 }
