@@ -112,6 +112,10 @@ public class ImageResource {
                 R.drawable.plane2up, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
         hash.put(ImageResourceType.PlayerPlane3, this.createScaledBitmap(
                 R.drawable.plane3up, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
+        hash.put(ImageResourceType.PlayerPlane4, this.createScaledBitmap(
+                R.drawable.plane4, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
+        hash.put(ImageResourceType.PlayerPlane5, this.createScaledBitmap(
+                R.drawable.plane5, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
 
         hash.put(ImageResourceType.BasicEnemyPlane, this.createScaledBitmap(
                 R.drawable.enemy10, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
@@ -158,8 +162,7 @@ public class ImageResource {
 
         hash.put(ImageResourceType.ScoreEffect, this.createScaledBitmap(
                 R.drawable.scores100, BitmapSizeStatic.score.x, BitmapSizeStatic.score.y));
-
-        hash.put(ImageResourceType.ScoreEffect, this.createScaledBitmap(
+        hash.put(ImageResourceType.Score500Effect, this.createScaledBitmap(
                 R.drawable.score500, BitmapSizeStatic.score.x, BitmapSizeStatic.score.y));
 
         hash.put(ImageResourceType.ExplosionEffect, this.createScaledBitmap(

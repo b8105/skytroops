@@ -76,6 +76,17 @@ public class UpgradeEvent extends GameEvent{
                     imageResource.getImageResource(ImageResourceType.PlayerPlane3)
             );
         } // else if
+        else if(stageType == StageType.Type03){
+            this.planeSpriteRenderComponent.setBitmap(
+                    imageResource.getImageResource(ImageResourceType.PlayerPlane4)
+            );
+        } // else if
+        else if(stageType == StageType.Type04){
+            this.planeSpriteRenderComponent.setBitmap(
+                    imageResource.getImageResource(ImageResourceType.PlayerPlane5)
+            );
+        } // else if
+
 
         this.hpUpgradeEffect = effectSystem.getSharedEmitter(EffectType.HPUpgrade);
         this.planeUpgradeEffect = effectSystem.getSharedEmitter(EffectType.PlaneUpgrade);

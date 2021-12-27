@@ -27,6 +27,8 @@ public enum ImageResourceType {
     PlayerPlane,
     PlayerPlane2,
     PlayerPlane3,
+    PlayerPlane4,
+    PlayerPlane5,
     BasicEnemyPlane,
     WeakEnemyPlane,
     StrongEnemyPlane,

@@ -142,6 +142,24 @@ public class UIChangeBulletPanel implements UIPanel {
         this.toThreeWayButton.unlock();
     }
 
+    public void change(UIChangeBulletButton bulletButton){
+        currentButton.setSelectFlag(false);
+        bulletButton.onTouch();
+        currentButton = bulletButton;
+        currentButton.setSelectFlag(true);
+    }
+
+    public void changeToBasic(){
+        this.change(this.toBasicButton);
+    }
+    public void changeToHoming(){
+        this.change(this.toHomingButton);
+    }
+
+    public void changeToThreeway(){
+        this.change(this.toThreeWayButton);
+    }
+
     public void input(InputEvent input) {
         if (!input.enable) {
             return;
@@ -150,10 +168,7 @@ public class UIChangeBulletPanel implements UIPanel {
         if (input.touchType == InputTouchType.Touch) {
             if (this.doubleTapFrame > 0) {
                 UIChangeBulletButton bulletButton = this.getNextButton();
-                currentButton.setSelectFlag(false);
-                bulletButton.onTouch();
-                currentButton = bulletButton;
-                currentButton.setSelectFlag(true);
+                this.change(bulletButton);
             } // if
             else if (!this.singleTap) {
                 this.singleTap = true;

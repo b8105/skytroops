@@ -14,6 +14,7 @@ import com.example.game.render.info.RenderRectangleInfo;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.stage.Stage;
 import com.example.game.stage.StageType;
+import com.example.game.ui.change_bullet.UIChangeBulletPanel;
 import com.example.game.utility.StopWatch;
 
 public class TransitionStageEnterEvent extends GameEvent {
@@ -26,12 +27,20 @@ public class TransitionStageEnterEvent extends GameEvent {
     public TransitionStageEnterEvent(
             GameSystem gameSystem,
             Stage stage,
-            GamePlayScene gamePlayScene) {
+            GamePlayScene gamePlayScene,
+            UIChangeBulletPanel uiChangeBulletPanel) {
         this.existTimer = new StopWatch(time);
         this.stage = stage;
         this.gameSystem = gameSystem;
         this.gamePlayScene = gamePlayScene;
         this.stage.changeType(this.stage.getNextType());
+        if(this.stage.getCurrentType() == StageType.Type02){
+            uiChangeBulletPanel.changeToHoming();
+        } // if
+        else if(this.stage.getCurrentType() == StageType.Type03){
+            uiChangeBulletPanel.changeToThreeway();
+        } // else if
+
     }
 
     @Override

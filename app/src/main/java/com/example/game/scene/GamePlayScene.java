@@ -4,7 +4,12 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.PointF;
 
+import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.actor.player.PlayerPlane;
+import com.example.game.common.BitmapSizeStatic;
+import com.example.game.effect.EffectEmitter;
+import com.example.game.effect.EffectInfo;
+import com.example.game.effect.EffectType;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
 import com.example.game.game_event.EnemyDestroyedEvent;
@@ -46,6 +51,7 @@ import com.example.game.ui.to_title.UISceneExitPanel;
 import com.example.game.ui.tutorial.UITutorialEndPanel;
 import com.example.game.ui.plane_upgrade.UIUpgradePanel;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class GamePlayScene extends Scene
@@ -68,6 +74,11 @@ public class GamePlayScene extends Scene
     private Stage stage = null;
 
     private ScoreRenderer scoreRenderer = null;
+
+
+    private HashMap<StageType, Integer> scoreTable = new HashMap<>();
+    private EffectEmitter bossScoreEffect;
+
 
     public GamePlayScene(Game game, ImageResource imageResource, Point screenSize) {
         super(game, screenSize);
@@ -101,6 +112,7 @@ public class GamePlayScene extends Scene
                 this.imageResource,
                 this);
 
+        this.bossScoreEffect = this.effectSystem.getSharedEmitter(EffectType.Score500);
 
         this.scoreRenderer = new ScoreRenderer(imageResource);
         this.actorFactory = new ActorFactory(this,
@@ -113,6 +125,12 @@ public class GamePlayScene extends Scene
 
 
         this.gamePlayConstruct(game);
+
+        this.scoreTable.put(StageType.Type01, 500);
+        this.scoreTable.put(StageType.Type02, 1000);
+        this.scoreTable.put(StageType.Type03, 1500);
+        this.scoreTable.put(StageType.Type04, 2000);
+        this.scoreTable.put(StageType.Type05, 2500);
     }
 
     void gamePlayConstruct(Game game) {
@@ -273,6 +291,24 @@ public class GamePlayScene extends Scene
         } // if
         playerPlane.getInvincibleParameter().activate();
 
+        this.gameSystem.getGameScorer().addScore(
+                this.scoreTable.get(this.stage.getCurrentType()).intValue());
+
+        {
+            PointF emitPos = new PointF(Game.getDisplayRealSize().x * 0.5f ,
+                    Game.getDisplayRealSize().y * 0.5f);
+            emitPos.y -= BitmapSizeStatic.score.y * 0.5f;
+            EffectInfo info = new EffectInfo(
+                    EffectType.Score500,
+                    emitPos,
+                    0.5f,
+                    new PointF(0.0f, -5.0f)
+            );
+            this.bossScoreEffect.emit(info);
+        }
+
+
+
         if (this.stage.getCurrentType() == StageType.Type05) {
             this.sceneExit();
         } // if
@@ -368,7 +404,7 @@ public class GamePlayScene extends Scene
 
     public void createTransitionStageEnterEvent() {
         this.gameEventContainer.addEvent(
-                new TransitionStageEnterEvent(this.gameSystem, this.stage, this));
+                new TransitionStageEnterEvent(this.gameSystem, this.stage, this, this.uiChangeBullePanel));
     }
 
 }

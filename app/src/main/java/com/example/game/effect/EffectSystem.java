@@ -28,6 +28,8 @@ public class EffectSystem {
 
         this.generateEffectStruct(EffectType.Score, 10,
                 ImageResourceType.ScoreEffect, RenderLayerType.UIEffect);
+        this.generateEffectStruct(EffectType.Score500, 2,
+                ImageResourceType.Score500Effect, RenderLayerType.UIForground);
         this.generateEffectStruct(EffectType.Explosion, 10,
                 ImageResourceType.ExplosionEffect, RenderLayerType.Effect);
         this.generateEffectStruct(EffectType.BulletUpgrade, 1,
