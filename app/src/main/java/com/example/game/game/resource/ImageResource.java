@@ -94,6 +94,8 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.healthframe, BitmapSizeStatic.enemyHpBar.x, BitmapSizeStatic.enemyHpBar.y));
         hash.put(ImageResourceType.PlayerPlaneHpBar,
                 this.createScaledBitmap(R.drawable.playerhealthbar, BitmapSizeStatic.playerHpBar.x, BitmapSizeStatic.playerHpBar.y));
+        hash.put(ImageResourceType.PlayerPlaneHpBarOn,
+                this.createScaledBitmap(R.drawable.healthbar_on, BitmapSizeStatic.playerHpBar.x, BitmapSizeStatic.playerHpBar.y));
         hash.put(ImageResourceType.BossEnemyPlaneHpBar,
                 this.createScaledBitmap(R.drawable.redhealthbar, BitmapSizeStatic.bossEnemyHpBar.x, BitmapSizeStatic.bossEnemyHpBar.y));
         hash.put(ImageResourceType.BossEnemyPlaneHpBar,

@@ -7,7 +7,7 @@ import com.example.game.common.InputEvent;
 import com.example.game.common.shape.Circle;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
-import com.example.game.game_event.GameOverInfoDrawEvent;
+import com.example.game.game_event.GameOver.GameOverInfoDrawEvent;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;

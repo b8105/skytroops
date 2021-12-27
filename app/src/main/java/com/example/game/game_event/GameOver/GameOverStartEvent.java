@@ -1,4 +1,4 @@
-package com.example.game.game_event;
+package com.example.game.game_event.GameOver;
 
 import android.graphics.PointF;
 import android.media.Image;
@@ -6,6 +6,7 @@ import android.media.Image;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
+import com.example.game.game_event.GameEvent;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;

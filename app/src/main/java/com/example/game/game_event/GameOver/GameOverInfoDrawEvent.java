@@ -1,4 +1,4 @@
-package com.example.game.game_event;
+package com.example.game.game_event.GameOver;
 
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -11,6 +11,7 @@ import com.example.game.common.Transform2D;
 import com.example.game.game.GameScorer;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
+import com.example.game.game_event.GameEvent;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
@@ -46,9 +47,8 @@ public class GameOverInfoDrawEvent extends GameEvent {
                                    UISceneExitPanel uiToTitlePanel,
                                    GameScorer gameScorer,
                                    Resources resource,
-                                   ImageResource imageResource,
-                                 UIPausePanel uiPausePanel,
-                                 ScoreRenderer scoreRenderer     ) {
+                                   ImageResource imageResource
+    ) {
         this.transform = new Transform2D();
         this.transformDestroyedCount = new Transform2D();
         this.transformScoreText = new Transform2D();
@@ -56,8 +56,6 @@ public class GameOverInfoDrawEvent extends GameEvent {
         this.gamePlayScene = gamePlayScene;
         this.uiToTitlePanel = uiToTitlePanel;
 
-        uiPausePanel.inactivate();
-        scoreRenderer.inactivate();
 
         this.text = "";
         this.destroyedCountText = "    x    " +  gameScorer .getEnemyDestoryCountOnStage();

@@ -51,11 +51,14 @@ public enum ImageResourceType {
     Stage03BossBullet,
     Stage04BossBullet,
 
+    // HP Renderer
     EnemyPlaneHpBar,
     EnemyPlaneHpFrame,
     BossEnemyPlaneHpBar,
     PlayerPlaneHpBar,
+    PlayerPlaneHpBarOn,
 
+    // Event GameOver
     GameOverG,
     GameOvera,
     GameOverm,
@@ -67,9 +70,8 @@ public enum ImageResourceType {
     GameOverBackground,
 
     PauseMeneIcon,
-    PauseMeneLebel,
 
+    // UI Howto
     HowtoPlay,
     HowtoBulletChage,
-
 }

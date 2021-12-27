@@ -9,14 +9,14 @@ import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
 import com.example.game.game_event.EnemyDestroyedEvent;
 import com.example.game.game_event.GameEventContainer;
-import com.example.game.game_event.GameOverInfoDrawEvent;
-import com.example.game.game_event.GameOverSlideEvent;
-import com.example.game.game_event.GameOverStartEvent;
-import com.example.game.game_event.PlaneMoveToCenterEvent;
+import com.example.game.game_event.GameOver.GameOverInfoDrawEvent;
+import com.example.game.game_event.GameOver.GameOverSlideEvent;
+import com.example.game.game_event.GameOver.GameOverStartEvent;
+import com.example.game.game_event.Plane.PlaneMoveToCenterEvent;
 import com.example.game.game_event.StageClearInfoDrawEvent;
-import com.example.game.game_event.ToNextStageEvent;
-import com.example.game.game_event.TransitionStageEnterEvent;
-import com.example.game.game_event.TransitionStageExitEvent;
+import com.example.game.game_event.Plane.ToNextStageEvent;
+import com.example.game.game_event.StageTransition.TransitionStageEnterEvent;
+import com.example.game.game_event.StageTransition.TransitionStageExitEvent;
 import com.example.game.game_event.TutorialEvent;
 import com.example.game.game_event.UpgradeEvent;
 import com.example.game.observation.boss_enemy_dead.BossEnemyDeadListener;
@@ -284,6 +284,9 @@ public class GamePlayScene extends Scene
 
     @Override
     public void onNotify(PlayerDeadMessage maeeage) {
+        this.uiPausePanel.inactivate();
+        this.scoreRenderer.inactivate();
+
         this.gameEventContainer.addEvent(
                 new GameOverStartEvent(this, this.imageResource)
         );
@@ -310,7 +313,7 @@ public class GamePlayScene extends Scene
     public void createGameOverEvent() {
         this.gameEventContainer.addEvent(
                 new GameOverInfoDrawEvent(this
-                        , this.uiToTitlePanel, this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource, this.uiPausePanel, this.scoreRenderer)
+                        , this.uiToTitlePanel, this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource)
         );
     }
 

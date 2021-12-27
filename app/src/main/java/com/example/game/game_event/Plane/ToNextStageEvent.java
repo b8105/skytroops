@@ -1,4 +1,4 @@
-package com.example.game.game_event;
+package com.example.game.game_event.Plane;
 
 import android.graphics.PointF;
 
@@ -9,6 +9,7 @@ import com.example.game.common.BitmapSizeStatic;
 import com.example.game.component.ComponentType;
 import com.example.game.game.ActorContainer;
 import com.example.game.game.resource.ImageResource;
+import com.example.game.game_event.GameEvent;
 import com.example.game.main.Game;
 import com.example.game.parameter.recovery.Recovery;
 import com.example.game.render.RenderCommandQueue;
@@ -19,7 +20,7 @@ import com.example.game.ui.change_bullet.UIChangeBulletPanel;
 import com.example.game.utility.PointFUtilities;
 import com.example.game.utility.StopWatch;
 
-public class ToNextStageEvent extends GameEvent{
+public class ToNextStageEvent extends GameEvent {
     private StopWatch existTimer;
     private float time = 1.4f;
     private GamePlayScene gamePlayScene;
