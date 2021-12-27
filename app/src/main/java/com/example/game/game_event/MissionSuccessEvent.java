@@ -11,7 +11,6 @@ import com.example.game.common.Transform2D;
 import com.example.game.game.GameScorer;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
-import com.example.game.game_event.GameEvent;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
@@ -19,8 +18,10 @@ import com.example.game.render.RenderLayerType;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.ui.UILabel;
 import com.example.game.ui.plane_upgrade.UIUpgradePanel;
+import com.example.game.utility.StopWatch;
 
-public class StageClearInfoDrawEvent extends GameEvent {
+public class MissionSuccessEvent extends GameEvent {
+    private StopWatch existTimer = new StopWatch(2.0f);
     private float time = 1.6f;
     private Typeface font;
     private int textSize = 96;
@@ -39,8 +40,7 @@ public class StageClearInfoDrawEvent extends GameEvent {
     private boolean endFlag = false;
     private UILabel enemyImage = null;
 
-    public StageClearInfoDrawEvent(GamePlayScene gamePlayScene,
-                                   UIUpgradePanel uiUpgradePanel,
+    public MissionSuccessEvent(GamePlayScene gamePlayScene,
                                    GameScorer gameScorer,
                                    Resources resource,
                                    ImageResource imageResource) {
@@ -66,7 +66,7 @@ public class StageClearInfoDrawEvent extends GameEvent {
         )
         );
 
-        this.activateUpgradePanel(uiUpgradePanel);
+//        this.activateUpgradePanel(uiUpgradePanel);
 
         this.transformScoreText.position.x = this.transform.position.x;
         this.transformScoreText.position.y = this.transformDestroyedCount.position.y + (this.textSize * 2);
@@ -84,20 +84,13 @@ public class StageClearInfoDrawEvent extends GameEvent {
                         this.transform.position.y + 160
                 ));
     }
-
-    public void setEndFlag(boolean endFlag) {
-        this.endFlag = endFlag;
-    }
-
-    private void activateUpgradePanel(UIUpgradePanel uiUpgradePanel){
-        uiUpgradePanel.activate();
-        uiUpgradePanel.setStageClearInfoDrawEvent(this);
-    }
-
     @Override
     public boolean update(float deltaTime) {
-
-        return this.endFlag;
+        if(this.existTimer.tick(deltaTime)){
+            this.gamePlayScene.sceneExit();
+            return true;
+        } // if
+        return false;
     }
 
     @Override

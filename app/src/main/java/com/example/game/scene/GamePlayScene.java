@@ -17,6 +17,7 @@ import com.example.game.game_event.GameEventContainer;
 import com.example.game.game_event.GameOver.GameOverInfoDrawEvent;
 import com.example.game.game_event.GameOver.GameOverSlideEvent;
 import com.example.game.game_event.GameOver.GameOverStartEvent;
+import com.example.game.game_event.MissionSuccessEvent;
 import com.example.game.game_event.Plane.PlaneMoveToCenterEvent;
 import com.example.game.game_event.StageClearInfoDrawEvent;
 import com.example.game.game_event.Plane.ToNextStageEvent;
@@ -308,9 +309,9 @@ public class GamePlayScene extends Scene
         }
 
 
-
         if (this.stage.getCurrentType() == StageType.Type05) {
-            this.sceneExit();
+            this.gameEventContainer.addEvent(
+                    new EnemyDestroyedEvent(this));
         } // if
         else {
             this.gameEventContainer.addEvent(
@@ -330,9 +331,17 @@ public class GamePlayScene extends Scene
     }
 
     public void createStageClearInfoDrawEvent() {
+        if(this.stage.getCurrentType() == StageType.Type05){
+            this.gameEventContainer.addEvent(
+                    new MissionSuccessEvent(this,  this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource)
+            );
+        } // if
+        else{
+
         this.gameEventContainer.addEvent(
                 new StageClearInfoDrawEvent(this, this.uIUpgradePanel, this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource)
         );
+        } // else
     }
 
     public void createUpgradeEvent() {

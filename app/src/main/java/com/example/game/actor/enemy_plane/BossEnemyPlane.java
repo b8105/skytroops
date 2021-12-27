@@ -81,7 +81,6 @@ public abstract class BossEnemyPlane extends EnemyPlane {
         EffectEmitter explosionEffectEmitter = super.getExplosionEffectEmitter();
 
         hpParameter.decrease(damage.value);
-        hpParameter.decrease(1000);
 
         if (hpParameter.isLessEqualZero()) {
 
