@@ -15,9 +15,11 @@ import com.example.game.main.Game;
 import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
+import com.example.game.render.ScoreRenderer;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.ui.UILabel;
-import com.example.game.ui.UIUpgradePanel;
+import com.example.game.ui.pause.UIPausePanel;
+import com.example.game.ui.to_title.UISceneExitPanel;
 
 public class GameOverInfoDrawEvent extends GameEvent {
     private float time = 1.6f;
@@ -36,26 +38,26 @@ public class GameOverInfoDrawEvent extends GameEvent {
     private String scoreText;
 
     private UILabel background = null;
-    private StageClearInfoDrawEvent.NextEventType nextEventType = null;
     private boolean endFlag = false;
     private UILabel enemyImage = null;
-
-
-    private UILabel missionFail = null;
-
+    private UISceneExitPanel uiToTitlePanel;
 
     public GameOverInfoDrawEvent(GamePlayScene gamePlayScene,
-                                   UIUpgradePanel uiUpgradePanel,
+                                   UISceneExitPanel uiToTitlePanel,
                                    GameScorer gameScorer,
                                    Resources resource,
                                    ImageResource imageResource,
-                                   StageClearInfoDrawEvent.NextEventType nextEventType     ) {
+                                 UIPausePanel uiPausePanel,
+                                 ScoreRenderer scoreRenderer     ) {
         this.transform = new Transform2D();
         this.transformDestroyedCount = new Transform2D();
         this.transformScoreText = new Transform2D();
         this.paint = new Paint();
         this.gamePlayScene = gamePlayScene;
-        this.nextEventType= nextEventType;
+        this.uiToTitlePanel = uiToTitlePanel;
+
+        uiPausePanel.inactivate();
+        scoreRenderer.inactivate();
 
         this.text = "";
         this.destroyedCountText = "    x    " +  gameScorer .getEnemyDestoryCountOnStage();
@@ -73,40 +75,32 @@ public class GameOverInfoDrawEvent extends GameEvent {
         )
         );
 
-        this.activateUpgradePanel(uiUpgradePanel);
+        this.activateToTitlePanel(uiToTitlePanel);
 
         this.transformScoreText.position.x = this.transform.position.x;
         this.transformScoreText.position.y = this.transformDestroyedCount.position.y + (this.textSize * 2);
 
-        this.paint.setColor(Color.BLACK);
+        this.paint.setColor(Color.YELLOW);
         this.paint.setTextSize(this.textSize);
         this.font = resource.getFont(R.font.luckiest_guy_regular);
         this.paint.setTypeface(this.font);
 
 
         background = new UILabel(
-                imageResource, ImageResourceType.ClearInfoBackground,
+                imageResource, ImageResourceType.FailedInfoBackground,
                 new PointF(
                         (Game.getDisplayRealSize().x * 0.5f) ,
-                        this.transform.position.y + 160
+                        this.transform.position.y + 120
                 ));
-
-
-        missionFail = new UILabel(
-                imageResource, ImageResourceType.MissionFail,
-                new PointF(
-                        (Game.getDisplayRealSize().x * 0.5f) ,
-                        this.transform.position.y + 160
-                ));
+        this.uiToTitlePanel.activate();
     }
 
     public void setEndFlag(boolean endFlag) {
         this.endFlag = endFlag;
     }
 
-    private void activateUpgradePanel(UIUpgradePanel uiUpgradePanel){
-//        uiUpgradePanel.activate();
-  //      uiUpgradePanel.setStageClearInfoDrawEvent(this);
+    private void activateToTitlePanel(UISceneExitPanel uiToTitlePanel){
+        uiToTitlePanel.setGameOverInfoDrawEvent(this);
     }
 
     @Override
@@ -119,7 +113,7 @@ public class GameOverInfoDrawEvent extends GameEvent {
         RenderCommandList list = out.getRenderCommandList(RenderLayerType.FrontEvent);
 
         background.draw( out.getRenderCommandList(RenderLayerType.FrontEvent));
-        missionFail.draw( out.getRenderCommandList(RenderLayerType.FrontEvent));
+//        missionFail.draw( out.getRenderCommandList(RenderLayerType.FrontEvent));
 
         list.drawText(this.text, this.transform, this.paint);
         list.drawText(this.destroyedCountText, this.transformDestroyedCount, this.paint);

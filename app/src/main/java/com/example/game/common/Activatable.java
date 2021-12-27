@@ -1,4 +1,4 @@
-package com.example.game;
+package com.example.game.common;
 
 public interface Activatable {
     public boolean isActive();

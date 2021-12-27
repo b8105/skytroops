@@ -46,7 +46,7 @@ import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 import com.example.game.render.render_component.SpriteRenderComponent;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.stage.StageType;
-import com.example.game.ui.UIChangeBulletPanel;
+import com.example.game.ui.change_bullet.UIChangeBulletPanel;
 import com.example.game.weapon.Weapon;
 
 import java.util.ArrayList;

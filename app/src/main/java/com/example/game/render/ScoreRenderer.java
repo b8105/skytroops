@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
+import com.example.game.common.Activatable;
 import com.example.game.common.Transform2D;
 import com.example.game.game.GameSystem;
 import com.example.game.game.resource.ImageResource;
@@ -14,13 +15,15 @@ import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 import com.example.game.ui.UILabel;
 
-public class ScoreRenderer {
+public class ScoreRenderer implements Activatable {
     private Transform2D transform;
     private Paint paint;
     private int textSize = 0;
     private int textMargin = 0;
     private float offsetX = 0.0f;
     private UILabel background = null;
+    private boolean active = true;
+
 
     public ScoreRenderer(ImageResource imageResource) {
         float positionY = 140.0f;
@@ -57,5 +60,19 @@ public class ScoreRenderer {
         this.clacPosition(text);
         background.draw(out);
         list.drawText(text, this.transform, this.paint);
+    }
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
+
+    @Override
+    public void activate() {
+        this.active = true;
+    }
+
+    @Override
+    public void inactivate() {
+        this.active = false;
     }
 }

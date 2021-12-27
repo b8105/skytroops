@@ -1,23 +1,22 @@
-package com.example.game.ui;
+package com.example.game.ui.change_bullet;
 
 import android.content.res.Resources;
 import android.graphics.PointF;
-import android.os.SystemClock;
-import android.view.MotionEvent;
 
 import com.example.game.R;
 import com.example.game.actor.player.PlayerPlane;
-import com.example.game.collision.detector.RectangleCollisionDetector;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.InputEvent;
 import com.example.game.common.InputTouchType;
-import com.example.game.common.shape.Circle;
 import com.example.game.effect.EffectEmitter;
 import com.example.game.effect.EffectInfo;
 import com.example.game.effect.EffectSystem;
 import com.example.game.effect.EffectType;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.render.RenderCommandQueue;
+import com.example.game.ui.UIPanel;
+import com.example.game.ui.change_bullet.UIChangeBulletButton;
+import com.example.game.ui.change_bullet.UIChangeBulletButtonEventType;
 import com.example.game.weapon.Weapon;
 
 import java.util.ArrayList;

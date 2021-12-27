@@ -1,8 +1,9 @@
-package com.example.game.ui;
+package com.example.game.ui.pause;
 
 import android.graphics.PointF;
 import android.media.Image;
 
+import com.example.game.common.Activatable;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.InputEvent;
 import com.example.game.common.InputTouchType;
@@ -13,8 +14,11 @@ import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.scene.GamePlaySceneStateType;
+import com.example.game.ui.UIButton;
+import com.example.game.ui.UILabel;
+import com.example.game.ui.UIPanel;
 
-public class UIPausePanel implements UIPanel {
+public class UIPausePanel implements UIPanel, Activatable {
     private UIButton uiPauseButton = null;
     private float tapCircleRadius = 4.0f;
     private GamePlayScene gamePlayScene = null;
@@ -23,6 +27,7 @@ public class UIPausePanel implements UIPanel {
     private UIButton toTitleButton = null;
     private UIButton continueButton = null;
 
+    private boolean active = true;
 
     public UIPausePanel(ImageResource imageResource, GamePlayScene gamePlayScene) {
         PointF screenSize = new PointF(Game.getDisplayRealSize().x, Game.getDisplayRealSize().y);
@@ -108,5 +113,20 @@ public class UIPausePanel implements UIPanel {
             this.continueButton.draw(out);
         } // if
         this.uiPauseButton.draw(out);
+    }
+
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
+
+    @Override
+    public void activate() {
+        this.active = true;
+    }
+
+    @Override
+    public void inactivate() {
+        this.active = false;
     }
 }

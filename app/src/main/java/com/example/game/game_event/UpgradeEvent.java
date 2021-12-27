@@ -1,6 +1,5 @@
 package com.example.game.game_event;
 
-import android.graphics.Point;
 import android.graphics.PointF;
 
 import com.example.game.action.action_component.PlaneActionComponent;
@@ -8,7 +7,6 @@ import com.example.game.actor.player.PlayerPlane;
 import com.example.game.collision.collision_component.PlaneCollisionComponent;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.component.ComponentType;
-import com.example.game.effect.Effect;
 import com.example.game.effect.EffectEmitter;
 import com.example.game.effect.EffectInfo;
 import com.example.game.effect.EffectSystem;
@@ -23,8 +21,7 @@ import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.stage.Stage;
 import com.example.game.stage.StageType;
-import com.example.game.ui.UIChangeBulletPanel;
-import com.example.game.utility.PointFUtilities;
+import com.example.game.ui.change_bullet.UIChangeBulletPanel;
 import com.example.game.utility.StopWatch;
 
 public class UpgradeEvent extends GameEvent{

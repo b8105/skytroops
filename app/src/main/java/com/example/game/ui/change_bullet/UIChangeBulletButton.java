@@ -1,4 +1,4 @@
-package com.example.game.ui;
+package com.example.game.ui.change_bullet;
 
 import android.content.res.Resources;
 import android.graphics.Point;
@@ -10,6 +10,8 @@ import com.example.game.actor.bullet.BulletType;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.render.RenderCommandQueue;
+import com.example.game.ui.UIButton;
+import com.example.game.ui.UILabel;
 import com.example.game.weapon.Weapon;
 
 

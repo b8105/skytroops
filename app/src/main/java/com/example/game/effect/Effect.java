@@ -56,10 +56,6 @@ public class Effect {
         anim.pattern.add(new SpriteAnimationPartPattern(frame, 1,0));
         anim.pattern.add(new SpriteAnimationPartPattern(frame, 2,0));
         anim.pattern.add(new SpriteAnimationPartPattern(frame, 3,0));
-        anim.pattern.add(new SpriteAnimationPartPattern(frame, 4,0));
-        anim.pattern.add(new SpriteAnimationPartPattern(frame, 5,0));
-        anim.pattern.add(new SpriteAnimationPartPattern(frame, 6,0));
-        anim.pattern.add(new SpriteAnimationPartPattern(frame, 7,0));
         anime.add(anim);
         animation.create(anime);
         animation.changeMotion(0);

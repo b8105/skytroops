@@ -7,9 +7,8 @@ import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
-import com.example.game.ui.UIButton;
 import com.example.game.ui.UILabel;
-import com.example.game.ui.UITutorialEndPanel;
+import com.example.game.ui.tutorial.UITutorialEndPanel;
 import com.example.game.utility.StopWatch;
 
 public class TutorialEvent extends GameEvent {

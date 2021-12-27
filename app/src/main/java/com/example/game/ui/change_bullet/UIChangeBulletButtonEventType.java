@@ -1,4 +1,4 @@
-package com.example.game.ui;
+package com.example.game.ui.change_bullet;
 
 public enum UIChangeBulletButtonEventType {
     ToBasic,

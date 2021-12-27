@@ -1,8 +1,8 @@
-package com.example.game.ui;
+package com.example.game.ui.tutorial;
 
 import android.graphics.PointF;
 
-import com.example.game.Activatable;
+import com.example.game.common.Activatable;
 import com.example.game.common.InputEvent;
 import com.example.game.common.shape.Circle;
 import com.example.game.game.resource.ImageResource;
@@ -11,8 +11,9 @@ import com.example.game.game_event.TutorialEvent;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;
+import com.example.game.ui.UIPanel;
 
-public class UITutorialEndPanel implements UIPanel , Activatable {
+public class UITutorialEndPanel implements UIPanel, Activatable {
     private boolean active;
     private UITutotialEndButton uiTutotialEndButton;
     private int touchRadius = 6;

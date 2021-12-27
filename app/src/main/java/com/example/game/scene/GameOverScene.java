@@ -27,7 +27,7 @@ public class GameOverScene extends Scene {
     private SceneTransitionStateMachine transitionStateMachine = null;
     private UILabel background;
     private UILabel leadrboard;
-    private UIButton startButton;
+    private UIButton restartButton;
     private Game game;
     private int gameScore;
     private Transform2D transform = new Transform2D();
@@ -40,7 +40,7 @@ public class GameOverScene extends Scene {
 
         PointF center = new PointF(Game.getDisplayRealSize().x * 0.5f,
                 Game.getDisplayRealSize().y * 0.5f);
-        this.startButton = new UIButton(imageResource,ImageResourceType.RestartButton,
+        this.restartButton = new UIButton(imageResource,ImageResourceType.RestartButton,
                 new PointF(screenSize.x * 0.5f, screenSize.y * 0.8f)
         );
         this.background = new UILabel(imageResource, ImageResourceType.GameOverBackground, center);
@@ -74,7 +74,7 @@ public class GameOverScene extends Scene {
 
         switch (input.actionType) {
             case (MotionEvent.ACTION_DOWN):
-                if (this.startButton.containCircle(touchCircle)) {
+                if (this.restartButton.containCircle(touchCircle)) {
                     this.game.toTitleScene();
                     //this.transitionStateMachine.transition(TransitionStateType.Exit);
                 } // if
@@ -97,7 +97,7 @@ public class GameOverScene extends Scene {
         this.leadrboard.draw(list);
 
         list.drawText("Score : " + this.gameScore, this.transform, paint);
-        this.startButton.draw(out);
+        this.restartButton.draw(out);
     }
 
 }

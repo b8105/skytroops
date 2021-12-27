@@ -2,7 +2,7 @@ package com.example.game.game.enemy_spawn;
 
 import android.graphics.PointF;
 
-import com.example.game.Activatable;
+import com.example.game.common.Activatable;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.game.creational.ActorFactory;
 import com.example.game.game.creational.BossEnemySpawner;

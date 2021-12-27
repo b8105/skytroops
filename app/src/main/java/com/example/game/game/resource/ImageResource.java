@@ -47,6 +47,9 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.scoreBackground.x, BitmapSizeStatic.scoreBackground.y));
         hash.put(ImageResourceType.ClearInfoBackground,
                 this.createScaledBitmap(R.drawable.clear_background, BitmapSizeStatic.clearInfoBackground.x, BitmapSizeStatic.clearInfoBackground.y));
+        hash.put(ImageResourceType.FailedInfoBackground,
+                this.createScaledBitmap(R.drawable.failed_background, BitmapSizeStatic.clearInfoBackground.x, BitmapSizeStatic.clearInfoBackground.y));
+
         hash.put(ImageResourceType.GameResultBackground,
                 this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.gameResultBackground.x, BitmapSizeStatic.gameResultBackground.y));
         hash.put(ImageResourceType.GameOverBackground,
@@ -156,7 +159,7 @@ public class ImageResource {
         hash.put(ImageResourceType.ExplosionEffect, this.createScaledBitmap(
                 R.drawable.explosion, BitmapSizeStatic.explosion.x, BitmapSizeStatic.explosion.y));
         hash.put(ImageResourceType.BulletUpgradeEffect, this.createScaledBitmap(
-                R.drawable.bullet_upgrade, BitmapSizeStatic.bulletUpgrade.x, BitmapSizeStatic.bulletUpgrade.y));
+                R.drawable.bullet_unlock_effect, BitmapSizeStatic.bulletUpgrade.x, BitmapSizeStatic.bulletUpgrade.y));
 
         hash.put(ImageResourceType.HPUpgradeEffect, this.createScaledBitmap(
                 R.drawable.hp50, BitmapSizeStatic.hpUpgrade.x, BitmapSizeStatic.hpUpgrade.y));
