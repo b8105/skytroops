@@ -29,12 +29,7 @@ public class AutoTargetingShotComponent extends ShotComponent {
         this.target = this.actorContainer .getMainChara();
     }
 
-    private float clacDirection(final PointF position, final PointF targetPosition) {
-        PointF normalize = PointFUtilities.normal(position, targetPosition);
-        double rotateRadian = Math.atan2((double) (normalize.y), (double) (normalize.x));
-        rotateRadian += MathUtilities.degreeToRadian(90);
-        return (float)rotateRadian;
-    }
+
 
     @Override
     public void execute(float deltaTime) {
@@ -45,7 +40,7 @@ public class AutoTargetingShotComponent extends ShotComponent {
 
         Weapon weapon = super.getWeapon();
         if(weapon.isReady()){
-            weapon.setRotation(MathUtilities.radianToDegree(this.clacDirection(
+            weapon.setRotation(MathUtilities.radianToDegree(PointFUtilities.clacDirection(
                     this.getOwner().getPosition(),
                     this.target.getPosition()
             )));

@@ -20,12 +20,14 @@ import com.example.game.render.render_component.PlaneHpBarRenderComponent;
 public class PlayerPlaneHpBarRenderer extends PlaneHpBarRenderer {
     private PlaneHpBarRenderComponent owner;
     private Bitmap bar;
+    private Bitmap on;
     private Transform2D transform = null;
 
     public PlayerPlaneHpBarRenderer(PlaneHpBarRenderComponent owner,
                                    ImageResource imageResource) {
         this.owner = owner;
         this.bar = super.constructBitmap(imageResource, ImageResourceType.PlayerPlaneHpBar);
+        this.on = super.constructBitmap(imageResource, ImageResourceType.PlayerPlaneHpBarOn);
         this.transform = new Transform2D();
         this.transform.position.x = 0.0f;
         this.transform.position.y = BitmapSizeStatic.playerHpBar.y * 0.5f;
@@ -40,7 +42,7 @@ public class PlayerPlaneHpBarRenderer extends PlaneHpBarRenderer {
     private void drawBar(HpParameter hpParameter, RenderCommandList out) {
         Rectangle rectangle = new Rectangle();
         rectangle.left = 0.0f;
-        float barLenght = bar.getWidth() - BitmapSizeStatic.playerHpBarIcon.x;
+        float barLenght = on.getWidth() - BitmapSizeStatic.playerHpBarIcon.x;
         barLenght *= hpParameter.calcPercent();
         rectangle.right = BitmapSizeStatic.playerHpBarIcon.x + barLenght;
 
@@ -48,7 +50,8 @@ public class PlayerPlaneHpBarRenderer extends PlaneHpBarRenderer {
         rectangle.top = 0.0f;
         rectangle.bottom = BitmapSizeStatic.playerHpBarIcon.y;// bar.getHeight();
         RenderSpriteInfo info = new RenderSpriteInfo(rectangle);
-        out.drawSprite(this.bar, this.transform,info);
+        out.drawSprite(this.bar, this.transform, new RenderSpriteInfo());
+        out.drawSprite(this.on, this.transform,info);
     }
 
     public void execute(HpParameter hpParameter, RenderCommandQueue out) {

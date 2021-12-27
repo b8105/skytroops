@@ -3,15 +3,16 @@ package com.example.game.utility.animation;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//! コントロールポイントはTransformでもtemplateでもなくfloatです
+//! 今回はオブジェクトのトランスフォームをアニメーションさせていないので
+//! イージングタイプは設定してません
 class BezierCurve {
-    //! 補間
     float interpolation(float time,float  prev,float  next) {
         float from = prev;
         float to = next;
         return from + (to - from) * time;
     }
-
-    //! 補間計算
     float interpolationAnimData(float normalized, List<Float> control) {
         if (!(0.0 <= normalized)) {
             return 0.0f;

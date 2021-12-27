@@ -43,8 +43,8 @@ public class ComponentFactory {
     private float bossEnemy2ShotInterval = 0.6f;
     private float bossEnemy3ShotInterval = 1.2f;
 
-    private float bossEnemy4ShotInterval = 6.0f;
-    private float bossEnemy4SubShotInterval = 3.0f;
+    private float bossEnemy4ShotInterval = 0.01f;
+    private float bossEnemy4SubShotInterval = 2.0f;
 
     private float bossEnemy5ShotInterval = 1.0f;
     private float bossEnemy5SubShotInterval = 2.0f;

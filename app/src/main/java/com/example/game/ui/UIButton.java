@@ -18,6 +18,7 @@ import com.example.game.render.RenderLayerType;
 import com.example.game.render.info.RenderRectangleInfo;
 import com.example.game.render.info.RenderSpriteInfo;
 
+
 public class UIButton extends UILabel{
     public UIButton(
             ImageResource imageResource,

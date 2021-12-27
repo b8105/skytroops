@@ -25,6 +25,7 @@ public class ImageResource {
         this.constructEffect(screenSize);
         this.constructHpRenderer(screenSize);
         this.constructGameOver(screenSize);
+        this.constructHowto(screenSize);
 
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
 
@@ -32,6 +33,10 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.start_flybtn, BitmapSizeStatic.startButton.x, BitmapSizeStatic.startButton.y));
         hash.put(ImageResourceType.RestartButton,
                 this.createScaledBitmap(R.drawable.restartbtn, BitmapSizeStatic.restartButton.x, BitmapSizeStatic.restartButton.y));
+        hash.put(ImageResourceType.UpgradeButton,
+                this.createScaledBitmap(R.drawable.upgrade_button, BitmapSizeStatic.upgradeButton.x, BitmapSizeStatic.upgradeButton.y));
+        hash.put(ImageResourceType.ContinueButton,
+                this.createScaledBitmap(R.drawable.continue_button, BitmapSizeStatic.continueButton.x, BitmapSizeStatic.continueButton.y));
 
 
         hash.put(ImageResourceType.BulletLock,
@@ -41,15 +46,26 @@ public class ImageResource {
         hash.put(ImageResourceType.ScoreBackground,
                 this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.scoreBackground.x, BitmapSizeStatic.scoreBackground.y));
         hash.put(ImageResourceType.ClearInfoBackground,
-                this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.clearInfoBackground.x, BitmapSizeStatic.clearInfoBackground.y));
+                this.createScaledBitmap(R.drawable.clear_background, BitmapSizeStatic.clearInfoBackground.x, BitmapSizeStatic.clearInfoBackground.y));
+        hash.put(ImageResourceType.FailedInfoBackground,
+                this.createScaledBitmap(R.drawable.failed_background, BitmapSizeStatic.clearInfoBackground.x, BitmapSizeStatic.clearInfoBackground.y));
+
         hash.put(ImageResourceType.GameResultBackground,
                 this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.gameResultBackground.x, BitmapSizeStatic.gameResultBackground.y));
         hash.put(ImageResourceType.GameOverBackground,
                 this.createScaledBitmap(R.drawable.gameover_background, BitmapSizeStatic.gameOverBackground.x, BitmapSizeStatic.gameOverBackground.y));
 
-
         hash.put(ImageResourceType.PauseMeneIcon,
                 this.createScaledBitmap(R.drawable.menu_icon, BitmapSizeStatic.menuIcon.x, BitmapSizeStatic.menuIcon.y));
+        hash.put(ImageResourceType.MissionFail,
+                this.createScaledBitmap(R.drawable.missionfail, BitmapSizeStatic.missionFail.x, BitmapSizeStatic.missionFail.y));
+    }
+    private void constructHowto( Point screenSize){
+        HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
+        hash.put(ImageResourceType.HowtoPlay,
+                this.createScaledBitmap(R.drawable.howo_play, BitmapSizeStatic.howtoPlay.x, BitmapSizeStatic.howtoPlay.y));
+        hash.put(ImageResourceType.HowtoBulletChage,
+                this.createScaledBitmap(R.drawable.howto_bullet_change, BitmapSizeStatic.howtoBulletChange.x, BitmapSizeStatic.howtoBulletChange.y));
     }
     private void constructGameOver( Point screenSize){
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
@@ -78,8 +94,13 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.healthframe, BitmapSizeStatic.enemyHpBar.x, BitmapSizeStatic.enemyHpBar.y));
         hash.put(ImageResourceType.PlayerPlaneHpBar,
                 this.createScaledBitmap(R.drawable.playerhealthbar, BitmapSizeStatic.playerHpBar.x, BitmapSizeStatic.playerHpBar.y));
+        hash.put(ImageResourceType.PlayerPlaneHpBarOn,
+                this.createScaledBitmap(R.drawable.healthbar_on, BitmapSizeStatic.playerHpBar.x, BitmapSizeStatic.playerHpBar.y));
         hash.put(ImageResourceType.BossEnemyPlaneHpBar,
                 this.createScaledBitmap(R.drawable.redhealthbar, BitmapSizeStatic.bossEnemyHpBar.x, BitmapSizeStatic.bossEnemyHpBar.y));
+        hash.put(ImageResourceType.BossEnemyPlaneHpBar,
+                this.createScaledBitmap(R.drawable.redhealthbar, BitmapSizeStatic.bossEnemyHpBar.x, BitmapSizeStatic.bossEnemyHpBar.y));
+
     }
 
     private void constructPlane( Point screenSize){
@@ -91,6 +112,10 @@ public class ImageResource {
                 R.drawable.plane2up, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
         hash.put(ImageResourceType.PlayerPlane3, this.createScaledBitmap(
                 R.drawable.plane3up, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
+        hash.put(ImageResourceType.PlayerPlane4, this.createScaledBitmap(
+                R.drawable.plane4, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
+        hash.put(ImageResourceType.PlayerPlane5, this.createScaledBitmap(
+                R.drawable.plane5, BitmapSizeStatic.player.x, BitmapSizeStatic.player.y));
 
         hash.put(ImageResourceType.BasicEnemyPlane, this.createScaledBitmap(
                 R.drawable.enemy10, BitmapSizeStatic.enemy.x, BitmapSizeStatic.enemy.y));
@@ -137,11 +162,18 @@ public class ImageResource {
 
         hash.put(ImageResourceType.ScoreEffect, this.createScaledBitmap(
                 R.drawable.scores100, BitmapSizeStatic.score.x, BitmapSizeStatic.score.y));
+        hash.put(ImageResourceType.Score500Effect, this.createScaledBitmap(
+                R.drawable.score500, BitmapSizeStatic.score.x, BitmapSizeStatic.score.y));
+
         hash.put(ImageResourceType.ExplosionEffect, this.createScaledBitmap(
                 R.drawable.explosion, BitmapSizeStatic.explosion.x, BitmapSizeStatic.explosion.y));
-
         hash.put(ImageResourceType.BulletUpgradeEffect, this.createScaledBitmap(
-                R.drawable.upgtext, BitmapSizeStatic.bulletUpgrade.x, BitmapSizeStatic.bulletUpgrade.y));
+                R.drawable.bullet_unlock_effect, BitmapSizeStatic.bulletUpgrade.x, BitmapSizeStatic.bulletUpgrade.y));
+
+        hash.put(ImageResourceType.HPUpgradeEffect, this.createScaledBitmap(
+                R.drawable.hp50, BitmapSizeStatic.hpUpgrade.x, BitmapSizeStatic.hpUpgrade.y));
+        hash.put(ImageResourceType.PlaneUpgradeEffect, this.createScaledBitmap(
+                R.drawable.star, BitmapSizeStatic.planeUpgrade.x, BitmapSizeStatic.planeUpgrade.y));
     }
 
     private void constructStageBackground( Point screenSize){

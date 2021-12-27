@@ -3,10 +3,8 @@ package com.example.game.main;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PointF;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
@@ -16,12 +14,10 @@ import androidx.core.view.MotionEventCompat;
 import com.example.game.R;
 import com.example.game.common.InputEvent;
 import com.example.game.common.InputTouchType;
-import com.example.game.common.Transform2D;
 import com.example.game.common.shape.Circle;
-import com.example.game.game.GameScorer;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.render.RenderCommandQueue;
-import com.example.game.scene.GameOverScene;
+import com.example.game.scene.GameResultScene;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.scene.Scene;
 import com.example.game.scene.TitleScene;
@@ -35,12 +31,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PipedInputStream;
 
 public class Game extends SurfaceView
         implements Runnable {
     public static PointF displayRealSize = new PointF();
     public static int highScore = 0;
+    public static LeaderBoard leaderBoard = new LeaderBoard();
 
     //!
     public MainActivity activity;
@@ -146,9 +142,16 @@ public class Game extends SurfaceView
         return displayRealSize;
     }
 
+    public static PointF getDisplayHalfRealSize() {
+        return new PointF(displayRealSize.x, displayRealSize.y);
+    }
 
     public static void setHighScore(int highScore) {
         Game.highScore = highScore;
+    }
+
+    public static LeaderBoard getLeaderBoard() {
+        return Game.leaderBoard;
     }
 
     public static int getHighScore() {
@@ -220,7 +223,7 @@ public class Game extends SurfaceView
         } // if
         else if (this.scene == 2) {
             int score = ((GamePlayScene) this.currentScene).getGameSystem().getGameScorer().getGameScore();
-            GameOverScene gameOverScene = new GameOverScene(this, this.imageResource, this.getDefaultDisplayRealSize());
+            GameResultScene gameOverScene = new GameResultScene(this, this.imageResource, this.getDefaultDisplayRealSize());
             gameOverScene.setGameScorerValue(score);
             this.currentScene = null;
             this.currentScene = gameOverScene;

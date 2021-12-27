@@ -25,12 +25,14 @@ public class AIBoss4TweenMoveInput implements ActionInput {
     private AIShotInput shotInput = null;
     private AIShotInput subShotInput = null;
 
+    private boolean shotFlag =false;
+
     private int tweenFrame = 0;
     private int tweenFrameMax = 120;
     private int backFrame = 0;
-    private int backFrameMax = 10;
+    private int backFrameMax = 6;
     private int frontFrame = 0;
-    private int frontFrameMax = 10;
+    private int frontFrameMax = 6;
 
 
     public void setMoveComponent(MoveComponent moveComponent) {
@@ -65,16 +67,16 @@ public class AIBoss4TweenMoveInput implements ActionInput {
                 move = new PointF(speed,0.0f );
                 break;
             case  3:
-                move = new PointF(0.0f, -speed * 2);
+                move = new PointF(0.0f, -speed * 3.0f);
                 break;
             case  4:
-                move = new PointF(0.0f, speed * 2);
+                move = new PointF(0.0f, speed* 3.0f);
                 break;
         } // switch
         return move;
     }
 
-    private void updateSequence() {
+    private void updateSequence(InputEvent input) {
         Actor owner = this.moveComponent.getOwner();
         PointF position = owner.getPosition();
         switch (this.moveSequence) {
@@ -91,7 +93,6 @@ public class AIBoss4TweenMoveInput implements ActionInput {
                 if(this.tweenFrame > this.tweenFrameMax){
                     this.tweenFrame = 0;
                     this.moveSequence = 3;
-                    this.subShotInput.inactivate();
                 } // if
                 else if (position.x < 0.0f) {
                     this.moveSequence++;
@@ -102,7 +103,6 @@ public class AIBoss4TweenMoveInput implements ActionInput {
                 if(this.tweenFrame > this.tweenFrameMax){
                     this.tweenFrame = 0;
                     this.moveSequence = 3;
-                    this.subShotInput.inactivate();
                 } // if
                 else if (position.x > Game.getDisplayRealSize().x- BitmapSizeStatic.boss.x)  {
                     this.moveSequence--;
@@ -111,16 +111,21 @@ public class AIBoss4TweenMoveInput implements ActionInput {
             case 3:
                 this.backFrame++;
                 if(this.backFrame > this.backFrameMax){
-                    this.shotInput.activate();
+                    this.shotFlag = false;
                     this.moveSequence = 4;
                     this.backFrame = 0;
                 } // if
                 break;
             case  4:
                 this.frontFrame++;
+                if(!this.shotFlag){
+                    this.shotInput.forceExecute();
+                    this.shotFlag = true;
+                } // if
+                else {
+                    this.shotInput.forceReset();
+                } // else
                 if(this.frontFrame > this.frontFrameMax){
-                    this.shotInput.inactivate();
-                    this.subShotInput.activate();
                     this.moveSequence =  new Random().nextInt(2) + 1;
                     this.frontFrame = 0;
                 } // if
@@ -131,7 +136,7 @@ public class AIBoss4TweenMoveInput implements ActionInput {
     @Override
     public void execute(InputEvent input) {
         assert (this.moveComponent != null);
-        this.updateSequence();
+        this.updateSequence(input);
         MoveCommand command = new MoveCommand();
 
         PointF speed = this.clacMove();

@@ -4,16 +4,27 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.PointF;
 
+import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.actor.player.PlayerPlane;
+import com.example.game.common.BitmapSizeStatic;
+import com.example.game.effect.EffectEmitter;
+import com.example.game.effect.EffectInfo;
+import com.example.game.effect.EffectType;
 import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.game_event.EnemyDestroyedEvent;
 import com.example.game.game_event.GameEventContainer;
-import com.example.game.game_event.GameOverSlideEvent;
-import com.example.game.game_event.GameOverStartEvent;
+import com.example.game.game_event.GameOver.GameOverInfoDrawEvent;
+import com.example.game.game_event.GameOver.GameOverSlideEvent;
+import com.example.game.game_event.GameOver.GameOverStartEvent;
+import com.example.game.game_event.MissionSuccessEvent;
+import com.example.game.game_event.Plane.PlaneMoveToCenterEvent;
 import com.example.game.game_event.StageClearInfoDrawEvent;
-import com.example.game.game_event.ToNextStageEvent;
-import com.example.game.game_event.TransitionStageEnterEvent;
-import com.example.game.game_event.TransitionStageExitEvent;
+import com.example.game.game_event.Plane.ToNextStageEvent;
+import com.example.game.game_event.StageTransition.TransitionStageEnterEvent;
+import com.example.game.game_event.StageTransition.TransitionStageExitEvent;
+import com.example.game.game_event.TutorialEvent;
+import com.example.game.game_event.UpgradeEvent;
 import com.example.game.observation.boss_enemy_dead.BossEnemyDeadListener;
 import com.example.game.observation.boss_enemy_dead.BossEnemyDeadMessage;
 import com.example.game.DebugRenderer;
@@ -34,11 +45,14 @@ import com.example.game.common.InputEvent;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.stage.StageType;
-import com.example.game.ui.UIButton;
-import com.example.game.ui.UIChangeBulletPanel;
+import com.example.game.ui.change_bullet.UIChangeBulletPanel;
 import com.example.game.ui.UILabel;
-import com.example.game.ui.UIPausePanel;
+import com.example.game.ui.pause.UIPausePanel;
+import com.example.game.ui.to_title.UISceneExitPanel;
+import com.example.game.ui.tutorial.UITutorialEndPanel;
+import com.example.game.ui.plane_upgrade.UIUpgradePanel;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class GamePlayScene extends Scene
@@ -53,8 +67,19 @@ public class GamePlayScene extends Scene
     private EffectSystem effectSystem = null;
     private UIChangeBulletPanel uiChangeBullePanel = null;
     private UIPausePanel uiPausePanel = null;
+    private UIUpgradePanel uIUpgradePanel = null;
+    private UITutorialEndPanel uiTutorialEndPanel = null;
+    private UISceneExitPanel uiToTitlePanel = null;
+
     private ActorFactory actorFactory = null;
     private Stage stage = null;
+
+    private ScoreRenderer scoreRenderer = null;
+
+
+    private HashMap<StageType, Integer> scoreTable = new HashMap<>();
+    private EffectEmitter bossScoreEffect;
+
 
     public GamePlayScene(Game game, ImageResource imageResource, Point screenSize) {
         super(game, screenSize);
@@ -73,11 +98,24 @@ public class GamePlayScene extends Scene
                 null,
                 this.imageResource,
                 resources,
+                this.effectSystem,
                 panelPosition);
         this.uiPausePanel = new UIPausePanel(
                 this.imageResource,
                 this);
+        this.uIUpgradePanel = new UIUpgradePanel(
+                this.imageResource,
+                this);
+        this.uiTutorialEndPanel = new UITutorialEndPanel(
+                this.imageResource,
+                this);
+        this.uiToTitlePanel = new UISceneExitPanel(
+                this.imageResource,
+                this);
 
+        this.bossScoreEffect = this.effectSystem.getSharedEmitter(EffectType.Score500);
+
+        this.scoreRenderer = new ScoreRenderer(imageResource);
         this.actorFactory = new ActorFactory(this,
                 imageResource,
                 this.actorContainer,
@@ -88,11 +126,19 @@ public class GamePlayScene extends Scene
 
 
         this.gamePlayConstruct(game);
+
+        this.scoreTable.put(StageType.Type01, 500);
+        this.scoreTable.put(StageType.Type02, 1000);
+        this.scoreTable.put(StageType.Type03, 1500);
+        this.scoreTable.put(StageType.Type04, 2000);
+        this.scoreTable.put(StageType.Type05, 2500);
     }
 
     void gamePlayConstruct(Game game) {
         this.stage = new Stage(game.getDefaultDisplayRealSize(), this.imageResource,
                 this.componentExecutor.getCollisionLayer());
+        this.createTutorialEvent(ImageResourceType.HowtoPlay);
+
         float x = game.getDefaultDisplayRealSize().x * 0.5f;
         float y = game.getDefaultDisplayRealSize().y * 0.85f;
         PlayerPlane plane = actorFactory.createPlayerPlane(x, y, ActorTagString.player);
@@ -138,6 +184,22 @@ public class GamePlayScene extends Scene
         if (this.uiPausePanel != null) {
             this.uiPausePanel.input(input);
         } // if
+        if (this.uIUpgradePanel != null) {
+            if (this.uIUpgradePanel.isActive()) {
+                this.uIUpgradePanel.input(input);
+            } // if
+        } // if
+        if (this.uiTutorialEndPanel != null) {
+            if (this.uiTutorialEndPanel.isActive()) {
+                this.uiTutorialEndPanel.input(input);
+            } // if
+        } // if
+        if (this.uiToTitlePanel != null) {
+            if (this.uiToTitlePanel.isActive()) {
+                this.uiToTitlePanel.input(input);
+            } // if
+        } // if
+
     }
 
     void updateSystem(float deltaTime) {
@@ -151,6 +213,22 @@ public class GamePlayScene extends Scene
         if (this.uiPausePanel != null) {
             this.uiPausePanel.update(deltaTime);
         } // if
+        if (this.uIUpgradePanel != null) {
+            if (this.uIUpgradePanel.isActive()) {
+                this.uIUpgradePanel.update(deltaTime);
+            } // if
+        } // if
+        if (this.uiTutorialEndPanel != null) {
+            if (this.uiTutorialEndPanel.isActive()) {
+                this.uiTutorialEndPanel.update(deltaTime);
+            } // if
+        } // if
+        if (this.uiToTitlePanel != null) {
+            if (this.uiToTitlePanel.isActive()) {
+                this.uiToTitlePanel.update(deltaTime);
+            } // if
+        } // if
+
     }
 
     @Override
@@ -179,12 +257,30 @@ public class GamePlayScene extends Scene
         this.effectSystem.draw(out);
         if (this.uiChangeBullePanel != null) {
             this.uiChangeBullePanel.draw(out);
-        } // of
+        } // if
         if (this.uiPausePanel != null) {
-            this.uiPausePanel.draw(out);
-        } // of
-
-        new ScoreRenderer(this.imageResource).execute(this.getGameSystem(), out);
+            if (this.uiPausePanel.isActive()) {
+                this.uiPausePanel.draw(out);
+            } // if
+        } // if
+        if (this.uIUpgradePanel != null) {
+            if (this.uIUpgradePanel.isActive()) {
+                this.uIUpgradePanel.draw(out);
+            } // if
+        } // if
+        if (this.uiTutorialEndPanel != null) {
+            if (this.uiTutorialEndPanel.isActive()) {
+                this.uiTutorialEndPanel.draw(out);
+            } // if
+        } // if
+        if (this.uiToTitlePanel != null) {
+            if (this.uiToTitlePanel.isActive()) {
+                this.uiToTitlePanel.draw(out);
+            } // if
+        } // if
+        if (this.scoreRenderer.isActive()) {
+            this.scoreRenderer.execute(this.getGameSystem(), out);
+        } // if
         new DebugRenderer().execute(this.actorContainer, this.effectSystem, out);
     }
 
@@ -196,8 +292,26 @@ public class GamePlayScene extends Scene
         } // if
         playerPlane.getInvincibleParameter().activate();
 
+        this.gameSystem.getGameScorer().addScore(
+                this.scoreTable.get(this.stage.getCurrentType()).intValue());
+
+        {
+            PointF emitPos = new PointF(Game.getDisplayRealSize().x * 0.5f ,
+                    Game.getDisplayRealSize().y * 0.5f);
+            emitPos.y -= BitmapSizeStatic.score.y * 0.5f;
+            EffectInfo info = new EffectInfo(
+                    EffectType.Score500,
+                    emitPos,
+                    0.5f,
+                    new PointF(0.0f, -5.0f)
+            );
+            this.bossScoreEffect.emit(info);
+        }
+
+
         if (this.stage.getCurrentType() == StageType.Type05) {
-            this.sceneExit();
+            this.gameEventContainer.addEvent(
+                    new EnemyDestroyedEvent(this));
         } // if
         else {
             this.gameEventContainer.addEvent(
@@ -207,6 +321,9 @@ public class GamePlayScene extends Scene
 
     @Override
     public void onNotify(PlayerDeadMessage maeeage) {
+        this.uiPausePanel.inactivate();
+        this.scoreRenderer.inactivate();
+
         this.gameEventContainer.addEvent(
                 new GameOverStartEvent(this, this.imageResource)
         );
@@ -214,14 +331,34 @@ public class GamePlayScene extends Scene
     }
 
     public void createStageClearInfoDrawEvent() {
+        if(this.stage.getCurrentType() == StageType.Type05){
+            this.gameEventContainer.addEvent(
+                    new MissionSuccessEvent(this,  this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource)
+            );
+        } // if
+        else{
+
         this.gameEventContainer.addEvent(
-                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(), this.imageResource, StageClearInfoDrawEvent.NextEventType.ToNextStageEvent)
+                new StageClearInfoDrawEvent(this, this.uIUpgradePanel, this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource)
+        );
+        } // else
+    }
+
+    public void createUpgradeEvent() {
+        this.gameEventContainer.addEvent(
+                new UpgradeEvent(this,
+                        this.actorContainer,
+                        this.stage,
+                        this.effectSystem,
+                        this.uiChangeBullePanel,
+                        this.imageResource)
         );
     }
 
     public void createGameOverEvent() {
         this.gameEventContainer.addEvent(
-                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(), this.imageResource, StageClearInfoDrawEvent.NextEventType.ToGameOverScene)
+                new GameOverInfoDrawEvent(this
+                        , this.uiToTitlePanel, this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource)
         );
     }
 
@@ -235,6 +372,25 @@ public class GamePlayScene extends Scene
     public void createToNextStageEvent() {
         this.gameEventContainer.addEvent(
                 new ToNextStageEvent(this,
+                        this.actorContainer,
+                        this.stage,
+                        this.uiChangeBullePanel,
+                        this.imageResource));
+    }
+
+    public void createTutorialEvent(ImageResourceType imageResourceType) {
+        this.gameEventContainer.addEvent(
+                new TutorialEvent(this.imageResource, imageResourceType, this.uiTutorialEndPanel, this.gameSystem.getEnemySpawnSystem())
+        );
+    }
+
+    public void createPlaneMoveToCenterEvent() {
+        PlayerPlane playerPlane = this.actorContainer.getMainChara();
+        if (playerPlane == null) {
+            return;
+        } // if
+        this.gameEventContainer.addEvent(
+                new PlaneMoveToCenterEvent(this,
                         this.actorContainer,
                         this.stage,
                         this.uiChangeBullePanel,
@@ -257,7 +413,7 @@ public class GamePlayScene extends Scene
 
     public void createTransitionStageEnterEvent() {
         this.gameEventContainer.addEvent(
-                new TransitionStageEnterEvent(this.gameSystem, this.stage));
+                new TransitionStageEnterEvent(this.gameSystem, this.stage, this, this.uiChangeBullePanel));
     }
 
 }

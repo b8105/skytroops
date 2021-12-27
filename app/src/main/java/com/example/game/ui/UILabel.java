@@ -59,7 +59,9 @@ public class UILabel {
     public void setPositionY(float y) {
         this.transform.position.y = y;
     }
-
+    public PointF getPosition(){
+        return  new PointF(this.transform.position.x, this.transform.position.y);
+    }
     public Rectangle getRectangle() {
         Transform2D transform = new Transform2D(this.transform);
         transform.position.x -= this.bitmap.getWidth() * 0.5f;

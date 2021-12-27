@@ -80,15 +80,6 @@ public class HomingBulletMoveComponent extends ActionComponent {
         } // else if
     }
 
-    private PointF moveHoming(float speed, final PointF position, final PointF targetPosition) {
-        PointF normalize = PointFUtilities.normal(position,
-                new PointF(
-                        targetPosition.x ,
-                        targetPosition.y ));
-        return new PointF(
-                normalize.x * speed,
-                normalize.y * speed);
-    }
 
     private PointF moveDefault(float speed) {
         return this.previsousMove;
@@ -114,7 +105,7 @@ public class HomingBulletMoveComponent extends ActionComponent {
         if (this.target != null) {
             PointF targetPosition = this.target.getCenterPosition();
 
-            move = this.moveHoming(
+            move = PointFUtilities.directionalVector(
                     this.speed,
                     this.getOwner().getCenterPosition(),
                     targetPosition);

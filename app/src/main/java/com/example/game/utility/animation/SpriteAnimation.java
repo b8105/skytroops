@@ -7,6 +7,8 @@ import com.example.game.common.shape.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+//! 60fpsを想定したスプライトアニメーションデータのコンテナです
+//! 表示UV矩形の取得が主な役割です
 public class SpriteAnimation {
     float idealFrameTime = 1.0f / 60.0f;
     boolean motionEnd = false;
@@ -26,21 +28,21 @@ public class SpriteAnimation {
         this.animations = new ArrayList<>();
     }
 
-    public void setMotionLoop(boolean loop) {
-        this.currentAniamtion.loop = loop;
-    }
-
-    public int getMotionNo() {
-        return this.currentMotionNo;
-    }
-
-    public String getMotionName() {
-        return this.currentAniamtion.name;
-    }
-
-    public int getAnimationSize() {
-        return this.animations.size();
-    }
+//    public void setMotionLoop(boolean loop) {
+//        this.currentAniamtion.loop = loop;
+//    }
+//
+//    public int getMotionNo() {
+//        return this.currentMotionNo;
+//    }
+//
+//    public String getMotionName() {
+//        return this.currentAniamtion.name;
+//    }
+//
+//    public int getAnimationSize() {
+//        return this.animations.size();
+//    }
 
     public Rectangle getSourceRectangle() {
         Point offset = new Point(
@@ -100,36 +102,8 @@ public class SpriteAnimation {
     }
 
     public boolean create(List<SpriteAnimationPart> data) {
-//        for (int i = 0; i < data.size(); i++) {
-        //          this.animations = data;
-        //    } // for
         this.animations = data;
-        //this.animation_size = data.size();
         this.currentAniamtion = this.animations.get(0);
         return true;
     }
 }
-
-//
-//        List<SpriteAnimationPart> anim = new ArrayList<>();
-//        SpriteAnimationPart part0 = new SpriteAnimationPart();
-//        part0.pattern.add(new SpriteAnimationPartPattern(8, 0, 0));
-//        part0.pattern.add(new SpriteAnimationPartPattern(8, 1, 0));
-//        part0.pattern.add(new SpriteAnimationPartPattern(8, 2, 0));
-//        part0.pattern.add(new SpriteAnimationPartPattern(8, 3, 0));
-//        part0.loop = false;
-//        part0.height = 144;
-//        part0.offsetX = 0;
-//        part0.offsetY = 0;
-//        part0.name= "";
-//        part0.width= 144;
-//        anim.add(part0);
-//        animation.create(anim);
-//        animation.changeMotion(0);
-//        //Bitmap bitmap = BitmapFactory.decodeResource(resources, R.drawable.plane1up);
-//        explosion = BitmapFactory.decodeResource(game.getResources(), R.drawable.explosion);
-//        this.explosion = Bitmap.createScaledBitmap(
-//                explosion,
-//                144 * 4,
-//                144,
-//                false);

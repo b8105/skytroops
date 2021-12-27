@@ -2,6 +2,7 @@ package com.example.game.game.creational;
 
 import android.graphics.PointF;
 
+import com.example.game.action.action_component.bullet.BulletFrontMoveComponent;
 import com.example.game.actor.bullet.BulletForStage01Boss;
 import com.example.game.actor.bullet.BulletForStage02Boss;
 import com.example.game.actor.bullet.HomingBullet;
@@ -45,7 +46,7 @@ import com.example.game.render.render_component.PlaneSpriteRenderComponent;
 import com.example.game.render.render_component.SpriteRenderComponent;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.stage.StageType;
-import com.example.game.ui.UIChangeBulletPanel;
+import com.example.game.ui.change_bullet.UIChangeBulletPanel;
 import com.example.game.weapon.Weapon;
 
 import java.util.ArrayList;
@@ -243,6 +244,26 @@ public class ActorFactory {
         BulletCollisionComponent collisionable = new BulletCollisionComponent(collisionLayer);
         collisionable.setCollisionRectSizeOffset(-bulletCollisionRectSizeDecrease);
 
+        moveComponent.setActorContainer(this.actorContainer);
+        // add
+        actor.addComponent(collisionable);
+        actor.addComponent(moveComponent);
+        actor.addComponent(spriteRenderComponent);
+
+        actor.initialize();
+        actor.setPosition(positionX, positionY);
+        actor.setRotation(rotation);
+        return actor;
+    }
+
+    public Bullet createStage04BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
+        HomingBullet actor = new HomingBullet(actorContainer, tag, bulletCreateConfig);
+        BulletFrontMoveComponent moveComponent = new BulletFrontMoveComponent(actionLayer);
+        SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
+                this.imageResource, ImageResourceType.Stage04BossBullet
+        );
+        BulletCollisionComponent collisionable = new BulletCollisionComponent(collisionLayer);
+        collisionable.setCollisionRectSizeOffset(-bulletCollisionRectSizeDecrease);
         moveComponent.setActorContainer(this.actorContainer);
         // add
         actor.addComponent(collisionable);
@@ -505,6 +526,15 @@ public class ActorFactory {
                     break;
                 case Stage03Boss:
                     this.createStage03BossBullet(
+                            request.transform.position.x,
+                            request.transform.position.y,
+                            request.transform.rotation,
+                            request.tag,
+                            request.config
+                    );
+                    break;
+                case Stage04Boss:
+                    this.createStage04BossBullet(
                             request.transform.position.x,
                             request.transform.position.y,
                             request.transform.rotation,

@@ -10,17 +10,25 @@ public enum ImageResourceType {
 
     StartButton,
     RestartButton,
+    UpgradeButton,
+    ContinueButton,
 
     BulletLock,
     BulletButtonSelect,
 
+    // Effect
     BulletUpgradeEffect,
     ExplosionEffect,
     ScoreEffect,
+    Score500Effect,
+    PlaneUpgradeEffect,
+    HPUpgradeEffect,
 
     PlayerPlane,
     PlayerPlane2,
     PlayerPlane3,
+    PlayerPlane4,
+    PlayerPlane5,
     BasicEnemyPlane,
     WeakEnemyPlane,
     StrongEnemyPlane,
@@ -34,7 +42,11 @@ public enum ImageResourceType {
 
     ScoreBackground,
     ClearInfoBackground,
+    FailedInfoBackground,
     GameResultBackground,
+
+
+    MissionFail,
 
     BasicBullet,
     HomingBullet,
@@ -43,11 +55,14 @@ public enum ImageResourceType {
     Stage03BossBullet,
     Stage04BossBullet,
 
+    // HP Renderer
     EnemyPlaneHpBar,
     EnemyPlaneHpFrame,
     BossEnemyPlaneHpBar,
     PlayerPlaneHpBar,
+    PlayerPlaneHpBarOn,
 
+    // Event GameOver
     GameOverG,
     GameOvera,
     GameOverm,
@@ -59,5 +74,8 @@ public enum ImageResourceType {
     GameOverBackground,
 
     PauseMeneIcon,
-    PauseMeneLebel
+
+    // UI Howto
+    HowtoPlay,
+    HowtoBulletChage,
 }
