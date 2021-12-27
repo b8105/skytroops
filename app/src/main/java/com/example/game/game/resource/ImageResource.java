@@ -25,6 +25,7 @@ public class ImageResource {
         this.constructEffect(screenSize);
         this.constructHpRenderer(screenSize);
         this.constructGameOver(screenSize);
+        this.constructHowto(screenSize);
 
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
 
@@ -51,6 +52,13 @@ public class ImageResource {
 
         hash.put(ImageResourceType.PauseMeneIcon,
                 this.createScaledBitmap(R.drawable.menu_icon, BitmapSizeStatic.menuIcon.x, BitmapSizeStatic.menuIcon.y));
+    }
+    private void constructHowto( Point screenSize){
+        HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;
+        hash.put(ImageResourceType.HowtoPlay,
+                this.createScaledBitmap(R.drawable.howo_play, BitmapSizeStatic.howtoPlay.x, BitmapSizeStatic.howtoPlay.y));
+        hash.put(ImageResourceType.HowtoBulletChage,
+                this.createScaledBitmap(R.drawable.howto_bullet_change, BitmapSizeStatic.howtoBulletChange.x, BitmapSizeStatic.howtoBulletChange.y));
     }
     private void constructGameOver( Point screenSize){
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;

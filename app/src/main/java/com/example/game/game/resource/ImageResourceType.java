@@ -62,5 +62,8 @@ public enum ImageResourceType {
     GameOverBackground,
 
     PauseMeneIcon,
-    PauseMeneLebel
+    PauseMeneLebel,
+
+    HowtoPlay,
+    HowtoBulletChage,
 }

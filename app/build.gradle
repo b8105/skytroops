@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\maila\\Desktop\\key.jks')
+            storePassword '000000'
+            keyAlias 'key0'
+            keyPassword '000000'
+        }
+    }
     compileSdk 32
 
     defaultConfig {
@@ -13,6 +21,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        targetSdkVersion 30
+        minSdkVersion 26
     }
 
     buildTypes {

@@ -38,4 +38,8 @@ public class BitmapSizeStatic {
     public static Point clearInfoBackground = new Point(780, 680);
     public static Point gameOverText = new Point(120, 120);
     public static Point gameOverTextSmall = new Point(90, 90);
+
+    // howto
+    public static Point howtoPlay = new Point((int)Game.getDisplayRealSize().x, (int)Game.getDisplayRealSize().y);
+    public static Point howtoBulletChange = new Point((int)Game.getDisplayRealSize().x, (int)Game.getDisplayRealSize().y);
 }

@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 
 import com.example.game.actor.player.PlayerPlane;
 import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.game_event.EnemyDestroyedEvent;
 import com.example.game.game_event.GameEventContainer;
 import com.example.game.game_event.GameOverSlideEvent;
@@ -17,6 +18,7 @@ import com.example.game.game_event.StageClearInfoDrawEvent;
 import com.example.game.game_event.ToNextStageEvent;
 import com.example.game.game_event.TransitionStageEnterEvent;
 import com.example.game.game_event.TransitionStageExitEvent;
+import com.example.game.game_event.TutorialEvent;
 import com.example.game.game_event.UpgradeEvent;
 import com.example.game.observation.boss_enemy_dead.BossEnemyDeadListener;
 import com.example.game.observation.boss_enemy_dead.BossEnemyDeadMessage;
@@ -107,6 +109,8 @@ public class GamePlayScene extends Scene
     void gamePlayConstruct(Game game) {
         this.stage = new Stage(game.getDefaultDisplayRealSize(), this.imageResource,
                 this.componentExecutor.getCollisionLayer());
+        this.createTutorialEvent(ImageResourceType.HowtoPlay);
+
         float x = game.getDefaultDisplayRealSize().x * 0.5f;
         float y = game.getDefaultDisplayRealSize().y * 0.85f;
         PlayerPlane plane = actorFactory.createPlayerPlane(x, y, ActorTagString.player);
@@ -216,7 +220,6 @@ public class GamePlayScene extends Scene
 
         new ScoreRenderer(this.imageResource).execute(this.getGameSystem(), out);
         new DebugRenderer().execute(this.actorContainer, this.effectSystem, out);
-
     }
 
     @Override
@@ -283,6 +286,11 @@ public class GamePlayScene extends Scene
                         this.uiChangeBullePanel,
                         this.imageResource));
     }
+    public void createTutorialEvent(ImageResourceType imageResourceType) {
+        this.gameEventContainer.addEvent(
+                new TutorialEvent(this.imageResource, imageResourceType, this.gameSystem.getEnemySpawnSystem())
+        );
+    }
 
     public void createPlaneMoveToCenterEvent() {
         PlayerPlane playerPlane = this.actorContainer.getMainChara();
@@ -313,7 +321,7 @@ public class GamePlayScene extends Scene
 
     public void createTransitionStageEnterEvent() {
         this.gameEventContainer.addEvent(
-                new TransitionStageEnterEvent(this.gameSystem, this.stage));
+                new TransitionStageEnterEvent(this.gameSystem, this.stage, this));
     }
 
 }

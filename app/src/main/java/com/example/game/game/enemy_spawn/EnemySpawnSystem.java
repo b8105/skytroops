@@ -2,6 +2,7 @@ package com.example.game.game.enemy_spawn;
 
 import android.graphics.PointF;
 
+import com.example.game.Activatable;
 import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.game.creational.ActorFactory;
 import com.example.game.game.creational.BossEnemySpawner;
@@ -12,9 +13,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class EnemySpawnSystem {
+public class EnemySpawnSystem implements Activatable {
     private List<EnemySpawnWave> waves = null;
     private int currentWaveIndex = 0;
+    private boolean bossExist = false;
     private boolean active = true;
     private BossEnemySpawner bossEnemySpawner = null;
 
@@ -175,7 +177,7 @@ public class EnemySpawnSystem {
 
         switch (type) {
             case Type01:
-//                this.constructStage01();
+                this.constructStage01();
                 break;
             case Type02:
                 this.constructStage02();
@@ -290,6 +292,20 @@ public class EnemySpawnSystem {
         return this.active;
     }
 
+    @Override
+    public void activate() {
+        this.active = true;
+    }
+
+    @Override
+    public void inactivate() {
+        this.active = false;
+    }
+
+    public boolean isBossExist() {
+        return this.bossExist;
+    }
+
     public void updateExistBoss(float deltaTime, ActorFactory actorFactory, StageType type) {
         List<EnemySpawnWave> current = this.bossWave.get(type);
         if (current != null) {
@@ -312,7 +328,8 @@ public class EnemySpawnSystem {
             } // if
         } // if
         else {
-            this.active = false;
+            this.bossExist = true;
+//            this.active = false;
             this.currentWaveIndex = 0;
             this.bossEnemySpawner.execute(type, actorFactory);
             return true;

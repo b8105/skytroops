@@ -18,7 +18,11 @@ public class GameSystem {
         return this.gameScorer;
     }
 
-    public void resetSpawnSystem(StageType stageType){
+    public EnemySpawnSystem getEnemySpawnSystem() {
+        return this.enemySpawnSystem;
+    }
+
+    public void resetSpawnSystem(StageType stageType) {
         this.enemySpawnSystem = new EnemySpawnSystem(stageType);
     }
 
@@ -26,13 +30,16 @@ public class GameSystem {
                        ActorContainer actorContainer,
                        ActorFactory actorFactory,
                        StageType stageType) {
-        if(this.enemySpawnSystem.isActive()){
-            this.enemySpawnSystem.update(deltaTime, actorFactory,stageType);
-        } // if
-        else{
-            if(actorContainer.getBossEnemy() != null){
-                this.enemySpawnSystem.updateExistBoss(deltaTime, actorFactory,stageType);
+
+        if (this.enemySpawnSystem.isActive()) {
+            if (!this.enemySpawnSystem.isBossExist()) {
+                this.enemySpawnSystem.update(deltaTime, actorFactory, stageType);
             } // if
-        } // else
+            else {
+                if (actorContainer.getBossEnemy() != null) {
+                    this.enemySpawnSystem.updateExistBoss(deltaTime, actorFactory, stageType);
+                } // if
+            } // else
+        } // if
     }
 }

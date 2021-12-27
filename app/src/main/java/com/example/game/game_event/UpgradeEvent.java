@@ -84,8 +84,6 @@ public class UpgradeEvent extends GameEvent{
         this.planeUpgradeEffect = effectSystem.getSharedEmitter(EffectType.PlaneUpgrade);
 
 
-
-
         {
             PointF emitPos = player.getCenterPosition();
             emitPos.x -= BitmapSizeStatic.hpUpgrade.x * 0.5f;
@@ -94,29 +92,29 @@ public class UpgradeEvent extends GameEvent{
                     EffectType.HPUpgrade,
                     emitPos,
                     1.0f,
-                    new PointF(0.0f ,-2.0f));
+                    new PointF(0.0f ,-6.0f));
             hpUpgradeEffect.emit(info);
 
         }
         {
-            PointF emitPos = player.getCenterPosition();
-            emitPos.x -= BitmapSizeStatic.planeUpgrade.x * 1.5f;
-            emitPos.y -= BitmapSizeStatic.planeUpgrade.y * 0.5;
-            EffectInfo info = new EffectInfo(
-                    EffectType.PlaneUpgrade,
-                    emitPos,
-                    1.0f);
-            planeUpgradeEffect.emit(info);
+//            PointF emitPos = player.getCenterPosition();
+//            emitPos.x -= BitmapSizeStatic.planeUpgrade.x * 1.5f;
+//            emitPos.y -= BitmapSizeStatic.planeUpgrade.y * 0.5;
+//            EffectInfo info = new EffectInfo(
+//                    EffectType.PlaneUpgrade,
+//                    emitPos,
+//                    1.0f);
+//            planeUpgradeEffect.emit(info);
         }
         {
-            PointF emitPos = player.getCenterPosition();
-            emitPos.x += BitmapSizeStatic.planeUpgrade.x;
-            emitPos.y -= BitmapSizeStatic.planeUpgrade.y * 0.5;
-            EffectInfo info = new EffectInfo(
-                    EffectType.PlaneUpgrade,
-                    emitPos,
-                    1.0f);
-            planeUpgradeEffect.emit(info);
+//            PointF emitPos = player.getCenterPosition();
+//            emitPos.x += BitmapSizeStatic.planeUpgrade.x;
+//            emitPos.y -= BitmapSizeStatic.planeUpgrade.y * 0.5;
+//            EffectInfo info = new EffectInfo(
+//                    EffectType.PlaneUpgrade,
+//                    emitPos,
+//                    1.0f);
+//            planeUpgradeEffect.emit(info);
         }
 
 

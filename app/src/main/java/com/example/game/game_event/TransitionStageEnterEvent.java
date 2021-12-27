@@ -4,12 +4,15 @@ import android.graphics.Color;
 
 import com.example.game.common.shape.Rectangle;
 import com.example.game.game.GameSystem;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 import com.example.game.render.info.RenderRectangleInfo;
+import com.example.game.scene.GamePlayScene;
 import com.example.game.stage.Stage;
+import com.example.game.stage.StageType;
 import com.example.game.utility.StopWatch;
 
 public class TransitionStageEnterEvent extends GameEvent {
@@ -18,20 +21,25 @@ public class TransitionStageEnterEvent extends GameEvent {
     private float timeCoefficient = 3.0f;
     private Stage stage = null;
     private GameSystem gameSystem= null;
+    private GamePlayScene gamePlayScene= null;
     public TransitionStageEnterEvent(
             GameSystem gameSystem,
-            Stage stage) {
+            Stage stage,
+            GamePlayScene gamePlayScene) {
         this.existTimer = new StopWatch(time);
         this.stage = stage;
         this.gameSystem = gameSystem;
+        this.gamePlayScene = gamePlayScene;
 
         this.stage.changeType(this.stage.getNextType());
-//        this.stage.changeType(StageType.Type05);
     }
 
     @Override
     public boolean update(float deltaIime) {
         if (existTimer.tick(deltaIime * timeCoefficient)) {
+            if(this.stage.getCurrentType() == StageType.Type02){
+                this.gamePlayScene.createTutorialEvent(ImageResourceType.HowtoBulletChage);
+            } // if
             this.gameSystem.resetSpawnSystem(this.stage.getCurrentType());
             return true;
         } // if

@@ -134,21 +134,12 @@ public class UIChangeBulletPanel implements UIPanel {
     }
 
     public void unlockToHomingButton() {
-//        this.effectEmit();
-        {
-            PointF emitPos = this.toHomingButton.getPosition();
-            emitPos.x -= BitmapSizeStatic.bulletUpgradeUnit.x * 0.5f;
-            emitPos.y -= BitmapSizeStatic.bulletUpgradeUnit.y * 0.5f;
-            EffectInfo info = new EffectInfo(
-                    EffectType.BulletUpgrade,
-                    emitPos,
-                    1.0f);
-            this.bulletUpgradeEffect.emit(info);
-        }
+        this.effectEmit(toHomingButton);
         this.toHomingButton.unlock();
     }
 
     public void unlockToThreeWayButton() {
+        this.effectEmit(toThreeWayButton);
         this.toThreeWayButton.unlock();
     }
 
