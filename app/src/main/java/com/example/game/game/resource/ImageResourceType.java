@@ -40,6 +40,9 @@ public enum ImageResourceType {
     ClearInfoBackground,
     GameResultBackground,
 
+
+    MissionFail,
+
     BasicBullet,
     HomingBullet,
     Stage01BossBullet,

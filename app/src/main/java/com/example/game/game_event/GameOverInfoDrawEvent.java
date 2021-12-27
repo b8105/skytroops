@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Typeface;
-import android.telecom.StatusHints;
 
 import com.example.game.R;
 import com.example.game.common.Transform2D;
@@ -19,14 +18,8 @@ import com.example.game.render.RenderLayerType;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.ui.UILabel;
 import com.example.game.ui.UIUpgradePanel;
-import com.example.game.utility.StopWatch;
 
-public class StageClearInfoDrawEvent extends GameEvent {
-    public enum NextEventType{
-        ToNextStageEvent,
-        ToGameOverScene,
-    }
-
+public class GameOverInfoDrawEvent extends GameEvent {
     private float time = 1.6f;
     private Typeface font;
     private int textSize = 96;
@@ -43,7 +36,7 @@ public class StageClearInfoDrawEvent extends GameEvent {
     private String scoreText;
 
     private UILabel background = null;
-    private NextEventType nextEventType = null;
+    private StageClearInfoDrawEvent.NextEventType nextEventType = null;
     private boolean endFlag = false;
     private UILabel enemyImage = null;
 
@@ -51,12 +44,12 @@ public class StageClearInfoDrawEvent extends GameEvent {
     private UILabel missionFail = null;
 
 
-    public StageClearInfoDrawEvent(GamePlayScene gamePlayScene,
+    public GameOverInfoDrawEvent(GamePlayScene gamePlayScene,
                                    UIUpgradePanel uiUpgradePanel,
                                    GameScorer gameScorer,
                                    Resources resource,
                                    ImageResource imageResource,
-                                   NextEventType nextEventType     ) {
+                                   StageClearInfoDrawEvent.NextEventType nextEventType     ) {
         this.transform = new Transform2D();
         this.transformDestroyedCount = new Transform2D();
         this.transformScoreText = new Transform2D();
@@ -112,8 +105,8 @@ public class StageClearInfoDrawEvent extends GameEvent {
     }
 
     private void activateUpgradePanel(UIUpgradePanel uiUpgradePanel){
-        uiUpgradePanel.activate();
-        uiUpgradePanel.setStageClearInfoDrawEvent(this);
+//        uiUpgradePanel.activate();
+  //      uiUpgradePanel.setStageClearInfoDrawEvent(this);
     }
 
     @Override

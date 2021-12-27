@@ -177,7 +177,7 @@ public class EnemySpawnSystem implements Activatable {
 
         switch (type) {
             case Type01:
-               this.constructStage01();
+//               this.constructStage01();
                 break;
             case Type02:
                 this.constructStage02();
@@ -294,6 +294,7 @@ public class EnemySpawnSystem implements Activatable {
 
     @Override
     public void activate() {
+
         this.active = true;
     }
 

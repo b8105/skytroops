@@ -25,6 +25,7 @@ public class BitmapSizeStatic {
     public static Point continueButton = new Point(450, 150);
 
     public static Point menuIcon = new Point( (int)(76 * 1.0), (int)(73 * 1.0));
+    public static Point missionFail = new Point( (312), (164));
 
     // effect
     public static Point score = new Point( (int)(150 * 1.5), (int)(150 * 1.5));

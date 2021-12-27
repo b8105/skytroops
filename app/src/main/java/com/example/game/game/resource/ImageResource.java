@@ -54,6 +54,8 @@ public class ImageResource {
 
         hash.put(ImageResourceType.PauseMeneIcon,
                 this.createScaledBitmap(R.drawable.menu_icon, BitmapSizeStatic.menuIcon.x, BitmapSizeStatic.menuIcon.y));
+        hash.put(ImageResourceType.MissionFail,
+                this.createScaledBitmap(R.drawable.missionfail, BitmapSizeStatic.missionFail.x, BitmapSizeStatic.missionFail.y));
     }
     private void constructHowto( Point screenSize){
         HashMap<ImageResourceType, Bitmap> hash = this.imageResourceTypeBitmapHashMap;

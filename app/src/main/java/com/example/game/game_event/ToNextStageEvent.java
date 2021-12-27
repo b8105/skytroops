@@ -56,19 +56,7 @@ public class ToNextStageEvent extends GameEvent{
 
         this.player.getHpParameter().increaseValueMax(this.recoveryBonus);
         this.player.applyRecovery(new Recovery(this.recoveryBonus) );
-        StageType stageType =stage.getCurrentType();
-        if(stageType == StageType.Type01){
-            uiChangeBullePanel.unlockToHomingButton();
-            this.planeSpriteRenderComponent.setBitmap(
-                    imageResource.getImageResource(ImageResourceType.PlayerPlane2)
-            );
-        } // if
-        else if(stageType == StageType.Type02){
-            uiChangeBullePanel.unlockToThreeWayButton();
-            this.planeSpriteRenderComponent.setBitmap(
-                    imageResource.getImageResource(ImageResourceType.PlayerPlane3)
-            );
-        } // else if
+
     }
 
     public void toCenter(){
@@ -103,14 +91,8 @@ public class ToNextStageEvent extends GameEvent{
 
     @Override
     public boolean update(float deltaIime) {
-        switch (this.moveSequence){
-            case 0:
-                this.toCenter();
-                break;
-            case 1:
-                this.toNext();
-                break;
-        } // switch
+        this.toNext();
+
 
         if (existTimer.tick(deltaIime)) {
             this.player.getWeapon("MainWeapon").incrementShotPower();

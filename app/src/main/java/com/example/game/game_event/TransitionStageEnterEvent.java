@@ -30,17 +30,16 @@ public class TransitionStageEnterEvent extends GameEvent {
         this.stage = stage;
         this.gameSystem = gameSystem;
         this.gamePlayScene = gamePlayScene;
-
         this.stage.changeType(this.stage.getNextType());
     }
 
     @Override
     public boolean update(float deltaIime) {
         if (existTimer.tick(deltaIime * timeCoefficient)) {
+            this.gameSystem.resetSpawnSystem(this.stage.getCurrentType());
             if(this.stage.getCurrentType() == StageType.Type02){
                 this.gamePlayScene.createTutorialEvent(ImageResourceType.HowtoBulletChage);
             } // if
-            this.gameSystem.resetSpawnSystem(this.stage.getCurrentType());
             return true;
         } // if
         return false;
