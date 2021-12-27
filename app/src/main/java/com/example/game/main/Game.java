@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
@@ -176,7 +177,6 @@ public class Game extends SurfaceView
     }
 
     private void start() {
-
         this.running = true;
         thread = new Thread(this);
         thread.start();
