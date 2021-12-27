@@ -18,6 +18,8 @@ public class UIText {
     private Paint paint;
     private Typeface font;
     private boolean centerFlag = false;
+    private boolean rightFlag = false;
+    private int maxSize = 0;
 
     public UIText(String text, PointF position) {
         this.text = text;
@@ -62,7 +64,6 @@ public class UIText {
         this.paint.setColor(color);
         this.font = resources.getFont(fontId);
         this.paint.setTypeface(this.font);
-        //R.font.luckiest_guy_regular
     }
 
     public void setText(String text) {
@@ -73,9 +74,26 @@ public class UIText {
         this.centerFlag = centerFlag;
     }
 
+    public void setRightFlag(boolean rightFlag, int maxSize) {
+        this.rightFlag = rightFlag;
+        this.maxSize = maxSize;
+    }
+
     public void draw(RenderCommandQueue out) {
-        RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
-        list.drawText(this.text, this.transform, this.paint);
+        if(this.rightFlag){
+            Transform2D transform = new Transform2D();
+            transform.position.x = this.transform.position.x;
+            transform.position.y = this.transform.position.y;
+
+            transform.position.x += (this.maxSize - this.text.length())  * (textSize * 0.5f);
+
+            RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
+            list.drawText(this.text, transform, this.paint);
+        } // if
+        else{
+            RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
+            list.drawText(this.text, this.transform, this.paint);
+        } // else
     }
     public void draw(RenderCommandList out) {
         out.drawText(this.text, this.transform, this.paint);

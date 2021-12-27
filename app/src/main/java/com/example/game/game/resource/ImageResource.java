@@ -145,6 +145,8 @@ public class ImageResource {
 
         hash.put(ImageResourceType.BasicBullet, this.createScaledBitmap(
                 R.drawable.bullet01, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y));
+        hash.put(ImageResourceType.RapidBullet, this.createScaledBitmap(
+                R.drawable.bullet08, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y));
         hash.put(ImageResourceType.HomingBullet, this.createScaledBitmap(
                 R.drawable.bullet02, BitmapSizeStatic.bullet.x, BitmapSizeStatic.bullet.y));
         hash.put(ImageResourceType.Stage01BossBullet, this.createScaledBitmap(

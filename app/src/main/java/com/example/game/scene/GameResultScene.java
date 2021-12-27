@@ -32,10 +32,9 @@ public class GameResultScene extends Scene {
     private UILabel leadrboard;
     private UIButton restartButton;
     private Game game;
-    private int gameScore;
+
     private Transform2D transform = new Transform2D();
     private Paint paint = new Paint();
-    private UIText uiText;
 
     public GameResultScene(Game game, ImageResource imageResource, Point screenSize) {
         super(game, screenSize);
@@ -51,26 +50,16 @@ public class GameResultScene extends Scene {
         this.leadrboard = new UILabel(imageResource, ImageResourceType.GameResultBackground,
                 new PointF(screenSize.x * 0.5f, screenSize.y * 0.35f));
 
-        transform.position.x = 140.0f;
-        transform.position.y = 500.0f;
-        paint.setTextSize(90);
-        paint.setColor(Color.BLACK);
 
-        this.uiText = new UIText("",  transform.position, 96,
-                Color.BLACK, super.GetGame().getResources(),
-                R.font.luckiest_guy_regular);
-
-        LeaderBoard leaderBoard = Game.getLeaderBoard();
-        leaderBoard.getLeaderBoardDataList().add(
-                new LeaderBoardData("YOU", gameScore)
-        );
+        this.transform.position.x = Game.getDisplayRealSize().x * 0.175f;
+        this.transform.position.y = Game.getDisplayRealSize().x * 0.35f;
+        this.paint.setTextSize(96);
+        this.paint.setColor(Color.BLACK);
     }
 
-    public void setGameScorerValue(int gameScorer) {
-        this.gameScore = gameScorer;
-        if(Game.getHighScore() < this.gameScore){
-            Game.setHighScore(this.gameScore);
-        } // if
+    public void setGameScorerValue(int gameScore) {
+        LeaderBoard leaderBoard = Game.getLeaderBoard();
+        leaderBoard.update(new LeaderBoardData("YOU", gameScore));
     }
 
     @Override
@@ -88,7 +77,6 @@ public class GameResultScene extends Scene {
             case (MotionEvent.ACTION_DOWN):
                 if (this.restartButton.containCircle(touchCircle)) {
                     this.game.toTitleScene();
-                    //this.transitionStateMachine.transition(TransitionStateType.Exit);
                 } // if
                 break;
             default:
@@ -108,34 +96,30 @@ public class GameResultScene extends Scene {
         this.background.draw(list);
         this.leadrboard.draw(list);
 
-//        this.uiText.setText("Score : " + this.gameScore);
-  //      this.uiText.draw(out);
         this.drawLeaderBoard(out);
         this.restartButton.draw(out);
     }
 
     private void drawLeaderBoard(RenderCommandQueue out){
-        int size = 96;
-        int nameLength = 7;
+        int nameLength = Game.getLeaderBoard().getNameLength();
         int index = 1;
 
-        float x = Game.getDisplayRealSize().x * 0.175f;
-        float y = Game.getDisplayRealSize().x * 0.35f;
-        PointF position = new PointF(
-                x,y
-        );
+        PointF position = new PointF(this.transform.position.x,this.transform.position.y) ;
         for(LeaderBoardData leaderBoardData : Game.getLeaderBoard().getLeaderBoardDataList()){
             UIText name = new UIText(
-                    index + ". " + leaderBoardData.name, new PointF(x, position.y), size ,
+                    index + ". " + leaderBoardData.name, new PointF(position.x, position.y),
+                    (int)this.paint.getTextSize() ,
                     Color.BLACK, super.GetGame().getResources(),
                     R.font.luckiest_guy_regular);
             UIText score = new UIText(
                      "" + leaderBoardData.score, new PointF(
-                             x + (size * nameLength * 0.5f) , position.y), size ,
+                    position.x + (this.paint.getTextSize() * nameLength * 0.5f) , position.y),
+                    (int)this.paint.getTextSize(),
                     Color.BLACK, super.GetGame().getResources(),
                     R.font.luckiest_guy_regular);
+            score.setRightFlag(true, nameLength);
 
-            position.y += size;
+            position.y += this.paint.getTextSize() * 1.5f;
             name.draw(out);
             score.draw(out);
             index++;

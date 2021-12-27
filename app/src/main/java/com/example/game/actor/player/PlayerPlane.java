@@ -72,13 +72,10 @@ public class PlayerPlane extends Plane implements RecoveryApplicable {
         return this.invincibleParameter;
     }
 
-    public void resetInvincibleTime(float time) {
-        this.invincibleParameter.setInvincibleTime(time);
-    }
-
     public void applyDamage(Damage damage) {
         HpParameter hpParameter = super.getHpParameter();
         hpParameter.decrease(damage.value);
+        hpParameter.decrease(100);
 
 
         hpParameter.clampZeroMax();

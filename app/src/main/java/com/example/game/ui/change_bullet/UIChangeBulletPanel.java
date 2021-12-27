@@ -61,7 +61,6 @@ public class UIChangeBulletPanel implements UIPanel {
 
         this.bulletUpgradeEffect = effectSystem.getSharedEmitter(EffectType.BulletUpgrade);
         this.toBasicButton = new UIChangeBulletButton(
-                playerPlane,
                 imageResource, resources,
                 R.drawable.bullet01,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
@@ -69,7 +68,6 @@ public class UIChangeBulletPanel implements UIPanel {
         this.toBasicButton.unlock();
 
         this.toHomingButton = new UIChangeBulletButton(
-                playerPlane,
                 imageResource, resources,
                 R.drawable.bullet02,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
@@ -77,7 +75,6 @@ public class UIChangeBulletPanel implements UIPanel {
         this.toHomingButton.lock();
 
         this.toThreeWayButton = new UIChangeBulletButton(
-                playerPlane,
                 imageResource, resources,
                 R.drawable.bullet03,
                 new PointF(x, y), BitmapSizeStatic.bulletButton);
