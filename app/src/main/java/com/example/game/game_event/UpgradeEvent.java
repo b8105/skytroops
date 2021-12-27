@@ -118,6 +118,9 @@ public class UpgradeEvent extends GameEvent{
                     1.0f);
             planeUpgradeEffect.emit(info);
         }
+
+
+
     }
 
 

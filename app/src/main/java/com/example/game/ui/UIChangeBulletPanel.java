@@ -49,6 +49,7 @@ public class UIChangeBulletPanel implements UIPanel {
             this.singleTap = false;
         } // if
     }
+
     public UIChangeBulletPanel(
             PlayerPlane playerPlane,
             ImageResource imageResource,
@@ -120,7 +121,20 @@ public class UIChangeBulletPanel implements UIPanel {
                 BitmapSizeStatic.bulletButton.y * 0.5f);
     }
 
+    private void effectEmit(UIChangeBulletButton uiChangeBulletButton) {
+        PointF emitPos = uiChangeBulletButton.getPosition();
+        emitPos.x -= BitmapSizeStatic.bulletUpgradeUnit.x * 0.5f;
+        emitPos.y -= BitmapSizeStatic.bulletUpgradeUnit.y * 0.5f;
+        EffectInfo info = new EffectInfo(
+                EffectType.BulletUpgrade,
+                emitPos,
+                1.0f);
+        this.bulletUpgradeEffect.emit(info);
+        uiChangeBulletButton.unlock();
+    }
+
     public void unlockToHomingButton() {
+//        this.effectEmit();
         {
             PointF emitPos = this.toHomingButton.getPosition();
             emitPos.x -= BitmapSizeStatic.bulletUpgradeUnit.x * 0.5f;
@@ -144,14 +158,14 @@ public class UIChangeBulletPanel implements UIPanel {
         } // if
 
         if (input.touchType == InputTouchType.Touch) {
-            if(this.doubleTapFrame > 0){
+            if (this.doubleTapFrame > 0) {
                 UIChangeBulletButton bulletButton = this.getNextButton();
                 currentButton.setSelectFlag(false);
                 bulletButton.onTouch();
                 currentButton = bulletButton;
                 currentButton.setSelectFlag(true);
             } // if
-            else if(!this.singleTap){
+            else if (!this.singleTap) {
                 this.singleTap = true;
                 this.doubleTapFrame = this.doubleTapFrameMax;
             } // if

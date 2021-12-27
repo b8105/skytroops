@@ -28,10 +28,7 @@ public class StageClearInfoDrawEvent extends GameEvent {
     }
 
     private float time = 1.6f;
-    private StopWatch existTimer;
-
-    Typeface font;
-
+    private Typeface font;
     private int textSize = 96;
 
     private Transform2D transform;
@@ -47,9 +44,9 @@ public class StageClearInfoDrawEvent extends GameEvent {
 
     private UILabel background = null;
     private NextEventType nextEventType = null;
-
-
     private boolean endFlag = false;
+    private UILabel enemyImage = null;
+
 
     public StageClearInfoDrawEvent(GamePlayScene gamePlayScene,
                                    UIUpgradePanel uiUpgradePanel,
@@ -57,7 +54,6 @@ public class StageClearInfoDrawEvent extends GameEvent {
                                    Resources resource,
                                    ImageResource imageResource,
                                    NextEventType nextEventType     ) {
-        this.existTimer = new StopWatch(time);
         this.transform = new Transform2D();
         this.transformDestroyedCount = new Transform2D();
         this.transformScoreText = new Transform2D();
@@ -65,17 +61,24 @@ public class StageClearInfoDrawEvent extends GameEvent {
         this.gamePlayScene = gamePlayScene;
         this.nextEventType= nextEventType;
 
-
-        this.activateUpgradePanel(uiUpgradePanel);
-
         this.text = "";
-        this.destroyedCountText = "倒した数 : " +  gameScorer .getEnemyDestoryCountOnStage();
-        this.scoreText = "スコア : "+ gameScorer .getEnemyDestoryScoreOnStage();
+        this.destroyedCountText = "    x    " +  gameScorer .getEnemyDestoryCountOnStage();
+        this.scoreText = gameScorer .getEnemyDestoryScoreOnStage() + " Pt";
 
         this.transform.position.x = Game.getDisplayRealSize().x * 0.25f;
         this.transform.position.y = Game.getDisplayRealSize().x * 0.65f;
         this.transformDestroyedCount.position.x = this.transform.position.x;
         this.transformDestroyedCount.position.y = this.transform.position.y + (this.textSize * 2);
+
+        this.enemyImage = new UILabel(
+                imageResource, ImageResourceType.BasicEnemyPlane, new PointF(
+                this.transformDestroyedCount.position.x,
+                this.transformDestroyedCount.position.y
+        )
+        );
+
+        this.activateUpgradePanel(uiUpgradePanel);
+
         this.transformScoreText.position.x = this.transform.position.x;
         this.transformScoreText.position.y = this.transformDestroyedCount.position.y + (this.textSize * 2);
 
@@ -115,6 +118,13 @@ public class StageClearInfoDrawEvent extends GameEvent {
 
         list.drawText(this.text, this.transform, this.paint);
         list.drawText(this.destroyedCountText, this.transformDestroyedCount, this.paint);
-        list.drawText(this.scoreText, this.transformScoreText, this.paint);
+        this.enemyImage.draw(list);
+
+        int scoreTextLength = this.scoreText.length();
+        Transform2D transform = new Transform2D();
+        float offsetX = ((float)this.textSize * 0.5f) * ((float)scoreTextLength * 0.5f);
+        transform.position.x = Game.getDisplayRealSize().x * 0.5f - offsetX;
+        transform.position.y = this.transformScoreText.position.y;
+        list.drawText(this.scoreText, transform, this.paint);
     }
 }
