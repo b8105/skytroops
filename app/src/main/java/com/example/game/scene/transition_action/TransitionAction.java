@@ -6,6 +6,8 @@ import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.utility.StopWatch;
 
+//! TransitionStateに対応したActionクラスの基底クラスです
+//! フェードインフェードアウトに使用します
 public abstract class TransitionAction {
     private StopWatch time = null;
     private float timeCoefficient = 0.0f;
@@ -27,7 +29,7 @@ public abstract class TransitionAction {
             this.game.toTitleScene();
         } // if
         else {
-            this.game.IncremenntSceneNo();
+            this.game.incremenntSceneNo();
         } // else
     }
 

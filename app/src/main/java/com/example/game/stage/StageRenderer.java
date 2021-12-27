@@ -10,6 +10,7 @@ import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 import com.example.game.render.info.RenderSpriteInfo;
 
+//! ステージをスクロールさせて描画します
 public class StageRenderer {
     private Stage stage = null;
     private Paint paint;
@@ -44,6 +45,7 @@ public class StageRenderer {
         Transform2D transform = new Transform2D();
         transform.position.y = this.stage.getScroll();
 
+        // スクロールでずれた部分を描画します
         int h = bitmap.getHeight();
         int screenHeight = h;
         for (float y = ((int) transform.position.y % h) - h; y < screenHeight; y += h) {

@@ -14,6 +14,7 @@ import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 import com.example.game.ui.UILabel;
+import com.example.game.ui.UIText;
 
 public class ScoreRenderer implements Activatable {
     private Transform2D transform;
@@ -23,7 +24,6 @@ public class ScoreRenderer implements Activatable {
     private float offsetX = 0.0f;
     private UILabel background = null;
     private boolean active = true;
-
 
     public ScoreRenderer(ImageResource imageResource) {
         float positionY = 140.0f;
@@ -42,8 +42,6 @@ public class ScoreRenderer implements Activatable {
         this.transform = new Transform2D();
         transform.position.x = 620;
         transform.position.y = positionY + (this.textSize*0.5f);
-
-
     }
 
     private void clacPosition(String text){
@@ -58,7 +56,7 @@ public class ScoreRenderer implements Activatable {
         RenderCommandList list = out.getRenderCommandList(RenderLayerType.UI);
         String text = ((Integer) (gameSystem.getGameScorer().getGameScore())).toString();
         this.clacPosition(text);
-        background.draw(out);
+        this.background.draw(out);
         list.drawText(text, this.transform, this.paint);
     }
     @Override

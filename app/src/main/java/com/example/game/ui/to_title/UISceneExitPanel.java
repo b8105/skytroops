@@ -13,12 +13,17 @@ import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.ui.UIPanel;
 
+//! プレイヤーが倒されゲームオーバーとなった後にでるパネル
+//! リザルトシーンに遷移するボタンを持ちます
 public class UISceneExitPanel implements UIPanel , Activatable {
     private boolean active;
     private UISceneExitButton uiToTitleButton;
     private int touchRadius = 6;
     private GamePlayScene gamePlayScene;
+
+    //! 保持するボタンがクリックされたらイベントの終了フラグを立てます
     private GameOverInfoDrawEvent gameOverInfoDrawEvent;
+
     public UISceneExitPanel(ImageResource imageResource, GamePlayScene gamePlayScene){
         this.gamePlayScene = gamePlayScene;
         PointF center = new PointF(
@@ -34,11 +39,11 @@ public class UISceneExitPanel implements UIPanel , Activatable {
         this.gameOverInfoDrawEvent = gameOverInfoDrawEvent;
     }
 
+    //! シーンの遷移を開始します
     @Override
     public void input(InputEvent input) {
         if(this.uiToTitleButton.containCircle(new Circle(
-                input.positionX,input.positionY,touchRadius
-        ))){
+                input.positionX,input.positionY,touchRadius))){
             this.gamePlayScene.sceneExit();
             this.gameOverInfoDrawEvent.setEndFlag(true);
             this.inactivate();

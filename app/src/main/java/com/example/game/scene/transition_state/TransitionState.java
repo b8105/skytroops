@@ -3,6 +3,7 @@ package com.example.game.scene.transition_state;
 import com.example.game.utility.State;
 import com.example.game.scene.transition_action.TransitionAction;
 
+//! ステートマシンに管理される遷移状態の基底クラスです
 public abstract class TransitionState implements
         State<TransitionStateType, TransitionAction> {
     private TransitionAction action;

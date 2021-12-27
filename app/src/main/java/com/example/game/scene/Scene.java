@@ -26,8 +26,6 @@ public class Scene {
         return this.screenSize;
     }
 
-
-
     //! 入力
     public void input(InputEvent input) {
     }

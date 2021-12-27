@@ -19,6 +19,7 @@ import com.example.game.render.info.RenderRectangleInfo;
 import com.example.game.render.info.RenderSpriteInfo;
 
 
+//! UI基本オブジェクト
 public class UIButton extends UILabel{
     public UIButton(
             ImageResource imageResource,

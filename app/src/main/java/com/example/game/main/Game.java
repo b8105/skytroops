@@ -33,88 +33,50 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class Game extends SurfaceView
-        implements Runnable {
+//! ゲームのエントリポイントです
+//! 実行スレッドの中で　入力->処理->出力 繰り返します
+//! ゲームシーンの管理やその中で使用するクラスを保持します
+public class Game extends SurfaceView implements Runnable {
     public static PointF displayRealSize = new PointF();
+    //! ユーザのハイスコア
     public static int highScore = 0;
+    //! 全体のスコアホルダー
     public static LeaderBoard leaderBoard = new LeaderBoard();
-
-    //!
+    //! リソース獲得のためにキャッシュします
     public MainActivity activity;
-    //! thread
+    //! 実行スレッドパラメータ
     private Thread thread;
     private boolean running = true;
     private float frameTime = 1.0f / 60.0f;
     private float frameTimeCoefficientForGame = 1.0f;
-    //! system
-    private InputEvent inputEvent = new InputEvent();
+    //! ゲーム全体で使用するシステムのパラメータ
     private RenderCommandQueue renderCommandQueue;
     private ImageResource imageResource;
-    //! scene
-    private Scene currentScene = null;
-    private int scene = 0;
-    private boolean changeSceneFlag = false;
-    private GestureDetectorCompat mDetector;
-
+    private InputEvent inputEvent = new InputEvent();
+    //! 今回のゲームはタッチ操作しかないのでboolean変数１つ
     private boolean enableTouch = false;
     private boolean prevTouch = false;
     private boolean currentTouch = false;
 
+    //! シーンを複雑な管理はしないので番号で制御します
+    private Scene currentScene = null;
+    private int scene = 0;
+    private int titleNo = 0;
+    private boolean changeSceneFlag = false;
+
+
     private UIButton debugSwitch;
     private boolean debugFlag = true;
 
-    private JSONObject parseJson(String fileName) throws JSONException, IOException {
-        InputStream inputStream = activity.getAssets().open(fileName);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        JSONObject json = null;
-
-        String data = "";
-        String str = bufferedReader.readLine();
-
-        while (str != null) {
-            data += str;
-            str = bufferedReader.readLine();
-        } // while
-
-        json = new JSONObject(data);
-
-        inputStream.close();
-        bufferedReader.close();
-        return json;
-    }
-
-    void load() throws JSONException, IOException {
-        try {
-            JSONObject json = this.parseJson(new String("test.json"));
-
-            //JSONObject sample = json.getJSONObject("sample");
-            JSONArray sample = json.getJSONArray("sample");
-            for (int i = 0; i < sample.length(); ++i) {
-                JSONObject data = sample.getJSONObject(i);
-                int age = data.getInt("age");
-                String name = data.getString("name");
-
-                System.out.println("age = " + age);
-                System.out.println("name  = " + name);
-            } // for
-        } // try
-        catch (JSONException e) {
-            e.printStackTrace();
-        } // catch
-    }
-
-    // constructor
     public Game(MainActivity activity) {
         super(activity);
         this.activity = activity;
-
         displayRealSize.x = this.getDefaultDisplayRealSize().x;
         displayRealSize.y = this.getDefaultDisplayRealSize().y;
-
         this.start();
-        renderCommandQueue = new RenderCommandQueue();
-        imageResource = new ImageResource(this.getResources(), this.getDefaultDisplayRealSize());
-        currentScene = new TitleScene(this, this.getDefaultDisplayRealSize());
+        this.renderCommandQueue = new RenderCommandQueue();
+        this.imageResource = new ImageResource(this.getResources(), this.getDefaultDisplayRealSize());
+        this.currentScene = new TitleScene(this,this.imageResource, this.getDefaultDisplayRealSize());
 
         debugSwitch = new UIButton(
                 imageResource,
@@ -122,21 +84,6 @@ public class Game extends SurfaceView
                 R.drawable.restartbtn,
                 new PointF(900.0f, 30.0f),
                 new Point(32, 32));
-
-        try {
-            this.load();
-        } // try
-        catch (JSONException e) {
-            e.printStackTrace();
-        } // catch
-        catch (IOException e) {
-            e.printStackTrace();
-        } // catch
-    }
-
-    public Resources getResources() {
-        assert (this.activity != null);
-        return this.activity.getResources();
     }
 
     public static PointF getDisplayRealSize() {
@@ -147,16 +94,17 @@ public class Game extends SurfaceView
         return new PointF(displayRealSize.x, displayRealSize.y);
     }
 
-    public static void setHighScore(int highScore) {
-        Game.highScore = highScore;
-    }
-
     public static LeaderBoard getLeaderBoard() {
         return Game.leaderBoard;
     }
 
     public static int getHighScore() {
         return highScore;
+    }
+
+    public Resources getResources() {
+        assert (this.activity != null);
+        return this.activity.getResources();
     }
 
     public Point getDefaultDisplayRealSize() {
@@ -215,7 +163,7 @@ public class Game extends SurfaceView
     void changeScene() {
         if (this.scene == 0) {
             this.currentScene = null;
-            this.currentScene = new TitleScene(this, this.getDefaultDisplayRealSize());
+            this.currentScene = new TitleScene(this, this.imageResource, this.getDefaultDisplayRealSize());
         } // if
         else if (this.scene == 1) {
             this.currentScene = null;
@@ -230,6 +178,7 @@ public class Game extends SurfaceView
         } // else if
     }
 
+    //! 入力イベントの更新
     void refresh() {
         this.prevTouch = this.currentTouch;
         this.currentTouch = this.enableTouch;
@@ -250,6 +199,8 @@ public class Game extends SurfaceView
     void input() {
         this.refresh();
 
+        //! 前のフレームのイベントを実行してからにしたいので
+        //! もしシーンを遷移させるならこのタイミングでさせます
         if (this.changeSceneFlag) {
             this.changeSceneFlag = false;
             this.changeScene();
@@ -287,7 +238,6 @@ public class Game extends SurfaceView
         } // catch
     }
 
-    //! 描画関数
     private void executeDrawCommand(Canvas canvas) {
         canvas.drawColor(Color.BLUE);
 
@@ -304,13 +254,16 @@ public class Game extends SurfaceView
         renderCommandQueue.executeCommandList(canvas, this.debugFlag);
     }
 
-    public void IncremenntSceneNo() {
+    //! changeSceneFlagがtrueであれば
+    //! シーン番号の対応したSceneクラスが生成されます
+    public void incremenntSceneNo() {
         this.scene++;
         changeSceneFlag = true;
     }
 
+    //! タイトルに遷移します
     public void toTitleScene() {
         changeSceneFlag = true;
-        this.scene = 0;
+        this.scene = this.titleNo;
     }
 }

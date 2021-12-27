@@ -44,6 +44,7 @@ public class SpriteAnimation {
 //        return this.animations.size();
 //    }
 
+    //! 描画矩形の取得
     public Rectangle getSourceRectangle() {
         Point offset = new Point(
                 this.currentAniamtion.offsetX,
@@ -75,6 +76,7 @@ public class SpriteAnimation {
         } // if
         this.time += time;
 
+        //! 指定された秒数が経ったら次のパターンに移行します
         int wait = this.currentAniamtion.pattern.get(this.currentPatternNo).wait;
         if (wait * this.idealFrameTime < this.time) {
             int pattern_size = this.currentAniamtion.pattern.size();

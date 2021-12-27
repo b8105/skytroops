@@ -13,15 +13,16 @@ import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.ui.UIPanel;
 
+//! チュートリアルイベント終了ボタンを表示します
 public class UITutorialEndPanel implements UIPanel, Activatable {
     private boolean active;
     private UITutotialEndButton uiTutotialEndButton;
     private int touchRadius = 6;
-    private GamePlayScene gamePlayScene;
+
+    //! 保持するボタンがクリックされたらイベントの終了フラグを立てます
     private TutorialEvent tutorialEvent;
 
-    public UITutorialEndPanel(ImageResource imageResource, GamePlayScene gamePlayScene) {
-        this.gamePlayScene = gamePlayScene;
+    public UITutorialEndPanel(ImageResource imageResource) {
         PointF center = new PointF(
                 Game.getDisplayRealSize().x * 0.5f,
                 Game.getDisplayRealSize().y * 0.72f);

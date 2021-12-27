@@ -30,29 +30,27 @@ public class UIChangeBulletButton extends UIButton {
     private boolean lockFlag = false;
     private boolean selectFlag = false;
 
+    //! 対象(Weapon)変更するパラメータです
     private float rapidInterval = 0.09f;
     private float basicInterval = 0.16f;
     private float homingInterval = 0.35f;
     private float threewayInterval = 0.26f;
 
     public UIChangeBulletButton(
-            ImageResource imageResource,Resources resources, int id, PointF position, Point size) {
-        super(imageResource,resources, id, position, size);
+            ImageResource imageResource, Resources resources, int id, PointF position, Point size) {
+        super(imageResource, resources, id, position, size);
 
-        this.background = new UILabel(
-                imageResource,  resources, R.drawable.boxbackground, position, size
-        );
-        this.lockBitmap = new UILabel(
-                imageResource,  resources, R.drawable.lock, position, BitmapSizeStatic.buttonLock
-        );
-        this.selectBitmap = new UILabel(
-                imageResource,  resources, R.drawable.bullet_button_frame, position, BitmapSizeStatic.bulletButton
-        );
+        this.background = new UILabel(imageResource,
+                resources, R.drawable.boxbackground, position, size);
+        this.lockBitmap = new UILabel(imageResource,
+                resources, R.drawable.lock, position, BitmapSizeStatic.buttonLock);
+        this.selectBitmap = new UILabel(imageResource,
+                resources, R.drawable.bullet_button_frame, position, BitmapSizeStatic.bulletButton);
     }
 
-    public UIChangeBulletButton(ImageResource imageResource,Resources resources, int id, PointF position, Point size,
+    public UIChangeBulletButton(ImageResource imageResource, Resources resources, int id, PointF position, Point size,
                                 Weapon weapon, UIChangeBulletButtonEventType type) {
-        super(imageResource,resources, id, position, size);
+        super(imageResource, resources, id, position, size);
         this.setTarget(weapon, type);
     }
 
@@ -64,6 +62,7 @@ public class UIChangeBulletButton extends UIButton {
         this.weapon = weapon;
         this.type = type;
     }
+
     public void setSelectFlag(boolean selectFlag) {
         this.selectFlag = selectFlag;
     }
@@ -72,10 +71,11 @@ public class UIChangeBulletButton extends UIButton {
         return this.lockFlag;
     }
 
-    public void lock(){
+    public void lock() {
         this.lockFlag = true;
     }
-    public void unlock(){
+
+    public void unlock() {
         this.lockFlag = false;
     }
 
@@ -110,13 +110,13 @@ public class UIChangeBulletButton extends UIButton {
     @Override
     public void draw(RenderCommandQueue out) {
         this.background.draw(out);
-        if(this.selectFlag){
+        if (this.selectFlag) {
             this.selectBitmap.draw(out);
         } // if
         super.draw(out);
 
 
-        if(this.lockFlag){
+        if (this.lockFlag) {
             this.lockBitmap.draw(out);
         } // if
     }

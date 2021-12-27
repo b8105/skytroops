@@ -3,6 +3,8 @@ package com.example.game.main;
 import java.util.ArrayList;
 import java.util.List;
 
+//! ゲーム全体のスコアを保持します
+//! Gameにstaticに持たれます
 public class LeaderBoard {
     private List<LeaderBoardData> leaderBoardDataList = new ArrayList<>();
     private int capacity = 5;

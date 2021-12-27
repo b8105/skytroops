@@ -16,11 +16,6 @@ public class DebugRenderer {
         RenderCommandList list = out.getRenderCommandList(RenderLayerType.UIDebug);
         Paint p = new Paint();
         p.setTextSize(60);
-
-        if(actorContainer.getMainChara() == null){
-            //fail.draw(out);
-        } // if
-
         {
             Integer size = actorContainer.getActors().size();
             String s = "all actor count = " + size.toString();

@@ -31,28 +31,23 @@ import java.util.List;
 //! プレイヤーのWeaponであり,
 //! そのWeapon生成時にButtonにセットする
 public class UIChangeBulletPanel implements UIPanel {
+    static private int elementCount = 3;
+
+    //! 各ボタンです
     private List<UIChangeBulletButton> bulletButtons = new ArrayList<>();
     private UIChangeBulletButton toBasicButton;
     private UIChangeBulletButton toThreeWayButton;
     private UIChangeBulletButton toHomingButton;
     private UIChangeBulletButton currentButton = null;
     private float positionMarginX = 6.0f;
-    static private int elementCount = 3;
 
+    //! ダブルタップ受付データ
     private int doubleTapFrame = 0;
     private int doubleTapFrameMax = 10;
     private boolean singleTap = false;
     private EffectEmitter bulletUpgradeEffect;
 
     HashMap<BulletType, Bitmap> requiredImage =null;
-
-    public void update(float deltaTime) {
-        this.doubleTapFrame--;
-        if (this.doubleTapFrame <= 0) {
-            this.doubleTapFrame = 0;
-            this.singleTap = false;
-        } // if
-    }
 
     public UIChangeBulletPanel(
             PlayerPlane playerPlane,
@@ -160,9 +155,6 @@ public class UIChangeBulletPanel implements UIPanel {
         currentButton.setSelectFlag(true);
     }
 
-    public void changeToBasic(){
-        this.change(this.toBasicButton);
-    }
     public void changeToHoming(){
         this.change(this.toHomingButton);
     }
@@ -176,6 +168,8 @@ public class UIChangeBulletPanel implements UIPanel {
             return;
         } // if
 
+
+        //! ダブルタップで弾種類を変更します
         if (input.touchType == InputTouchType.Touch) {
             if (this.doubleTapFrame > 0) {
                 UIChangeBulletButton bulletButton = this.getNextButton();
@@ -185,6 +179,14 @@ public class UIChangeBulletPanel implements UIPanel {
                 this.singleTap = true;
                 this.doubleTapFrame = this.doubleTapFrameMax;
             } // if
+        } // if
+    }
+
+    public void update(float deltaTime) {
+        this.doubleTapFrame--;
+        if (this.doubleTapFrame <= 0) {
+            this.doubleTapFrame = 0;
+            this.singleTap = false;
         } // if
     }
 

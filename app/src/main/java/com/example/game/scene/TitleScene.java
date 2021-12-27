@@ -12,6 +12,8 @@ import com.example.game.R;
 import com.example.game.collision.detector.RectangleCollisionDetector;
 import com.example.game.common.InputEvent;
 import com.example.game.common.Transform2D;
+import com.example.game.game.resource.ImageResource;
+import com.example.game.game.resource.ImageResourceType;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
@@ -31,6 +33,8 @@ import com.example.game.scene.transition_state.TransitionState;
 import com.example.game.scene.transition_state.TransitionStateType;
 import com.example.game.common.shape.Circle;
 import com.example.game.common.shape.Rectangle;
+import com.example.game.ui.UIButton;
+import com.example.game.ui.UILabel;
 import com.example.game.utility.StateMachine;
 import com.example.game.utility.StopWatch;
 import com.example.game.utility.animation.SpriteAnimation;
@@ -42,15 +46,16 @@ import java.util.List;
 
 public class TitleScene extends Scene {
     private SceneTransitionStateMachine transitionStateMachine = null;
-    private Transform2D transform = new Transform2D();
-    private Bitmap background;
+
+    private UILabel background = null;
+    private UIButton startButton = null;
 
     private Transform2D startButtonTransform;
     private Bitmap startButtonBitmap;
     private Point startButtonBitmapSize;
 
-    Transform2D scoreTransform = new Transform2D();
-    Paint scorePaint = new Paint();
+    private Transform2D scoreTransform = new Transform2D();
+    private Paint scorePaint = new Paint();
 
     void constructStartButton(Game game) {
         int screenX = super.getScreenSize().x;
@@ -62,7 +67,6 @@ public class TitleScene extends Scene {
         this.scorePaint.setColor(Color.BLACK);
 
         this.transitionStateMachine = new SceneTransitionStateMachine(game);
-
 
         this.startButtonTransform = new Transform2D();
         this.startButtonTransform.position.x = screenX * 0.5f;
@@ -76,16 +80,13 @@ public class TitleScene extends Scene {
                 false);
     }
 
-    public TitleScene(Game game, Point screenSize) {
+    public TitleScene(Game game, ImageResource imageResource, Point screenSize) {
         super(game, screenSize);
         this.constructStartButton(game);
 
-        this.background = BitmapFactory.decodeResource(game.getResources(), R.drawable.title_background);
-        this.background = Bitmap.createScaledBitmap(
-                background,
-                this.getScreenSize().x,
-                this.getScreenSize().y,
-                false);
+        this.background = new UILabel(imageResource, ImageResourceType.TitleBackground, new PointF(
+                screenSize.x * 0.5f,screenSize.y * 0.5f
+        ));
     }
 
     @Override
@@ -118,16 +119,9 @@ public class TitleScene extends Scene {
     public void draw(RenderCommandQueue out) {
         this.transitionStateMachine.drawTransitionEffect(out);
 
-        {
-            RenderCommandList list = out.getRenderCommandList(
-                    RenderLayerType.Background2D);
-            list.drawSprite(
-                    this.background,
-                    this.transform,
-                    new RenderSpriteInfo(Color.RED));
-        }
         RenderCommandList list = out.getRenderCommandList(
                 RenderLayerType.BasicActor);
+        this.background.draw(list);
 
         this.drawStartButton(out.getRenderCommandList(RenderLayerType.BasicActor));
 

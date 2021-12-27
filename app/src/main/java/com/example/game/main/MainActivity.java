@@ -12,7 +12,8 @@ import com.example.game.R;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Debugger debugger = new Debugger();
+    //private Debugger debugger = new Debugger();
+    //! エントリポイント
     private Game game = null;
 
     @Override
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //! ゲームアプリケーション実行開始
         game = new Game(this);
         setContentView(game);
     }

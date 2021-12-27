@@ -11,6 +11,11 @@ import com.example.game.game.resource.ImageResourceType;
 
 import java.util.HashMap;
 
+//! ゲームステージです
+//! 番号に対応する各背景をスクロールさせているだけです
+//! Actorを継承させていませんが
+//! Actorのサブクラス間で衝突判定をとりたいので
+//! CollisionComponentをもっています
 public class Stage {
     private Transform2D transform = null;
     private Bitmap background = null;
@@ -18,6 +23,7 @@ public class Stage {
     private float scrollSpeed = 0.0f;
     private float defaultScrollSpeed = 10.0f;
 
+    //! CollisionLayer内でプレイヤーや弾クラスと当たり判定をとります
     StageCollisionComponent component;
     HashMap<StageType, Bitmap> stageTypeBitmapHashMap = null;
     StageType currentType = StageType.Type01;

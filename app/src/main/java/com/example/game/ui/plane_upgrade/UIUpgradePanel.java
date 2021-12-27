@@ -13,11 +13,13 @@ import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.ui.UIPanel;
 
+
 public class UIUpgradePanel implements UIPanel, Activatable {
     private boolean active;
     private UIUpgradeButton uiUpgradeButton;
     private int touchRadius = 6;
     private GamePlayScene gamePlayScene;
+    //! 保持するボタンがクリックされたらイベントの終了フラグを立てます
     private StageClearInfoDrawEvent stageClearInfoDrawEvent;
     public UIUpgradePanel(ImageResource imageResource,GamePlayScene gamePlayScene){
         this.gamePlayScene = gamePlayScene;
@@ -36,8 +38,8 @@ public class UIUpgradePanel implements UIPanel, Activatable {
     @Override
     public void input(InputEvent input) {
         if(this.uiUpgradeButton.containCircle(new Circle(
-                input.positionX,input.positionY,touchRadius
-        ))){
+                input.positionX,input.positionY,touchRadius))){
+
             this.gamePlayScene.createUpgradeEvent();
             this.stageClearInfoDrawEvent.setEndFlag(true);
             this.inactivate();

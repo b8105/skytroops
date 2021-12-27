@@ -18,12 +18,14 @@ public class BitmapSizeStatic {
     public static Point buttonLock = new Point((int)(76 * 0.8f),(int)(33 * 0.8f));
     public static Point gameResultBackground = new Point(316 * 3, 342 * 3);
     public static Point gameOverBackground = new Point((int)Game.getDisplayRealSize().x, (int)Game.getDisplayRealSize().y);
+    public static Point titleBackground = new Point((int)Game.getDisplayRealSize().x, (int)Game.getDisplayRealSize().y);
 
     public static Point startButton = new Point(450, 150);
     public static Point restartButton = new Point(450, 150);
     public static Point upgradeButton = new Point(450, 150);
     public static Point continueButton = new Point(450, 150);
 
+    public static Point pausedText = new Point( 360, 120);
     public static Point menuIcon = new Point( (int)(76 * 1.0), (int)(73 * 1.0));
     public static Point missionFail = new Point( (312), (164));
 
@@ -44,4 +46,5 @@ public class BitmapSizeStatic {
     // howto
     public static Point howtoPlay = new Point((int)Game.getDisplayRealSize().x, (int)Game.getDisplayRealSize().y);
     public static Point howtoBulletChange = new Point((int)Game.getDisplayRealSize().x, (int)Game.getDisplayRealSize().y);
+
 }

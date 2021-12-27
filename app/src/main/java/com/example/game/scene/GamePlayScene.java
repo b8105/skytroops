@@ -107,8 +107,7 @@ public class GamePlayScene extends Scene
                 this.imageResource,
                 this);
         this.uiTutorialEndPanel = new UITutorialEndPanel(
-                this.imageResource,
-                this);
+                this.imageResource);
         this.uiToTitlePanel = new UISceneExitPanel(
                 this.imageResource,
                 this);
