@@ -17,6 +17,7 @@ import com.example.game.game_event.StageClearInfoDrawEvent;
 import com.example.game.game_event.ToNextStageEvent;
 import com.example.game.game_event.TransitionStageEnterEvent;
 import com.example.game.game_event.TransitionStageExitEvent;
+import com.example.game.game_event.UpgradeEvent;
 import com.example.game.observation.boss_enemy_dead.BossEnemyDeadListener;
 import com.example.game.observation.boss_enemy_dead.BossEnemyDeadMessage;
 import com.example.game.DebugRenderer;
@@ -42,6 +43,8 @@ import com.example.game.ui.UIButton;
 import com.example.game.ui.UIChangeBulletPanel;
 import com.example.game.ui.UILabel;
 import com.example.game.ui.UIPausePanel;
+import com.example.game.ui.UIUpgradeButton;
+import com.example.game.ui.UIUpgradePanel;
 
 import java.util.List;
 
@@ -57,6 +60,8 @@ public class GamePlayScene extends Scene
     private EffectSystem effectSystem = null;
     private UIChangeBulletPanel uiChangeBullePanel = null;
     private UIPausePanel uiPausePanel = null;
+    private UIUpgradePanel uIUpgradePanel = null;
+
     private ActorFactory actorFactory = null;
     private Stage stage = null;
 
@@ -77,10 +82,15 @@ public class GamePlayScene extends Scene
                 null,
                 this.imageResource,
                 resources,
+                this.effectSystem,
                 panelPosition);
         this.uiPausePanel = new UIPausePanel(
                 this.imageResource,
                 this);
+        this.uIUpgradePanel = new UIUpgradePanel(
+                this.imageResource,
+                this);
+
 
         this.actorFactory = new ActorFactory(this,
                 imageResource,
@@ -142,6 +152,11 @@ public class GamePlayScene extends Scene
         if (this.uiPausePanel != null) {
             this.uiPausePanel.input(input);
         } // if
+        if (this.uIUpgradePanel != null) {
+            if (this.uIUpgradePanel.isActive()) {
+                this.uIUpgradePanel.input(input);
+            } // if
+        } // if
     }
 
     void updateSystem(float deltaTime) {
@@ -155,6 +170,12 @@ public class GamePlayScene extends Scene
         if (this.uiPausePanel != null) {
             this.uiPausePanel.update(deltaTime);
         } // if
+        if (this.uIUpgradePanel != null) {
+            if (this.uIUpgradePanel.isActive()) {
+                this.uIUpgradePanel.update(deltaTime);
+            } // if
+        } // if
+
     }
 
     @Override
@@ -183,10 +204,15 @@ public class GamePlayScene extends Scene
         this.effectSystem.draw(out);
         if (this.uiChangeBullePanel != null) {
             this.uiChangeBullePanel.draw(out);
-        } // of
+        } // if
         if (this.uiPausePanel != null) {
             this.uiPausePanel.draw(out);
-        } // of
+        } // if
+        if (this.uIUpgradePanel != null) {
+            if (this.uIUpgradePanel.isActive()) {
+                this.uIUpgradePanel.draw(out);
+            } // if
+        } // if
 
         new ScoreRenderer(this.imageResource).execute(this.getGameSystem(), out);
         new DebugRenderer().execute(this.actorContainer, this.effectSystem, out);
@@ -220,13 +246,25 @@ public class GamePlayScene extends Scene
 
     public void createStageClearInfoDrawEvent() {
         this.gameEventContainer.addEvent(
-                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(),super.GetGame().getResources(), this.imageResource, StageClearInfoDrawEvent.NextEventType.ToNextStageEvent)
+                new StageClearInfoDrawEvent(this, this.uIUpgradePanel, this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource, StageClearInfoDrawEvent.NextEventType.ToNextStageEvent)
+        );
+    }
+
+    public void createUpgradeEvent() {
+        this.gameEventContainer.addEvent(
+        new UpgradeEvent(this,
+                this.actorContainer,
+                this.stage,
+                this.effectSystem,
+                this.uiChangeBullePanel,
+                this.imageResource)
         );
     }
 
     public void createGameOverEvent() {
         this.gameEventContainer.addEvent(
-                new StageClearInfoDrawEvent(this, this.gameSystem.getGameScorer(),super.GetGame().getResources(), this.imageResource, StageClearInfoDrawEvent.NextEventType.ToGameOverScene)
+                new StageClearInfoDrawEvent(this
+                        , this.uIUpgradePanel, this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource, StageClearInfoDrawEvent.NextEventType.ToGameOverScene)
         );
     }
 
@@ -247,6 +285,10 @@ public class GamePlayScene extends Scene
     }
 
     public void createPlaneMoveToCenterEvent() {
+        PlayerPlane playerPlane = this.actorContainer.getMainChara();
+        if (playerPlane == null) {
+            return;
+        } // if
         this.gameEventContainer.addEvent(
                 new PlaneMoveToCenterEvent(this,
                         this.actorContainer,

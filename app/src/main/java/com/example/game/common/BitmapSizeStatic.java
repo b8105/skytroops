@@ -21,13 +21,18 @@ public class BitmapSizeStatic {
 
     public static Point startButton = new Point(450, 150);
     public static Point restartButton = new Point(450, 150);
+    public static Point upgradeButton = new Point(450, 150);
 
     public static Point menuIcon = new Point( (int)(76 * 1.0), (int)(73 * 1.0));
 
+    // effect
     public static Point score = new Point( (int)(150 * 1.5), (int)(150 * 1.5));
     public static Point explosion = new Point(800, 200);
     public static Point explosionUnit = new Point(800 / 4, 200);
-    public static Point bulletUpgrade = new Point(800 / 4, 200);
+    public static Point bulletUpgrade = new Point(960 * 2, 120 * 2);
+    public static Point bulletUpgradeUnit = new Point(120, 120);
+    public static Point planeUpgrade = new Point(27 * 2, 27 * 2);
+    public static Point hpUpgrade = new Point(149 * 2, 149 * 2);
 
     public static Point scoreBackground = new Point(250, 70);
     public static Point clearInfoBackground = new Point(780, 680);

@@ -4,4 +4,6 @@ public enum EffectType {
     Score,
     Explosion,
     BulletUpgrade,
+    PlaneUpgrade,
+    HPUpgrade,
 }

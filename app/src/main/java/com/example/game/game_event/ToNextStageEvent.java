@@ -32,7 +32,7 @@ public class ToNextStageEvent extends GameEvent{
 
     private float toCenterSpeed = 15.0f;
     private float toNextSpeed = 38.0f;
-    private int moveSequence = 0;
+    private int moveSequence = 1;
     private PointF centerPosiotion = new PointF();
 
     private int recoveryBonus = 5;
@@ -56,8 +56,6 @@ public class ToNextStageEvent extends GameEvent{
 
         this.player.getHpParameter().increaseValueMax(this.recoveryBonus);
         this.player.applyRecovery(new Recovery(this.recoveryBonus) );
-
-
         StageType stageType =stage.getCurrentType();
         if(stageType == StageType.Type01){
             uiChangeBullePanel.unlockToHomingButton();

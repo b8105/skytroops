@@ -31,7 +31,12 @@ public class EffectSystem {
         this.generateEffectStruct(EffectType.Explosion, 10,
                 ImageResourceType.ExplosionEffect, RenderLayerType.Effect);
         this.generateEffectStruct(EffectType.BulletUpgrade, 1,
-                ImageResourceType.BulletUpgradeEffect, RenderLayerType.UIEffect);
+                ImageResourceType.BulletUpgradeEffect, RenderLayerType.UIForground);
+        this.generateEffectStruct(EffectType.PlaneUpgrade, 4,
+                ImageResourceType.PlaneUpgradeEffect, RenderLayerType.UIEffect);
+        this.generateEffectStruct(EffectType.HPUpgrade, 1,
+                ImageResourceType.HPUpgradeEffect, RenderLayerType.UIEffect);
+
     }
 
     public List<Effect> getEffectList(EffectType effectType) {
@@ -51,11 +56,6 @@ public class EffectSystem {
 
         this.effectRenderLayer.put(effectType, renderLayerType);
     }
-
-//    private void generateEffectStruct(EffectType effectType, int poolSize,
-//                                      int resouceId, Point size, RenderLayerType renderLayerType) {
-//        this.generateEffectStruct(effectType, poolSize, resouceId, size.x, size.y,renderLayerType);
-//    }
 
     public EffectEmitter getSharedEmitter(EffectType effectType) {
         return this.effectEmitter.get(effectType);

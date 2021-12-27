@@ -147,6 +147,9 @@ public class Game extends SurfaceView
     public static PointF getDisplayRealSize() {
         return displayRealSize;
     }
+    public static PointF getDisplayHalfRealSize() {
+        return new PointF(displayRealSize.x,displayRealSize.y) ;
+    }
 
 
     public static void setHighScore(int highScore) {

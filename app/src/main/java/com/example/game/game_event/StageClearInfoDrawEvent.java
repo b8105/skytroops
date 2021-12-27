@@ -18,6 +18,7 @@ import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.ui.UILabel;
+import com.example.game.ui.UIUpgradePanel;
 import com.example.game.utility.StopWatch;
 
 public class StageClearInfoDrawEvent extends GameEvent {
@@ -48,7 +49,10 @@ public class StageClearInfoDrawEvent extends GameEvent {
     private NextEventType nextEventType = null;
 
 
+    private boolean endFlag = false;
+
     public StageClearInfoDrawEvent(GamePlayScene gamePlayScene,
+                                   UIUpgradePanel uiUpgradePanel,
                                    GameScorer gameScorer,
                                    Resources resource,
                                    ImageResource imageResource,
@@ -61,7 +65,10 @@ public class StageClearInfoDrawEvent extends GameEvent {
         this.gamePlayScene = gamePlayScene;
         this.nextEventType= nextEventType;
 
-        this.text = "RESULT";
+
+        this.activateUpgradePanel(uiUpgradePanel);
+
+        this.text = "";
         this.destroyedCountText = "倒した数 : " +  gameScorer .getEnemyDestoryCountOnStage();
         this.scoreText = "スコア : "+ gameScorer .getEnemyDestoryScoreOnStage();
 
@@ -86,18 +93,18 @@ public class StageClearInfoDrawEvent extends GameEvent {
                 ));
     }
 
+    public void setEndFlag(boolean endFlag) {
+        this.endFlag = endFlag;
+    }
+
+    private void activateUpgradePanel(UIUpgradePanel uiUpgradePanel){
+        uiUpgradePanel.activate();
+        uiUpgradePanel.setStageClearInfoDrawEvent(this);
+    }
+
     @Override
     public boolean update(float deltaTime) {
-        if (existTimer.tick(deltaTime)) {
-            if(this.nextEventType == NextEventType.ToNextStageEvent){
-                this.gamePlayScene.createToNextStageEvent();
-            } // if
-            else if(this.nextEventType == NextEventType.ToGameOverScene){
-                this.gamePlayScene.createToGameOverScene();
-            } // else if
-            return true;
-        } // if
-        return false;
+        return this.endFlag;
     }
 
     @Override

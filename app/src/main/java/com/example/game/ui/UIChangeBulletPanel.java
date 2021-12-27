@@ -12,6 +12,10 @@ import com.example.game.common.BitmapSizeStatic;
 import com.example.game.common.InputEvent;
 import com.example.game.common.InputTouchType;
 import com.example.game.common.shape.Circle;
+import com.example.game.effect.EffectEmitter;
+import com.example.game.effect.EffectInfo;
+import com.example.game.effect.EffectSystem;
+import com.example.game.effect.EffectType;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.weapon.Weapon;
@@ -36,6 +40,8 @@ public class UIChangeBulletPanel implements UIPanel {
     private int doubleTapFrameMax = 10;
     private boolean singleTap = false;
 
+    private EffectEmitter bulletUpgradeEffect;
+
     public void update(float deltaTime) {
         this.doubleTapFrame--;
         if (this.doubleTapFrame <= 0) {
@@ -47,11 +53,13 @@ public class UIChangeBulletPanel implements UIPanel {
             PlayerPlane playerPlane,
             ImageResource imageResource,
             Resources resources,
+            EffectSystem effectSystem,
             PointF position) {
         float x = position.x;
         float y = position.y;
         x += BitmapSizeStatic.bulletButton.x + this.positionMarginX;
 
+        this.bulletUpgradeEffect = effectSystem.getSharedEmitter(EffectType.BulletUpgrade);
         this.toBasicButton = new UIChangeBulletButton(
                 playerPlane,
                 imageResource, resources,
@@ -113,6 +121,16 @@ public class UIChangeBulletPanel implements UIPanel {
     }
 
     public void unlockToHomingButton() {
+        {
+            PointF emitPos = this.toHomingButton.getPosition();
+            emitPos.x -= BitmapSizeStatic.bulletUpgradeUnit.x * 0.5f;
+            emitPos.y -= BitmapSizeStatic.bulletUpgradeUnit.y * 0.5f;
+            EffectInfo info = new EffectInfo(
+                    EffectType.BulletUpgrade,
+                    emitPos,
+                    1.0f);
+            this.bulletUpgradeEffect.emit(info);
+        }
         this.toHomingButton.unlock();
     }
 

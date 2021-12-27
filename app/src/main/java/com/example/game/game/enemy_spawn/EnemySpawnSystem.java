@@ -175,7 +175,7 @@ public class EnemySpawnSystem {
 
         switch (type) {
             case Type01:
-                this.constructStage01();
+//                this.constructStage01();
                 break;
             case Type02:
                 this.constructStage02();

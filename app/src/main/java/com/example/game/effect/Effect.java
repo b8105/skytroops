@@ -45,18 +45,23 @@ public class Effect {
 
         List<SpriteAnimationPart> anime = new ArrayList<>();
         SpriteAnimationPart anim =  new SpriteAnimationPart();
-        anim.width = BitmapSizeStatic.bulletUpgrade.x;
-        anim.height =  BitmapSizeStatic.bulletUpgrade.y;
+        anim.width = BitmapSizeStatic.bulletUpgradeUnit.x;
+        anim.height =  BitmapSizeStatic.bulletUpgradeUnit.y;
         anim.name = "none";
         anim.offsetX = 0;
         anim.offsetY = 0;
-        anim.pattern.add(new SpriteAnimationPartPattern(10, 0,0));
-        anim.pattern.add(new SpriteAnimationPartPattern(10, 1,0));
-        anim.pattern.add(new SpriteAnimationPartPattern(10, 2,0));
-        anim.pattern.add(new SpriteAnimationPartPattern(10, 3,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(4, 0,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(4, 1,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(4, 2,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(4, 3,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(4, 4,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(4, 5,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(4, 6,0));
+        anim.pattern.add(new SpriteAnimationPartPattern(4, 7,0));
         anime.add(anim);
         animation.create(anime);
         animation.changeMotion(0);
+
         return animation;
     }
 
@@ -78,6 +83,42 @@ public class Effect {
         return animation;
     }
 
+    public SpriteAnimation createHpUpgrade() {
+        SpriteAnimation animation = new SpriteAnimation();
+
+        List<SpriteAnimationPart> anime = new ArrayList<>();
+        SpriteAnimationPart anim =  new SpriteAnimationPart();
+        anim.width = BitmapSizeStatic.hpUpgrade.x;
+        anim.height = BitmapSizeStatic.hpUpgrade.y;
+        anim.name = "none";
+        anim.offsetX = 0;
+        anim.offsetY = 0;
+        anim.pattern.add(new SpriteAnimationPartPattern(50, 0,0));
+        anime.add(anim);
+        animation.create(anime);
+        animation.changeMotion(0);
+
+        return animation;
+    }
+
+    public SpriteAnimation createPlaneUpgrade() {
+        SpriteAnimation animation = new SpriteAnimation();
+
+        List<SpriteAnimationPart> anime = new ArrayList<>();
+        SpriteAnimationPart anim =  new SpriteAnimationPart();
+        anim.width = BitmapSizeStatic.planeUpgrade.x;
+        anim.height = BitmapSizeStatic.planeUpgrade.y;
+        anim.name = "none";
+        anim.offsetX = 0;
+        anim.offsetY = 0;
+        anim.pattern.add(new SpriteAnimationPartPattern(100, 0,0));
+        anime.add(anim);
+        animation.create(anime);
+        animation.changeMotion(0);
+
+        return animation;
+    }
+
     public SpriteAnimation createAnimation(EffectType effectType){
         switch (effectType){
             case Score:
@@ -86,6 +127,10 @@ public class Effect {
                 return this.createExplosionAnimation();
             case BulletUpgrade:
                 return this.createBulletUpgradeAnimation();
+            case PlaneUpgrade:
+                return this.createPlaneUpgrade();
+            case HPUpgrade:
+                return this.createHpUpgrade();
         } // switch
         return null;
     }
@@ -108,16 +153,10 @@ public class Effect {
         return this.effectInfoBasicParam.alpha;
     }
 
-//    public EffectInfoBasicParam getBasicParam() {
-//        return this.effectInfoBasicParam;
-//    }
-
-    //! ゲッター
     public EffectType getEffectType() {
         return this.effectInfoBasicParam.type;
     }
 
-    //! ゲッター
     public Rectangle getAnimationRect() {
         if(this.isExistAnimation()){
             return this.animation.getSourceRectangle();

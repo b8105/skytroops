@@ -10,6 +10,7 @@ public enum ImageResourceType {
 
     StartButton,
     RestartButton,
+    UpgradeButton,
 
     BulletLock,
     BulletButtonSelect,
@@ -17,6 +18,8 @@ public enum ImageResourceType {
     BulletUpgradeEffect,
     ExplosionEffect,
     ScoreEffect,
+    PlaneUpgradeEffect,
+    HPUpgradeEffect,
 
     PlayerPlane,
     PlayerPlane2,

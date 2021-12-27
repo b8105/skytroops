@@ -1,5 +1,6 @@
 package com.example.game.game_event;
 
+import android.graphics.Point;
 import android.graphics.PointF;
 
 import com.example.game.action.action_component.PlaneActionComponent;
@@ -7,6 +8,11 @@ import com.example.game.actor.player.PlayerPlane;
 import com.example.game.collision.collision_component.PlaneCollisionComponent;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.component.ComponentType;
+import com.example.game.effect.Effect;
+import com.example.game.effect.EffectEmitter;
+import com.example.game.effect.EffectInfo;
+import com.example.game.effect.EffectSystem;
+import com.example.game.effect.EffectType;
 import com.example.game.game.ActorContainer;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
@@ -21,7 +27,7 @@ import com.example.game.ui.UIChangeBulletPanel;
 import com.example.game.utility.PointFUtilities;
 import com.example.game.utility.StopWatch;
 
-public class PlaneMoveToCenterEvent extends GameEvent {
+public class UpgradeEvent extends GameEvent{
     private StopWatch existTimer;
     private float time = 1.4f;
     private GamePlayScene gamePlayScene;
@@ -31,13 +37,19 @@ public class PlaneMoveToCenterEvent extends GameEvent {
     private PlaneCollisionComponent planeCollisionComponent;
 
     private float toCenterSpeed = 15.0f;
+    private float toNextSpeed = 38.0f;
+    private int moveSequence = 0;
     private PointF centerPosiotion = new PointF();
 
     private int recoveryBonus = 5;
 
-    public PlaneMoveToCenterEvent(GamePlayScene gamePlayScene,
+    private EffectEmitter hpUpgradeEffect;
+    private EffectEmitter planeUpgradeEffect;
+
+    public UpgradeEvent(GamePlayScene gamePlayScene,
                             ActorContainer actorContainer,
                             Stage stage,
+                            EffectSystem effectSystem,
                             UIChangeBulletPanel uiChangeBullePanel,
                             ImageResource imageResource) {
         this.existTimer = new StopWatch(time);
@@ -54,8 +66,6 @@ public class PlaneMoveToCenterEvent extends GameEvent {
 
         this.player.getHpParameter().increaseValueMax(this.recoveryBonus);
         this.player.applyRecovery(new Recovery(this.recoveryBonus) );
-
-
         StageType stageType =stage.getCurrentType();
         if(stageType == StageType.Type01){
             uiChangeBullePanel.unlockToHomingButton();
@@ -69,28 +79,45 @@ public class PlaneMoveToCenterEvent extends GameEvent {
                     imageResource.getImageResource(ImageResourceType.PlayerPlane3)
             );
         } // else if
-    }
 
-    public boolean toCenter(){
-        float distance = PointFUtilities.magnitude(
-                this.player.getPosition(),
-                this.centerPosiotion
-        );
-        if(distance < toCenterSpeed){
-            return true;
-        } // if
+        this.hpUpgradeEffect = effectSystem.getSharedEmitter(EffectType.HPUpgrade);
+        this.planeUpgradeEffect = effectSystem.getSharedEmitter(EffectType.PlaneUpgrade);
 
-        PointF position =  this.player.getPosition();
-        PointF move =  PointFUtilities.normal(
-                this.player.getPosition(),
-                this.centerPosiotion
-        );
-        move.x *= this.toCenterSpeed;
-        move.y *= this.toCenterSpeed;
-        position.x += move.x;
-        position.y += move.y;
-        this.player.setPosition( position);
-        return false;
+
+
+
+        {
+            PointF emitPos = player.getCenterPosition();
+            emitPos.x -= BitmapSizeStatic.hpUpgrade.x * 0.5f;
+            emitPos.y -= BitmapSizeStatic.hpUpgrade.y * 0.5f;
+            EffectInfo info = new EffectInfo(
+                    EffectType.HPUpgrade,
+                    emitPos,
+                    1.0f,
+                    new PointF(0.0f ,-2.0f));
+            hpUpgradeEffect.emit(info);
+
+        }
+        {
+            PointF emitPos = player.getCenterPosition();
+            emitPos.x -= BitmapSizeStatic.planeUpgrade.x * 1.5f;
+            emitPos.y -= BitmapSizeStatic.planeUpgrade.y * 0.5;
+            EffectInfo info = new EffectInfo(
+                    EffectType.PlaneUpgrade,
+                    emitPos,
+                    1.0f);
+            planeUpgradeEffect.emit(info);
+        }
+        {
+            PointF emitPos = player.getCenterPosition();
+            emitPos.x += BitmapSizeStatic.planeUpgrade.x;
+            emitPos.y -= BitmapSizeStatic.planeUpgrade.y * 0.5;
+            EffectInfo info = new EffectInfo(
+                    EffectType.PlaneUpgrade,
+                    emitPos,
+                    1.0f);
+            planeUpgradeEffect.emit(info);
+        }
     }
 
 
@@ -99,8 +126,8 @@ public class PlaneMoveToCenterEvent extends GameEvent {
 
     @Override
     public boolean update(float deltaIime) {
-        if (this.toCenter()) {
-            this.gamePlayScene.createStageClearInfoDrawEvent();
+        if (existTimer.tick(deltaIime)) {
+            this.gamePlayScene.createToNextStageEvent();
             return true;
         } // if
         return false;
