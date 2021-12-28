@@ -7,7 +7,7 @@ import com.example.game.common.InputEvent;
 import com.example.game.common.shape.Circle;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
-import com.example.game.game_event.StageClearInfoDrawEvent;
+import com.example.game.game_event.StageClearInfoEvent;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;
@@ -20,7 +20,7 @@ public class UIUpgradePanel implements UIPanel, Activatable {
     private int touchRadius = 6;
     private GamePlayScene gamePlayScene;
     //! 保持するボタンがクリックされたらイベントの終了フラグを立てます
-    private StageClearInfoDrawEvent stageClearInfoDrawEvent;
+    private StageClearInfoEvent stageClearInfoDrawEvent;
     public UIUpgradePanel(ImageResource imageResource,GamePlayScene gamePlayScene){
         this.gamePlayScene = gamePlayScene;
         PointF center = new PointF(
@@ -31,7 +31,7 @@ public class UIUpgradePanel implements UIPanel, Activatable {
                 center);
     }
 
-    public void setStageClearInfoDrawEvent(StageClearInfoDrawEvent stageClearInfoDrawEvent) {
+    public void setStageClearInfoDrawEvent(StageClearInfoEvent stageClearInfoDrawEvent) {
         this.stageClearInfoDrawEvent = stageClearInfoDrawEvent;
     }
 

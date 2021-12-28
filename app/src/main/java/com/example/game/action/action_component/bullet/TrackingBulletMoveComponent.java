@@ -7,28 +7,22 @@ import com.example.game.action.action_component.ActionComponent;
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.Plane;
-import com.example.game.actor.PlaneType;
 import com.example.game.actor.bullet.Bullet;
-import com.example.game.actor.enemy_plane.EnemyPlane;
-import com.example.game.common.BitmapSizeStatic;
 import com.example.game.component.ComponentType;
 import com.example.game.game.ActorContainer;
-import com.example.game.game.FindNearestEnemyVisitor;
 import com.example.game.utility.MathUtilities;
 import com.example.game.utility.PointFUtilities;
 
-public class BulletFrontMoveComponent extends ActionComponent {
+//! 現在BossEnemy4専用です
+//! HomingBulletMoveComponentよりもゆるく追いかけます
+public class TrackingBulletMoveComponent extends ActionComponent {
     private float speed = 0.0f;
     private ActorContainer actorContainer;
     private Plane target;
-//    private PointF previsousMove;
-    //private PointF targetSize;
     private float angluarSpeedDegree = 1.0f;
 
-    public BulletFrontMoveComponent(ActionLayer layer) {
+    public TrackingBulletMoveComponent(ActionLayer layer) {
         super(layer);
-//        this.previsousMove = new PointF(0.0f, -10.0f);
-  //      this.targetSize = new PointF();
     }
 
     public void setOwner(Actor owner) {
@@ -38,15 +32,6 @@ public class BulletFrontMoveComponent extends ActionComponent {
     public void setActorContainer(ActorContainer actorContainer) {
         this.actorContainer = actorContainer;
     }
-//
-//    private void clacTargetSize() {
-//        if (this.target == null) {
-//            return;
-//        } // if
-//        assert (this.target.getPlaneType() == PlaneType.Player);
-//       // this.targetSize.x = BitmapSizeStatic.player.x;
-//        //this.targetSize.y = BitmapSizeStatic.player.y;
-//    }
 
     private void clacTarget() {
         assert (this.actorContainer != null);

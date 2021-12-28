@@ -1,4 +1,4 @@
-package com.example.game.ui.to_title;
+package com.example.game.ui.scene_exit;
 
 import android.graphics.PointF;
 
@@ -7,7 +7,7 @@ import com.example.game.common.InputEvent;
 import com.example.game.common.shape.Circle;
 import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
-import com.example.game.game_event.GameOver.GameOverInfoDrawEvent;
+import com.example.game.game_event.GameOver.GameOverInfoEvent;
 import com.example.game.main.Game;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.scene.GamePlayScene;
@@ -22,7 +22,7 @@ public class UISceneExitPanel implements UIPanel , Activatable {
     private GamePlayScene gamePlayScene;
 
     //! 保持するボタンがクリックされたらイベントの終了フラグを立てます
-    private GameOverInfoDrawEvent gameOverInfoDrawEvent;
+    private GameOverInfoEvent gameOverInfoDrawEvent;
 
     public UISceneExitPanel(ImageResource imageResource, GamePlayScene gamePlayScene){
         this.gamePlayScene = gamePlayScene;
@@ -35,7 +35,7 @@ public class UISceneExitPanel implements UIPanel , Activatable {
                 center);
     }
 
-    public void setGameOverInfoDrawEvent(GameOverInfoDrawEvent gameOverInfoDrawEvent) {
+    public void setGameOverInfoDrawEvent(GameOverInfoEvent gameOverInfoDrawEvent) {
         this.gameOverInfoDrawEvent = gameOverInfoDrawEvent;
     }
 

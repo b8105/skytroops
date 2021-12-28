@@ -9,7 +9,7 @@ import com.example.game.actor.enemy_plane.CommanderEnemyPlane;
 import com.example.game.actor.enemy_plane.FollowEnemyPlane;
 import com.example.game.component.ComponentType;
 import com.example.game.game.ActorContainer;
-import com.example.game.game.CommanderEnemyPlaneVisitor;
+import com.example.game.game.container_visitor.CommanderEnemyPlaneVisitor;
 import com.example.game.utility.PointFUtilities;
 import com.example.game.weapon.Weapon;
 

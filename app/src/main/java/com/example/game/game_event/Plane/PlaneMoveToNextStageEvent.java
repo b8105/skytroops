@@ -20,7 +20,7 @@ import com.example.game.ui.change_bullet.UIChangeBulletPanel;
 import com.example.game.utility.PointFUtilities;
 import com.example.game.utility.StopWatch;
 
-public class ToNextStageEvent extends GameEvent {
+public class PlaneMoveToNextStageEvent extends GameEvent {
     private StopWatch existTimer;
     private float time = 1.4f;
     private GamePlayScene gamePlayScene;
@@ -36,11 +36,11 @@ public class ToNextStageEvent extends GameEvent {
 
     private int recoveryBonus = 5;
 
-    public ToNextStageEvent(GamePlayScene gamePlayScene,
-                            ActorContainer actorContainer,
-                            Stage stage,
-                            UIChangeBulletPanel uiChangeBullePanel,
-                            ImageResource imageResource) {
+    public PlaneMoveToNextStageEvent(GamePlayScene gamePlayScene,
+                                     ActorContainer actorContainer,
+                                     Stage stage,
+                                     UIChangeBulletPanel uiChangeBullePanel,
+                                     ImageResource imageResource) {
         this.existTimer = new StopWatch(time);
         this.gamePlayScene = gamePlayScene;
         this.player = actorContainer.getMainChara();

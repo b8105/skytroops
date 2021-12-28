@@ -1,4 +1,4 @@
-package com.example.game.game;
+package com.example.game.game.container_visitor;
 
 import android.graphics.PointF;
 
@@ -6,6 +6,7 @@ import com.example.game.actor.Actor;
 import com.example.game.actor.Plane;
 import com.example.game.actor.PlaneType;
 import com.example.game.actor.enemy_plane.EnemyPlane;
+import com.example.game.game.ActorContainer;
 
 import java.util.List;
 
