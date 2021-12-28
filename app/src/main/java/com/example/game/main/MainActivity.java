@@ -63,7 +63,7 @@ import com.example.game.R;
 // 正面に向かって弾を撃ちながらジグザグにに進む敵であれば
 // PlaneActionComponentが持つActionComponentの配列に
 // ジグザグに動くWaveMoveComponentと弾を発射するAutoTargetingShotComponentを追加することで
-// 敵の動きを作っています
+// 敵の動きを作っていますランダムで正面でなくプレイヤーに撃つこともします
 // ActionComponentが入力される情報が必要なら対応するInputクラスからコマンド(命令)を受け取り
 // アクションを実行します　
 // 敵の動きについてはgame.action.action_componentパッケージに

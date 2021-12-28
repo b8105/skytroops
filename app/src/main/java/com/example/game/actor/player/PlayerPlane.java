@@ -76,7 +76,6 @@ public class PlayerPlane extends Plane implements RecoveryApplicable {
         HpParameter hpParameter = super.getHpParameter();
         hpParameter.decrease(damage.value);
 
-
         hpParameter.clampZeroMax();
         this.invincibleParameter.activate();
         if (hpParameter.isLessEqualZero()) {

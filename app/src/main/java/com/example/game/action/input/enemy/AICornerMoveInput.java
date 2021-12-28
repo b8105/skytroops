@@ -16,7 +16,7 @@ import java.util.Random;
 public class AICornerMoveInput implements ActionInput {
     private MoveComponent moveComponent;
     private float speed = 0.0f;
-    private int moveDirection = new Random().nextInt(2) + -1;
+    private int moveDirection = new Random().nextInt(3) + -1;
     private PointF targetPosition = new PointF(
             Game.getDisplayRealSize().x * 0.5f,
             Game.getDisplayRealSize().y * 0.5f) ;
