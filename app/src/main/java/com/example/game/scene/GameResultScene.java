@@ -49,8 +49,6 @@ public class GameResultScene extends Scene {
         this.background = new UILabel(imageResource, ImageResourceType.GameOverBackground, center);
         this.leadrboard = new UILabel(imageResource, ImageResourceType.GameResultBackground,
                 new PointF(screenSize.x * 0.5f, screenSize.y * 0.35f));
-
-
         this.transform.position.x = Game.getDisplayRealSize().x * 0.175f;
         this.transform.position.y = Game.getDisplayRealSize().x * 0.35f;
         this.paint.setTextSize(96);
@@ -104,7 +102,7 @@ public class GameResultScene extends Scene {
         int nameLength = Game.getLeaderBoard().getNameLength();
         int index = 1;
 
-        PointF position = new PointF(this.transform.position.x,this.transform.position.y) ;
+        PointF position = new PointF(this.transform.position.x,this.transform.position.y + this.paint.getTextSize() ) ;
         for(LeaderBoardData leaderBoardData : Game.getLeaderBoard().getLeaderBoardDataList()){
             UIText name = new UIText(
                     index + ". " + leaderBoardData.name, new PointF(position.x, position.y),

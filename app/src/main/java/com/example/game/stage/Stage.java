@@ -21,7 +21,7 @@ public class Stage {
     private Bitmap background = null;
     private StageRenderer renderer = null;
     private float scrollSpeed = 0.0f;
-    private float defaultScrollSpeed = 10.0f;
+    private float defaultScrollSpeed = 8.0f;
 
     //! CollisionLayer内でプレイヤーや弾クラスと当たり判定をとります
     StageCollisionComponent component;
