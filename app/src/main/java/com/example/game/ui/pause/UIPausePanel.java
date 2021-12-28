@@ -18,6 +18,8 @@ import com.example.game.ui.UIButton;
 import com.example.game.ui.UILabel;
 import com.example.game.ui.UIPanel;
 
+//! ポーズ用UIです
+//! 再開,タイトルに戻る　ボタンを表示します
 public class UIPausePanel implements UIPanel, Activatable {
     private UIButton uiPauseButton = null;
     private float tapCircleRadius = 4.0f;
@@ -40,7 +42,7 @@ public class UIPausePanel implements UIPanel, Activatable {
                         BitmapSizeStatic.menuIcon.y * 0.75f)
         );
 
-        this.board = new UILabel(imageResource, ImageResourceType.GameResultBackground,
+        this.board = new UILabel(imageResource, ImageResourceType.PausedText,
                 new PointF(screenSize.x * 0.5f, screenSize.y * 0.5f));
 
         this.toTitleButton = new UIButton(

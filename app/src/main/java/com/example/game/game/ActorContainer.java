@@ -7,6 +7,8 @@ import com.example.game.actor.bullet.Bullet;
 import com.example.game.actor.enemy_plane.BossEnemyPlane;
 import com.example.game.actor.enemy_plane.CommanderEnemyPlane;
 import com.example.game.actor.enemy_plane.EnemyPlane;
+import com.example.game.game.container_visitor.CommanderEnemyPlaneVisitor;
+import com.example.game.game.container_visitor.FindNearestEnemyVisitor;
 
 import java.util.ArrayList;
 import java.util.List;

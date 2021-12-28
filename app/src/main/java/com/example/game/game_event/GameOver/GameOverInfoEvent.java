@@ -1,4 +1,4 @@
-package com.example.game.game_event;
+package com.example.game.game_event.GameOver;
 
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -18,9 +18,9 @@ import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 import com.example.game.scene.GamePlayScene;
 import com.example.game.ui.UILabel;
-import com.example.game.ui.plane_upgrade.UIUpgradePanel;
+import com.example.game.ui.scene_exit.UISceneExitPanel;
 
-public class StageClearInfoDrawEvent extends GameEvent {
+public class GameOverInfoEvent extends GameEvent {
     private float time = 1.6f;
     private Typeface font;
     private int textSize = 96;
@@ -35,20 +35,25 @@ public class StageClearInfoDrawEvent extends GameEvent {
     private String text;
     private String destroyedCountText;
     private String scoreText;
+
     private UILabel background = null;
     private boolean endFlag = false;
     private UILabel enemyImage = null;
+    private UISceneExitPanel uiToTitlePanel;
 
-    public StageClearInfoDrawEvent(GamePlayScene gamePlayScene,
-                                   UIUpgradePanel uiUpgradePanel,
-                                   GameScorer gameScorer,
-                                   Resources resource,
-                                   ImageResource imageResource) {
+    public GameOverInfoEvent(GamePlayScene gamePlayScene,
+                             UISceneExitPanel uiToTitlePanel,
+                             GameScorer gameScorer,
+                             Resources resource,
+                             ImageResource imageResource
+    ) {
         this.transform = new Transform2D();
         this.transformDestroyedCount = new Transform2D();
         this.transformScoreText = new Transform2D();
         this.paint = new Paint();
         this.gamePlayScene = gamePlayScene;
+        this.uiToTitlePanel = uiToTitlePanel;
+
 
         this.text = "";
         this.destroyedCountText = "    x    " +  gameScorer .getEnemyDestoryCountOnStage();
@@ -66,37 +71,36 @@ public class StageClearInfoDrawEvent extends GameEvent {
         )
         );
 
-        this.activateUpgradePanel(uiUpgradePanel);
+        this.activateToTitlePanel(uiToTitlePanel);
 
         this.transformScoreText.position.x = this.transform.position.x;
         this.transformScoreText.position.y = this.transformDestroyedCount.position.y + (this.textSize * 2);
 
-        this.paint.setColor(Color.BLACK);
+        this.paint.setColor(Color.YELLOW);
         this.paint.setTextSize(this.textSize);
         this.font = resource.getFont(R.font.luckiest_guy_regular);
         this.paint.setTypeface(this.font);
 
 
         background = new UILabel(
-                imageResource, ImageResourceType.ClearInfoBackground,
+                imageResource, ImageResourceType.FailedInfoBackground,
                 new PointF(
                         (Game.getDisplayRealSize().x * 0.5f) ,
-                        this.transform.position.y + 160
+                        this.transform.position.y + 120
                 ));
+        this.uiToTitlePanel.activate();
     }
 
     public void setEndFlag(boolean endFlag) {
         this.endFlag = endFlag;
     }
 
-    private void activateUpgradePanel(UIUpgradePanel uiUpgradePanel){
-        uiUpgradePanel.activate();
-        uiUpgradePanel.setStageClearInfoDrawEvent(this);
+    private void activateToTitlePanel(UISceneExitPanel uiToTitlePanel){
+        uiToTitlePanel.setGameOverInfoDrawEvent(this);
     }
 
     @Override
     public boolean update(float deltaTime) {
-
         return this.endFlag;
     }
 
@@ -105,6 +109,7 @@ public class StageClearInfoDrawEvent extends GameEvent {
         RenderCommandList list = out.getRenderCommandList(RenderLayerType.FrontEvent);
 
         background.draw( out.getRenderCommandList(RenderLayerType.FrontEvent));
+//        missionFail.draw( out.getRenderCommandList(RenderLayerType.FrontEvent));
 
         list.drawText(this.text, this.transform, this.paint);
         list.drawText(this.destroyedCountText, this.transformDestroyedCount, this.paint);

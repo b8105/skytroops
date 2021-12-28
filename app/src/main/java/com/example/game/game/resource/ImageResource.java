@@ -54,9 +54,13 @@ public class ImageResource {
                 this.createScaledBitmap(R.drawable.leadrboardbox, BitmapSizeStatic.gameResultBackground.x, BitmapSizeStatic.gameResultBackground.y));
         hash.put(ImageResourceType.GameOverBackground,
                 this.createScaledBitmap(R.drawable.gameover_background, BitmapSizeStatic.gameOverBackground.x, BitmapSizeStatic.gameOverBackground.y));
+        hash.put(ImageResourceType.TitleBackground,
+                this.createScaledBitmap(R.drawable.title_background, BitmapSizeStatic.titleBackground.x, BitmapSizeStatic.titleBackground.y));
 
         hash.put(ImageResourceType.PauseMeneIcon,
                 this.createScaledBitmap(R.drawable.menu_icon, BitmapSizeStatic.menuIcon.x, BitmapSizeStatic.menuIcon.y));
+        hash.put(ImageResourceType.PausedText,
+                this.createScaledBitmap(R.drawable.pausedtext, BitmapSizeStatic.pausedText.x, BitmapSizeStatic.pausedText.y));
         hash.put(ImageResourceType.MissionFail,
                 this.createScaledBitmap(R.drawable.missionfail, BitmapSizeStatic.missionFail.x, BitmapSizeStatic.missionFail.y));
     }

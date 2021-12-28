@@ -40,6 +40,7 @@ public enum ImageResourceType {
     Stage04BossEnemyPlane,
     Stage05BossEnemyPlane,
 
+    TitleBackground,
     ScoreBackground,
     ClearInfoBackground,
     FailedInfoBackground,
@@ -73,10 +74,10 @@ public enum ImageResourceType {
     GameOverr,
 
     GameOverBackground,
-
-    PauseMeneIcon,
-
     // UI Howto
     HowtoPlay,
     HowtoBulletChage,
+
+    PauseMeneIcon,
+    PausedText,
 }

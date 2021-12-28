@@ -11,9 +11,12 @@ import com.example.game.main.Game;
 import com.example.game.utility.MathUtilities;
 import com.example.game.utility.PointFUtilities;
 
+// 真ん中まで来たら退場するような動きを
+// MoveComponentに命令します
 public class AIFadeoutMoveInput implements ActionInput {
     private MoveComponent moveComponent;
     private float speed = 20.0f;
+    //! 状態の遷移は線形なので番号で管理します
     private int moveSequence = 0;
     private float defaultFadeoutDirection = 45.0f;
     private float fadeoutDirection = 45.0f;
@@ -32,7 +35,7 @@ public class AIFadeoutMoveInput implements ActionInput {
         this.speed = speed;
     }
 
-    private void clacDirection() {
+    private void updateDirection() {
         this.fadeoutDirection = this.defaultFadeoutDirection;
         if(this.moveComponent.getOwner().getInitialPosition().x < Game.getDisplayRealSize().x * 0.5f){
             this.fadeoutDirection =
@@ -57,6 +60,7 @@ public class AIFadeoutMoveInput implements ActionInput {
     private void updateSequence(){
         Actor owner = this.moveComponent.getOwner();
         PointF position =  owner.getPosition();
+        // 逃げるときに弾の発射を始めるようにします
         switch (this.moveSequence){
             case 0:
                 if(position.y > moveThresholdY){
@@ -72,10 +76,12 @@ public class AIFadeoutMoveInput implements ActionInput {
     @Override
     public void execute(InputEvent input) {
         assert (this.moveComponent != null);
+        // 状態の更新をしてから発行するコマンドのパラメータを設定します
         this.updateSequence();
         MoveCommand command = new MoveCommand();
 
-        this.clacDirection();
+        // 画面右から来たら右へ、左から来たら左に対して退場します
+        this.updateDirection();
         PointF speed = this.clacMove();
 
         command.speed.x = speed.x;

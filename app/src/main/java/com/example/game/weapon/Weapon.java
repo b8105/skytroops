@@ -5,22 +5,25 @@ import android.graphics.PointF;
 import com.example.game.actor.bullet.BulletType;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.game.creational.ActorFactory;
-import com.example.game.parameter.ShotInterval;
+import com.example.game.parameter.ShotIntervalParameter;
 
+//! Planeに持たれます
+//! このゲームでの役割は弾の生成リクエストを投げるだけです
+//! Actorを継承させていません
 abstract public class Weapon {
     private ActorFactory actorFactory;
     private BulletType bulletType;
-    private PointF position = new PointF(); // local translation
-    private float rotation = 0.0f; // local rotation
+    private PointF position = new PointF();
+    private float rotation = 0.0f;
     private int shotCount = 0;
     private float shotPower = 28.0f;
     private float shotPowerIncremental = 2.0f;
-    private ShotInterval shotInterval;
+    private ShotIntervalParameter shotInterval;
     private boolean ready = true;
 
     public Weapon() {
         this.bulletType = BulletType.Basic;
-        this.shotInterval = new ShotInterval();
+        this.shotInterval = new ShotIntervalParameter();
     }
 
     public BulletType getBulletType() {
@@ -69,6 +72,7 @@ abstract public class Weapon {
         return this.shotPower;
     }
 
+    //! サブクラスのshotで呼び出します
     protected void requestCreateBullet(PointF parentGlobalPosition, float parentGlobalRotation, String tag) {
         float sizeOffsetX = BitmapSizeStatic.bullet.x * 0.5f;
 
@@ -89,6 +93,8 @@ abstract public class Weapon {
         this.bulletType = bulletType;
     }
 
+    //! 弾を発射します
+    //! サンドボックスにはしてません
     abstract public void shot(PointF parentGlobalPosition, float parentGlobalRotation, String tag);
 
     public void update(float deltaTime){

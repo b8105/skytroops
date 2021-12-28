@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.PointF;
 
-import com.example.game.actor.enemy_plane.EnemyPlaneType;
 import com.example.game.actor.player.PlayerPlane;
 import com.example.game.common.BitmapSizeStatic;
 import com.example.game.effect.EffectEmitter;
@@ -14,13 +13,13 @@ import com.example.game.game.resource.ImageResource;
 import com.example.game.game.resource.ImageResourceType;
 import com.example.game.game_event.EnemyDestroyedEvent;
 import com.example.game.game_event.GameEventContainer;
-import com.example.game.game_event.GameOver.GameOverInfoDrawEvent;
+import com.example.game.game_event.GameOver.GameOverInfoEvent;
 import com.example.game.game_event.GameOver.GameOverSlideEvent;
 import com.example.game.game_event.GameOver.GameOverStartEvent;
 import com.example.game.game_event.MissionSuccessEvent;
 import com.example.game.game_event.Plane.PlaneMoveToCenterEvent;
-import com.example.game.game_event.StageClearInfoDrawEvent;
-import com.example.game.game_event.Plane.ToNextStageEvent;
+import com.example.game.game_event.StageClearInfoEvent;
+import com.example.game.game_event.Plane.PlaneMoveToNextStageEvent;
 import com.example.game.game_event.StageTransition.TransitionStageEnterEvent;
 import com.example.game.game_event.StageTransition.TransitionStageExitEvent;
 import com.example.game.game_event.TutorialEvent;
@@ -48,7 +47,7 @@ import com.example.game.stage.StageType;
 import com.example.game.ui.change_bullet.UIChangeBulletPanel;
 import com.example.game.ui.UILabel;
 import com.example.game.ui.pause.UIPausePanel;
-import com.example.game.ui.to_title.UISceneExitPanel;
+import com.example.game.ui.scene_exit.UISceneExitPanel;
 import com.example.game.ui.tutorial.UITutorialEndPanel;
 import com.example.game.ui.plane_upgrade.UIUpgradePanel;
 
@@ -107,8 +106,7 @@ public class GamePlayScene extends Scene
                 this.imageResource,
                 this);
         this.uiTutorialEndPanel = new UITutorialEndPanel(
-                this.imageResource,
-                this);
+                this.imageResource);
         this.uiToTitlePanel = new UISceneExitPanel(
                 this.imageResource,
                 this);
@@ -339,7 +337,7 @@ public class GamePlayScene extends Scene
         else{
 
         this.gameEventContainer.addEvent(
-                new StageClearInfoDrawEvent(this, this.uIUpgradePanel, this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource)
+                new StageClearInfoEvent(this, this.uIUpgradePanel, this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource)
         );
         } // else
     }
@@ -357,7 +355,7 @@ public class GamePlayScene extends Scene
 
     public void createGameOverEvent() {
         this.gameEventContainer.addEvent(
-                new GameOverInfoDrawEvent(this
+                new GameOverInfoEvent(this
                         , this.uiToTitlePanel, this.gameSystem.getGameScorer(), super.GetGame().getResources(), this.imageResource)
         );
     }
@@ -371,7 +369,7 @@ public class GamePlayScene extends Scene
 
     public void createToNextStageEvent() {
         this.gameEventContainer.addEvent(
-                new ToNextStageEvent(this,
+                new PlaneMoveToNextStageEvent(this,
                         this.actorContainer,
                         this.stage,
                         this.uiChangeBullePanel,

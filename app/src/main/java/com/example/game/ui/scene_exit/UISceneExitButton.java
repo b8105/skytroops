@@ -1,7 +1,5 @@
-package com.example.game.ui.to_title;
+package com.example.game.ui.scene_exit;
 
-import android.content.res.Resources;
-import android.graphics.Point;
 import android.graphics.PointF;
 
 import com.example.game.game.resource.ImageResource;

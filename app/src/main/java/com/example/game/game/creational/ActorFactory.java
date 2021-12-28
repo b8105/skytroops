@@ -2,9 +2,9 @@ package com.example.game.game.creational;
 
 import android.graphics.PointF;
 
-import com.example.game.action.action_component.bullet.BulletFrontMoveComponent;
-import com.example.game.actor.bullet.BulletForStage01Boss;
-import com.example.game.actor.bullet.BulletForStage02Boss;
+import com.example.game.action.action_component.bullet.TrackingBulletMoveComponent;
+import com.example.game.actor.bullet.Stage01BossBullet;
+import com.example.game.actor.bullet.Stage02BossBullet;
 import com.example.game.actor.bullet.HomingBullet;
 import com.example.game.actor.bullet.RapidBullet;
 import com.example.game.actor.enemy_plane.CommanderEnemyPlane;
@@ -195,8 +195,8 @@ public class ActorFactory {
         return actor;
     }
 
-    public BulletForStage01Boss createStage01BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
-        BulletForStage01Boss actor = new BulletForStage01Boss(actorContainer, tag, bulletCreateConfig);
+    public Stage01BossBullet createStage01BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
+        Stage01BossBullet actor = new Stage01BossBullet(actorContainer, tag, bulletCreateConfig);
         BasicBulletMoveComponent moveComponent = new BasicBulletMoveComponent(actionLayer);
         SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                 this.imageResource, ImageResourceType.Stage01BossBullet
@@ -218,8 +218,8 @@ public class ActorFactory {
     }
 
 
-    public BulletForStage02Boss createStage02BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
-        BulletForStage02Boss actor = new BulletForStage02Boss(actorContainer, tag, bulletCreateConfig);
+    public Stage02BossBullet createStage02BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
+        Stage02BossBullet actor = new Stage02BossBullet(actorContainer, tag, bulletCreateConfig);
         BasicBulletMoveComponent moveComponent = new BasicBulletMoveComponent(actionLayer);
         SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                 this.imageResource, ImageResourceType.Stage02BossBullet
@@ -239,8 +239,8 @@ public class ActorFactory {
         return actor;
     }
 
-    private BulletForStage02Boss createStage03BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
-        BulletForStage02Boss actor = new BulletForStage02Boss(actorContainer, tag, bulletCreateConfig);
+    private Stage02BossBullet createStage03BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
+        Stage02BossBullet actor = new Stage02BossBullet(actorContainer, tag, bulletCreateConfig);
         BasicBulletMoveComponent moveComponent = new BasicBulletMoveComponent(actionLayer);
         SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                 this.imageResource, ImageResourceType.Stage03BossBullet
@@ -283,7 +283,7 @@ public class ActorFactory {
 
     public Bullet createStage04BossBullet(float positionX, float positionY, float rotation, String tag, BulletCreateConfig bulletCreateConfig) {
         HomingBullet actor = new HomingBullet(actorContainer, tag, bulletCreateConfig);
-        BulletFrontMoveComponent moveComponent = new BulletFrontMoveComponent(actionLayer);
+        TrackingBulletMoveComponent moveComponent = new TrackingBulletMoveComponent(actionLayer);
         SpriteRenderComponent spriteRenderComponent = this.componentFactory.createSpriteRenderComponent(
                 this.imageResource, ImageResourceType.Stage04BossBullet
         );

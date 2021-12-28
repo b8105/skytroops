@@ -15,7 +15,7 @@ import com.example.game.utility.StopWatch;
 public class AutoTargetingShotComponent extends ShotComponent {
     private Plane target;
     private ActorContainer actorContainer;
-
+    private boolean targetingFlag = true;
     public AutoTargetingShotComponent(ActionComponent actionComponent) {
         super(actionComponent);
     }
@@ -24,13 +24,14 @@ public class AutoTargetingShotComponent extends ShotComponent {
         this.actorContainer = actorContainer;
     }
 
+    public void setTargetingFlag(boolean targetingFlag) {
+        this.targetingFlag = targetingFlag;
+    }
+
     private void aquareTarget() {
         assert (this.actorContainer != null);
         this.target = this.actorContainer .getMainChara();
     }
-
-
-
     @Override
     public void execute(float deltaTime) {
         if(this.target == null){
@@ -40,10 +41,12 @@ public class AutoTargetingShotComponent extends ShotComponent {
 
         Weapon weapon = super.getWeapon();
         if(weapon.isReady()){
-            weapon.setRotation(MathUtilities.radianToDegree(PointFUtilities.clacDirection(
-                    this.getOwner().getPosition(),
-                    this.target.getPosition()
-            )));
+            if(this.targetingFlag){
+                weapon.setRotation(MathUtilities.radianToDegree(PointFUtilities.clacDirection(
+                        this.getOwner().getPosition(),
+                        this.target.getPosition()
+                )));
+            } // if
 
             weapon.shot(
                     this.getOwner().getPosition(),

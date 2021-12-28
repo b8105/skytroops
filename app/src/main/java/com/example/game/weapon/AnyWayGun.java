@@ -2,8 +2,12 @@ package com.example.game.weapon;
 
 import android.graphics.PointF;
 
+//! 2Way,3Way,5Way Gunです
 public class AnyWayGun extends Weapon {
+    //! 射出角度をどれだけずらすか
     int wayAngle = 5;
+    //! Shotで正面に１発撃っているので
+    //! それを有効にするかどうか
     boolean frontShotFlag = true;
 
     public void setWayAngle(int wayAngle) {
@@ -26,7 +30,7 @@ public class AnyWayGun extends Weapon {
             if (this.frontShotFlag) {
                 super.requestCreateBullet(pos, rot, tag);
             } // if
-
+            //! 角度をずらしながら発射
             for (int i = 0; i < super.getShotCount(); i++) {
                 rot += this.wayAngle;
                 super.requestCreateBullet(pos, rot, tag);

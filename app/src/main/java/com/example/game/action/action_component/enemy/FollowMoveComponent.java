@@ -9,12 +9,15 @@ import com.example.game.actor.enemy_plane.CommanderEnemyPlane;
 import com.example.game.actor.enemy_plane.FollowEnemyPlane;
 import com.example.game.component.ComponentType;
 import com.example.game.game.ActorContainer;
-import com.example.game.game.CommanderEnemyPlaneVisitor;
+import com.example.game.game.container_visitor.CommanderEnemyPlaneVisitor;
 import com.example.game.utility.PointFUtilities;
 import com.example.game.weapon.Weapon;
 
+//! CommanderIdを持つオブジェクトとの
+//! 回転、位置関係を保ちながら移動します
 public class FollowMoveComponent extends MoveComponent {
     private CommanderEnemyPlane followTarget = null;
+    //! followTargetからどれだけ離れるのかのオフセットです
     private PointF commanderTransration = new PointF();
     private float speed = 8.0f;
     private float accele = 2.0f;
@@ -22,7 +25,6 @@ public class FollowMoveComponent extends MoveComponent {
     private PointF prevMove = new PointF(0.0f, this.speed * 5);
     private Weapon weapon;
     private float enemyDegree = 180.0f;
-
 
     public FollowMoveComponent(ActionComponent actionComponent) {
         super(actionComponent);
@@ -44,6 +46,9 @@ public class FollowMoveComponent extends MoveComponent {
             this.followTarget = null;
         } // if
 
+        // コンテナから指定のcommanderIdを持っているActorを探します
+        // ここでは自分が持っているcommanderIdと同じidを持っている
+        // CommanderEnemyPlaneを探します
         if(this.followTarget == null){
             CommanderEnemyPlaneVisitor visitor = new CommanderEnemyPlaneVisitor(
                     ((FollowEnemyPlane)(this.getOwner())).getCommanderId()
@@ -61,17 +66,17 @@ public class FollowMoveComponent extends MoveComponent {
 
         PointF move = new PointF();
         PointF commanderPosition = this.followTarget.getPosition();
-
-
         PointF transration = new PointF(this.commanderTransration.x,this.commanderTransration.y);
-
         transration = PointFUtilities.rotate(transration.x,transration.y, this.followTarget.getRotation());
 
+        // commanderの位置からcommanderTransrationの分だけ動かした場所が
+        // 向かいたい場所になります
         float destinationX = commanderPosition.x + transration.x;
         float destinationY = commanderPosition.y + transration.y;
         PointF destination = new PointF(destinationX, destinationY);
         PointF source = this.getOwner().getPosition();
 
+        // 離れていたり近かったりするとその分加速度を調整します
         float accele = 1.0f;
         if(PointFUtilities.magnitude(source, destination) < this.speed ){
             accele = accele * 0.25f;
@@ -80,12 +85,10 @@ public class FollowMoveComponent extends MoveComponent {
             accele = this.accele;
         } // if
 
-
+        // 調整した係数(accele)とspeedを掛けて速さを求め それを方向に掛けて対して移動量を求めます
         PointF normal = PointFUtilities.normal(source, destination);
-
         move.x = normal.x * this.speed * accele;
-        move.y = normal.y * this.speed* accele;
-
+        move.y = normal.y * this.speed * accele;
         this.prevMove.x = move.x;
         this.prevMove.y = move.y;
         return move;
@@ -106,6 +109,7 @@ public class FollowMoveComponent extends MoveComponent {
 
         PointF move = this.clacMove();
 
+        // フレーム間での移動量減衰などはこのゲームにないので速度分座標を移動させます
         position.x += move.x;
         position.y += move.y;
 

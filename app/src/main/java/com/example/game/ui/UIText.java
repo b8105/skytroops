@@ -11,13 +11,15 @@ import com.example.game.render.RenderCommandList;
 import com.example.game.render.RenderCommandQueue;
 import com.example.game.render.RenderLayerType;
 
+//! UI基本オブジェクト
 public class UIText {
+    //! テキストパラメータ
     private String text;
     private Transform2D transform;
     private int textSize = 256;
     private Paint paint;
     private Typeface font;
-    private boolean centerFlag = false;
+    //! 右揃えの場合はその分ずらすので想定している文字数が必要になります
     private boolean rightFlag = false;
     private int maxSize = 0;
 
@@ -40,7 +42,7 @@ public class UIText {
         this.paint.setTextSize(this.textSize);
     }
 
-    public UIText(String text, PointF position, int size, Color color) {
+    public UIText(String text, PointF position, int size, int color) {
         this.text = text;
         this.transform = new Transform2D();
         this.paint = new Paint();
@@ -49,7 +51,7 @@ public class UIText {
         this.textSize = size;
 
         this.paint.setTextSize(this.textSize);
-        this.paint.setColor(Color.BLACK);
+        this.paint.setColor(color);
     }
 
     public UIText(String text, PointF position, int size, int color, Resources resources, int fontId) {
@@ -68,10 +70,6 @@ public class UIText {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public void setCenterFlag(boolean centerFlag) {
-        this.centerFlag = centerFlag;
     }
 
     public void setRightFlag(boolean rightFlag, int maxSize) {
@@ -96,6 +94,17 @@ public class UIText {
         } // else
     }
     public void draw(RenderCommandList out) {
-        out.drawText(this.text, this.transform, this.paint);
+        if(this.rightFlag){
+            Transform2D transform = new Transform2D();
+            transform.position.x = this.transform.position.x;
+            transform.position.y = this.transform.position.y;
+
+            transform.position.x += (this.maxSize - this.text.length())  * (textSize * 0.5f);
+
+            out.drawText(this.text, transform, this.paint);
+        } // if
+        else{
+            out.drawText(this.text, this.transform, this.paint);
+        } // else
     }
 }

@@ -3,14 +3,12 @@ package com.example.game.actor.bullet;
 import com.example.game.game.ActorContainer;
 import com.example.game.game.creational.BulletCreateConfig;
 
-public class BulletForStage02Boss extends Bullet{
-    public BulletForStage02Boss(ActorContainer actorContainer, String tag, BulletCreateConfig config) {
+public class Stage01BossBullet extends Bullet {
+    public Stage01BossBullet(ActorContainer actorContainer, String tag, BulletCreateConfig config) {
         super(actorContainer, tag, config);
         super.changeMass(3);
     }
-
     public BulletType getBulletType(){
-        return BulletType.Stage02Boss;
+        return BulletType.Stage01Boss;
     }
-
 }

@@ -18,6 +18,7 @@ import com.example.game.render.RenderLayerType;
 import com.example.game.render.info.RenderRectangleInfo;
 import com.example.game.render.info.RenderSpriteInfo;
 
+//! UI基本オブジェクト
 public class UILabel {
     private Transform2D transform;
     private Bitmap bitmap;

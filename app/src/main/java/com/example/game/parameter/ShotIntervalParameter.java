@@ -2,11 +2,11 @@ package com.example.game.parameter;
 
 import com.example.game.utility.StopWatch;
 
-public class ShotInterval {
+public class ShotIntervalParameter {
     private float time = 0.16f;
     private StopWatch shotTime = null;
 
-    public ShotInterval() {
+    public ShotIntervalParameter() {
         this.shotTime = new StopWatch(this.time);
     }
 

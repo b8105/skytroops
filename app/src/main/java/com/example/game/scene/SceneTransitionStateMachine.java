@@ -15,6 +15,7 @@ import com.example.game.scene.transition_state.TransitionState;
 import com.example.game.scene.transition_state.TransitionStateType;
 import com.example.game.utility.StateMachine;
 
+//! シーンの遷移の時に必要な機能だけを公開します
 public class SceneTransitionStateMachine {
     private StateMachine<TransitionStateType> stateMachine = new StateMachine<TransitionStateType>();
     public  SceneTransitionStateMachine(Game game){

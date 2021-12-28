@@ -7,28 +7,22 @@ import com.example.game.action.action_component.ActionComponent;
 import com.example.game.actor.Actor;
 import com.example.game.actor.ActorTagString;
 import com.example.game.actor.Plane;
-import com.example.game.actor.PlaneType;
 import com.example.game.actor.bullet.Bullet;
-import com.example.game.actor.enemy_plane.EnemyPlane;
-import com.example.game.common.BitmapSizeStatic;
 import com.example.game.component.ComponentType;
 import com.example.game.game.ActorContainer;
-import com.example.game.game.FindNearestEnemyVisitor;
 import com.example.game.utility.MathUtilities;
 import com.example.game.utility.PointFUtilities;
 
-public class BulletFrontMoveComponent extends ActionComponent {
+//! 現在BossEnemy4専用です
+//! HomingBulletMoveComponentよりもゆるく追いかけます
+public class TrackingBulletMoveComponent extends ActionComponent {
     private float speed = 0.0f;
     private ActorContainer actorContainer;
     private Plane target;
-//    private PointF previsousMove;
-    //private PointF targetSize;
     private float angluarSpeedDegree = 1.0f;
 
-    public BulletFrontMoveComponent(ActionLayer layer) {
+    public TrackingBulletMoveComponent(ActionLayer layer) {
         super(layer);
-//        this.previsousMove = new PointF(0.0f, -10.0f);
-  //      this.targetSize = new PointF();
     }
 
     public void setOwner(Actor owner) {
@@ -38,15 +32,6 @@ public class BulletFrontMoveComponent extends ActionComponent {
     public void setActorContainer(ActorContainer actorContainer) {
         this.actorContainer = actorContainer;
     }
-//
-//    private void clacTargetSize() {
-//        if (this.target == null) {
-//            return;
-//        } // if
-//        assert (this.target.getPlaneType() == PlaneType.Player);
-//       // this.targetSize.x = BitmapSizeStatic.player.x;
-//        //this.targetSize.y = BitmapSizeStatic.player.y;
-//    }
 
     private void clacTarget() {
         assert (this.actorContainer != null);
@@ -65,25 +50,26 @@ public class BulletFrontMoveComponent extends ActionComponent {
     private void updateRotation(Actor owner,Actor target){
         float rotation = owner.getRotation();
 
+        // 見て計算しやすいようにDegreeの変数を作ります
         float direcion = PointFUtilities.clacDirection(owner.getCenterPosition(), target.getCenterPosition()) - MathUtilities.degreeToRadian(90);
         float angluarSpeed = this.angluarSpeedDegree;
-
         float direcionDegree = MathUtilities.radianToDegree(direcion) + 90;
         float rotationDegree = rotation;
 
         if (Math.abs(direcionDegree - rotationDegree) > 1.0f) {
             float diffDegree = direcionDegree - rotationDegree;
+            // 近い方へ振り向く
             if (diffDegree < 0.0f) {
                 angluarSpeed *= -1.0f;
             } // if
 
+            //　計算結果が0.0度(degree)をを下回るなら正規化する
             if (rotation + angluarSpeed < 0.0f) {
                 rotation += MathUtilities.radianToDegree(Math.PI * 2.0f);
             } // if
             rotation += angluarSpeed;
         } // if
         super.getOwner().setRotation(rotation);
-
     }
 
     @Override
@@ -92,6 +78,8 @@ public class BulletFrontMoveComponent extends ActionComponent {
 
         this.clacTarget();
 
+        // オブジェクトの回転量を更新します
+        // ターゲットがいるならその方向を緩やかに向きます
         if(this.target != null){
             updateRotation(owner,this.target);
         } // if
