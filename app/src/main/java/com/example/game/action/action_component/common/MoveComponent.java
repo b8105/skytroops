@@ -16,6 +16,9 @@ import com.example.game.collision.CollisionableType;
 import com.example.game.component.ComponentType;
 import com.example.game.utility.MathUtilities;
 
+// コマンドを受け取り移動します
+// 移動可能な速さは持たず
+// Actorの位置、回転量に速度を足しこむだけのクラスです
 public class MoveComponent extends ActionComponent {
     private MoveCommand command = null;
 
@@ -44,7 +47,9 @@ public class MoveComponent extends ActionComponent {
 
         float rotation = super.getOwner().getRotation();
 
+        // 角速度が無視できるほど小さいなら回転しない
         if(Math.abs(this.command.angluarSpeed ) > 0.1f){
+            // 回転して角度が0.0(degree)を下回るなら360.0足しこんで正規化する
             if(rotation + this.command.angluarSpeed < 0.0f){
                 rotation += MathUtilities.radianToDegree(Math.PI * 2.0f);
             } // if

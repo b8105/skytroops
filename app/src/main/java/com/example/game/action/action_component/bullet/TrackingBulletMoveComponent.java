@@ -50,25 +50,26 @@ public class TrackingBulletMoveComponent extends ActionComponent {
     private void updateRotation(Actor owner,Actor target){
         float rotation = owner.getRotation();
 
+        // 見て計算しやすいようにDegreeの変数を作ります
         float direcion = PointFUtilities.clacDirection(owner.getCenterPosition(), target.getCenterPosition()) - MathUtilities.degreeToRadian(90);
         float angluarSpeed = this.angluarSpeedDegree;
-
         float direcionDegree = MathUtilities.radianToDegree(direcion) + 90;
         float rotationDegree = rotation;
 
         if (Math.abs(direcionDegree - rotationDegree) > 1.0f) {
             float diffDegree = direcionDegree - rotationDegree;
+            // 近い方へ振り向く
             if (diffDegree < 0.0f) {
                 angluarSpeed *= -1.0f;
             } // if
 
+            //　計算結果が0.0度(degree)をを下回るなら正規化する
             if (rotation + angluarSpeed < 0.0f) {
                 rotation += MathUtilities.radianToDegree(Math.PI * 2.0f);
             } // if
             rotation += angluarSpeed;
         } // if
         super.getOwner().setRotation(rotation);
-
     }
 
     @Override
@@ -77,6 +78,8 @@ public class TrackingBulletMoveComponent extends ActionComponent {
 
         this.clacTarget();
 
+        // オブジェクトの回転量を更新します
+        // ターゲットがいるならその方向を緩やかに向きます
         if(this.target != null){
             updateRotation(owner,this.target);
         } // if

@@ -14,8 +14,9 @@ import com.example.game.R;
 // ご覧いただいてありがとうございます
 // 仕様に対してどんなふうに作ったのかを書きます
 // クラス設計は作るゲームを考えながらしました
-// クラスが持つ役割が１機能になるように意識しました
-// Enemyの生成周りは外部ファイルに移したかったのですが間に合いませんでしたすみません
+// クラスが持つ役割が１機能になるように意識して
+// 仕様にある動きをプログラム組み合わせで実現できるような構造を目指しました
+// Enemyの生成周りは外部ファイルに移すなどしたかったのですが間に合いませんでしたすみません
 
 
 // 必須仕様 【タイトル画面】
@@ -64,8 +65,18 @@ import com.example.game.R;
 // ジグザグに動くWaveMoveComponentと弾を発射するAutoTargetingShotComponentを追加することで
 // 敵の動きを作っています
 // ActionComponentが入力される情報が必要なら対応するInputクラスからコマンド(命令)を受け取り
-// アクションを実行します
-// スコアは右上に表示
+// アクションを実行します　
+// 敵の動きについてはgame.action.action_componentパッケージに
+// ActionComponentが受け取るコマンド(*Command)はgame.action.commandパッケージに
+// *Commandを生成する入力クラスはgame.action.inputパッケージに入っています
+// それぞれがActionLayerの関数内で実行されます
+
+// 退場する敵と編成で行動する敵についてはそれぞれ
+// AIFadeoutMoveInput.java と
+// FollowMoveComponent.javaで実装しています
+
+
+// スコは右上に表示
 // プレイヤーがやられたらリザルトシーンに移動します
 
 //【ゲームオーバー画面】

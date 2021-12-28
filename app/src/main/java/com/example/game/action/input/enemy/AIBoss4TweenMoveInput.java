@@ -33,7 +33,7 @@ public class AIBoss4TweenMoveInput implements ActionInput {
     private int backFrameMax = 6;
     private int frontFrame = 0;
     private int frontFrameMax = 6;
-
+    private float backSpeedMultiply = 3.0f;
 
     public void setMoveComponent(MoveComponent moveComponent) {
         this.moveComponent = moveComponent;
@@ -67,10 +67,10 @@ public class AIBoss4TweenMoveInput implements ActionInput {
                 move = new PointF(speed,0.0f );
                 break;
             case  3:
-                move = new PointF(0.0f, -speed * 3.0f);
+                move = new PointF(0.0f, -speed * backSpeedMultiply );
                 break;
             case  4:
-                move = new PointF(0.0f, speed* 3.0f);
+                move = new PointF(0.0f, speed* backSpeedMultiply );
                 break;
         } // switch
         return move;

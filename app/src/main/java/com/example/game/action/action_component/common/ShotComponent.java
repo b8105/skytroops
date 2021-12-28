@@ -6,6 +6,9 @@ import com.example.game.action.command.ShotCommand;
 import com.example.game.component.ComponentType;
 import com.example.game.utility.StopWatch;
 
+
+// Weaponのshotを呼ぶ為のクラスです
+// Actorは入力機能を持たないのでこのクラスを介して発射します
 public class ShotComponent extends ActionComponent {
     private ShotCommand command = null;
     private Weapon weapon;

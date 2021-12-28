@@ -68,6 +68,7 @@ public class HomingBulletMoveComponent extends ActionComponent {
         assert (this.actorContainer != null);
         String tag = super.getOwner().getTag();
         if (tag == ActorTagString.player) {
+            // 指定の範囲内で最寄りのActorが欲しいなどの場合は対応するVisitorを呼び出す
             FindNearestEnemyVisitor visitor = new FindNearestEnemyVisitor(
                     getOwner().getPosition()
             );
@@ -101,6 +102,8 @@ public class HomingBulletMoveComponent extends ActionComponent {
         PointF move = null;
         float rotateRadian = 0.0f;
 
+        // ターゲットに対して移動してその方向を向きます
+        // もし居なかったら前の動きを続けます
         if (this.target != null) {
             PointF targetPosition = this.target.getCenterPosition();
 
